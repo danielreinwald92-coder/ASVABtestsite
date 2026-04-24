@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Guide - ASVABPro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-900: #0a1628;
+      --navy-800: #132039;
+      --navy-700: #1e3a5f;
+      --navy-600: #2d5a87;
+      --gold-500: #d4a853;
+      --gold-400: #e8c17a;
+      --gold-300: #f0d69b;
+      --cream-100: #faf8f5;
+      --cream-200: #f2efe8;
+      --white: #ffffff;
+      --text-primary: #0a1628;
+      --text-secondary: #4a5568;
+      --green-500: #22c55e;
+      --red-500: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream-100);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-200);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--gold-500); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--navy-900); }
+
+    .nav-cta {
+      background: var(--navy-900);
+      color: var(--white);
+      padding: 0.75rem 1.75rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--navy-700);
+      transform: translateY(-1px);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 5rem 5% 4rem;
+      text-align: center;
+      background: var(--white);
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span { color: var(--gold-500); }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Section Navigation */
+    .section-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 2rem 5%;
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-200);
+      flex-wrap: wrap;
+    }
+
+    .section-btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid var(--cream-200);
+      background: transparent;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .section-btn:hover {
+      border-color: var(--gold-400);
+      color: var(--navy-900);
+    }
+
+    .section-btn.active {
+      background: var(--navy-900);
+      color: var(--white);
+      border-color: var(--navy-900);
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 5%;
+    }
+
+    .study-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .study-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Section Header */
+    .section-intro {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-intro h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-intro p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .test-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Content Tabs */
+    .content-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .content-tab {
+      padding: 0.75rem 1.5rem;
+      background: var(--cream-100);
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .content-tab:hover {
+      background: var(--cream-200);
+      color: var(--navy-900);
+    }
+
+    .content-tab.active {
+      background: var(--navy-900);
+      color: var(--white);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--cream-200);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--gold-400);
+      box-shadow: 0 8px 30px rgba(10, 22, 40, 0.06);
+    }
+
+    .card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 1rem;
+    }
+
+    .card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy-800);
+      margin: 1.5rem 0 0.75rem;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Info Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .info-box {
+      background: var(--cream-100);
+      padding: 1.25rem;
+      border-radius: 12px;
+    }
+
+    .info-box h5 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gold-500);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .info-box ul {
+      list-style: none;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .info-box li {
+      padding: 0.25rem 0;
+    }
+
+    /* Strategy List */
+    .strategy-list {
+      list-style: none;
+    }
+
+    .strategy-list li {
+      padding: 1rem 0;
+      padding-left: 2rem;
+      position: relative;
+      border-bottom: 1px solid var(--cream-200);
+      color: var(--text-secondary);
+    }
+
+    .strategy-list li:last-child {
+      border-bottom: none;
+    }
+
+    .strategy-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1.25rem;
+      width: 8px;
+      height: 8px;
+      background: var(--gold-500);
+      border-radius: 50%;
+    }
+
+    .strategy-list strong {
+      color: var(--navy-900);
+      font-weight: 600;
+    }
+
+    /* Concept Box */
+    .concept {
+      background: var(--cream-100);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+
+    .formula {
+      font-family: 'Courier New', monospace;
+      background: var(--navy-900);
+      color: var(--gold-400);
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 0.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .example {
+      background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+
+    .example strong {
+      color: var(--navy-900);
+    }
+
+    .tip {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+
+    .tip strong {
+      color: var(--navy-900);
+    }
+
+    /* Word Parts */
+    .word-parts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .word-part-card {
+      background: var(--cream-100);
+      padding: 1.25rem;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .word-part-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .word-part {
+      font-weight: 700;
+      color: var(--navy-900);
+      font-size: 1.1rem;
+    }
+
+    .word-meaning {
+      color: var(--gold-500);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin: 0.25rem 0;
+    }
+
+    .word-examples {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Vocabulary */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .vocab-item {
+      background: var(--cream-100);
+      padding: 1.25rem;
+      border-radius: 12px;
+    }
+
+    .vocab-word {
+      font-weight: 700;
+      color: var(--navy-900);
+      font-size: 1.05rem;
+    }
+
+    .vocab-def {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin: 0.25rem 0;
+    }
+
+    .vocab-example {
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--navy-600);
+    }
+
+    /* Practice Questions */
+    .question-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--cream-200);
+    }
+
+    .question-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .question-topic {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gold-500);
+      font-weight: 600;
+    }
+
+    .difficulty {
+      font-size: 0.75rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 50px;
+      background: var(--cream-100);
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .passage {
+      background: var(--cream-100);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1.25rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      color: var(--navy-900);
+      margin-bottom: 1.25rem;
+      font-weight: 500;
+    }
+
+    .options {
+      list-style: none;
+    }
+
+    .option {
+      padding: 1rem 1.25rem;
+      margin: 0.5rem 0;
+      border: 2px solid var(--cream-200);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .option:hover {
+      border-color: var(--gold-400);
+      background: var(--cream-100);
+    }
+
+    .option.selected {
+      border-color: var(--navy-900);
+      background: var(--navy-900);
+      color: var(--white);
+    }
+
+    .option.correct {
+      border-color: var(--green-500);
+      background: #f0fdf4;
+    }
+
+    .option.incorrect {
+      border-color: var(--red-500);
+      background: #fef2f2;
+    }
+
+    .option-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--cream-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .option.selected .option-letter {
+      background: var(--gold-500);
+      color: var(--navy-900);
+    }
+
+    .check-btn {
+      background: var(--navy-900);
+      color: var(--white);
+      padding: 0.875rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      font-size: 0.95rem;
+      margin-top: 1rem;
+    }
+
+    .check-btn:hover {
+      background: var(--navy-700);
+      transform: translateY(-1px);
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border-radius: 12px;
+    }
+
+    .explanation.show {
+      display: block;
+    }
+
+    .explanation h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--navy-900);
+      margin-bottom: 1rem;
+    }
+
+    .explanation-steps {
+      list-style: decimal;
+      margin-left: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    .explanation-steps li {
+      padding: 0.25rem 0;
+    }
+
+    /* Study Schedule */
+    .schedule-week {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--cream-200);
+    }
+
+    .week-header {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .week-number {
+      width: 48px;
+      height: 48px;
+      background: var(--navy-900);
+      color: var(--white);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .week-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .week-goals {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .week-goals li {
+      padding: 0.5rem 0 0.5rem 1.5rem;
+      position: relative;
+      color: var(--text-secondary);
+    }
+
+    .week-goals li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--gold-500);
+    }
+
+    .daily-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .day-item {
+      background: var(--cream-100);
+      padding: 0.875rem 1rem;
+      border-radius: 8px;
+    }
+
+    .day-label {
+      font-weight: 600;
+      color: var(--navy-900);
+      font-size: 0.85rem;
+    }
+
+    .day-task {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hero h1 { font-size: 2rem; }
+      .section-nav { gap: 0.5rem; padding: 1rem 3%; }
+      .section-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
+      .test-stats { flex-wrap: wrap; gap: 1.5rem; }
+      .card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">ASVAB<span>Pro</span></a>
+    <ul class="nav-links">
+      <li><a href="select-test.html">Practice Tests</a></li>
+      <li><a href="study-guide.html" class="active">Study Guide</a></li>
+      <li><a href="about.html">About the ASVAB</a></li>
+    </ul>
+    <a href="select-test.html" class="nav-cta">Take a Practice Test</a>
+  </nav>
+
+  <header class="hero">
+    <h1>Master the <span>AFQT</span></h1>
+    <p>A structured study program for the 4 core sections that determine your military eligibility score.</p>
+  </header>
+
+  <div class="section-nav">
+    <button class="section-btn active" data-section="overview">Overview</button>
+    <button class="section-btn" data-section="AR">Arithmetic Reasoning</button>
+    <button class="section-btn" data-section="MK">Math Knowledge</button>
+    <button class="section-btn" data-section="WK">Word Knowledge</button>
+    <button class="section-btn" data-section="PC">Paragraph Comp.</button>
+    <button class="section-btn" data-section="schedule">Study Schedule</button>
+  </div>
+
+  <main class="main-content">
+
+    <!-- OVERVIEW -->
+    <section class="study-section active" id="overview">
+      <div class="section-intro">
+        <h2>Your Path to Success</h2>
+        <p>The AFQT score determines your eligibility for military enlistment. It's calculated from four subtests.</p>
+      </div>
+
+      <div class="card">
+        <h3>Minimum AFQT Scores by Branch</h3>
+        <div class="info-grid">
+          <div class="info-box">
+            <h5>Army</h5>
+            <ul><li>Minimum: 31</li></ul>
+          </div>
+          <div class="info-box">
+            <h5>Navy</h5>
+            <ul><li>Minimum: 31</li></ul>
+          </div>
+          <div class="info-box">
+            <h5>Marines</h5>
+            <ul><li>Minimum: 32</li></ul>
+          </div>
+          <div class="info-box">
+            <h5>Air Force</h5>
+            <ul><li>Minimum: 36</li></ul>
+          </div>
+          <div class="info-box">
+            <h5>Coast Guard</h5>
+            <ul><li>Minimum: 40</li></ul>
+          </div>
+          <div class="info-box">
+            <h5>Space Force</h5>
+            <ul><li>Minimum: 36</li></ul>
+          </div>
+        </div>
+        <div class="tip" style="margin-top: 1.5rem;">
+          <strong>Tip:</strong> Higher scores open more career options. Aim for 50+ to qualify for most jobs.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>The 4 AFQT Sections</h3>
+        <div class="info-grid">
+          <div class="info-box">
+            <h5>Arithmetic Reasoning</h5>
+            <ul>
+              <li>16 questions</li>
+              <li>39 minutes</li>
+              <li>Word problems</li>
+            </ul>
+          </div>
+          <div class="info-box">
+            <h5>Math Knowledge</h5>
+            <ul>
+              <li>16 questions</li>
+              <li>20 minutes</li>
+              <li>Algebra & geometry</li>
+            </ul>
+          </div>
+          <div class="info-box">
+            <h5>Word Knowledge</h5>
+            <ul>
+              <li>16 questions</li>
+              <li>8 minutes</li>
+              <li>Vocabulary</li>
+            </ul>
+          </div>
+          <div class="info-box">
+            <h5>Paragraph Comp.</h5>
+            <ul>
+              <li>11 questions</li>
+              <li>27 minutes</li>
+              <li>Reading passages</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Study Priority</h3>
+        <ul class="strategy-list">
+          <li><strong>1. Arithmetic Reasoning</strong> — Highest weight, most learnable with practice</li>
+          <li><strong>2. Mathematics Knowledge</strong> — Builds on AR, formula-dependent</li>
+          <li><strong>3. Word Knowledge</strong> — Vocabulary takes time, start early</li>
+          <li><strong>4. Paragraph Comprehension</strong> — Strategy-based, improves with practice</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Universal Test Tips</h3>
+        <ul class="strategy-list">
+          <li><strong>Never leave blanks</strong> — Guessing gives 25% chance; blank = 0%</li>
+          <li><strong>Process of elimination</strong> — Remove obviously wrong answers first</li>
+          <li><strong>Read carefully</strong> — Many errors come from misreading</li>
+          <li><strong>Practice timed</strong> — Simulate real test conditions</li>
+          <li><strong>Review mistakes</strong> — Understanding errors is more valuable than getting answers right</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ARITHMETIC REASONING -->
+    <section class="study-section" id="AR">
+      <div class="section-intro">
+        <h2>Arithmetic Reasoning</h2>
+        <p>Word problems requiring mathematical reasoning. Often considered the most important AFQT section.</p>
+        <div class="test-stats">
+          <div class="stat"><div class="stat-value">16</div><div class="stat-label">Questions</div></div>
+          <div class="stat"><div class="stat-value">39</div><div class="stat-label">Minutes</div></div>
+          <div class="stat"><div class="stat-value">~2.5</div><div class="stat-label">Min/Question</div></div>
+        </div>
+      </div>
+
+      <div class="content-tabs">
+        <button class="content-tab active" data-tab="AR-strategies">Strategies</button>
+        <button class="content-tab" data-tab="AR-lessons">Lessons</button>
+        <button class="content-tab" data-tab="AR-practice">Practice</button>
+      </div>
+
+      <div class="tab-content active" id="AR-strategies">
+        <div class="card">
+          <h3>Key Strategies</h3>
+          <ul class="strategy-list">
+            <li><strong>Backsolving</strong> — Test answer choices by plugging them in. Start with B or C to narrow down quickly.</li>
+            <li><strong>Draw it out</strong> — Sketch diagrams for distance, time, or spatial problems.</li>
+            <li><strong>Eliminate extras</strong> — Word problems include irrelevant details. Identify only what you need.</li>
+            <li><strong>Check reasonableness</strong> — Does your answer make sense?</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Keyword Translation</h3>
+          <p>Learn to translate English words into math operations:</p>
+          <div class="info-grid">
+            <div class="info-box">
+              <h5>Addition (+)</h5>
+              <ul><li>sum, total, combined</li><li>increased by, more than</li></ul>
+            </div>
+            <div class="info-box">
+              <h5>Subtraction (-)</h5>
+              <ul><li>difference, fewer</li><li>less than, remain</li></ul>
+            </div>
+            <div class="info-box">
+              <h5>Multiplication (×)</h5>
+              <ul><li>product, times, of</li><li>doubled, tripled, each</li></ul>
+            </div>
+            <div class="info-box">
+              <h5>Division (÷)</h5>
+              <ul><li>quotient, per</li><li>ratio, split, average</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="AR-lessons">
+        <div class="card">
+          <h3>Ratios and Proportions</h3>
+          <p>The most frequently tested topic on the AR section.</p>
+
+          <h4>The Cross-Multiply Method</h4>
+          <div class="concept">
+            <p>Set up a proportion with matching units on both sides.</p>
+            <div class="formula">a/b = c/d → a × d = b × c</div>
+          </div>
+
+          <div class="example">
+            <strong>Example:</strong> If 3 apples cost $2, how much do 12 apples cost?<br>
+            3/2 = 12/x → 3x = 24 → x = $8
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Percentages</h3>
+          <p>Common in real-world scenarios like discounts, tax, and interest.</p>
+
+          <h4>Basic Formula</h4>
+          <div class="formula">Part = Whole × (Percent/100)</div>
+
+          <h4>Percent Change</h4>
+          <div class="formula">New = Original × (1 ± percent/100)</div>
+
+          <div class="example">
+            <strong>Discount:</strong> $50 with 20% off = $50 × 0.80 = $40
+          </div>
+
+          <div class="tip">
+            <strong>Warning:</strong> When finding the original after a % increase, divide! If X + 20% = $54,000, then X = $54,000 ÷ 1.20 = $45,000
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Distance, Rate, Time</h3>
+          <div class="formula">D = R × T &nbsp;&nbsp;|&nbsp;&nbsp; R = D/T &nbsp;&nbsp;|&nbsp;&nbsp; T = D/R</div>
+
+          <div class="concept">
+            <p><strong>Toward each other:</strong> ADD speeds<br>
+            <strong>Same direction:</strong> SUBTRACT speeds</p>
+          </div>
+
+          <div class="tip">
+            <strong>Critical:</strong> Average speed ≠ average of speeds! Use Total Distance ÷ Total Time.
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="AR-practice">
+        <div class="question-card" data-correct="1">
+          <div class="question-meta">
+            <span class="question-topic">Ratios</span>
+            <span class="difficulty">Easy</span>
+          </div>
+          <p class="question-text">If a car travels 150 miles on 6 gallons of gas, how many gallons are needed to travel 400 miles?</p>
+          <ul class="options">
+            <li class="option" data-index="0"><span class="option-letter">A</span> 14 gallons</li>
+            <li class="option" data-index="1"><span class="option-letter">B</span> 16 gallons</li>
+            <li class="option" data-index="2"><span class="option-letter">C</span> 18 gallons</li>
+            <li class="option" data-index="3"><span class="option-letter">D</span> 20 gallons</li>
+          </ul>
+          <button class="check-btn">Check Answer</button>
+          <div class="explanation">
+            <h4>Solution</h4>
+            <ol class="explanation-steps">
+              <li>Set up proportion: 150/6 = 400/x</li>
+              <li>Cross multiply: 150x = 2,400</li>
+              <li>Solve: x = 16 gallons</li>
+            </ol>
+            <div class="tip"><strong>Verify:</strong> 150÷6 = 25 mpg. 400÷25 = 16 ✓</div>
+          </div>
+        </div>
+
+        <div class="question-card" data-correct="1">
+          <div class="question-meta">
+            <span class="question-topic">Percentages</span>
+            <span class="difficulty">Medium</span>
+          </div>
+          <p class="question-text">A jacket priced at $80 is 25% off. With 8% sales tax, what's the final price?</p>
+          <ul class="options">
+            <li class="option" data-index="0"><span class="option-letter">A</span> $60.00</li>
+            <li class="option" data-index="1"><span class="option-letter">B</span> $64.80</li>
+            <li class="option" data-index="2"><span class="option-letter">C</span> $68.40</li>
+            <li class="option" data-index="3"><span class="option-letter">D</span> $72.00</li>
+          </ul>
+          <button class="check-btn">Check Answer</button>
+          <div class="explanation">
+            <h4>Solution</h4>
+            <ol class="explanation-steps">
+              <li>Discount: $80 × 0.75 = $60</li>
+              <li>Tax: $60 × 1.08 = $64.80</li>
+            </ol>
+            <div class="tip"><strong>Shortcut:</strong> $80 × 0.75 × 1.08 = $64.80</div>
+          </div>
+        </div>
+
+        <div class="question-card" data-correct="1">
+          <div class="question-meta">
+            <span class="question-topic">Distance/Rate/Time</span>
+            <span class="difficulty">Medium</span>
+          </div>
+          <p class="question-text">Two cars start from the same point traveling opposite directions at 55 mph and 45 mph. When will they be 300 miles apart?</p>
+          <ul class="options">
+            <li class="option" data-index="0"><span class="option-letter">A</span> 2 hours</li>
+            <li class="option" data-index="1"><span class="option-letter">B</span> 3 hours</li>
+            <li class="option" data-index="2"><span class="option-letter">C</span> 4 hours</li>
+            <li class="option" data-index="3"><span class="option-letter">D</span> 5 hours</li>
+          </ul>
+          <button class="check-btn">Check Answer</button>
+          <div class="explanation">
+            <h4>Solution</h4>
+            <ol class="explanation-steps">
+              <li>Opposite directions: ADD speeds = 100 mph</li>
+              <li>Time = 300 ÷ 100 = 3 hours</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATH KNOWLEDGE -->
+    <section class="study-section" id="MK">
+      <div class="section-intro">
+        <h2>Mathematics Knowledge</h2>
+        <p>Pure math concepts — algebra and geometry. No word problems, just straightforward math.</p>
+        <div class="test-stats">
+          <div class="stat"><div class="stat-value">16</div><div class="stat-label">Questions</div></div>
+          <div class="stat"><div class="stat-value">20</div><div class="stat-label">Minutes</div></div>
+          <div class="stat"><div class="stat-value">~75s</div><div class="stat-label">Per Question</div></div>
+        </div>
+      </div>
+
+      <div class="content-tabs">
+        <button class="content-tab active" data-tab="MK-strategies">Strategies</button>
+        <button class="content-tab" data-tab="MK-lessons">Lessons</button>
+        <button class="content-tab" data-tab="MK-practice">Practice</button>
+      </div>
+
+      <div class="tab-content active" id="MK-strategies">
+        <div class="card">
+          <h3>Key Strategies</h3>
+          <ul class="strategy-list">
+            <li><strong>Memorize formulas cold</strong> — No formula sheet provided. Know them by heart.</li>
+            <li><strong>Substitute and check</strong> — Plug answer choices back into equations to verify.</li>
+            <li><strong>Watch sign errors</strong> — The #1 mistake is getting negatives wrong.</li>
+            <li><strong>Don't get stuck</strong> — Only 75 seconds per question. Skip and return.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Must-Know Formulas</h3>
+          <div class="info-grid">
+            <div class="info-box">
+              <h5>Geometry</h5>
+              <ul>
+                <li>a² + b² = c²</li>
+                <li>Area rect = l × w</li>
+                <li>Area tri = ½bh</li>
+                <li>Area circle = πr²</li>
+              </ul>
+            </div>
+            <div class="info-box">
+              <h5>Volume</h5>
+              <ul>
+                <li>Box = l × w × h</li>
+                <li>Cylinder = πr²h</li>
+              </ul>
+            </div>
+            <div class="info-box">
+              <h5>Exponents</h5>
+              <ul>
+                <li>aᵐ × aⁿ = aᵐ⁺ⁿ</li>
+                <li>aᵐ ÷ aⁿ = aᵐ⁻ⁿ</li>
+                <li>(aᵐ)ⁿ = aᵐˣⁿ</li>
+              </ul>
+            </div>
+            <div class="info-box">
+              <h5>Pythagorean Triples</h5>
+              <ul>
+                <li>3-4-5</li>
+                <li>5-12-13</li>
+                <li>8-15-17</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="MK-lessons">
+        <div class="card">
+          <h3>Pythagorean Theorem</h3>
+          <p>The most frequently tested geometry concept.</p>
+          <div class="formula">a² + b² = c² (c is always the longest side)</div>
+
+          <div class="example">
+            <strong>Example:</strong> Right triangle with legs 6 and 8.<br>
+            6² + 8² = 36 + 64 = 100 → c = 10<br>
+            (Or recognize: 3-4-5 × 2 = 6-8-10)
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>FOIL Method</h3>
+          <p>For multiplying binomials: First, Outer, Inner, Last</p>
+
+          <div class="example">
+            <strong>(x + 3)(x - 5)</strong><br>
+            First: x² | Outer: -5x | Inner: 3x | Last: -15<br>
+            = x² - 2x - 15
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Exponent Rules</h3>
+          <div class="concept">
+            <p><strong>Same base multiplication:</strong> ADD exponents</p>
+            <div class="formula">x³ × x⁴ = x⁷</div>
+          </div>
+          <div class="concept">
+            <p><strong>Power of a power:</strong> MULTIPLY exponents</p>
+            <div class="formula">(x³)² = x⁶</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Inequalities</h3>
+          <div class="tip">
+            <strong>Critical rule:</strong> FLIP THE SIGN when multiplying or dividing by a negative!
+          </div>
+          <div class="example">
+            <strong>Example:</strong> -3x > 9<br>
+            Divide by -3 (flip!): x < -3
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="MK-practice">
+        <div class="question-card" data-correct="2">
+          <div class="question-meta">
+            <span class="question-topic">Linear Equations</span>
+            <span class="difficulty">Easy</span>
+          </div>
+          <p class="question-text">Solve: 5x - 12 = 3x + 8</p>
+          <ul class="options">
+            <li class="option" data-index="0"><span class="option-letter">A</span> x = 2</li>
+            <li class="option" data-index="1"><span class="option-letter">B</span> x = 5</li>
+            <li class="option" data-index="2"><span class="option-letter">C</span> x = 10</li>
+            <li class="option" data-index="3"><span class="option-letter">D</span> x = 20</li>
+          </ul>
+          <button class="check-btn">Check Answer</button>
+          <div class="explanation">
+            <h4>Solution</h4>
+            <ol class="explanation-steps">
+              <li>Subtract 3x: 2x - 12 = 8</li>
+              <li>Add 12: 2x = 20</li>
+              <li>Divide: x = 10</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="question-card" data-correct="1">
+          <div class="question-meta">
+            <span class="question-topic">Pythagorean Theorem</span>
+            <span class="difficulty">Medium</span>
+          </div>
+          <p class="question-text">A right triangle has legs of 6 and 8. What is the hypotenuse?</p>
+          <ul class="options">
+            <li class="option" data-index="0"><span class="option-letter">A</span> 7</li>
+            <li class="option" data-index="1"><span class="option-letter">B</span> 10</li>
+            <li class="option" data-index="2"><span class="option-letter">C</span> 12</li>
+            <li class="option" data-index="3"><span class="option-letter">D</span> 14</li>
+          </ul>
+          <button class="check-btn">Check Answer</button>
+          <div class="explanation">
+            <h4>Solution</h4>
+            <ol class="explanation-steps">
+              <li>6² + 8² = 36 + 64 = 100</li>
+              <li>√100 = 10</li>
+            </ol>
+            <div class="tip">Shortcut: 3-4-5 triple × 2 = 6-8-10</div>
+          </div>
+        </div>
+
+        <div class="question-card" data-correct="3">
+          <div class="question-meta">
+            <span class="question-topic">Inequalities</span>
+            <span class="difficulty">Hard</span>
+          </div>
+          <p class="question-text">Solve: -3x + 7 > 16</p>
+          <ul class="options">
+            <li class="option" data-index="0"><span class="option-letter">A</span> x > 3</li>
+            <li class="option" data-index="1"><span class="option-letter">B</span> x < 3</li>
+            <li class="option" data-index="2"><span class="option-letter">C</span> x > -3</li>
+            <li class="option" data-index="3"><span class="option-letter">D</span> x < -3</li>
+          </ul>
+          <button class="check-btn">Check Answer</button>
+          <div class="explanation">
+            <h4>Solution</h4>
+            <ol class="explanation-steps">
+              <li>Subtract 7: -3x > 9</li>
+              <li>Divide by -3 (FLIP!): x < -3</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORD KNOWLEDGE -->
+    <section class="study-section" id="WK">
+      <div class="section-intro">
+        <h2>Word Knowledge</h2>
+        <p>Vocabulary and synonyms. The fastest-paced section — only 30 seconds per question.</p>
+        <div class="test-stats">
+          <div class="stat"><div class="stat-value">16</div><div class="stat-label">Questions</div></div>
+          <div class="stat"><div class="stat-value">8</div><div class="stat-label">Minutes</div></div>
+          <div class="stat"><div class="stat-value">30s</div><div class="stat-label">Per Question</div></div>
+        </div>
+      </div>
+
+      <div class="content-tabs">
+        <button class="content-tab active" data-tab="WK-strategies">Strategies</button>
+        <button class="content-tab" data-tab="WK-wordparts">Word Parts</button>
+        <button class="content-tab" data-tab="WK-practice">Practice</button>
+      </div>
+
+      <div class="tab-content active" id="WK-strategies">
+        <div class="card">
+          <h3>Key Strategies</h3>
+          <ul class="strategy-list">
+            <li><strong>Learn word parts</strong> — Prefixes, roots, and suffixes unlock thousands of words.</li>
+            <li><strong>Trust your gut</strong> — With 30 seconds, your first instinct is often correct.</li>
+            <li><strong>Eliminate fast</strong> — Rule out obviously wrong answers immediately.</li>
+            <li><strong>Positive or negative?</strong> — Determine the word's tone to eliminate wrong answers.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>High-Frequency Vocabulary</h3>
+          <div class="vocab-grid">
+            <div class="vocab-item">
+              <div class="vocab-word">alleviate</div>
+              <div class="vocab-def">to reduce or lessen</div>
+            </div>
+            <div class="vocab-item">
+              <div class="vocab-word">benevolent</div>
+              <div class="vocab-def">kind, charitable</div>
+            </div>
+            <div class="vocab-item">
+              <div class="vocab-word">diligent</div>
+              <div class="vocab-def">hardworking, careful</div>
+            </div>
+            <div class="vocab-item">
+              <div class="vocab-word">impede</div>
+              <div class="vocab-def">to block or hinder</div>
+            </div>
+            <div class="vocab-item">
+              <div class="vocab-word">meticulous</div>
+              <div class="vocab-def">extremely careful</div>
+            </div>
+            <div class="vocab-item">
+              <div class="vocab-word">obsolete</div>
+              <div class="vocab-def">outdated, no longer used</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="WK-wordparts">
+        <div class="card">
+          <h3>Common Prefixes</h3>
+          <div class="word-parts-grid">
+            <div class="word-part-card">
+              <div class="word-part">un-, in-, im-, dis-</div>
+              <div class="word-meaning">= NOT</div>
+              <div class="word-examples">unhappy, invisible, impossible</div>
+            </div>
+            <div class="word-part-card">
+              <div class="word-part">re-</div>
+              <div class="word-meaning">= AGAIN</div>
+              <div class="word-examples">redo, return, review</div>
+            </div>
+            <div class="word-part-card">
+              <div class="word-part">pre-</div>
+              <div class="word-meaning">= BEFORE</div>
+              <div class="word-examples">preview, predict, prepare</div>
+            </div>
+            <div class="word-part-card">
+              <div class="word-part">anti-</div>
+              <div class="word-meaning">= AGAINST</div>
+              <div class="word-examples">antiwar, antibody</div>
+            </div>
+            <div class="word-part-card">
+              <div class="word-part">sub-</div>
+              <div class="word-meaning">= UNDER</div>
+              <div class="word-examples">submarine, subway</div>
+            </div>
+            <div class="word-part-card">
+              <div class="word-part">super-</div>
+              <div class="word-meaning">= ABOVE</div>
+              <div class="word-examples">superior, supernatural</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Common Roots</h3>
+          <div class="word-parts-grid">
+            <div class="word-part-card">
+              <div class="word-part">bene-</div>
+              <div class="word-meaning">= GOOD</div>
+              <div class="word-examples">benefit, benevolent</div>
+            </div>
+            <div class="word-part-card">
+              <div class="word-part">mal-</div>
+              <div class="word-meaning">= BAD</div>
+              <div class="word-examples">malice, malfunction</div>
+            </div>
+            <div class="word-part-card">
+              <div class="word-part">aud-</div>
+              <div class="word-meaning">= HEAR</div>
+              <div class="word-examples">audio, audience</div>
+            </div>
+            <div class="word-part-card">
+              <div class="word-part">vid-, vis-</div>
+              <div class="word-meaning">= SEE</div>
+              <div class="word-examples">video, vision, visible</div>
+            </div>
+            <div class="word-part-card">
+              <div class="word-part">dict-</div>
+              <div class="word-meaning">= SAY, SPEAK</div>
+              <div class="word-examples">dictate, predict</div>
+            </div>
+            <div class="word-part-card">
+              <div class="word-part">port-</div>
+              <div class="word-meaning">= CARRY</div>
+              <div class="word-examples">transport, portable</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="WK-practice">
+        <div class="question-card" data-correct="1">
+          <div class="question-meta">
+            <span class="question-topic">Vocabulary</span>
+            <span class="difficulty">Easy</span>
+          </div>
+          <p class="question-text">ABANDON most nearly means</p>
+          <ul class="options">
+            <li class="option" data-index="0"><span class="option-letter">A</span> keep</li>
+            <li class="option" data-index="1"><span class="option-letter">B</span> desert</li>
+            <li class="option" data-index="2"><span class="option-letter">C</span> find</li>
+            <li class="option" data-index="3"><span class="option-letter">D</span> protect</li>
+          </ul>
+          <button class="check-btn">Check Answer</button>
+          <div class="explanation">
+            <h4>Solution</h4>
+            <p><strong>Desert</strong> means to leave behind — same as abandon.</p>
+            <div class="tip">Think: An "abandoned building" is one that's been deserted.</div>
+          </div>
+        </div>
+
+        <div class="question-card" data-correct="2">
+          <div class="question-meta">
+            <span class="question-topic">Vocabulary</span>
+            <span class="difficulty">Medium</span>
+          </div>
+          <p class="question-text">BENEVOLENT most nearly means</p>
+          <ul class="options">
+            <li class="option" data-index="0"><span class="option-letter">A</span> mean</li>
+            <li class="option" data-index="1"><span class="option-letter">B</span> violent</li>
+            <li class="option" data-index="2"><span class="option-letter">C</span> kind</li>
+            <li class="option" data-index="3"><span class="option-letter">D</span> weak</li>
+          </ul>
+          <button class="check-btn">Check Answer</button>
+          <div class="explanation">
+            <h4>Solution</h4>
+            <p><strong>Benevolent</strong> means kind and charitable.</p>
+            <div class="tip">Word parts: "bene" = good + "volent" = wishing = good-wishing = kind!</div>
+          </div>
+        </div>
+
+        <div class="question-card" data-correct="2">
+          <div class="question-meta">
+            <span class="question-topic">Vocabulary</span>
+            <span class="difficulty">Hard</span>
+          </div>
+          <p class="question-text">IMPEDE most nearly means</p>
+          <ul class="options">
+            <li class="option" data-index="0"><span class="option-letter">A</span> help</li>
+            <li class="option" data-index="1"><span class="option-letter">B</span> speed up</li>
+            <li class="option" data-index="2"><span class="option-letter">C</span> block</li>
+            <li class="option" data-index="3"><span class="option-letter">D</span> move</li>
+          </ul>
+          <button class="check-btn">Check Answer</button>
+          <div class="explanation">
+            <h4>Solution</h4>
+            <p><strong>Impede</strong> means to obstruct or hinder progress.</p>
+            <div class="tip">An "impediment" is an obstacle — something that impedes.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARAGRAPH COMPREHENSION -->
+    <section class="study-section" id="PC">
+      <div class="section-intro">
+        <h2>Paragraph Comprehension</h2>
+        <p>Reading comprehension — understanding passages and answering questions about what you read.</p>
+        <div class="test-stats">
+          <div class="stat"><div class="stat-value">11</div><div class="stat-label">Questions</div></div>
+          <div class="stat"><div class="stat-value">27</div><div class="stat-label">Minutes</div></div>
+          <div class="stat"><div class="stat-value">~2.5</div><div class="stat-label">Min/Question</div></div>
+        </div>
+      </div>
+
+      <div class="content-tabs">
+        <button class="content-tab active" data-tab="PC-strategies">Strategies</button>
+        <button class="content-tab" data-tab="PC-types">Question Types</button>
+        <button class="content-tab" data-tab="PC-practice">Practice</button>
+      </div>
+
+      <div class="tab-content active" id="PC-strategies">
+        <div class="card">
+          <h3>Key Strategies</h3>
+          <ul class="strategy-list">
+            <li><strong>Read the question first</strong> — Know what to look for before reading the passage.</li>
+            <li><strong>Stick to the text</strong> — Answers must be supported by the passage. No outside knowledge.</li>
+            <li><strong>Find evidence</strong> — Point to specific words that support your answer.</li>
+            <li><strong>Go back and verify</strong> — You have time. Re-read before choosing.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Elimination Rules</h3>
+          <div class="info-grid">
+            <div class="info-box">
+              <h5>Usually Wrong</h5>
+              <ul>
+                <li>"always", "never", "all"</li>
+                <li>Too narrow or too broad</li>
+                <li>Not stated in text</li>
+              </ul>
+            </div>
+            <div class="info-box">
+              <h5>Often Correct</h5>
+              <ul>
+                <li>"some", "may", "often"</li>
+                <li>Matches passage scope</li>
+                <li>Traceable to text</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="PC-types">
+        <div class="card">
+          <h3>Question Types</h3>
+          <ul class="strategy-list">
+            <li><strong>Main Idea</strong> — "What is the passage primarily about?" Look at first and last sentences.</li>
+            <li><strong>Supporting Details</strong> — "According to the passage..." The answer IS directly stated.</li>
+            <li><strong>Inference</strong> — "It can be inferred..." Not stated, but logically follows from text.</li>
+            <li><strong>Vocabulary in Context</strong> — Substitute each answer choice into the sentence.</li>
+            <li><strong>Author's Tone</strong> — Look at word choices. Positive, negative, or neutral?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tab-content" id="PC-practice">
+        <div class="question-card" data-correct="1">
+          <div class="question-meta">
+            <span class="question-topic">Main Idea</span>
+            <span class="difficulty">Easy</span>
+          </div>
+          <div class="passage">
+            The honeybee is one of the most important insects on Earth. Without bees, many of the foods we eat would not exist. Bees pollinate approximately 80% of flowering plants, including many fruits and vegetables. When a bee visits a flower to collect nectar, pollen sticks to its body and transfers to the next flower.
+          </div>
+          <p class="question-text">What is the main idea of this passage?</p>
+          <ul class="options">
+            <li class="option" data-index="0"><span class="option-letter">A</span> Bees collect nectar from flowers</li>
+            <li class="option" data-index="1"><span class="option-letter">B</span> Bees are essential for pollinating plants we depend on</li>
+            <li class="option" data-index="2"><span class="option-letter">C</span> Pollen sticks to bees when they visit flowers</li>
+            <li class="option" data-index="3"><span class="option-letter">D</span> 80% of plants are flowering plants</li>
+          </ul>
+          <button class="check-btn">Check Answer</button>
+          <div class="explanation">
+            <h4>Solution</h4>
+            <p>The passage emphasizes <strong>the importance of bees for pollination and food production</strong>.</p>
+            <div class="tip">A, C, and D are details, not the main idea. Main idea = the BIG picture.</div>
+          </div>
+        </div>
+
+        <div class="question-card" data-correct="1">
+          <div class="question-meta">
+            <span class="question-topic">Inference</span>
+            <span class="difficulty">Medium</span>
+          </div>
+          <div class="passage">
+            The development of penicillin is often credited to Alexander Fleming, who discovered the antibiotic properties of the Penicillium mold in 1928. However, Fleming was unable to produce penicillin in large quantities. It was not until 1941 that Howard Florey and Ernst Boris Chain developed methods for mass production, making the drug available to treat wounded soldiers during World War II.
+          </div>
+          <p class="question-text">What can be inferred about penicillin before 1941?</p>
+          <ul class="options">
+            <li class="option" data-index="0"><span class="option-letter">A</span> It was widely used to treat infections</li>
+            <li class="option" data-index="1"><span class="option-letter">B</span> It was available only in limited quantities</li>
+            <li class="option" data-index="2"><span class="option-letter">C</span> Alexander Fleming refused to share his discovery</li>
+            <li class="option" data-index="3"><span class="option-letter">D</span> World War II soldiers did not need antibiotics</li>
+          </ul>
+          <button class="check-btn">Check Answer</button>
+          <div class="explanation">
+            <h4>Solution</h4>
+            <p>The passage states Fleming "was unable to produce penicillin in large quantities" — implying <strong>limited availability before 1941</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STUDY SCHEDULE -->
+    <section class="study-section" id="schedule">
+      <div class="section-intro">
+        <h2>6-Week Study Schedule</h2>
+        <p>A structured plan to maximize your AFQT score. Adjust timing based on your test date.</p>
+      </div>
+
+      <div class="schedule-week">
+        <div class="week-header">
+          <div class="week-number">1</div>
+          <div class="week-title">Assessment & Foundation</div>
+        </div>
+        <ul class="week-goals">
+          <li>Take a full diagnostic practice test (untimed)</li>
+          <li>Identify your strongest and weakest sections</li>
+          <li>Set up daily study schedule (60-90 minutes)</li>
+        </ul>
+        <div class="daily-grid">
+          <div class="day-item"><span class="day-label">Day 1-2</span><span class="day-task">Diagnostic + review</span></div>
+          <div class="day-item"><span class="day-label">Day 3-4</span><span class="day-task">Arithmetic basics</span></div>
+          <div class="day-item"><span class="day-label">Day 5-6</span><span class="day-task">Begin vocabulary</span></div>
+          <div class="day-item"><span class="day-label">Day 7</span><span class="day-task">Review + quiz</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-week">
+        <div class="week-header">
+          <div class="week-number">2</div>
+          <div class="week-title">Mathematics Focus</div>
+        </div>
+        <ul class="week-goals">
+          <li>Master ratios, proportions, and percentages</li>
+          <li>Learn distance/rate/time formulas</li>
+        </ul>
+        <div class="daily-grid">
+          <div class="day-item"><span class="day-label">Day 1-2</span><span class="day-task">Ratios</span></div>
+          <div class="day-item"><span class="day-label">Day 3-4</span><span class="day-task">Percentages</span></div>
+          <div class="day-item"><span class="day-label">Day 5-6</span><span class="day-task">D/R/T problems</span></div>
+          <div class="day-item"><span class="day-label">Day 7</span><span class="day-task">20 practice problems</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-week">
+        <div class="week-header">
+          <div class="week-number">3</div>
+          <div class="week-title">Algebra & Geometry</div>
+        </div>
+        <ul class="week-goals">
+          <li>Master algebra fundamentals</li>
+          <li>Learn geometry formulas</li>
+        </ul>
+        <div class="daily-grid">
+          <div class="day-item"><span class="day-label">Day 1-2</span><span class="day-task">Equations</span></div>
+          <div class="day-item"><span class="day-label">Day 3-4</span><span class="day-task">FOIL & factoring</span></div>
+          <div class="day-item"><span class="day-label">Day 5-6</span><span class="day-task">Geometry formulas</span></div>
+          <div class="day-item"><span class="day-label">Day 7</span><span class="day-task">Mixed practice</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-week">
+        <div class="week-header">
+          <div class="week-number">4</div>
+          <div class="week-title">Verbal Focus</div>
+        </div>
+        <ul class="week-goals">
+          <li>Master word parts (prefixes, roots, suffixes)</li>
+          <li>Learn paragraph comprehension strategies</li>
+        </ul>
+        <div class="daily-grid">
+          <div class="day-item"><span class="day-label">Day 1-2</span><span class="day-task">Word parts</span></div>
+          <div class="day-item"><span class="day-label">Day 3-4</span><span class="day-task">PC strategies</span></div>
+          <div class="day-item"><span class="day-label">Day 5-6</span><span class="day-task">Timed reading</span></div>
+          <div class="day-item"><span class="day-label">Day 7</span><span class="day-task">Verbal practice test</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-week">
+        <div class="week-header">
+          <div class="week-number">5</div>
+          <div class="week-title">Timed Practice</div>
+        </div>
+        <ul class="week-goals">
+          <li>Take 2-3 full-length timed practice tests</li>
+          <li>Review every incorrect answer thoroughly</li>
+        </ul>
+        <div class="daily-grid">
+          <div class="day-item"><span class="day-label">Day 1</span><span class="day-task">Practice test #1</span></div>
+          <div class="day-item"><span class="day-label">Day 2-3</span><span class="day-task">Review errors</span></div>
+          <div class="day-item"><span class="day-label">Day 4-5</span><span class="day-task">Weak areas</span></div>
+          <div class="day-item"><span class="day-label">Day 6-7</span><span class="day-task">Practice test #2</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-week">
+        <div class="week-header">
+          <div class="week-number">6</div>
+          <div class="week-title">Final Review</div>
+        </div>
+        <ul class="week-goals">
+          <li>Final practice test</li>
+          <li>Light review — no cramming</li>
+        </ul>
+        <div class="daily-grid">
+          <div class="day-item"><span class="day-label">Day 1</span><span class="day-task">Final test</span></div>
+          <div class="day-item"><span class="day-label">Day 2-3</span><span class="day-task">Review weak areas</span></div>
+          <div class="day-item"><span class="day-label">Day 4-5</span><span class="day-task">Light review</span></div>
+          <div class="day-item"><span class="day-label">Day 6</span><span class="day-task">Rest</span></div>
+          <div class="day-item"><span class="day-label">Day 7</span><span class="day-task">TEST DAY!</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Test Day Tips</h3>
+        <ul class="strategy-list">
+          <li><strong>Get 8 hours of sleep</strong> the night before</li>
+          <li><strong>Eat a good breakfast</strong> with protein</li>
+          <li><strong>Arrive early</strong> to reduce stress</li>
+          <li><strong>Never leave blanks</strong> — always guess</li>
+          <li><strong>Trust your preparation</strong></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Section Navigation
+    document.querySelectorAll('.section-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.section-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.study-section').forEach(s => s.classList.remove('active'));
+        document.getElementById(btn.dataset.section).classList.add('active');
+      });
+    });
+
+    // Content Tabs
+    document.querySelectorAll('.content-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const parent = tab.closest('.study-section');
+        parent.querySelectorAll('.content-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        parent.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Practice Questions
+    document.querySelectorAll('.question-card').forEach(card => {
+      const options = card.querySelectorAll('.option');
+      const checkBtn = card.querySelector('.check-btn');
+      const explanation = card.querySelector('.explanation');
+      const correctIndex = parseInt(card.dataset.correct);
+      let selectedIndex = null;
+
+      options.forEach(option => {
+        option.addEventListener('click', () => {
+          if (explanation.classList.contains('show')) return;
+          options.forEach(o => o.classList.remove('selected'));
+          option.classList.add('selected');
+          selectedIndex = parseInt(option.dataset.index);
+        });
+      });
+
+      checkBtn.addEventListener('click', () => {
+        if (selectedIndex === null) return alert('Select an answer first.');
+        options.forEach((opt, i) => {
+          opt.classList.remove('selected');
+          if (i === correctIndex) opt.classList.add('correct');
+          else if (i === selectedIndex) opt.classList.add('incorrect');
+        });
+        explanation.classList.add('show');
+        checkBtn.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
