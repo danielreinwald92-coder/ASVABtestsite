@@ -9,6 +9,12 @@ class QuizEngine {
     this.quizData = null;
     this.timeRemaining = 0;
     this.testSections = [];
+
+    // Adaptive testing state
+    this.adaptiveMode = true; // Enable CAT-like adaptive testing
+    this.abilityLevels = {}; // Track ability per section
+    this.questionPools = {}; // Adaptive question pools per section
+    this.usedQuestionIds = new Set(); // Track used questions
   }
 
   init() {
