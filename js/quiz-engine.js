@@ -445,8 +445,6 @@ class QuizEngine {
   }
 
   submitQuiz() {
-    console.log('submitQuiz called');
-    alert('Submitting quiz...');
     clearInterval(this.timerInterval);
 
     // Calculate results by section
@@ -523,9 +521,7 @@ class QuizEngine {
       completedAt: new Date().toISOString()
     };
 
-    console.log('Saving results:', quizResults);
     localStorage.setItem('quizResults', JSON.stringify(quizResults));
-    console.log('Results saved to localStorage');
 
     // Clear session data so next test gets fresh questions
     sessionStorage.removeItem('quizState');
