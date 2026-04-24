@@ -58,23 +58,59 @@ class QuizEngine {
   }
 
   generateNewTest() {
-    // Generate fresh randomized questions
+    // Generate fresh randomized questions with adaptive difficulty
     const allQuestions = [];
     let totalTimeLimit = 0;
 
     this.testSections.forEach(sectionCode => {
       const sectionInfo = QuizManager.getSectionInfo(sectionCode);
       if (sectionInfo) {
-        const questions = QuizManager.getRandomQuestionsWithShuffledOptions(sectionCode);
-        questions.forEach(q => {
-          allQuestions.push({
-            ...q,
-            sectionCode: sectionCode,
-            sectionName: sectionInfo.name
-          });
-        });
+        // Initialize adaptive state for this section
+        this.abilityLevels[sectionCode] = 3; // Start at medium
+        this.questionPools[sectionCode] = QuizManager.getAdaptiveQuestionPool(sectionCode);
+
+        // Pre-select questions adaptively
+        const numQuestions = sectionInfo.questionsPerTest;
+        const sectionUsedIds = new Set();
+
+        for (let i = 0; i < numQuestions; i++) {
+          const ability = Math.round(this.abilityLevels[sectionCode]);
+          const question = QuizManager.selectNextAdaptiveQuestion(
+            this.questionPools[sectionCode],
+            ability,
+            sectionUsedIds
+          );
+
+          if (question) {
+            sectionUsedIds.add(question.id);
+            this.usedQuestionIds.add(question.id);
+
+            // Shuffle options
+            const shuffled = QuizManager.shuffleQuestionOptions(question);
+            allQuestions.push({
+              ...shuffled,
+              sectionCode: sectionCode,
+              sectionName: sectionInfo.name,
+              difficulty: question.difficulty
+            });
+
+            // Simulate adaptive progression for initial generation
+            // (Real adaptation happens during the test)
+            if (i % 3 === 0) {
+              // Every 3rd question, vary the ability slightly for distribution
+              this.abilityLevels[sectionCode] += (Math.random() - 0.5);
+              this.abilityLevels[sectionCode] = Math.max(1, Math.min(5, this.abilityLevels[sectionCode]));
+            }
+          }
+        }
+
         totalTimeLimit += sectionInfo.timeLimit;
       }
+    });
+
+    // Reset ability levels for actual test taking
+    this.testSections.forEach(code => {
+      this.abilityLevels[code] = 3;
     });
 
     // Build quiz data object
@@ -93,9 +129,18 @@ class QuizEngine {
         options: q.options,
         correct: q.correct,
         sectionCode: q.sectionCode,
-        sectionName: q.sectionName
+        sectionName: q.sectionName,
+        difficulty: q.difficulty,
+        isVisual: q.isVisual || false,
+        shapeSvg: q.shapeSvg || null,
+        visualType: q.visualType || null
       }))
     };
+
+    // Replace AO text questions with visual versions if available
+    if (typeof replaceAOWithVisuals === 'function') {
+      this.quizData = replaceAOWithVisuals(this.quizData);
+    }
 
     this.timeRemaining = this.quizData.timeLimit;
 
@@ -191,7 +236,18 @@ class QuizEngine {
 
     // Update question text (handle multi-line for paragraph comprehension)
     const questionTextEl = document.getElementById('questionText');
-    questionTextEl.innerHTML = question.text.replace(/\n/g, '<br>');
+
+    // Check if this is a visual AO question
+    if (question.isVisual && question.shapeSvg) {
+      questionTextEl.innerHTML = `
+        <div class="ao-question-container">
+          <p>${question.text}</p>
+          ${question.shapeSvg}
+        </div>
+      `;
+    } else {
+      questionTextEl.innerHTML = question.text.replace(/\n/g, '<br>');
+    }
 
     // Update progress
     const progress = (questionNum / totalQuestions) * 100;
@@ -202,16 +258,30 @@ class QuizEngine {
     const container = document.getElementById('answersContainer');
     const letters = ['A', 'B', 'C', 'D'];
 
-    container.innerHTML = question.options.map((option, idx) => {
-      const isSelected = this.answers[question.id] === idx;
-      return `
-        <div class="answer-option ${isSelected ? 'selected' : ''}" data-index="${idx}">
-          <span class="answer-letter">${letters[idx]}</span>
-          <span class="answer-text">${option}</span>
-          <span class="keyboard-hint">Press ${letters[idx]}</span>
-        </div>
-      `;
-    }).join('');
+    // Visual options for AO questions
+    if (question.isVisual) {
+      container.innerHTML = question.options.map((option, idx) => {
+        const isSelected = this.answers[question.id] === idx;
+        return `
+          <div class="answer-option visual-option ${isSelected ? 'selected' : ''}" data-index="${idx}">
+            <span class="answer-letter">${letters[idx]}</span>
+            <span class="answer-text">${option}</span>
+            <span class="keyboard-hint">Press ${letters[idx]}</span>
+          </div>
+        `;
+      }).join('');
+    } else {
+      container.innerHTML = question.options.map((option, idx) => {
+        const isSelected = this.answers[question.id] === idx;
+        return `
+          <div class="answer-option ${isSelected ? 'selected' : ''}" data-index="${idx}">
+            <span class="answer-letter">${letters[idx]}</span>
+            <span class="answer-text">${option}</span>
+            <span class="keyboard-hint">Press ${letters[idx]}</span>
+          </div>
+        `;
+      }).join('');
+    }
 
     // Update flag button
     const flagBtn = document.getElementById('flagBtn');
@@ -275,7 +345,24 @@ class QuizEngine {
 
   selectAnswer(index) {
     const question = this.quizData.questions[this.currentQuestion];
+    const previousAnswer = this.answers[question.id];
     this.answers[question.id] = index;
+
+    // Update adaptive ability tracking (for results analysis)
+    if (this.adaptiveMode && previousAnswer === undefined) {
+      const isCorrect = index === question.correct;
+      const sectionCode = question.sectionCode || this.testSections[0];
+      const difficulty = question.difficulty || 3;
+
+      if (this.abilityLevels[sectionCode] !== undefined) {
+        this.abilityLevels[sectionCode] = QuizManager.updateAbilityLevel(
+          this.abilityLevels[sectionCode],
+          isCorrect,
+          difficulty
+        );
+      }
+    }
+
     this.saveState();
     this.renderQuestion();
   }

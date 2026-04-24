@@ -282,6 +282,46 @@
       opacity: 0.6;
     }
 
+    /* Visual AO Question Styles */
+    .ao-question-container {
+      margin-bottom: 1.5rem;
+    }
+
+    .ao-question-svg {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      margin: 1rem auto;
+      display: block;
+      background: var(--white);
+      border: 2px solid var(--cream-200);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .ao-option-svg {
+      width: 100%;
+      height: 80px;
+      display: block;
+    }
+
+    .answer-option.visual-option {
+      padding: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .answer-option.visual-option .answer-letter {
+      flex-shrink: 0;
+    }
+
+    .answer-option.visual-option .answer-text {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
     .quiz-nav {
       display: flex;
       justify-content: space-between;
@@ -517,6 +557,7 @@
   </main>
 
   <script src="js/quiz-data.js"></script>
+  <script src="js/ao-visuals.js"></script>
   <script src="js/quiz-engine.js"></script>
 </body>
 </html>
