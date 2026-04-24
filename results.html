@@ -656,6 +656,7 @@
   <main class="results-container">
     <section class="score-hero">
       <div class="completion-badge">Test Complete</div>
+      <p id="debugInfo" style="font-size: 0.7rem; color: #999; margin-bottom: 0.5rem;"></p>
       <p class="greeting">Great work,</p>
       <h1 class="user-name" id="userName">Test Taker</h1>
 
@@ -684,10 +685,12 @@
       </div>
     </div>
 
-    <section class="section-breakdown" id="sectionBreakdown" style="display: none;">
+    <section class="section-breakdown" id="sectionBreakdown">
       <h3 class="breakdown-title">Performance by Section</h3>
       <p class="breakdown-subtitle">See which areas need more practice</p>
-      <div class="breakdown-grid" id="breakdownGrid"></div>
+      <div class="breakdown-grid" id="breakdownGrid">
+        <p style="color: #999; font-size: 0.9rem;">Loading section data...</p>
+      </div>
     </section>
 
     <section class="recruiter-section" id="recruiterSection">
@@ -741,7 +744,8 @@
     function loadResults() {
       try {
         const resultsRaw = localStorage.getItem('quizResults');
-        console.log('Raw results from localStorage:', resultsRaw);
+        const debugEl = document.getElementById('debugInfo');
+        debugEl.textContent = resultsRaw ? 'Results found: ' + resultsRaw.substring(0, 100) + '...' : 'No results in localStorage';
 
         if (!resultsRaw) {
           document.getElementById('scoreMessage').textContent = 'No results found';
