@@ -26,6 +26,11 @@ class QuizEngine {
       this.generateNewTest();
     }
 
+    // Always apply visual AO replacements (in case loaded from session without visuals)
+    if (typeof replaceAOWithVisuals === 'function' && this.quizData) {
+      this.quizData = replaceAOWithVisuals(this.quizData);
+    }
+
     this.startTime = Date.now();
     this.renderQuestion();
     this.renderNavigator();
