@@ -11,11 +11,13 @@ const AOVisualQuestions = [
     shapes: {
       svg: `<svg viewBox="0 0 200 100" class="ao-question-svg">
         <rect x="20" y="25" width="50" height="50" fill="none" stroke="#1e3a5f" stroke-width="2"/>
-        <circle cx="30" cy="50" r="4" fill="#d4a853"/>
-        <text x="30" y="42" text-anchor="middle" font-size="10" fill="#d4a853" font-weight="bold">A</text>
+        <circle cx="30" cy="50" r="5" fill="#d4a853"/>
+        <rect x="22" y="32" width="16" height="14" fill="white" rx="2"/>
+        <text x="30" y="43" text-anchor="middle" font-size="12" fill="#1e3a5f" font-weight="bold">A</text>
         <circle cx="150" cy="50" r="25" fill="none" stroke="#1e3a5f" stroke-width="2"/>
-        <circle cx="150" cy="75" r="4" fill="#d4a853"/>
-        <text x="158" y="78" font-size="10" fill="#d4a853" font-weight="bold">B</text>
+        <circle cx="150" cy="75" r="5" fill="#d4a853"/>
+        <rect x="156" y="68" width="16" height="14" fill="white" rx="2"/>
+        <text x="164" y="79" text-anchor="middle" font-size="12" fill="#1e3a5f" font-weight="bold">B</text>
       </svg>`
     },
     options: [
@@ -54,11 +56,13 @@ const AOVisualQuestions = [
     shapes: {
       svg: `<svg viewBox="0 0 200 100" class="ao-question-svg">
         <polygon points="40,75 65,25 90,75" fill="none" stroke="#1e3a5f" stroke-width="2"/>
-        <circle cx="65" cy="25" r="4" fill="#d4a853"/>
-        <text x="65" y="18" text-anchor="middle" font-size="10" fill="#d4a853" font-weight="bold">A</text>
+        <circle cx="65" cy="25" r="5" fill="#d4a853"/>
+        <rect x="57" y="8" width="16" height="14" fill="white" rx="2"/>
+        <text x="65" y="19" text-anchor="middle" font-size="12" fill="#1e3a5f" font-weight="bold">A</text>
         <rect x="120" y="30" width="60" height="40" fill="none" stroke="#1e3a5f" stroke-width="2"/>
-        <circle cx="120" cy="50" r="4" fill="#d4a853"/>
-        <text x="112" y="53" font-size="10" fill="#d4a853" font-weight="bold">B</text>
+        <circle cx="120" cy="50" r="5" fill="#d4a853"/>
+        <rect x="100" y="43" width="16" height="14" fill="white" rx="2"/>
+        <text x="108" y="54" text-anchor="middle" font-size="12" fill="#1e3a5f" font-weight="bold">B</text>
       </svg>`
     },
     options: [
@@ -95,11 +99,13 @@ const AOVisualQuestions = [
     shapes: {
       svg: `<svg viewBox="0 0 200 100" class="ao-question-svg">
         <polygon points="45,20 70,35 62,65 28,65 20,35" fill="none" stroke="#1e3a5f" stroke-width="2"/>
-        <circle cx="62" cy="65" r="4" fill="#d4a853"/>
-        <text x="70" y="68" font-size="10" fill="#d4a853" font-weight="bold">A</text>
+        <circle cx="62" cy="65" r="5" fill="#d4a853"/>
+        <rect x="66" y="58" width="16" height="14" fill="white" rx="2"/>
+        <text x="74" y="69" text-anchor="middle" font-size="12" fill="#1e3a5f" font-weight="bold">A</text>
         <polygon points="150,25 156,45 178,45 160,57 167,78 150,65 133,78 140,57 122,45 144,45" fill="none" stroke="#1e3a5f" stroke-width="2"/>
-        <circle cx="133" cy="78" r="4" fill="#d4a853"/>
-        <text x="125" y="85" font-size="10" fill="#d4a853" font-weight="bold">B</text>
+        <circle cx="133" cy="78" r="5" fill="#d4a853"/>
+        <rect x="117" y="80" width="16" height="14" fill="white" rx="2"/>
+        <text x="125" y="91" text-anchor="middle" font-size="12" fill="#1e3a5f" font-weight="bold">B</text>
       </svg>`
     },
     options: [
@@ -227,11 +233,13 @@ const AOVisualQuestions = [
     shapes: {
       svg: `<svg viewBox="0 0 200 100" class="ao-question-svg">
         <polygon points="45,20 70,20 82,50 70,80 45,80 33,50" fill="none" stroke="#1e3a5f" stroke-width="2"/>
-        <circle cx="82" cy="50" r="4" fill="#d4a853"/>
-        <text x="90" y="53" font-size="10" fill="#d4a853" font-weight="bold">A</text>
+        <circle cx="82" cy="50" r="5" fill="#d4a853"/>
+        <rect x="86" y="43" width="16" height="14" fill="white" rx="2"/>
+        <text x="94" y="54" text-anchor="middle" font-size="12" fill="#1e3a5f" font-weight="bold">A</text>
         <ellipse cx="150" cy="50" rx="30" ry="20" fill="none" stroke="#1e3a5f" stroke-width="2"/>
-        <circle cx="120" cy="50" r="4" fill="#d4a853"/>
-        <text x="112" y="53" font-size="10" fill="#d4a853" font-weight="bold">B</text>
+        <circle cx="120" cy="50" r="5" fill="#d4a853"/>
+        <rect x="96" y="43" width="16" height="14" fill="white" rx="2"/>
+        <text x="104" y="54" text-anchor="middle" font-size="12" fill="#1e3a5f" font-weight="bold">B</text>
       </svg>`
     },
     options: [
@@ -305,11 +313,13 @@ const AOVisualQuestions = [
     shapes: {
       svg: `<svg viewBox="0 0 200 100" class="ao-question-svg">
         <polygon points="50,20 80,50 50,80 20,50" fill="none" stroke="#1e3a5f" stroke-width="2"/>
-        <circle cx="80" cy="50" r="4" fill="#d4a853"/>
-        <text x="88" y="53" font-size="10" fill="#d4a853" font-weight="bold">A</text>
+        <circle cx="80" cy="50" r="5" fill="#d4a853"/>
+        <rect x="84" y="38" width="16" height="14" fill="white" rx="2"/>
+        <text x="92" y="49" text-anchor="middle" font-size="12" fill="#1e3a5f" font-weight="bold">A</text>
         <polygon points="120,50 150,30 150,40 180,40 180,60 150,60 150,70" fill="none" stroke="#1e3a5f" stroke-width="2"/>
-        <circle cx="120" cy="50" r="4" fill="#d4a853"/>
-        <text x="112" y="53" font-size="10" fill="#d4a853" font-weight="bold">B</text>
+        <circle cx="120" cy="50" r="5" fill="#d4a853"/>
+        <rect x="96" y="52" width="16" height="14" fill="white" rx="2"/>
+        <text x="104" y="63" text-anchor="middle" font-size="12" fill="#1e3a5f" font-weight="bold">B</text>
       </svg>`
     },
     options: [
@@ -373,11 +383,13 @@ const AOVisualQuestions = [
     shapes: {
       svg: `<svg viewBox="0 0 200 100" class="ao-question-svg">
         <path d="M 30 50 A 25 25 0 1 1 30 51 M 45 50 A 15 15 0 1 0 45 51" fill="none" stroke="#1e3a5f" stroke-width="2"/>
-        <circle cx="55" cy="50" r="4" fill="#d4a853"/>
-        <text x="63" y="53" font-size="10" fill="#d4a853" font-weight="bold">A</text>
+        <circle cx="55" cy="50" r="5" fill="#d4a853"/>
+        <rect x="59" y="38" width="16" height="14" fill="white" rx="2"/>
+        <text x="67" y="49" text-anchor="middle" font-size="12" fill="#1e3a5f" font-weight="bold">A</text>
         <polygon points="150,25 160,25 160,40 175,40 175,50 160,50 160,65 150,65 150,50 135,50 135,40 150,40" fill="none" stroke="#1e3a5f" stroke-width="2"/>
-        <circle cx="135" cy="45" r="4" fill="#d4a853"/>
-        <text x="127" y="48" font-size="10" fill="#d4a853" font-weight="bold">B</text>
+        <circle cx="135" cy="45" r="5" fill="#d4a853"/>
+        <rect x="113" y="38" width="16" height="14" fill="white" rx="2"/>
+        <text x="121" y="49" text-anchor="middle" font-size="12" fill="#1e3a5f" font-weight="bold">B</text>
       </svg>`
     },
     options: [
@@ -449,12 +461,9 @@ function replaceAOWithVisuals(quizData) {
   const visualQuestions = getVisualAOQuestions();
   let visualIndex = 0;
 
-  console.log('replaceAOWithVisuals called, visual questions available:', visualQuestions.length);
-
   quizData.questions = quizData.questions.map((q, idx) => {
     if (q.sectionCode === 'AO' && visualIndex < visualQuestions.length) {
       const visual = visualQuestions[visualIndex];
-      console.log(`Replacing question ${idx + 1} (AO) with visual ${visualIndex + 1}`);
       visualIndex++;
       return {
         ...q,
@@ -471,7 +480,6 @@ function replaceAOWithVisuals(quizData) {
     return q;
   });
 
-  console.log('Total AO questions replaced with visuals:', visualIndex);
   return quizData;
 }
 
