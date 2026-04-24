@@ -12,7 +12,6 @@
       --navy-900: #0a1628;
       --navy-800: #132039;
       --navy-700: #1e3a5f;
-      --navy-600: #2d5a87;
       --gold-500: #d4a853;
       --gold-400: #e8c17a;
       --gold-300: #f0d69b;
@@ -26,568 +25,126 @@
       --red-500: #ef4444;
       --red-100: #fee2e2;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream-100); color: var(--text-primary); line-height: 1.7; }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--cream-100);
-      color: var(--text-primary);
-      line-height: 1.7;
-    }
-
-    /* Navigation */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 5%;
-      background: var(--white);
-      border-bottom: 1px solid var(--cream-200);
-    }
-
-    .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--navy-900);
-      text-decoration: none;
-    }
-
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: var(--white); border-bottom: 1px solid var(--cream-200); }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 700; color: var(--navy-900); text-decoration: none; }
     .logo span { color: var(--gold-500); }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-secondary);
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: color 0.2s ease;
-    }
-
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-secondary); font-weight: 500; }
     .nav-links a:hover, .nav-links a.active { color: var(--navy-900); }
+    .nav-cta { background: var(--navy-900); color: var(--white); padding: 0.75rem 1.75rem; border-radius: 6px; text-decoration: none; font-weight: 600; }
 
-    .nav-cta {
-      background: var(--navy-900);
-      color: var(--white);
-      padding: 0.75rem 1.75rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.2s ease;
-    }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem 5%; }
+    .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); text-decoration: none; font-weight: 500; margin-bottom: 1.5rem; cursor: pointer; }
+    .back-btn:hover { color: var(--navy-900); }
 
-    .nav-cta:hover {
-      background: var(--navy-700);
-    }
+    .view { display: none; }
+    .view.active { display: block; }
 
-    /* Welcome Section */
-    .welcome {
-      padding: 4rem 5%;
-      text-align: center;
-      background: var(--white);
-    }
-
-    .welcome h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700;
-      color: var(--navy-900);
-      margin-bottom: 1rem;
-    }
-
+    .welcome { text-align: center; padding: 3rem 0; }
+    .welcome h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--navy-900); margin-bottom: 0.75rem; }
     .welcome h1 span { color: var(--gold-500); }
+    .welcome p { font-size: 1.1rem; color: var(--text-secondary); max-width: 550px; margin: 0 auto; }
+
+    .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+    .course-card { background: var(--white); border: 2px solid var(--cream-200); border-radius: 16px; padding: 2rem; cursor: pointer; transition: all 0.25s ease; }
+    .course-card:hover { border-color: var(--gold-400); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(10, 22, 40, 0.08); }
+    .course-card .icon { font-size: 2rem; margin-bottom: 1rem; }
+    .course-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--navy-900); margin-bottom: 0.5rem; }
+    .course-card p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem; }
+    .course-card .meta { font-size: 0.8rem; color: var(--text-secondary); }
+    .course-card.coming-soon { opacity: 0.6; cursor: not-allowed; }
+    .course-card.coming-soon:hover { transform: none; border-color: var(--cream-200); }
+
+    .course-header { text-align: center; padding: 2rem 0 3rem; }
+    .course-header .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .course-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.25rem; color: var(--navy-900); margin-bottom: 0.5rem; }
+    .course-header p { color: var(--text-secondary); font-size: 1.05rem; }
+
+    .chapter-list { display: flex; flex-direction: column; gap: 1rem; }
+    .chapter-card { background: var(--white); border: 2px solid var(--cream-200); border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; gap: 1.25rem; cursor: pointer; transition: all 0.2s; }
+    .chapter-card:hover { border-color: var(--gold-400); }
+    .chapter-card.completed { border-color: var(--green-500); background: var(--green-100); }
+    .chapter-num { width: 44px; height: 44px; background: var(--navy-900); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .chapter-card.completed .chapter-num { background: var(--green-500); }
+    .chapter-info { flex: 1; }
+    .chapter-info h3 { font-size: 1.1rem; color: var(--navy-900); margin-bottom: 0.25rem; }
+    .chapter-info p { font-size: 0.85rem; color: var(--text-secondary); }
+    .chapter-arrow { color: var(--text-secondary); font-size: 1.25rem; }
+
+    .lesson-container { background: var(--white); border-radius: 16px; padding: 2.5rem; border: 1px solid var(--cream-200); }
+    .lesson-header { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--cream-200); }
+    .lesson-header .chapter-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-500); font-weight: 600; margin-bottom: 0.5rem; }
+    .lesson-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; color: var(--navy-900); }
+    .lesson-intro { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem; padding: 1.25rem; background: var(--cream-100); border-radius: 12px; }
+    .concept-section { margin-bottom: 2rem; }
+    .concept-section h3 { font-size: 1.1rem; color: var(--navy-900); margin-bottom: 0.75rem; font-weight: 600; }
+    .concept-section p { color: var(--text-secondary); }
+    .diagram { background: var(--navy-900); color: #7dd3fc; padding: 1.25rem 1.5rem; border-radius: 10px; font-family: 'SF Mono', 'Consolas', 'Monaco', monospace; font-size: 0.85rem; line-height: 1.4; overflow-x: auto; margin: 1rem 0; white-space: pre; }
+    .diagram-svg { background: var(--white); border: 1px solid var(--cream-200); border-radius: 10px; padding: 1rem; margin: 1rem 0; text-align: center; }
+    .diagram-svg svg { max-width: 100%; height: auto; }
+    .example-box { background: var(--cream-100); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; }
+    .example-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold-500); margin-bottom: 1rem; font-weight: 600; }
+    .example-box .problem { font-weight: 600; color: var(--navy-900); margin-bottom: 1rem; }
+    .step { display: flex; gap: 0.75rem; padding: 0.5rem 0; }
+    .step-num { width: 22px; height: 22px; background: var(--navy-900); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+    .step-text { color: var(--text-secondary); }
+    .tip-box { background: linear-gradient(135deg, #ecfdf5, #d1fae5); border-radius: 12px; padding: 1.25rem; margin: 1rem 0; }
+    .summary-box { background: var(--navy-900); color: var(--white); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
+    .summary-box h4 { color: var(--gold-400); margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase; }
+    .start-quiz-btn { display: block; width: 100%; padding: 1.25rem; background: var(--gold-500); color: var(--navy-900); border: none; border-radius: 10px; font-weight: 700; font-size: 1.1rem; cursor: pointer; margin-top: 2rem; font-family: inherit; }
+    .start-quiz-btn:hover { background: var(--gold-400); }
+
+    .quiz-header { text-align: center; margin-bottom: 2rem; }
+    .quiz-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; color: var(--navy-900); margin-bottom: 0.5rem; }
+    .quiz-progress { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1rem; }
+    .quiz-progress-bar { width: 200px; height: 8px; background: var(--cream-200); border-radius: 50px; overflow: hidden; }
+    .quiz-progress-fill { height: 100%; background: var(--gold-500); border-radius: 50px; transition: width 0.3s; }
+
+    .question-card { background: var(--white); border-radius: 16px; padding: 2rem; border: 1px solid var(--cream-200); }
+    .question-text { font-size: 1.15rem; color: var(--navy-900); margin-bottom: 1.5rem; font-weight: 500; }
+    .options-list { list-style: none; }
+    .option-btn { width: 100%; padding: 1rem 1.25rem; margin: 0.5rem 0; background: var(--white); border: 2px solid var(--cream-200); border-radius: 10px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 1rem; text-align: left; font-family: inherit; font-size: 1rem; }
+    .option-btn:hover:not(:disabled) { border-color: var(--gold-400); background: var(--cream-100); }
+    .option-btn.selected { border-color: var(--navy-900); background: var(--navy-900); color: var(--white); }
+    .option-btn.correct { border-color: var(--green-500); background: var(--green-100); color: var(--text-primary); }
+    .option-btn.incorrect { border-color: var(--red-500); background: var(--red-100); color: var(--text-primary); }
+    .option-btn:disabled { cursor: default; }
+    .option-letter { width: 28px; height: 28px; border-radius: 50%; background: var(--cream-200); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.85rem; flex-shrink: 0; }
+    .option-btn.selected .option-letter { background: var(--gold-500); color: var(--navy-900); }
+    .option-btn.correct .option-letter { background: var(--green-500); color: var(--white); }
+    .option-btn.incorrect .option-letter { background: var(--red-500); color: var(--white); }
+
+    .submit-btn { display: block; width: 100%; padding: 1rem; margin-top: 1.5rem; background: var(--navy-900); color: var(--white); border: none; border-radius: 10px; font-weight: 600; font-size: 1rem; cursor: pointer; font-family: inherit; }
+    .submit-btn:hover:not(:disabled) { background: var(--navy-700); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .feedback-box { margin-top: 1.5rem; padding: 1.5rem; border-radius: 12px; display: none; }
+    .feedback-box.show { display: block; }
+    .feedback-box.correct { background: var(--green-100); }
+    .feedback-box.incorrect { background: var(--red-100); }
+    .feedback-box h4 { font-size: 1.1rem; margin-bottom: 0.75rem; }
+    .feedback-box.correct h4 { color: var(--green-500); }
+    .feedback-box.incorrect h4 { color: var(--red-500); }
+    .feedback-box p { color: var(--text-secondary); }
+    .next-btn { margin-top: 1.25rem; padding: 0.875rem 2rem; background: var(--navy-900); color: var(--white); border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: inherit; }
+
+    .results-card { background: var(--white); border-radius: 20px; padding: 3rem; text-align: center; border: 1px solid var(--cream-200); }
+    .results-icon { font-size: 4rem; margin-bottom: 1rem; }
+    .results-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--navy-900); }
+    .results-score { font-size: 3rem; font-weight: 700; color: var(--navy-900); margin: 1rem 0; }
+    .results-score span { color: var(--text-secondary); font-size: 1.5rem; }
+    .results-message { color: var(--text-secondary); margin-bottom: 2rem; }
+    .results-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .result-btn { padding: 1rem 2rem; border-radius: 10px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; font-size: 1rem; }
+    .result-btn.primary { background: var(--navy-900); color: var(--white); }
+    .result-btn.secondary { background: var(--cream-200); color: var(--navy-900); }
 
-    .welcome p {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto 2rem;
-    }
-
-    /* Course Grid */
-    .course-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 5% 4rem;
-    }
-
-    .course-card {
-      background: var(--white);
-      border: 2px solid var(--cream-200);
-      border-radius: 16px;
-      padding: 2rem;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      text-align: left;
-    }
-
-    .course-card:hover {
-      border-color: var(--gold-400);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(10, 22, 40, 0.08);
-    }
-
-    .course-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--navy-900);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .course-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--navy-900);
-      margin-bottom: 0.5rem;
-    }
-
-    .course-card p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin-bottom: 1.25rem;
-    }
-
-    .course-meta {
-      display: flex;
-      gap: 1rem;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-    }
-
-    .course-meta span {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .start-btn {
-      display: inline-block;
-      margin-top: 1.25rem;
-      padding: 0.75rem 1.5rem;
-      background: var(--navy-900);
-      color: var(--white);
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .start-btn:hover {
-      background: var(--navy-700);
-    }
-
-    /* Lesson View */
-    .lesson-view {
-      display: none;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem 5% 4rem;
-    }
-
-    .lesson-view.active {
-      display: block;
-    }
-
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-weight: 500;
-      margin-bottom: 2rem;
-      transition: color 0.2s;
-    }
-
-    .back-btn:hover {
-      color: var(--navy-900);
-    }
-
-    /* Progress Bar */
-    .progress-container {
-      background: var(--cream-200);
-      border-radius: 50px;
-      height: 8px;
-      margin-bottom: 2rem;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
-      border-radius: 50px;
-      transition: width 0.5s ease;
-    }
-
-    .progress-text {
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-    }
-
-    /* Lesson Card */
-    .lesson-card {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 2.5rem;
-      border: 1px solid var(--cream-200);
-      margin-bottom: 1.5rem;
-    }
-
-    .lesson-header {
-      margin-bottom: 2rem;
-    }
-
-    .lesson-step {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--gold-500);
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .lesson-card h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--navy-900);
-    }
-
-    /* Lesson Content Styles */
-    .lesson-content {
-      font-size: 1.05rem;
-      color: var(--text-primary);
-    }
-
-    .lesson-content p {
-      margin-bottom: 1.25rem;
-    }
-
-    .lesson-content strong {
-      color: var(--navy-900);
-    }
-
-    .big-idea {
-      background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 100%);
-      color: var(--white);
-      padding: 2rem;
-      border-radius: 16px;
-      margin: 1.5rem 0;
-      text-align: center;
-    }
-
-    .big-idea p {
-      font-size: 1.25rem;
-      font-weight: 500;
-      margin: 0;
-    }
-
-    .big-idea .formula {
-      font-family: 'Courier New', monospace;
-      font-size: 1.5rem;
-      color: var(--gold-400);
-      margin-top: 0.75rem;
-      display: block;
-    }
-
-    .example-box {
-      background: var(--cream-100);
-      border-radius: 16px;
-      padding: 1.75rem;
-      margin: 1.5rem 0;
-    }
-
-    .example-box h4 {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--gold-500);
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
-
-    .step-by-step {
-      background: var(--white);
-      border: 2px solid var(--cream-200);
-      border-radius: 12px;
-      padding: 1rem 1.25rem;
-      margin: 0.75rem 0;
-    }
-
-    .step-by-step .step-num {
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      background: var(--navy-900);
-      color: var(--white);
-      border-radius: 50%;
-      text-align: center;
-      line-height: 24px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      margin-right: 0.75rem;
-    }
-
-    .highlight-box {
-      background: linear-gradient(135deg, #fef9e7 0%, #fef3c7 100%);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-    }
-
-    .highlight-box strong {
-      color: var(--navy-900);
-    }
-
-    .tip-box {
-      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-    }
-
-    .warning-box {
-      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-    }
-
-    /* Practice Question in Lesson */
-    .practice-question {
-      background: var(--cream-100);
-      border-radius: 16px;
-      padding: 2rem;
-      margin: 2rem 0;
-    }
-
-    .practice-question h4 {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--navy-700);
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
-
-    .practice-question p {
-      font-size: 1.1rem;
-      color: var(--navy-900);
-      font-weight: 500;
-      margin-bottom: 1.25rem;
-    }
-
-    .answer-options {
-      list-style: none;
-    }
-
-    .answer-option {
-      padding: 1rem 1.25rem;
-      margin: 0.5rem 0;
-      background: var(--white);
-      border: 2px solid var(--cream-200);
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .answer-option:hover {
-      border-color: var(--gold-400);
-    }
-
-    .answer-option.selected {
-      border-color: var(--navy-900);
-      background: var(--navy-900);
-      color: var(--white);
-    }
-
-    .answer-option.correct {
-      border-color: var(--green-500);
-      background: var(--green-100);
-      color: var(--green-500);
-    }
-
-    .answer-option.incorrect {
-      border-color: var(--red-500);
-      background: var(--red-100);
-      color: var(--red-500);
-    }
-
-    .answer-letter {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--cream-200);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 0.85rem;
-      flex-shrink: 0;
-    }
-
-    .answer-option.selected .answer-letter {
-      background: var(--gold-500);
-      color: var(--navy-900);
-    }
-
-    .check-answer-btn {
-      margin-top: 1rem;
-      padding: 0.875rem 2rem;
-      background: var(--navy-900);
-      color: var(--white);
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .check-answer-btn:hover {
-      background: var(--navy-700);
-    }
-
-    .answer-feedback {
-      display: none;
-      margin-top: 1.5rem;
-      padding: 1.5rem;
-      border-radius: 12px;
-    }
-
-    .answer-feedback.show {
-      display: block;
-    }
-
-    .answer-feedback.correct {
-      background: var(--green-100);
-    }
-
-    .answer-feedback.incorrect {
-      background: var(--red-100);
-    }
-
-    .answer-feedback h5 {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    /* Navigation Buttons */
-    .lesson-nav {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 2rem;
-      gap: 1rem;
-    }
-
-    .nav-btn {
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: none;
-      font-family: inherit;
-    }
-
-    .nav-btn.secondary {
-      background: var(--cream-200);
-      color: var(--navy-900);
-    }
-
-    .nav-btn.secondary:hover {
-      background: var(--cream-100);
-      border: 2px solid var(--navy-900);
-    }
-
-    .nav-btn.primary {
-      background: var(--navy-900);
-      color: var(--white);
-    }
-
-    .nav-btn.primary:hover {
-      background: var(--navy-700);
-    }
-
-    .nav-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    /* Word Parts Visual */
-    .word-breakdown {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      margin: 1.5rem 0;
-      flex-wrap: wrap;
-    }
-
-    .word-part {
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      text-align: center;
-    }
-
-    .word-part.prefix {
-      background: #dbeafe;
-    }
-
-    .word-part.root {
-      background: #fef3c7;
-    }
-
-    .word-part.suffix {
-      background: #dcfce7;
-    }
-
-    .word-part .part {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--navy-900);
-    }
-
-    .word-part .meaning {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      margin-top: 0.25rem;
-    }
-
-    .word-part .equals {
-      font-size: 1.5rem;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-    }
-
-    /* Responsive */
     @media (max-width: 768px) {
       .nav-links, .nav-cta { display: none; }
-      .lesson-card { padding: 1.5rem; }
-      .lesson-nav { flex-direction: column; }
+      .lesson-container, .results-card { padding: 1.5rem; }
     }
   </style>
 </head>
@@ -602,1535 +159,259 @@
     <a href="select-test.html" class="nav-cta">Take a Practice Test</a>
   </nav>
 
-  <!-- HOME VIEW -->
-  <div id="home-view">
-    <section class="welcome">
-      <h1>Learn the <span>ASVAB</span>, Step by Step</h1>
-      <p>Choose a subject below to start a guided lesson. We'll walk you through everything you need to know — no confusing textbooks, just simple explanations.</p>
-    </section>
-
-    <div class="course-grid">
-      <div class="course-card" onclick="startCourse('AR')">
-        <div class="course-icon">📐</div>
-        <h3>Arithmetic Reasoning</h3>
-        <p>Learn to solve word problems with confidence. We'll teach you the tricks to translate English into math.</p>
-        <div class="course-meta">
-          <span>📚 5 Lessons</span>
-          <span>⏱️ ~30 min</span>
-        </div>
-        <span class="start-btn">Start Learning →</span>
+  <div class="container">
+    <div class="view active" id="home-view">
+      <div class="welcome">
+        <h1>Learn the <span>ASVAB</span></h1>
+        <p>Choose a subject to start learning. Each chapter has a lesson and a quiz you must pass to continue.</p>
       </div>
+      <div class="course-grid" id="course-grid"></div>
+    </div>
 
-      <div class="course-card" onclick="startCourse('MK')">
-        <div class="course-icon">🔢</div>
-        <h3>Math Knowledge</h3>
-        <p>Master algebra and geometry basics. We'll make formulas easy to remember and use.</p>
-        <div class="course-meta">
-          <span>📚 5 Lessons</span>
-          <span>⏱️ ~30 min</span>
-        </div>
-        <span class="start-btn">Start Learning →</span>
-      </div>
+    <div class="view" id="course-view">
+      <span class="back-btn" onclick="showView('home')">← Back to Courses</span>
+      <div class="course-header" id="course-header"></div>
+      <div class="chapter-list" id="chapter-list"></div>
+    </div>
 
-      <div class="course-card" onclick="startCourse('WK')">
-        <div class="course-icon">📖</div>
-        <h3>Word Knowledge</h3>
-        <p>Build your vocabulary fast. Learn word parts that unlock the meaning of thousands of words.</p>
-        <div class="course-meta">
-          <span>📚 4 Lessons</span>
-          <span>⏱️ ~25 min</span>
-        </div>
-        <span class="start-btn">Start Learning →</span>
-      </div>
+    <div class="view" id="lesson-view">
+      <span class="back-btn" id="lesson-back-btn">← Back to Chapters</span>
+      <div class="lesson-container" id="lesson-container"></div>
+    </div>
 
-      <div class="course-card" onclick="startCourse('PC')">
-        <div class="course-icon">📄</div>
-        <h3>Paragraph Comprehension</h3>
-        <p>Learn how to quickly understand passages and find the right answers in the text.</p>
-        <div class="course-meta">
-          <span>📚 4 Lessons</span>
-          <span>⏱️ ~25 min</span>
+    <div class="view" id="quiz-view">
+      <div class="quiz-header">
+        <h2 id="quiz-title">Chapter Quiz</h2>
+        <div class="quiz-progress">
+          <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill"></div></div>
+          <span id="quiz-progress-text">1 of 6</span>
         </div>
-        <span class="start-btn">Start Learning →</span>
       </div>
+      <div class="question-card" id="question-card"></div>
+    </div>
+
+    <div class="view" id="results-view">
+      <div class="results-card" id="results-card"></div>
     </div>
   </div>
 
-  <!-- ARITHMETIC REASONING LESSONS -->
-  <div class="lesson-view" id="AR-view">
-    <a href="#" class="back-btn" onclick="goHome()">← Back to All Courses</a>
-
-    <div class="progress-container">
-      <div class="progress-bar" id="AR-progress" style="width: 20%"></div>
-    </div>
-    <p class="progress-text" id="AR-progress-text">Lesson 1 of 5</p>
-
-    <!-- AR LESSON 1 -->
-    <div class="lesson-card" id="AR-lesson-1">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 1</p>
-        <h2>What is Arithmetic Reasoning?</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p>Let's start with the basics. <strong>Arithmetic Reasoning is just word problems.</strong> You'll read a short story, figure out what math to do, and solve it.</p>
-
-        <p>Here's the good news: you only need basic math — adding, subtracting, multiplying, and dividing. The tricky part is figuring out WHICH operation to use.</p>
-
-        <div class="big-idea">
-          <p>The secret to word problems:</p>
-          <span class="formula">Read → Translate → Solve → Check</span>
-        </div>
-
-        <p>Let's break that down:</p>
-
-        <div class="example-box">
-          <h4>The 4-Step Method</h4>
-          <div class="step-by-step">
-            <span class="step-num">1</span>
-            <strong>Read</strong> the problem carefully. What are they asking for?
-          </div>
-          <div class="step-by-step">
-            <span class="step-num">2</span>
-            <strong>Translate</strong> the words into math (we'll teach you how!)
-          </div>
-          <div class="step-by-step">
-            <span class="step-num">3</span>
-            <strong>Solve</strong> the math problem
-          </div>
-          <div class="step-by-step">
-            <span class="step-num">4</span>
-            <strong>Check</strong> — does your answer make sense?
-          </div>
-        </div>
-
-        <div class="tip-box">
-          <strong>💡 Pro tip:</strong> Always read the LAST sentence first! That's usually what they're asking you to find.
-        </div>
-
-        <div class="practice-question" data-correct="2">
-          <h4>Quick Check</h4>
-          <p>In Arithmetic Reasoning, what's the hardest part?</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> Doing the math calculations
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> Reading fast enough
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> Figuring out which math operation to use
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> Memorizing formulas
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" disabled>← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('AR', 2)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- AR LESSON 2 -->
-    <div class="lesson-card" id="AR-lesson-2" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 2</p>
-        <h2>Translating Words to Math</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p>Here's where the magic happens. <strong>Certain words ALWAYS mean certain math operations.</strong> Once you know these, word problems become way easier.</p>
-
-        <div class="big-idea">
-          <p>Words are just math in disguise</p>
-        </div>
-
-        <div class="example-box">
-          <h4>Addition Words (+)</h4>
-          <p>When you see these words, you'll probably ADD:</p>
-          <p><strong>sum, total, combined, altogether, increased by, more than, plus, in all</strong></p>
-          <div class="step-by-step">
-            <span class="step-num">→</span>
-            "John has 5 apples and gets 3 <strong>more</strong>" = 5 + 3
-          </div>
-        </div>
-
-        <div class="example-box">
-          <h4>Subtraction Words (−)</h4>
-          <p>When you see these words, you'll probably SUBTRACT:</p>
-          <p><strong>difference, fewer, less than, decreased by, remain, left over, minus</strong></p>
-          <div class="step-by-step">
-            <span class="step-num">→</span>
-            "She had 10 cookies and ate 4. How many <strong>remain</strong>?" = 10 − 4
-          </div>
-        </div>
-
-        <div class="example-box">
-          <h4>Multiplication Words (×)</h4>
-          <p>When you see these words, you'll probably MULTIPLY:</p>
-          <p><strong>times, product, of, each, per (sometimes), doubled, tripled</strong></p>
-          <div class="step-by-step">
-            <span class="step-num">→</span>
-            "5 boxes with 12 items <strong>each</strong>" = 5 × 12
-          </div>
-        </div>
-
-        <div class="example-box">
-          <h4>Division Words (÷)</h4>
-          <p>When you see these words, you'll probably DIVIDE:</p>
-          <p><strong>per, each (when splitting), divided by, ratio, split equally, average</strong></p>
-          <div class="step-by-step">
-            <span class="step-num">→</span>
-            "60 miles in 3 hours. What's the speed <strong>per</strong> hour?" = 60 ÷ 3
-          </div>
-        </div>
-
-        <div class="warning-box">
-          <strong>⚠️ Watch out:</strong> "Less than" is backwards! "5 less than 12" means 12 − 5, not 5 − 12.
-        </div>
-
-        <div class="practice-question" data-correct="1">
-          <h4>Try It</h4>
-          <p>"Maria earned $240 and split it equally among 4 friends." What operation?</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> Addition
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> Division
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> Multiplication
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> Subtraction
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('AR', 1)">← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('AR', 3)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- AR LESSON 3 -->
-    <div class="lesson-card" id="AR-lesson-3" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 3</p>
-        <h2>Ratios: Comparing Things</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p><strong>Ratios are the #1 most tested topic</strong> on Arithmetic Reasoning. Good news — they're actually pretty simple once you get the hang of it.</p>
-
-        <p>A ratio just compares two numbers. "3 to 4" or "3:4" or "3/4" all mean the same thing.</p>
-
-        <div class="big-idea">
-          <p>The Golden Rule of Ratios</p>
-          <span class="formula">Set up a proportion: a/b = c/d</span>
-          <span class="formula" style="font-size: 1.2rem; margin-top: 0.5rem;">Then cross-multiply!</span>
-        </div>
-
-        <div class="example-box">
-          <h4>Real Example</h4>
-          <p><strong>Problem:</strong> If 3 apples cost $2, how much do 12 apples cost?</p>
-
-          <div class="step-by-step">
-            <span class="step-num">1</span>
-            Set up the proportion: <strong>3 apples / $2 = 12 apples / $?</strong>
-          </div>
-          <div class="step-by-step">
-            <span class="step-num">2</span>
-            Write it as fractions: <strong>3/2 = 12/x</strong>
-          </div>
-          <div class="step-by-step">
-            <span class="step-num">3</span>
-            Cross-multiply: <strong>3 × x = 2 × 12</strong>
-          </div>
-          <div class="step-by-step">
-            <span class="step-num">4</span>
-            Solve: <strong>3x = 24</strong>, so <strong>x = 8</strong>
-          </div>
-          <div class="step-by-step">
-            <span class="step-num">✓</span>
-            Answer: <strong>$8</strong>
-          </div>
-        </div>
-
-        <div class="tip-box">
-          <strong>💡 Always check your work:</strong> 3 apples = $2 means each apple is about 67 cents. 12 × $0.67 = $8. ✓ It matches!
-        </div>
-
-        <div class="practice-question" data-correct="2">
-          <h4>Your Turn</h4>
-          <p>A car travels 150 miles on 6 gallons of gas. How many gallons are needed to travel 400 miles?</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> 14 gallons
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> 15 gallons
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> 16 gallons
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> 18 gallons
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('AR', 2)">← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('AR', 4)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- AR LESSON 4 -->
-    <div class="lesson-card" id="AR-lesson-4" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 4</p>
-        <h2>Percentages Made Simple</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p>Percentages show up everywhere — discounts, taxes, tips, test scores. Let's make them easy.</p>
-
-        <p><strong>"Percent" literally means "per 100."</strong> So 25% just means 25 out of 100, or 25/100, or 0.25.</p>
-
-        <div class="big-idea">
-          <p>The Percent Formula</p>
-          <span class="formula">Part = Whole × Percent (as decimal)</span>
-        </div>
-
-        <div class="example-box">
-          <h4>Converting Percents to Decimals</h4>
-          <p>Just move the decimal point 2 places LEFT:</p>
-          <div class="step-by-step">
-            <span class="step-num">→</span>
-            25% = 0.25
-          </div>
-          <div class="step-by-step">
-            <span class="step-num">→</span>
-            8% = 0.08
-          </div>
-          <div class="step-by-step">
-            <span class="step-num">→</span>
-            150% = 1.50
-          </div>
-        </div>
-
-        <div class="example-box">
-          <h4>Finding a Percent of Something</h4>
-          <p><strong>What is 20% of 80?</strong></p>
-          <div class="step-by-step">
-            <span class="step-num">1</span>
-            Convert: 20% = 0.20
-          </div>
-          <div class="step-by-step">
-            <span class="step-num">2</span>
-            Multiply: 80 × 0.20 = <strong>16</strong>
-          </div>
-        </div>
-
-        <div class="example-box">
-          <h4>Discounts (Percent OFF)</h4>
-          <p><strong>A $50 jacket is 20% off. What's the sale price?</strong></p>
-          <div class="step-by-step">
-            <span class="step-num">1</span>
-            Find the discount: $50 × 0.20 = $10 off
-          </div>
-          <div class="step-by-step">
-            <span class="step-num">2</span>
-            Subtract: $50 − $10 = <strong>$40</strong>
-          </div>
-          <p style="margin-top: 1rem;"><strong>Shortcut:</strong> 20% off means you pay 80%. So: $50 × 0.80 = $40</p>
-        </div>
-
-        <div class="warning-box">
-          <strong>⚠️ Common trap:</strong> If something INCREASED by 20% to become $60, don't just subtract 20%! The original was $60 ÷ 1.20 = $50.
-        </div>
-
-        <div class="practice-question" data-correct="1">
-          <h4>Your Turn</h4>
-          <p>A $80 jacket is 25% off, then you pay 8% sales tax. What's the final price?</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> $60.00
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> $64.80
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> $68.40
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> $72.00
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('AR', 3)">← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('AR', 5)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- AR LESSON 5 -->
-    <div class="lesson-card" id="AR-lesson-5" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 5</p>
-        <h2>Distance, Rate, and Time</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p>These problems are everywhere on the ASVAB. A car travels, a plane flies, someone walks... they all use the same simple formula.</p>
-
-        <div class="big-idea">
-          <p>The DRT Triangle</p>
-          <span class="formula">Distance = Rate × Time</span>
-          <span class="formula" style="font-size: 1rem; margin-top: 0.5rem;">D = R × T &nbsp;&nbsp;|&nbsp;&nbsp; R = D ÷ T &nbsp;&nbsp;|&nbsp;&nbsp; T = D ÷ R</span>
-        </div>
-
-        <div class="example-box">
-          <h4>Basic Example</h4>
-          <p><strong>A car travels at 60 mph for 3 hours. How far does it go?</strong></p>
-          <div class="step-by-step">
-            <span class="step-num">→</span>
-            Distance = Rate × Time = 60 × 3 = <strong>180 miles</strong>
-          </div>
-        </div>
-
-        <div class="example-box">
-          <h4>Finding Rate (Speed)</h4>
-          <p><strong>You drove 150 miles in 3 hours. What was your speed?</strong></p>
-          <div class="step-by-step">
-            <span class="step-num">→</span>
-            Rate = Distance ÷ Time = 150 ÷ 3 = <strong>50 mph</strong>
-          </div>
-        </div>
-
-        <div class="highlight-box">
-          <strong>Two Objects Moving</strong>
-          <p style="margin-top: 0.5rem;">• Moving TOWARD each other? <strong>ADD</strong> their speeds.</p>
-          <p>• Moving AWAY from each other? <strong>ADD</strong> their speeds.</p>
-          <p>• Moving in the SAME direction? <strong>SUBTRACT</strong> their speeds.</p>
-        </div>
-
-        <div class="example-box">
-          <h4>Two Cars Problem</h4>
-          <p><strong>Two cars start together, going opposite directions at 55 mph and 45 mph. When are they 300 miles apart?</strong></p>
-          <div class="step-by-step">
-            <span class="step-num">1</span>
-            They're moving apart, so ADD speeds: 55 + 45 = 100 mph
-          </div>
-          <div class="step-by-step">
-            <span class="step-num">2</span>
-            Time = Distance ÷ Rate = 300 ÷ 100 = <strong>3 hours</strong>
-          </div>
-        </div>
-
-        <div class="warning-box">
-          <strong>⚠️ Never average speeds!</strong> If you drive 30 mph one way and 60 mph back, the average speed is NOT 45 mph. You need to calculate total distance ÷ total time.
-        </div>
-
-        <div class="practice-question" data-correct="1">
-          <h4>Final Challenge</h4>
-          <p>A plane flies 600 miles in 2 hours. How long will it take to fly 1,500 miles at the same speed?</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> 4 hours
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> 5 hours
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> 6 hours
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> 7.5 hours
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-
-        <div class="tip-box" style="margin-top: 2rem;">
-          <strong>🎉 You completed Arithmetic Reasoning!</strong><br>
-          You've learned the key concepts. Now practice with real test questions to build speed and confidence.
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('AR', 4)">← Previous</button>
-        <button class="nav-btn primary" onclick="goHome()">Back to Courses ✓</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- WORD KNOWLEDGE LESSONS -->
-  <div class="lesson-view" id="WK-view">
-    <a href="#" class="back-btn" onclick="goHome()">← Back to All Courses</a>
-
-    <div class="progress-container">
-      <div class="progress-bar" id="WK-progress" style="width: 25%"></div>
-    </div>
-    <p class="progress-text" id="WK-progress-text">Lesson 1 of 4</p>
-
-    <!-- WK LESSON 1 -->
-    <div class="lesson-card" id="WK-lesson-1">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 1</p>
-        <h2>The Secret to Vocabulary</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p>Here's something most people don't know: <strong>you don't need to memorize thousands of words.</strong> Instead, learn about 50 word parts, and you can figure out the meaning of thousands of words.</p>
-
-        <p>English words are like LEGO blocks. They're built from smaller pieces:</p>
-
-        <div class="big-idea">
-          <p>Words = Prefix + Root + Suffix</p>
-        </div>
-
-        <div class="word-breakdown">
-          <div class="word-part prefix">
-            <div class="part">UN</div>
-            <div class="meaning">not</div>
-          </div>
-          <div class="word-part equals">+</div>
-          <div class="word-part root">
-            <div class="part">BELIEV</div>
-            <div class="meaning">believe</div>
-          </div>
-          <div class="word-part equals">+</div>
-          <div class="word-part suffix">
-            <div class="part">ABLE</div>
-            <div class="meaning">capable of</div>
-          </div>
-          <div class="word-part equals">=</div>
-          <div class="word-part" style="background: var(--navy-900); color: white;">
-            <div class="part">UNBELIEVABLE</div>
-            <div class="meaning" style="color: var(--gold-400);">not capable of being believed</div>
-          </div>
-        </div>
-
-        <p>See how that works? If you know the pieces, you can decode any word — even ones you've never seen before!</p>
-
-        <div class="tip-box">
-          <strong>💡 On the ASVAB:</strong> You only have 30 seconds per question. There's no time to think hard. Knowing word parts lets you make fast, confident guesses.
-        </div>
-
-        <div class="practice-question" data-correct="0">
-          <h4>Quick Check</h4>
-          <p>What's the smartest way to build vocabulary for the ASVAB?</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> Learn word parts (prefixes, roots, suffixes)
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> Memorize the entire dictionary
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> Just guess randomly
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> Skip this section
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" disabled>← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('WK', 2)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- WK LESSON 2 -->
-    <div class="lesson-card" id="WK-lesson-2" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 2</p>
-        <h2>Prefixes: The Beginning</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p><strong>Prefixes go at the START of words</strong> and change the meaning. Here are the most important ones:</p>
-
-        <div class="example-box">
-          <h4>UN-, IN-, IM-, DIS- = NOT</h4>
-          <p>These all mean "not" or "opposite of":</p>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>un</strong>happy = NOT happy</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>in</strong>visible = NOT visible</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>im</strong>possible = NOT possible</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>dis</strong>agree = NOT agree</div>
-        </div>
-
-        <div class="example-box">
-          <h4>RE- = AGAIN</h4>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>re</strong>do = do AGAIN</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>re</strong>build = build AGAIN</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>re</strong>view = view AGAIN</div>
-        </div>
-
-        <div class="example-box">
-          <h4>PRE- = BEFORE</h4>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>pre</strong>view = view BEFORE</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>pre</strong>heat = heat BEFORE</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>pre</strong>dict = say BEFORE (it happens)</div>
-        </div>
-
-        <div class="example-box">
-          <h4>More Key Prefixes</h4>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>anti-</strong> = against (antiwar, antibody)</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>sub-</strong> = under (submarine, subway)</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>super-</strong> = above (superhero, supernatural)</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>mis-</strong> = wrong (mistake, misunderstand)</div>
-        </div>
-
-        <div class="practice-question" data-correct="2">
-          <h4>Try It</h4>
-          <p>What does "prehistoric" most likely mean?</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> After history
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> Against history
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> Before history
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> Under history
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('WK', 1)">← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('WK', 3)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- WK LESSON 3 -->
-    <div class="lesson-card" id="WK-lesson-3" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 3</p>
-        <h2>Roots: The Core Meaning</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p><strong>Roots are the heart of the word.</strong> They carry the main meaning. Learn these and you unlock huge chunks of English vocabulary.</p>
-
-        <div class="example-box">
-          <h4>BENE- = GOOD</h4>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>bene</strong>fit = something GOOD</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>bene</strong>volent = wishing GOOD (kind)</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>bene</strong>factor = one who does GOOD</div>
-        </div>
-
-        <div class="example-box">
-          <h4>MAL- = BAD</h4>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>mal</strong>ice = BAD intent</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>mal</strong>function = work BADLY</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>mal</strong>evolent = wishing BAD (evil)</div>
-        </div>
-
-        <div class="highlight-box">
-          <strong>Notice the pattern?</strong><br>
-          BENE (good) + volent = kind<br>
-          MAL (bad) + volent = evil<br>
-          <br>
-          Same ending, opposite meanings — because the ROOT changed!
-        </div>
-
-        <div class="example-box">
-          <h4>More Key Roots</h4>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>aud-</strong> = hear (audio, audience, audible)</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>vid/vis-</strong> = see (video, vision, visible)</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>dict-</strong> = say/speak (dictate, predict, dictionary)</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>port-</strong> = carry (transport, portable, export)</div>
-          <div class="step-by-step"><span class="step-num">→</span> <strong>rupt-</strong> = break (rupture, interrupt, erupt)</div>
-        </div>
-
-        <div class="practice-question" data-correct="1">
-          <h4>Try It</h4>
-          <p>BENEVOLENT most nearly means:</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> Angry
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> Kind
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> Loud
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> Weak
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('WK', 2)">← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('WK', 4)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- WK LESSON 4 -->
-    <div class="lesson-card" id="WK-lesson-4" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 4</p>
-        <h2>Test-Taking Strategy</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p>You only have <strong>30 seconds per question</strong>. Here's how to use that time wisely:</p>
-
-        <div class="big-idea">
-          <p>The 3-Step Speed Method</p>
-        </div>
-
-        <div class="example-box">
-          <h4>Step 1: Positive or Negative?</h4>
-          <p>First, decide: is this word GOOD or BAD?</p>
-          <div class="step-by-step"><span class="step-num">→</span> "Benevolent" sounds like "bene" = good. It's POSITIVE.</div>
-          <div class="step-by-step"><span class="step-num">→</span> "Hostile" sounds harsh. It's NEGATIVE.</div>
-          <p style="margin-top: 1rem;"><strong>Now eliminate answers with the wrong tone!</strong></p>
-        </div>
-
-        <div class="example-box">
-          <h4>Step 2: Look for Word Parts</h4>
-          <p>Break the word down. Do you recognize any pieces?</p>
-          <div class="step-by-step"><span class="step-num">→</span> "Inaudible" = in (not) + aud (hear) + ible (able) = not able to be heard</div>
-        </div>
-
-        <div class="example-box">
-          <h4>Step 3: Trust Your Gut</h4>
-          <p>If you've heard the word before, your first instinct is usually right. Don't overthink!</p>
-        </div>
-
-        <div class="warning-box">
-          <strong>⚠️ Common Trap:</strong> Watch for words that SOUND similar but mean different things.<br><br>
-          • "Illicit" (illegal) vs "Elicit" (draw out)<br>
-          • "Accept" (receive) vs "Except" (exclude)
-        </div>
-
-        <div class="practice-question" data-correct="2">
-          <h4>Final Challenge</h4>
-          <p>IMPEDE most nearly means:</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> Help
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> Speed up
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> Block
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> Move
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-
-        <div class="tip-box" style="margin-top: 2rem;">
-          <strong>🎉 You completed Word Knowledge!</strong><br>
-          Keep practicing with flashcards and reading to build your vocabulary over time.
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('WK', 3)">← Previous</button>
-        <button class="nav-btn primary" onclick="goHome()">Back to Courses ✓</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MK LESSONS (Similar structure) -->
-  <div class="lesson-view" id="MK-view">
-    <a href="#" class="back-btn" onclick="goHome()">← Back to All Courses</a>
-
-    <div class="progress-container">
-      <div class="progress-bar" id="MK-progress" style="width: 20%"></div>
-    </div>
-    <p class="progress-text" id="MK-progress-text">Lesson 1 of 5</p>
-
-    <!-- MK LESSON 1 -->
-    <div class="lesson-card" id="MK-lesson-1">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 1</p>
-        <h2>What is Math Knowledge?</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p>Good news: <strong>Math Knowledge is NOT word problems.</strong> It's straightforward math — you see an equation, you solve it.</p>
-
-        <p>Bad news: <strong>You only have 75 seconds per question</strong> and no calculator. So you need to know your stuff!</p>
-
-        <div class="big-idea">
-          <p>What You Need to Know</p>
-          <span class="formula">Algebra + Geometry + Basic Number Rules</span>
-        </div>
-
-        <div class="example-box">
-          <h4>The Good News</h4>
-          <p>It's all stuff you learned in school:</p>
-          <div class="step-by-step"><span class="step-num">→</span> Solving equations (find x)</div>
-          <div class="step-by-step"><span class="step-num">→</span> Exponents (x², x³)</div>
-          <div class="step-by-step"><span class="step-num">→</span> Area and perimeter</div>
-          <div class="step-by-step"><span class="step-num">→</span> Basic geometry (triangles, circles)</div>
-        </div>
-
-        <div class="tip-box">
-          <strong>💡 Pro tip:</strong> Since there's no calculator, practice doing math by hand. And memorize common squares: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100.
-        </div>
-
-        <div class="practice-question" data-correct="1">
-          <h4>Quick Check</h4>
-          <p>What makes Math Knowledge different from Arithmetic Reasoning?</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> You can use a calculator
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> No word problems — just straight math
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> It's only about geometry
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> You have unlimited time
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" disabled>← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('MK', 2)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- MK LESSON 2 -->
-    <div class="lesson-card" id="MK-lesson-2" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 2</p>
-        <h2>Solving Equations</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p>Equations are like a balance scale. <strong>Whatever you do to one side, you MUST do to the other.</strong></p>
-
-        <div class="big-idea">
-          <p>The Golden Rule</p>
-          <span class="formula">Keep the equation balanced!</span>
-        </div>
-
-        <div class="example-box">
-          <h4>Example: Solve 3x + 5 = 20</h4>
-          <div class="step-by-step"><span class="step-num">1</span> We want x alone. First, get rid of the +5</div>
-          <div class="step-by-step"><span class="step-num">2</span> Subtract 5 from BOTH sides: 3x = 15</div>
-          <div class="step-by-step"><span class="step-num">3</span> Now get rid of the 3. Divide BOTH sides by 3: x = 5</div>
-          <div class="step-by-step"><span class="step-num">✓</span> Check: 3(5) + 5 = 15 + 5 = 20 ✓</div>
-        </div>
-
-        <div class="highlight-box">
-          <strong>The order matters!</strong><br>
-          1. First, add or subtract to move numbers<br>
-          2. Then, multiply or divide to get x alone
-        </div>
-
-        <div class="example-box">
-          <h4>Example: Solve 5x - 12 = 3x + 8</h4>
-          <div class="step-by-step"><span class="step-num">1</span> Get all x's on one side. Subtract 3x from both: 2x - 12 = 8</div>
-          <div class="step-by-step"><span class="step-num">2</span> Add 12 to both sides: 2x = 20</div>
-          <div class="step-by-step"><span class="step-num">3</span> Divide both sides by 2: x = 10</div>
-        </div>
-
-        <div class="practice-question" data-correct="2">
-          <h4>Your Turn</h4>
-          <p>Solve: 4x + 7 = 31</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> x = 4
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> x = 5
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> x = 6
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> x = 8
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('MK', 1)">← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('MK', 3)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- MK LESSON 3 -->
-    <div class="lesson-card" id="MK-lesson-3" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 3</p>
-        <h2>Exponents Made Easy</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p>Exponents are just shorthand for repeated multiplication. <strong>x³ means x × x × x</strong>.</p>
-
-        <div class="big-idea">
-          <p>The 3 Exponent Rules</p>
-        </div>
-
-        <div class="example-box">
-          <h4>Rule 1: Multiplying = ADD exponents</h4>
-          <div class="step-by-step"><span class="step-num">→</span> x³ × x⁴ = x⁷ (because 3 + 4 = 7)</div>
-          <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
-            Think of it: (x·x·x) × (x·x·x·x) = x·x·x·x·x·x·x = x⁷
-          </p>
-        </div>
-
-        <div class="example-box">
-          <h4>Rule 2: Dividing = SUBTRACT exponents</h4>
-          <div class="step-by-step"><span class="step-num">→</span> x⁸ ÷ x³ = x⁵ (because 8 - 3 = 5)</div>
-        </div>
-
-        <div class="example-box">
-          <h4>Rule 3: Power of a power = MULTIPLY exponents</h4>
-          <div class="step-by-step"><span class="step-num">→</span> (x³)² = x⁶ (because 3 × 2 = 6)</div>
-          <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
-            Think of it: (x³)² = x³ × x³ = x⁶
-          </p>
-        </div>
-
-        <div class="highlight-box">
-          <strong>Special cases:</strong><br>
-          • x⁰ = 1 (anything to the zero power equals 1)<br>
-          • x¹ = x (anything to the first power is itself)
-        </div>
-
-        <div class="practice-question" data-correct="2">
-          <h4>Your Turn</h4>
-          <p>Simplify: (x²)³ × x⁴</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> x⁹
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> x⁸
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> x¹⁰
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> x²⁴
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('MK', 2)">← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('MK', 4)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- MK LESSON 4 -->
-    <div class="lesson-card" id="MK-lesson-4" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 4</p>
-        <h2>The Pythagorean Theorem</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p><strong>This is THE most tested geometry concept.</strong> It works for right triangles (triangles with a 90° angle).</p>
-
-        <div class="big-idea">
-          <p>a² + b² = c²</p>
-          <span class="formula">c is always the LONGEST side (hypotenuse)</span>
-        </div>
-
-        <div class="example-box">
-          <h4>Example: Find the missing side</h4>
-          <p>A right triangle has legs of 3 and 4. What's the hypotenuse?</p>
-          <div class="step-by-step"><span class="step-num">1</span> a² + b² = c²</div>
-          <div class="step-by-step"><span class="step-num">2</span> 3² + 4² = c²</div>
-          <div class="step-by-step"><span class="step-num">3</span> 9 + 16 = c²</div>
-          <div class="step-by-step"><span class="step-num">4</span> 25 = c², so c = 5</div>
-        </div>
-
-        <div class="highlight-box">
-          <strong>🔥 Memorize these "Pythagorean Triples":</strong><br><br>
-          • <strong>3 - 4 - 5</strong> (most common!)<br>
-          • <strong>5 - 12 - 13</strong><br>
-          • <strong>8 - 15 - 17</strong><br><br>
-          Multiples work too! 3-4-5 doubled = 6-8-10
-        </div>
-
-        <div class="practice-question" data-correct="1">
-          <h4>Your Turn</h4>
-          <p>A right triangle has legs of 6 and 8. What's the hypotenuse?</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> 9
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> 10
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> 12
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> 14
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('MK', 3)">← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('MK', 5)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- MK LESSON 5 -->
-    <div class="lesson-card" id="MK-lesson-5" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 5</p>
-        <h2>Circles: Area and Circumference</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p>You WILL see circle problems. Here are the two formulas you need:</p>
-
-        <div class="big-idea">
-          <p>Circle Formulas</p>
-          <span class="formula">Area = πr² &nbsp;&nbsp;|&nbsp;&nbsp; Circumference = 2πr</span>
-        </div>
-
-        <div class="warning-box">
-          <strong>⚠️ #1 Mistake:</strong> Using diameter instead of radius!<br><br>
-          <strong>Radius</strong> = distance from center to edge<br>
-          <strong>Diameter</strong> = distance across the whole circle = 2 × radius<br><br>
-          If they give you diameter, <strong>divide by 2 first!</strong>
-        </div>
-
-        <div class="example-box">
-          <h4>Example: Circle with diameter 10</h4>
-          <p>Find the area.</p>
-          <div class="step-by-step"><span class="step-num">1</span> Diameter = 10, so radius = 10 ÷ 2 = 5</div>
-          <div class="step-by-step"><span class="step-num">2</span> Area = πr² = π × 5² = π × 25 = <strong>25π</strong></div>
-        </div>
-
-        <div class="tip-box">
-          <strong>💡 On the ASVAB:</strong> Answers are often left in terms of π (like "25π" instead of "78.54"). Don't waste time calculating π = 3.14...
-        </div>
-
-        <div class="practice-question" data-correct="0">
-          <h4>Final Challenge</h4>
-          <p>A circle has radius 6. What is its area?</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> 36π
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> 12π
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> 6π
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> 72π
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-
-        <div class="tip-box" style="margin-top: 2rem;">
-          <strong>🎉 You completed Math Knowledge!</strong><br>
-          Practice these concepts until they're automatic — you need to be fast on test day.
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('MK', 4)">← Previous</button>
-        <button class="nav-btn primary" onclick="goHome()">Back to Courses ✓</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- PC LESSONS -->
-  <div class="lesson-view" id="PC-view">
-    <a href="#" class="back-btn" onclick="goHome()">← Back to All Courses</a>
-
-    <div class="progress-container">
-      <div class="progress-bar" id="PC-progress" style="width: 25%"></div>
-    </div>
-    <p class="progress-text" id="PC-progress-text">Lesson 1 of 4</p>
-
-    <!-- PC LESSON 1 -->
-    <div class="lesson-card" id="PC-lesson-1">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 1</p>
-        <h2>Reading Smarter, Not Harder</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p>Paragraph Comprehension isn't about reading fast — it's about <strong>reading smart</strong>. Here's the key insight:</p>
-
-        <div class="big-idea">
-          <p>The answer is ALWAYS in the passage</p>
-          <span class="formula">Don't guess. Don't use outside knowledge. Find it in the text.</span>
-        </div>
-
-        <p>This is actually great news! You don't need to know anything about the topic. You just need to find where the answer is hiding.</p>
-
-        <div class="example-box">
-          <h4>The Smart Reading Method</h4>
-          <div class="step-by-step"><span class="step-num">1</span> Read the QUESTION first (not the passage!)</div>
-          <div class="step-by-step"><span class="step-num">2</span> Now you know what to look for</div>
-          <div class="step-by-step"><span class="step-num">3</span> Read the passage with that question in mind</div>
-          <div class="step-by-step"><span class="step-num">4</span> Find the sentence that answers it</div>
-          <div class="step-by-step"><span class="step-num">5</span> Pick the answer that matches</div>
-        </div>
-
-        <div class="tip-box">
-          <strong>💡 Pro tip:</strong> You have about 2.5 minutes per question — that's plenty of time to re-read parts of the passage. Don't rush!
-        </div>
-
-        <div class="practice-question" data-correct="0">
-          <h4>Quick Check</h4>
-          <p>What should you do FIRST when tackling a Paragraph Comprehension question?</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> Read the question
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> Read the whole passage carefully
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> Look at the answer choices
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> Guess based on the topic
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" disabled>← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('PC', 2)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- PC LESSON 2 -->
-    <div class="lesson-card" id="PC-lesson-2" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 2</p>
-        <h2>Finding the Main Idea</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p><strong>"What is this passage mainly about?"</strong> — You'll see this question a lot. Here's how to nail it every time.</p>
-
-        <div class="big-idea">
-          <p>Main Idea = The BIG Picture</p>
-          <span class="formula">Not a tiny detail. Not too broad. Just right.</span>
-        </div>
-
-        <div class="example-box">
-          <h4>Where to Find It</h4>
-          <div class="step-by-step"><span class="step-num">1</span> Check the FIRST sentence — it often states the main point</div>
-          <div class="step-by-step"><span class="step-num">2</span> Check the LAST sentence — it often summarizes</div>
-          <div class="step-by-step"><span class="step-num">3</span> Ask yourself: "If I had to summarize this in ONE sentence, what would I say?"</div>
-        </div>
-
-        <div class="highlight-box">
-          <strong>Eliminate wrong answers:</strong><br><br>
-          ❌ <strong>Too narrow</strong> — Only covers one detail from the passage<br>
-          ❌ <strong>Too broad</strong> — Goes beyond what the passage discusses<br>
-          ✓ <strong>Just right</strong> — Covers the whole passage, nothing more
-        </div>
-
-        <div class="example-box">
-          <h4>Example Passage</h4>
-          <p style="background: var(--cream-200); padding: 1rem; border-radius: 8px; font-style: italic;">
-            "The honeybee is one of the most important insects on Earth. Without bees, many foods we eat would not exist. Bees pollinate about 80% of flowering plants, including many fruits and vegetables."
-          </p>
-          <p style="margin-top: 1rem;"><strong>Main idea?</strong> Bees are important because they pollinate our food.</p>
-          <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
-            NOT "bees pollinate 80% of plants" (too specific) or "insects are important" (too broad)
-          </p>
-        </div>
-
-        <div class="practice-question" data-correct="1">
-          <h4>Try It</h4>
-          <p>A passage about how smartphones have changed communication would have which main idea?</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> Phones can send text messages
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> Smartphones have transformed how people communicate
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> Technology is changing the world
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> The first iPhone came out in 2007
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('PC', 1)">← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('PC', 3)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- PC LESSON 3 -->
-    <div class="lesson-card" id="PC-lesson-3" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 3</p>
-        <h2>Making Inferences</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p><strong>"It can be inferred..."</strong> or <strong>"The author implies..."</strong> — These questions ask you to read between the lines.</p>
-
-        <div class="big-idea">
-          <p>Inference ≠ Guessing</p>
-          <span class="formula">It's a logical conclusion SUPPORTED by the text</span>
-        </div>
-
-        <div class="example-box">
-          <h4>How Inferences Work</h4>
-          <p style="background: var(--cream-200); padding: 1rem; border-radius: 8px; font-style: italic;">
-            "Sarah grabbed her umbrella and raincoat before leaving the house."
-          </p>
-          <p style="margin-top: 1rem;"><strong>What can we infer?</strong></p>
-          <div class="step-by-step"><span class="step-num">✓</span> It was raining or about to rain (supported by umbrella + raincoat)</div>
-          <div class="step-by-step"><span class="step-num">✗</span> Sarah is afraid of getting wet (not supported — we don't know her feelings)</div>
-          <div class="step-by-step"><span class="step-num">✗</span> It was winter (not supported — rain happens in any season)</div>
-        </div>
-
-        <div class="warning-box">
-          <strong>⚠️ Common trap:</strong> An answer might be TRUE in real life, but if it's not supported by THIS passage, it's WRONG.
-        </div>
-
-        <div class="tip-box">
-          <strong>💡 The test:</strong> Can you point to words in the passage that support your inference? If not, pick a different answer.
-        </div>
-
-        <div class="practice-question" data-correct="1">
-          <h4>Try It</h4>
-          <p>"Fleming discovered penicillin in 1928 but couldn't produce it in large quantities. Mass production methods weren't developed until 1941."</p>
-          <p style="margin-top: 0.5rem;"><strong>What can be inferred about penicillin before 1941?</strong></p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> It was widely used in hospitals
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> It was only available in limited amounts
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> Fleming kept it secret
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> It didn't work very well
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('PC', 2)">← Previous</button>
-        <button class="nav-btn primary" onclick="nextLesson('PC', 4)">Next Lesson →</button>
-      </div>
-    </div>
-
-    <!-- PC LESSON 4 -->
-    <div class="lesson-card" id="PC-lesson-4" style="display: none;">
-      <div class="lesson-header">
-        <p class="lesson-step">Lesson 4</p>
-        <h2>Elimination Tricks</h2>
-      </div>
-
-      <div class="lesson-content">
-        <p>Even if you're not 100% sure of the right answer, you can often <strong>eliminate the wrong ones</strong>.</p>
-
-        <div class="big-idea">
-          <p>Words That Signal Wrong Answers</p>
-        </div>
-
-        <div class="example-box">
-          <h4>Extreme Words = Usually WRONG</h4>
-          <p>Be suspicious of answers containing:</p>
-          <div class="step-by-step"><span class="step-num">❌</span> <strong>always, never, all, none, every, only</strong></div>
-          <p style="margin-top: 0.5rem; font-size: 0.9rem;">These are too absolute. Real passages rarely make such extreme claims.</p>
-        </div>
-
-        <div class="example-box">
-          <h4>Moderate Words = Often RIGHT</h4>
-          <p>These are safer bets:</p>
-          <div class="step-by-step"><span class="step-num">✓</span> <strong>some, many, often, may, might, usually, sometimes</strong></div>
-          <p style="margin-top: 0.5rem; font-size: 0.9rem;">These leave room for exceptions, which is more realistic.</p>
-        </div>
-
-        <div class="highlight-box">
-          <strong>Quick Elimination Checklist:</strong><br><br>
-          ❌ Does it use extreme words? (Probably wrong)<br>
-          ❌ Is it too narrow? (Just one detail)<br>
-          ❌ Is it too broad? (Beyond the passage)<br>
-          ❌ Does it contradict the passage?<br>
-          ❌ Is it not mentioned at all?<br>
-        </div>
-
-        <div class="tip-box">
-          <strong>💡 When stuck between two answers:</strong> Go back to the passage and find the EXACT sentence that supports one of them. The right answer almost always has direct textual support.
-        </div>
-
-        <div class="practice-question" data-correct="2">
-          <h4>Final Challenge</h4>
-          <p>Which answer is MOST LIKELY to be correct for a reading question?</p>
-          <ul class="answer-options">
-            <li class="answer-option" data-index="0">
-              <span class="answer-letter">A</span> "All scientists agree that..."
-            </li>
-            <li class="answer-option" data-index="1">
-              <span class="answer-letter">B</span> "This never happens because..."
-            </li>
-            <li class="answer-option" data-index="2">
-              <span class="answer-letter">C</span> "This often occurs when..."
-            </li>
-            <li class="answer-option" data-index="3">
-              <span class="answer-letter">D</span> "Everyone always believes..."
-            </li>
-          </ul>
-          <button class="check-answer-btn">Check My Answer</button>
-          <div class="answer-feedback">
-            <h5></h5>
-            <p></p>
-          </div>
-        </div>
-
-        <div class="tip-box" style="margin-top: 2rem;">
-          <strong>🎉 You completed Paragraph Comprehension!</strong><br>
-          Practice with real passages to build your speed and confidence.
-        </div>
-      </div>
-
-      <div class="lesson-nav">
-        <button class="nav-btn secondary" onclick="prevLesson('PC', 3)">← Previous</button>
-        <button class="nav-btn primary" onclick="goHome()">Back to Courses ✓</button>
-      </div>
-    </div>
-  </div>
-
+  <script src="js/courses.js"></script>
   <script>
-    // Lesson data for feedback
-    const lessonAnswers = {
-      'AR-1': { correct: 2, right: "Exactly! The math itself is basic — the challenge is figuring out what operation to use.", wrong: "Not quite. The math is actually pretty simple — it's translating the words into math that's tricky." },
-      'AR-2': { correct: 1, right: "Yes! 'Split equally' means divide. $240 ÷ 4 = $60 each.", wrong: "Look for the keyword 'split equally' — that means divide!" },
-      'AR-3': { correct: 2, right: "Perfect! 150/6 = 400/x → x = 16 gallons. You've got this!", wrong: "Set up the proportion: 150/6 = 400/x, then cross-multiply." },
-      'AR-4': { correct: 1, right: "Nailed it! $80 × 0.75 = $60 after discount, then $60 × 1.08 = $64.80 with tax.", wrong: "First apply the 25% discount, then add 8% tax to the discounted price." },
-      'AR-5': { correct: 1, right: "Excellent! Rate = 600÷2 = 300 mph. Time = 1500÷300 = 5 hours.", wrong: "First find the speed (600÷2=300mph), then find time for 1500 miles." },
-      'WK-1': { correct: 0, right: "Exactly! Learning word parts is the most efficient way to build vocabulary fast.", wrong: "Think about what's most efficient — memorizing thousands of words, or learning ~50 building blocks?" },
-      'WK-2': { correct: 2, right: "Yes! 'Pre-' means before, so prehistoric = before history.", wrong: "Remember: pre- means BEFORE. Think of preview, predict, prepare." },
-      'WK-3': { correct: 1, right: "Perfect! Bene = good, volent = wishing. Good-wishing = kind!", wrong: "Break it down: BENE means good. Benevolent = good-wishing = kind." },
-      'WK-4': { correct: 2, right: "Correct! Impede means to block or obstruct. An impediment is an obstacle.", wrong: "Think of 'impediment' — something that blocks your way. Impede = block." },
-      'MK-1': { correct: 1, right: "Right! Math Knowledge is straightforward equations and formulas — no word problems.", wrong: "The key difference is no word problems — just direct math questions." },
-      'MK-2': { correct: 2, right: "Perfect! 4x + 7 = 31 → 4x = 24 → x = 6", wrong: "Subtract 7 from both sides, then divide by 4." },
-      'MK-3': { correct: 2, right: "Excellent! (x²)³ = x⁶ (multiply), then x⁶ × x⁴ = x¹⁰ (add).", wrong: "Power of power = multiply (2×3=6), then add for multiplication (6+4=10)." },
-      'MK-4': { correct: 1, right: "Yes! This is 3-4-5 doubled: 6-8-10. Or: 36+64=100, √100=10.", wrong: "Use the Pythagorean theorem: 6² + 8² = c²" },
-      'MK-5': { correct: 0, right: "Perfect! Area = πr² = π × 6² = 36π", wrong: "Area = πr². Don't forget to square the radius!" },
-      'PC-1': { correct: 0, right: "Exactly! Read the question first so you know what to look for.", wrong: "Read the QUESTION first — then you know what to look for in the passage." },
-      'PC-2': { correct: 1, right: "Perfect! It's specific enough but covers the whole topic.", wrong: "A is too narrow (one detail), C is too broad, D is a specific fact." },
-      'PC-3': { correct: 1, right: "Correct! 'Couldn't produce in large quantities' = limited availability.", wrong: "The passage says he 'couldn't produce in large quantities' — what does that imply?" },
-      'PC-4': { correct: 2, right: "Yes! 'Often' is moderate. The extreme words (all, never, always) are usually wrong.", wrong: "Look for moderate words. Extreme words like 'all', 'never', 'always' are red flags." }
-    };
+    let currentCourse = null, currentChapter = null, currentQuiz = null;
+    let currentQuestionIndex = 0, score = 0, selectedOption = null, answered = false;
+    let completedChapters = JSON.parse(localStorage.getItem('completedChapters') || '{}');
 
-    function goHome() {
-      document.getElementById('home-view').style.display = 'block';
-      document.querySelectorAll('.lesson-view').forEach(v => v.classList.remove('active'));
+    function showView(name) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById(name + '-view').classList.add('active');
       window.scrollTo(0, 0);
     }
 
-    function startCourse(code) {
-      document.getElementById('home-view').style.display = 'none';
-      document.getElementById(code + '-view').classList.add('active');
-      showLesson(code, 1);
-      window.scrollTo(0, 0);
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
     }
 
-    function showLesson(code, num) {
-      const view = document.getElementById(code + '-view');
-      view.querySelectorAll('.lesson-card').forEach(c => c.style.display = 'none');
-      document.getElementById(code + '-lesson-' + num).style.display = 'block';
+    function initHome() {
+      const grid = document.getElementById('course-grid');
+      grid.innerHTML = '';
 
-      const totalLessons = view.querySelectorAll('.lesson-card').length;
-      const progress = (num / totalLessons) * 100;
-      document.getElementById(code + '-progress').style.width = progress + '%';
-      document.getElementById(code + '-progress-text').textContent = 'Lesson ' + num + ' of ' + totalLessons;
+      const allCourses = [
+        { code: 'AR', available: true },
+        { code: 'MK', available: true },
+        { code: 'WK', available: true },
+        { code: 'PC', available: true }
+      ];
 
-      window.scrollTo(0, 0);
+      allCourses.forEach(({code, available}) => {
+        const course = courses[code];
+        const card = document.createElement('div');
+
+        if (course && available) {
+          const done = course.chapters.filter(ch => completedChapters[ch.id]).length;
+          card.className = 'course-card';
+          card.onclick = () => showCourse(code);
+          card.innerHTML = `
+            <div class="icon">${course.icon}</div>
+            <h3>${course.name}</h3>
+            <p>${course.description}</p>
+            <div class="meta">${course.chapters.length} chapters • ${done}/${course.chapters.length} completed</div>
+          `;
+        } else {
+          const names = { MK: 'Math Knowledge', WK: 'Word Knowledge', PC: 'Paragraph Comprehension' };
+          const icons = { MK: '🔢', WK: '📖', PC: '📄' };
+          card.className = 'course-card coming-soon';
+          card.innerHTML = `
+            <div class="icon">${icons[code]}</div>
+            <h3>${names[code]}</h3>
+            <p>Coming soon</p>
+            <div class="meta">In development</div>
+          `;
+        }
+        grid.appendChild(card);
+      });
     }
 
-    function nextLesson(code, num) {
-      showLesson(code, num);
+    function showCourse(code) {
+      currentCourse = courses[code];
+      showView('course');
+      document.getElementById('course-header').innerHTML = `
+        <div class="icon">${currentCourse.icon}</div>
+        <h1>${currentCourse.name}</h1>
+        <p>${currentCourse.description}</p>
+      `;
+      const list = document.getElementById('chapter-list');
+      list.innerHTML = '';
+      currentCourse.chapters.forEach((ch, i) => {
+        const done = completedChapters[ch.id];
+        const card = document.createElement('div');
+        card.className = 'chapter-card' + (done ? ' completed' : '');
+        card.onclick = () => showLesson(ch);
+        card.innerHTML = `
+          <div class="chapter-num">${done ? '✓' : i + 1}</div>
+          <div class="chapter-info"><h3>${ch.title}</h3><p>${ch.description}</p></div>
+          <div class="chapter-arrow">→</div>
+        `;
+        list.appendChild(card);
+      });
     }
 
-    function prevLesson(code, num) {
-      showLesson(code, num);
-    }
+    function showLesson(chapter) {
+      currentChapter = chapter;
+      showView('lesson');
+      document.getElementById('lesson-back-btn').onclick = () => showCourse(Object.keys(courses).find(k => courses[k] === currentCourse));
 
-    // Practice question handling
-    document.querySelectorAll('.practice-question').forEach(q => {
-      const options = q.querySelectorAll('.answer-option');
-      const btn = q.querySelector('.check-answer-btn');
-      const feedback = q.querySelector('.answer-feedback');
-      const correctIdx = parseInt(q.dataset.correct);
-      let selected = null;
+      let html = `
+        <div class="lesson-header">
+          <p class="chapter-label">Chapter ${currentCourse.chapters.indexOf(chapter) + 1}</p>
+          <h2>${chapter.title}</h2>
+        </div>
+        <div class="lesson-intro">${chapter.lesson.intro}</div>
+      `;
 
-      options.forEach(opt => {
-        opt.addEventListener('click', () => {
-          if (feedback.classList.contains('show')) return;
-          options.forEach(o => o.classList.remove('selected'));
-          opt.classList.add('selected');
-          selected = parseInt(opt.dataset.index);
-        });
+      chapter.lesson.concepts.forEach(c => {
+        const visual = c.svg ? `<div class="diagram-svg">${c.svg}</div>` : (c.diagram ? `<pre class="diagram">${c.diagram}</pre>` : '');
+        html += `<div class="concept-section"><h3>${c.title}</h3><p>${c.content}</p>${visual}</div>`;
       });
 
-      btn.addEventListener('click', () => {
-        if (selected === null) return alert('Please select an answer!');
-
-        const lessonCard = q.closest('.lesson-card');
-        const lessonId = lessonCard.id;
-        const code = lessonId.split('-')[0];
-        const lessonNum = lessonId.split('-')[2];
-        const key = code + '-' + lessonNum;
-        const data = lessonAnswers[key];
-
-        options.forEach((opt, i) => {
-          opt.classList.remove('selected');
-          if (i === correctIdx) opt.classList.add('correct');
-          else if (i === selected && i !== correctIdx) opt.classList.add('incorrect');
-        });
-
-        const isCorrect = selected === correctIdx;
-        feedback.classList.add('show', isCorrect ? 'correct' : 'incorrect');
-        feedback.querySelector('h5').textContent = isCorrect ? '✓ Correct!' : '✗ Not quite';
-        feedback.querySelector('p').textContent = isCorrect ? data.right : data.wrong;
-        btn.style.display = 'none';
+      chapter.lesson.examples.forEach(ex => {
+        const visual = ex.svg ? `<div class="diagram-svg">${ex.svg}</div>` : (ex.diagram ? `<pre class="diagram">${ex.diagram}</pre>` : '');
+        html += `
+          <div class="example-box">
+            <h4>Worked Example</h4>
+            <p class="problem">${ex.problem}</p>
+            ${visual}
+            ${ex.steps.map((s, i) => `<div class="step"><span class="step-num">${i + 1}</span><span class="step-text">${s}</span></div>`).join('')}
+            ${ex.tip ? `<div class="tip-box"><strong>💡 Tip:</strong> ${ex.tip}</div>` : ''}
+          </div>
+        `;
       });
-    });
+
+      html += `
+        <div class="summary-box"><h4>Key Takeaway</h4><p>${chapter.lesson.summary}</p></div>
+        <button class="start-quiz-btn" onclick="startQuiz()">Start Chapter Quiz →</button>
+      `;
+      document.getElementById('lesson-container').innerHTML = html;
+    }
+
+    function startQuiz() {
+      const qs = shuffleArray(currentChapter.questions).slice(0, currentChapter.quizConfig.questionsPerQuiz);
+      currentQuiz = qs.map(q => ({ ...q, options: shuffleArray([...q.options]) }));
+      currentQuestionIndex = 0;
+      score = 0;
+      showView('quiz');
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = currentQuiz[currentQuestionIndex];
+      selectedOption = null;
+      answered = false;
+      document.getElementById('quiz-progress-fill').style.width = (currentQuestionIndex / currentQuiz.length * 100) + '%';
+      document.getElementById('quiz-progress-text').textContent = `${currentQuestionIndex + 1} of ${currentQuiz.length}`;
+      document.getElementById('quiz-title').textContent = currentChapter.title + ' Quiz';
+
+      const letters = ['A', 'B', 'C', 'D'];
+      document.getElementById('question-card').innerHTML = `
+        <p class="question-text">${q.text}</p>
+        <ul class="options-list">
+          ${q.options.map((o, i) => `
+            <button class="option-btn" data-index="${i}" onclick="selectOption(${i})">
+              <span class="option-letter">${letters[i]}</span><span>${o.text}</span>
+            </button>
+          `).join('')}
+        </ul>
+        <button class="submit-btn" onclick="submitAnswer()" disabled>Check Answer</button>
+        <div class="feedback-box" id="feedback-box">
+          <h4 id="feedback-title"></h4>
+          <p id="feedback-text"></p>
+          <button class="next-btn" onclick="nextQuestion()">Continue</button>
+        </div>
+      `;
+    }
+
+    function selectOption(i) {
+      if (answered) return;
+      selectedOption = i;
+      document.querySelectorAll('.option-btn').forEach((b, j) => b.classList.toggle('selected', j === i));
+      document.querySelector('.submit-btn').disabled = false;
+    }
+
+    function submitAnswer() {
+      if (selectedOption === null || answered) return;
+      answered = true;
+      const q = currentQuiz[currentQuestionIndex];
+      const correctIdx = q.options.findIndex(o => o.correct);
+      const isCorrect = selectedOption === correctIdx;
+      if (isCorrect) score++;
+
+      document.querySelectorAll('.option-btn').forEach((b, i) => {
+        b.disabled = true;
+        b.classList.remove('selected');
+        if (i === correctIdx) b.classList.add('correct');
+        else if (i === selectedOption && !isCorrect) b.classList.add('incorrect');
+      });
+
+      const fb = document.getElementById('feedback-box');
+      fb.className = 'feedback-box show ' + (isCorrect ? 'correct' : 'incorrect');
+      document.getElementById('feedback-title').textContent = isCorrect ? '✓ Correct!' : '✗ Incorrect';
+      document.getElementById('feedback-text').textContent = q.options[selectedOption].explanation;
+      document.querySelector('.submit-btn').style.display = 'none';
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex >= currentQuiz.length) showResults();
+      else showQuestion();
+    }
+
+    function showResults() {
+      showView('results');
+      const pct = score / currentQuiz.length;
+      const passed = pct >= currentChapter.quizConfig.passingScore;
+      if (passed) {
+        completedChapters[currentChapter.id] = true;
+        localStorage.setItem('completedChapters', JSON.stringify(completedChapters));
+      }
+      const need = Math.ceil(currentChapter.quizConfig.passingScore * currentQuiz.length);
+      document.getElementById('results-card').innerHTML = `
+        <div class="results-icon">${passed ? '🎉' : '📚'}</div>
+        <h2>${passed ? 'Chapter Complete!' : 'Keep Practicing'}</h2>
+        <div class="results-score">${score}<span>/${currentQuiz.length}</span></div>
+        <p class="results-message">${passed ? "Great job! You've mastered this chapter." : `You need ${need} correct to pass. Review the lesson and try again!`}</p>
+        <div class="results-buttons">
+          ${passed ? `<button class="result-btn primary" onclick="showCourse('${Object.keys(courses).find(k => courses[k] === currentCourse)}')">Continue Learning</button>` :
+            `<button class="result-btn primary" onclick="showLesson(currentChapter)">Review Lesson</button>
+             <button class="result-btn secondary" onclick="startQuiz()">Try Quiz Again</button>`}
+        </div>
+      `;
+    }
+
+    initHome();
   </script>
-
-  <footer style="background: #0a1628; color: #f2efe8; padding: 2rem 5%; text-align: center; margin-top: 3rem;">
-    <p style="font-size: 0.8rem; line-height: 1.6; max-width: 800px; margin: 0 auto 1rem; opacity: 0.8;">This website is not affiliated with, endorsed by, or sponsored by the U.S. Department of Defense, any branch of the U.S. Armed Forces, or the official ASVAB program. "ASVAB" is a registered trademark of the U.S. Department of Defense. This is an independent practice resource only.</p>
-    <p style="font-size: 0.75rem; opacity: 0.6;">© 2024 ASVABPro. For educational purposes only.</p>
-  </footer>
 </body>
 </html>
