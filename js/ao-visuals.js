@@ -449,9 +449,12 @@ function replaceAOWithVisuals(quizData) {
   const visualQuestions = getVisualAOQuestions();
   let visualIndex = 0;
 
-  quizData.questions = quizData.questions.map(q => {
+  console.log('replaceAOWithVisuals called, visual questions available:', visualQuestions.length);
+
+  quizData.questions = quizData.questions.map((q, idx) => {
     if (q.sectionCode === 'AO' && visualIndex < visualQuestions.length) {
       const visual = visualQuestions[visualIndex];
+      console.log(`Replacing question ${idx + 1} (AO) with visual ${visualIndex + 1}`);
       visualIndex++;
       return {
         ...q,
@@ -468,6 +471,7 @@ function replaceAOWithVisuals(quizData) {
     return q;
   });
 
+  console.log('Total AO questions replaced with visuals:', visualIndex);
   return quizData;
 }
 

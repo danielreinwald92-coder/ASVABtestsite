@@ -243,6 +243,7 @@ class QuizEngine {
     const questionTextEl = document.getElementById('questionText');
 
     // Check if this is a visual AO question
+    console.log('Q' + questionNum, 'isVisual:', question.isVisual, 'section:', question.sectionCode, 'hasSvg:', !!question.shapeSvg);
     if (question.isVisual && question.shapeSvg) {
       questionTextEl.innerHTML = `
         <div class="ao-question-container">
