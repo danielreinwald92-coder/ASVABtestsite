@@ -249,94 +249,129 @@
 
     .score-card {
       background: var(--white);
-      border-radius: 20px;
-      padding: 2.5rem;
+      border-radius: 24px;
+      padding: 2rem;
       box-shadow: 0 25px 80px rgba(10, 22, 40, 0.12);
       width: 380px;
       animation: floatIn 0.8s ease-out 0.3s both;
       position: relative;
       z-index: 2;
+      text-align: center;
+      overflow: hidden;
     }
 
-    .score-header {
-      display: flex;
-      justify-content: space-between;
+    .score-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
+    }
+
+    .score-card .completion-badge {
+      display: inline-flex;
       align-items: center;
-      margin-bottom: 2rem;
+      gap: 0.4rem;
+      background: #e8f5f0;
+      color: #2d8a6e;
+      padding: 0.4rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
     }
 
-    .score-title {
+    .score-card .completion-badge::before {
+      content: "✓";
+      font-weight: 700;
+    }
+
+    .greeting-text {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.1rem;
+    }
+
+    .user-name-preview {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 1.25rem;
+    }
+
+    .afqt-section-preview {
+      margin-bottom: 1rem;
+    }
+
+    .afqt-label-preview {
+      font-size: 0.7rem;
       font-weight: 600;
       color: var(--text-secondary);
-      font-size: 0.9rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.25rem;
     }
 
-    .score-date {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    .score-display {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .score-number {
+    .afqt-score-preview {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 6rem;
+      font-size: 4.5rem;
       font-weight: 700;
       color: var(--navy-900);
       line-height: 1;
     }
 
-    .score-label {
-      font-size: 1rem;
+    .afqt-percentile-preview {
+      font-size: 0.85rem;
       color: var(--gold-500);
       font-weight: 600;
-      margin-top: 0.5rem;
+      margin-top: 0.25rem;
     }
 
-    .score-progress {
-      background: var(--cream-200);
-      height: 8px;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 1.5rem;
+    .score-message-preview {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--navy-900);
+      margin-bottom: 0.25rem;
     }
 
-    .score-progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
-      border-radius: 10px;
-      width: 0%;
-      animation: progressFill 1.5s ease-out 0.8s forwards;
+    .score-desc-preview {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      padding: 0 0.5rem;
     }
 
-    .score-subjects {
+    .stats-preview {
+      display: flex;
+      justify-content: space-around;
+      gap: 0.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--cream-200);
+    }
+
+    .stat-preview {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .subject {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 0.75rem 1rem;
-      background: var(--cream-100);
-      border-radius: 8px;
     }
 
-    .subject-name {
-      font-weight: 500;
-      color: var(--text-primary);
+    .stat-value-preview {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      line-height: 1;
     }
 
-    .subject-score {
-      font-weight: 600;
-      color: var(--navy-700);
+    .stat-value-preview.correct { color: #2d8a6e; }
+    .stat-value-preview.incorrect { color: #c53030; }
+
+    .stat-label-preview {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
     }
 
     /* Decorative Elements */
@@ -870,29 +905,28 @@
     <div class="hero-visual">
       <div class="decoration-circle"></div>
       <div class="score-card">
-        <div class="score-header">
-          <span class="score-title">Estimated AFQT Score</span>
-          <span class="score-date">87th Percentile</span>
+        <div class="completion-badge">Test Complete</div>
+        <p class="greeting-text">Great work,</p>
+        <p class="user-name-preview">Sarah M.</p>
+        <div class="afqt-section-preview">
+          <p class="afqt-label-preview">Estimated AFQT Score</p>
+          <div class="afqt-score-preview">87</div>
+          <p class="afqt-percentile-preview">87th Percentile</p>
         </div>
-        <div class="score-display">
-          <div class="score-number">87</div>
-          <div class="score-label">Excellent Work!</div>
-        </div>
-        <div class="score-progress">
-          <div class="score-progress-bar"></div>
-        </div>
-        <div class="score-subjects">
-          <div class="subject">
-            <span class="subject-name">Correct Answers</span>
-            <span class="subject-score" style="color: #2d8a6e;">22</span>
+        <h3 class="score-message-preview">Excellent Work!</h3>
+        <p class="score-desc-preview">You're well above the minimum requirements and qualify for many career fields.</p>
+        <div class="stats-preview">
+          <div class="stat-preview">
+            <span class="stat-value-preview correct">22</span>
+            <span class="stat-label-preview">Correct</span>
           </div>
-          <div class="subject">
-            <span class="subject-name">Incorrect Answers</span>
-            <span class="subject-score" style="color: #c53030;">3</span>
+          <div class="stat-preview">
+            <span class="stat-value-preview incorrect">3</span>
+            <span class="stat-label-preview">Incorrect</span>
           </div>
-          <div class="subject">
-            <span class="subject-name">Time Used</span>
-            <span class="subject-score">8:42</span>
+          <div class="stat-preview">
+            <span class="stat-value-preview">8:42</span>
+            <span class="stat-label-preview">Time</span>
           </div>
         </div>
       </div>
