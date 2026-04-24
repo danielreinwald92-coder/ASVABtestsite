@@ -386,6 +386,59 @@
       background: var(--success);
     }
 
+    .breakdown-section {
+      margin-bottom: 1rem;
+    }
+
+    .missed-questions {
+      background: var(--cream-100);
+      border-radius: 0 0 10px 10px;
+      padding: 1rem;
+      margin-top: -0.5rem;
+      border-top: 1px dashed var(--cream-200);
+    }
+
+    .missed-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .missed-question {
+      background: var(--white);
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      border-left: 3px solid var(--error);
+    }
+
+    .missed-question:last-child {
+      margin-bottom: 0;
+    }
+
+    .missed-q-text {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .missed-answer {
+      font-size: 0.85rem;
+      margin: 0.25rem 0;
+    }
+
+    .missed-answer .wrong {
+      color: var(--error);
+      font-weight: 600;
+    }
+
+    .missed-answer .right {
+      color: var(--success);
+      font-weight: 600;
+    }
+
     @media (max-width: 768px) {
       .section-breakdown {
         padding: 1.5rem;
@@ -399,6 +452,14 @@
       .breakdown-bar {
         width: 100%;
         order: 3;
+      }
+
+      .missed-questions {
+        padding: 0.75rem;
+      }
+
+      .missed-question {
+        padding: 0.6rem;
       }
     }
 
@@ -688,10 +749,15 @@
       }
 
       document.getElementById('userName').textContent = userName;
-      document.getElementById('afqtScore').textContent = results.afqt;
-      document.getElementById('afqtPercentile').textContent = `${results.afqt}${getOrdinalSuffix(results.afqt)} Percentile`;
-      document.getElementById('correctCount').textContent = results.correct;
-      document.getElementById('incorrectCount').textContent = results.incorrect;
+
+      // Handle null AFQT (single section tests)
+      const displayScore = results.afqt || results.score || 0;
+      document.getElementById('afqtScore').textContent = displayScore;
+      document.getElementById('afqtPercentile').textContent = results.afqt
+        ? `${results.afqt}${getOrdinalSuffix(results.afqt)} Percentile`
+        : `${results.score}% Correct`;
+      document.getElementById('correctCount').textContent = results.correct || 0;
+      document.getElementById('incorrectCount').textContent = results.incorrect || 0;
 
       const minutes = Math.floor(results.timeUsed / 60);
       const seconds = results.timeUsed % 60;
@@ -762,13 +828,30 @@
         const statusClass = needsWork ? 'needs-work' : 'good';
         const name = sectionNames[code] || data.name || code;
 
+        // Get missed questions for this section
+        const missedQuestions = data.questions ? data.questions.filter(q => !q.isCorrect) : [];
+
         html += `
-          <div class="breakdown-item ${statusClass}">
-            <span class="breakdown-section-name">${name}</span>
-            <span class="breakdown-score">${data.correct}/${data.total} ${missed > 0 ? `(${missed} missed)` : ''}</span>
-            <div class="breakdown-bar">
-              <div class="breakdown-fill" style="width: ${percent}%"></div>
+          <div class="breakdown-section">
+            <div class="breakdown-item ${statusClass}">
+              <span class="breakdown-section-name">${name}</span>
+              <span class="breakdown-score">${data.correct}/${data.total} ${missed > 0 ? `(${missed} missed)` : ''}</span>
+              <div class="breakdown-bar">
+                <div class="breakdown-fill" style="width: ${percent}%"></div>
+              </div>
             </div>
+            ${missedQuestions.length > 0 ? `
+              <div class="missed-questions">
+                <p class="missed-label">Questions to review:</p>
+                ${missedQuestions.map(q => `
+                  <div class="missed-question">
+                    <p class="missed-q-text">${q.text.substring(0, 150)}${q.text.length > 150 ? '...' : ''}</p>
+                    <p class="missed-answer"><span class="wrong">Your answer:</span> ${q.options[q.userAnswer] || 'Skipped'}</p>
+                    <p class="missed-answer"><span class="right">Correct:</span> ${q.options[q.correctAnswer]}</p>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
           </div>
         `;
       }
