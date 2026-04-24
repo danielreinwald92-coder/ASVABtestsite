@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASVAB Practice - Select Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-900: #0a1628;
+      --navy-800: #132039;
+      --navy-700: #1e3a5f;
+      --gold-500: #d4a853;
+      --gold-400: #e8c17a;
+      --gold-300: #f0d69b;
+      --cream-100: #faf8f5;
+      --cream-200: #f2efe8;
+      --white: #ffffff;
+      --text-primary: #0a1628;
+      --text-secondary: #4a5568;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream-100);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-200);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--gold-500); }
+
+    .back-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover { color: var(--navy-900); }
+
+    .main-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+    }
+
+    /* Test Type Selection */
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 1.5rem;
+    }
+
+    .test-type-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .test-type-card {
+      background: var(--white);
+      border: 3px solid var(--cream-200);
+      border-radius: 20px;
+      padding: 2rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .test-type-card:hover {
+      border-color: var(--gold-400);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(10, 22, 40, 0.1);
+    }
+
+    .test-type-card.selected {
+      border-color: var(--navy-900);
+      box-shadow: 0 8px 30px rgba(10, 22, 40, 0.15);
+    }
+
+    .test-type-card.selected::after {
+      content: "✓";
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 28px;
+      height: 28px;
+      background: var(--navy-900);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .test-type-badge {
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      background: var(--cream-100);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--navy-700);
+      margin-bottom: 1rem;
+    }
+
+    .test-type-card.selected .test-type-badge {
+      background: var(--gold-300);
+      color: var(--navy-900);
+    }
+
+    .test-type-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .test-type-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .test-type-details {
+      display: flex;
+      gap: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--cream-200);
+    }
+
+    .detail {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detail-value {
+      font-weight: 700;
+      color: var(--navy-900);
+      font-size: 1.1rem;
+    }
+
+    .detail-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    /* Section Info */
+    .section-info-box {
+      margin-bottom: 2rem;
+    }
+
+    .section-info-text {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .section-card {
+      background: var(--white);
+      border: 2px solid var(--cream-200);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-card.included {
+      border-color: var(--gold-400);
+      background: var(--cream-100);
+    }
+
+    .section-card.included .section-checkbox {
+      background: var(--gold-500);
+      border-color: var(--gold-500);
+    }
+
+    .section-card.included .section-checkbox::after {
+      content: "✓";
+      color: var(--white);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .section-checkbox {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--cream-200);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .section-card.selected .section-checkbox {
+      background: var(--navy-900);
+      border-color: var(--navy-900);
+      color: var(--white);
+    }
+
+    .section-card.selected .section-checkbox::after {
+      content: "✓";
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .section-info { flex: 1; }
+
+    .section-name {
+      font-weight: 600;
+      color: var(--navy-900);
+      margin-bottom: 0.15rem;
+    }
+
+    .section-code {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .section-questions {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-align: right;
+    }
+
+    /* Name Input */
+    .name-section {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .name-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .name-input {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      font-size: 1.05rem;
+      font-family: 'DM Sans', sans-serif;
+      border: 2px solid var(--cream-200);
+      border-radius: 10px;
+      background: var(--cream-100);
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+    }
+
+    .name-input:focus {
+      outline: none;
+      border-color: var(--navy-700);
+      background: var(--white);
+    }
+
+    /* Start Button */
+    .start-btn {
+      width: 100%;
+      padding: 1.25rem 2rem;
+      background: var(--navy-900);
+      color: var(--white);
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .start-btn:hover:not(:disabled) {
+      background: var(--navy-700);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(10, 22, 40, 0.2);
+    }
+
+    .start-btn:disabled {
+      background: var(--cream-200);
+      color: var(--text-secondary);
+      cursor: not-allowed;
+    }
+
+    .start-btn::after {
+      content: "→";
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 700px) {
+      .test-type-grid,
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .test-type-details {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">ASVAB<span>Pro</span></a>
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </nav>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Choose Your Practice Test</h1>
+      <p>Select the test type that fits your study needs</p>
+    </div>
+
+    <!-- Test Type Selection -->
+    <h2 class="section-title">Test Type</h2>
+    <div class="test-type-grid">
+      <div class="test-type-card selected" data-type="quick">
+        <div class="test-type-badge">Recommended</div>
+        <h3 class="test-type-name">AFQT Practice</h3>
+        <p class="test-type-desc">Focus on the 4 sections that determine your AFQT score - the most important number for military qualification.</p>
+        <div class="test-type-details">
+          <div class="detail">
+            <span class="detail-value">~90 min</span>
+            <span class="detail-label">Duration</span>
+          </div>
+          <div class="detail">
+            <span class="detail-value">4 Sections</span>
+            <span class="detail-label">AR, WK, PC, MK</span>
+          </div>
+          <div class="detail">
+            <span class="detail-value">AFQT Score</span>
+            <span class="detail-label">Results</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="test-type-card" data-type="full">
+        <div class="test-type-badge">Comprehensive</div>
+        <h3 class="test-type-name">Full ASVAB</h3>
+        <p class="test-type-desc">Complete all 8 sections for your AFQT score plus line scores that determine MOS qualification.</p>
+        <div class="test-type-details">
+          <div class="detail">
+            <span class="detail-value">~3 hours</span>
+            <span class="detail-label">Duration</span>
+          </div>
+          <div class="detail">
+            <span class="detail-value">8 Sections</span>
+            <span class="detail-label">All Subtests</span>
+          </div>
+          <div class="detail">
+            <span class="detail-value">Line Scores</span>
+            <span class="detail-label">+ AFQT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Info -->
+    <h2 class="section-title">Sections Included</h2>
+    <div class="section-info-box" id="quickSections">
+      <p class="section-info-text">The AFQT score is calculated from these 4 sections (CAT-ASVAB format):</p>
+      <div class="section-grid">
+        <div class="section-card included">
+          <div class="section-checkbox"></div>
+          <div class="section-info">
+            <div class="section-name">Arithmetic Reasoning</div>
+            <div class="section-code">AR</div>
+          </div>
+          <div class="section-questions">15 questions</div>
+        </div>
+        <div class="section-card included">
+          <div class="section-checkbox"></div>
+          <div class="section-info">
+            <div class="section-name">Word Knowledge</div>
+            <div class="section-code">WK</div>
+          </div>
+          <div class="section-questions">15 questions</div>
+        </div>
+        <div class="section-card included">
+          <div class="section-checkbox"></div>
+          <div class="section-info">
+            <div class="section-name">Paragraph Comprehension</div>
+            <div class="section-code">PC</div>
+          </div>
+          <div class="section-questions">10 questions</div>
+        </div>
+        <div class="section-card included">
+          <div class="section-checkbox"></div>
+          <div class="section-info">
+            <div class="section-name">Mathematics Knowledge</div>
+            <div class="section-code">MK</div>
+          </div>
+          <div class="section-questions">15 questions</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-info-box" id="fullSections" style="display: none;">
+      <p class="section-info-text">Full CAT-ASVAB includes all 9 sections (125 questions total):</p>
+      <div class="section-grid">
+        <div class="section-card included">
+          <div class="section-checkbox"></div>
+          <div class="section-info">
+            <div class="section-name">General Science</div>
+            <div class="section-code">GS</div>
+          </div>
+          <div class="section-questions">15 questions</div>
+        </div>
+        <div class="section-card included">
+          <div class="section-checkbox"></div>
+          <div class="section-info">
+            <div class="section-name">Arithmetic Reasoning</div>
+            <div class="section-code">AR</div>
+          </div>
+          <div class="section-questions">15 questions</div>
+        </div>
+        <div class="section-card included">
+          <div class="section-checkbox"></div>
+          <div class="section-info">
+            <div class="section-name">Word Knowledge</div>
+            <div class="section-code">WK</div>
+          </div>
+          <div class="section-questions">15 questions</div>
+        </div>
+        <div class="section-card included">
+          <div class="section-checkbox"></div>
+          <div class="section-info">
+            <div class="section-name">Paragraph Comprehension</div>
+            <div class="section-code">PC</div>
+          </div>
+          <div class="section-questions">10 questions</div>
+        </div>
+        <div class="section-card included">
+          <div class="section-checkbox"></div>
+          <div class="section-info">
+            <div class="section-name">Mathematics Knowledge</div>
+            <div class="section-code">MK</div>
+          </div>
+          <div class="section-questions">15 questions</div>
+        </div>
+        <div class="section-card included">
+          <div class="section-checkbox"></div>
+          <div class="section-info">
+            <div class="section-name">Electronics Information</div>
+            <div class="section-code">EI</div>
+          </div>
+          <div class="section-questions">15 questions</div>
+        </div>
+        <div class="section-card included">
+          <div class="section-checkbox"></div>
+          <div class="section-info">
+            <div class="section-name">Auto & Shop Information</div>
+            <div class="section-code">AS</div>
+          </div>
+          <div class="section-questions">10 questions</div>
+        </div>
+        <div class="section-card included">
+          <div class="section-checkbox"></div>
+          <div class="section-info">
+            <div class="section-name">Mechanical Comprehension</div>
+            <div class="section-code">MC</div>
+          </div>
+          <div class="section-questions">15 questions</div>
+        </div>
+        <div class="section-card included">
+          <div class="section-checkbox"></div>
+          <div class="section-info">
+            <div class="section-name">Assembling Objects</div>
+            <div class="section-code">AO</div>
+          </div>
+          <div class="section-questions">15 questions</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Name Input -->
+    <div class="name-section">
+      <label class="name-label" for="userName">Your Name</label>
+      <input type="text" id="userName" class="name-input" placeholder="Enter your name for the results">
+    </div>
+
+    <!-- Start Button -->
+    <button class="start-btn" id="startBtn" disabled>Start Practice Test</button>
+  </main>
+
+  <script src="js/quiz-data.js"></script>
+  <script>
+    let selectedType = 'quick';
+    const nameInput = document.getElementById('userName');
+    const startBtn = document.getElementById('startBtn');
+    const quickSections = document.getElementById('quickSections');
+    const fullSections = document.getElementById('fullSections');
+
+    // Section configurations
+    const testConfigs = {
+      quick: ['AR', 'WK', 'PC', 'MK'], // AFQT sections
+      full: ['GS', 'AR', 'WK', 'PC', 'MK', 'EI', 'AS', 'MC', 'AO'] // All 9 sections
+    };
+
+    // Load saved name
+    const savedName = localStorage.getItem('asvabUserName');
+    if (savedName) nameInput.value = savedName;
+
+    // Test type selection
+    document.querySelectorAll('.test-type-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.test-type-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedType = card.dataset.type;
+
+        // Toggle section display
+        if (selectedType === 'full') {
+          quickSections.style.display = 'none';
+          fullSections.style.display = 'block';
+        } else {
+          quickSections.style.display = 'block';
+          fullSections.style.display = 'none';
+        }
+        updateStartButton();
+      });
+    });
+
+    // Name input
+    nameInput.addEventListener('input', updateStartButton);
+
+    function updateStartButton() {
+      const nameValid = nameInput.value.trim().length >= 2;
+      startBtn.disabled = !nameValid;
+
+      if (selectedType === 'full') {
+        startBtn.textContent = 'Start Full ASVAB Test (125 questions)';
+      } else {
+        startBtn.textContent = 'Start AFQT Practice (55 questions)';
+      }
+    }
+
+    // Initial update
+    updateStartButton();
+
+    // Start test
+    startBtn.addEventListener('click', () => {
+      if (startBtn.disabled) return;
+
+      localStorage.setItem('asvabUserName', nameInput.value.trim());
+      localStorage.setItem('testType', selectedType);
+
+      // Clear any previous test state and set up new test
+      sessionStorage.removeItem('quizState');
+      sessionStorage.removeItem('generatedTest');
+
+      // Store test configuration
+      const sections = testConfigs[selectedType];
+      sessionStorage.setItem('testConfig', JSON.stringify({ sections: sections }));
+
+      window.location.href = 'test-intro.html';
+    });
+  </script>
+</body>
+</html>

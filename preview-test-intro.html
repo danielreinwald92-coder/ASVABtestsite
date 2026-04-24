@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASVAB Practice Test - Start</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-900: #0a1628;
+      --navy-800: #132039;
+      --navy-700: #1e3a5f;
+      --gold-500: #d4a853;
+      --gold-400: #e8c17a;
+      --gold-300: #f0d69b;
+      --cream-100: #faf8f5;
+      --cream-200: #f2efe8;
+      --white: #ffffff;
+      --text-primary: #0a1628;
+      --text-secondary: #4a5568;
+      --warning: #b45309;
+      --warning-light: #fef3c7;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream-100);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-200);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--gold-500);
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: var(--navy-900);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+    }
+
+    .intro-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 3.5rem;
+      max-width: 640px;
+      width: 100%;
+      box-shadow: 0 8px 40px rgba(10, 22, 40, 0.08);
+      animation: slideUp 0.5s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .test-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--cream-100);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--navy-700);
+      margin-bottom: 1.5rem;
+    }
+
+    .test-badge::before {
+      content: "📝";
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .test-description {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    /* Test Details */
+    .test-details {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: var(--cream-100);
+      border-radius: 16px;
+    }
+
+    .detail-item {
+      text-align: center;
+    }
+
+    .detail-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      line-height: 1;
+    }
+
+    .detail-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    /* Name Input */
+    .name-input-section {
+      margin-bottom: 2rem;
+    }
+
+    .name-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .name-input {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      font-size: 1.05rem;
+      font-family: 'DM Sans', sans-serif;
+      border: 2px solid var(--cream-200);
+      border-radius: 10px;
+      background: var(--cream-100);
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+    }
+
+    .name-input:focus {
+      outline: none;
+      border-color: var(--navy-700);
+      background: var(--white);
+    }
+
+    .name-input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    /* Warning Box */
+    .warning-box {
+      background: var(--warning-light);
+      border: 2px solid var(--warning);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .warning-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .warning-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--warning);
+      margin-bottom: 0.25rem;
+    }
+
+    .warning-content p {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    /* Rules List */
+    .rules-section {
+      margin-bottom: 2rem;
+    }
+
+    .rules-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .rules-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .rules-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .rules-list li::before {
+      content: "✓";
+      color: var(--gold-500);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Checkbox Acknowledgement */
+    .acknowledge-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      background: var(--cream-100);
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .acknowledge-box:hover {
+      background: var(--cream-200);
+    }
+
+    .acknowledge-box input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--navy-900);
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .acknowledge-box label {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    /* CTA Button */
+    .start-btn {
+      width: 100%;
+      padding: 1.25rem 2rem;
+      background: var(--navy-900);
+      color: var(--white);
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .start-btn:hover:not(:disabled) {
+      background: var(--navy-700);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(10, 22, 40, 0.2);
+    }
+
+    .start-btn:disabled {
+      background: var(--cream-200);
+      color: var(--text-secondary);
+      cursor: not-allowed;
+    }
+
+    .start-btn::after {
+      content: "→";
+      font-size: 1.2rem;
+      transition: transform 0.2s ease;
+    }
+
+    .start-btn:hover:not(:disabled)::after {
+      transform: translateX(4px);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .intro-card {
+        padding: 2rem 1.5rem;
+        border-radius: 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .test-details {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+
+      .detail-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+      }
+
+      .detail-value {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">ASVAB<span>Pro</span></a>
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </nav>
+
+  <main class="main-content">
+    <div class="intro-card">
+      <div class="test-badge">Practice Test</div>
+      <h1>Arithmetic Reasoning</h1>
+      <p class="test-description">
+        This section tests your ability to solve basic arithmetic word problems encountered in everyday life.
+      </p>
+
+      <!-- Name Input -->
+      <div class="name-input-section">
+        <label class="name-label" for="userName">Your Name</label>
+        <input type="text" id="userName" class="name-input" placeholder="Enter your name for the results certificate">
+      </div>
+
+      <div class="test-details">
+        <div class="detail-item">
+          <div class="detail-value">20</div>
+          <div class="detail-label">Questions</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-value">39</div>
+          <div class="detail-label">Minutes</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-value">AR</div>
+          <div class="detail-label">Section Code</div>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <span class="warning-icon">⚠️</span>
+        <div class="warning-content">
+          <h3>No Calculators Allowed</h3>
+          <p>Just like the real ASVAB, calculators are <strong>not permitted</strong> during this test. You may use scratch paper for calculations.</p>
+        </div>
+      </div>
+
+      <div class="rules-section">
+        <div class="rules-title">Test Guidelines</div>
+        <ul class="rules-list">
+          <li>You can navigate between questions and change answers before submitting</li>
+          <li>Flag questions for review and return to them later</li>
+          <li>The timer will count down — manage your time wisely</li>
+          <li>Your results will be shown immediately after submission</li>
+        </ul>
+      </div>
+
+      <label class="acknowledge-box">
+        <input type="checkbox" id="acknowledge">
+        <label for="acknowledge">I understand that I should not use a calculator and will complete this test under realistic conditions.</label>
+      </label>
+
+      <button class="start-btn" id="startBtn" disabled>Begin Test</button>
+    </div>
+  </main>
+
+  <script>
+    const checkbox = document.getElementById('acknowledge');
+    const startBtn = document.getElementById('startBtn');
+    const nameInput = document.getElementById('userName');
+
+    function updateButtonState() {
+      const nameValid = nameInput.value.trim().length >= 2;
+      startBtn.disabled = !checkbox.checked || !nameValid;
+    }
+
+    checkbox.addEventListener('change', updateButtonState);
+    nameInput.addEventListener('input', updateButtonState);
+
+    startBtn.addEventListener('click', () => {
+      if (!startBtn.disabled) {
+        localStorage.setItem('asvabUserName', nameInput.value.trim());
+        window.location.href = 'preview-quiz-interface.html';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASVABPro - Master the ASVAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-900: #0a1628;
+      --navy-800: #132039;
+      --navy-700: #1e3a5f;
+      --navy-600: #2d5a87;
+      --gold-500: #d4a853;
+      --gold-400: #e8c17a;
+      --gold-300: #f0d69b;
+      --cream-100: #faf8f5;
+      --cream-200: #f2efe8;
+      --white: #ffffff;
+      --text-primary: #0a1628;
+      --text-secondary: #4a5568;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream-100);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-200);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      letter-spacing: -0.02em;
+    }
+
+    .logo span {
+      color: var(--gold-500);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--navy-900);
+    }
+
+    .nav-cta {
+      background: var(--navy-900);
+      color: var(--white);
+      padding: 0.75rem 1.75rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--navy-700);
+      transform: translateY(-1px);
+    }
+
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 85vh;
+      padding: 0 5%;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-content {
+      max-width: 600px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gold-300);
+      color: var(--navy-900);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .hero-badge::before {
+      content: "★";
+      color: var(--gold-500);
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--navy-900);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+      animation: fadeInUp 0.6s ease-out 0.1s both;
+    }
+
+    h1 .highlight {
+      color: var(--gold-500);
+      position: relative;
+    }
+
+    .hero-text {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      animation: fadeInUp 0.6s ease-out 0.2s both;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      animation: fadeInUp 0.6s ease-out 0.3s both;
+    }
+
+    .btn-primary {
+      background: var(--navy-900);
+      color: var(--white);
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.25s ease;
+      border: 2px solid var(--navy-900);
+    }
+
+    .btn-primary:hover {
+      background: var(--navy-700);
+      border-color: var(--navy-700);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(10, 22, 40, 0.2);
+    }
+
+    .btn-primary::after {
+      content: "→";
+      transition: transform 0.2s ease;
+    }
+
+    .btn-primary:hover::after {
+      transform: translateX(4px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--navy-900);
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid var(--navy-800);
+      transition: all 0.25s ease;
+    }
+
+    .btn-secondary:hover {
+      background: var(--navy-900);
+      color: var(--white);
+    }
+
+    /* Stats Row */
+    .stats-row {
+      display: flex;
+      gap: 3rem;
+      animation: fadeInUp 0.6s ease-out 0.4s both;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    /* Hero Visual */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .score-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 25px 80px rgba(10, 22, 40, 0.12);
+      width: 380px;
+      animation: floatIn 0.8s ease-out 0.3s both;
+      position: relative;
+      z-index: 2;
+    }
+
+    .score-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .score-title {
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .score-date {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .score-display {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .score-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 6rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 1rem;
+      color: var(--gold-500);
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    .score-progress {
+      background: var(--cream-200);
+      height: 8px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .score-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
+      border-radius: 10px;
+      width: 0%;
+      animation: progressFill 1.5s ease-out 0.8s forwards;
+    }
+
+    .score-subjects {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .subject {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: var(--cream-100);
+      border-radius: 8px;
+    }
+
+    .subject-name {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .subject-score {
+      font-weight: 600;
+      color: var(--navy-700);
+    }
+
+    /* Decorative Elements */
+    .decoration-circle {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border: 2px solid var(--gold-400);
+      border-radius: 50%;
+      opacity: 0.3;
+      top: -50px;
+      right: -50px;
+      animation: rotate 30s linear infinite;
+    }
+
+    .decoration-dots {
+      position: absolute;
+      bottom: 20px;
+      left: -30px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      z-index: 1;
+    }
+
+    .decoration-dots span {
+      width: 6px;
+      height: 6px;
+      background: var(--gold-500);
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+
+    /* Section: Features */
+    .features {
+      padding: 6rem 5%;
+      background: var(--white);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.75rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--cream-100);
+      padding: 2.5rem;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold-400);
+      box-shadow: 0 12px 40px rgba(10, 22, 40, 0.08);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--navy-900);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    .feature-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes floatIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes progressFill {
+      to {
+        width: 87%;
+      }
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 3rem;
+      }
+
+      .hero-content {
+        max-width: 100%;
+      }
+
+      .hero-text {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-cta-group {
+        justify-content: center;
+      }
+
+      .stats-row {
+        justify-content: center;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo" style="text-decoration: none;">ASVAB<span>Pro</span></a>
+    <ul class="nav-links">
+      <li><a href="select-test.html">Practice Tests</a></li>
+      <li><a href="about.html">About the ASVAB</a></li>
+    </ul>
+    <a href="select-test.html" class="nav-cta">Take a Practice Test</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Free Practice Tests</div>
+      <h1>Master the ASVAB.<br>Launch Your <span class="highlight">Military Career.</span></h1>
+      <p class="hero-text">Practice with realistic ASVAB questions. Track your progress and identify areas to improve before test day.</p>
+      <div class="hero-cta-group">
+        <a href="select-test.html" class="btn-primary">Start Practicing</a>
+        <a href="select-test.html" class="btn-secondary">Take Practice Test</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="decoration-circle"></div>
+      <div class="score-card">
+        <div class="score-header">
+          <span class="score-title">Your AFQT Score</span>
+          <span class="score-date">Latest Result</span>
+        </div>
+        <div class="score-display">
+          <div class="score-number">87</div>
+          <div class="score-label">Excellent - All MOS Qualified</div>
+        </div>
+        <div class="score-progress">
+          <div class="score-progress-bar"></div>
+        </div>
+        <div class="score-subjects">
+          <div class="subject">
+            <span class="subject-name">Arithmetic Reasoning</span>
+            <span class="subject-score">92%</span>
+          </div>
+          <div class="subject">
+            <span class="subject-name">Word Knowledge</span>
+            <span class="subject-score">88%</span>
+          </div>
+          <div class="subject">
+            <span class="subject-name">Math Knowledge</span>
+            <span class="subject-score">85%</span>
+          </div>
+        </div>
+      </div>
+      <div class="decoration-dots">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="section-header">
+      <h2>Practice Makes Perfect</h2>
+      <p>Get ready for the ASVAB with focused practice across all test sections.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3>Section Practice</h3>
+        <p>Focus on individual sections like Arithmetic Reasoning, Word Knowledge, or Math Knowledge to build your skills.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⏱️</div>
+        <h3>Timed Tests</h3>
+        <p>Practice under real test conditions with countdown timers that match actual ASVAB time limits.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Instant Results</h3>
+        <p>Get your estimated AFQT score immediately after completing a test, plus a breakdown of what you got right and wrong.</p>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

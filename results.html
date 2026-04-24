@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASVAB Practice Test - Results</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-900: #0a1628;
+      --navy-800: #132039;
+      --navy-700: #1e3a5f;
+      --gold-500: #d4a853;
+      --gold-400: #e8c17a;
+      --gold-300: #f0d69b;
+      --cream-100: #faf8f5;
+      --cream-200: #f2efe8;
+      --white: #ffffff;
+      --text-primary: #0a1628;
+      --text-secondary: #4a5568;
+      --success: #2d8a6e;
+      --success-light: #e8f5f0;
+      --error: #c53030;
+      --error-light: #fef2f2;
+      --warning: #b45309;
+      --warning-light: #fef3c7;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream-100);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-200);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--gold-500); }
+
+    .nav-actions { display: flex; gap: 1rem; }
+
+    .nav-btn {
+      padding: 0.6rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn-secondary {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--cream-200);
+    }
+
+    .nav-btn-secondary:hover {
+      border-color: var(--navy-900);
+      color: var(--navy-900);
+    }
+
+    .nav-btn-primary {
+      background: var(--navy-900);
+      color: var(--white);
+    }
+
+    .nav-btn-primary:hover { background: var(--navy-700); }
+
+    .results-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .score-hero {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 3rem;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(10, 22, 40, 0.08);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .score-hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
+    }
+
+    .completion-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--success-light);
+      color: var(--success);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .completion-badge::before {
+      content: "✓";
+      font-weight: 700;
+    }
+
+    .greeting {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+
+    .user-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 2rem;
+    }
+
+    .afqt-section { margin-bottom: 2rem; }
+
+    .afqt-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .afqt-score {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 6rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      line-height: 1;
+    }
+
+    .afqt-percentile {
+      font-size: 1rem;
+      color: var(--gold-500);
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    .score-message {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--navy-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .score-description {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+      animation: fadeIn 0.5s ease-out 0.1s both;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+    }
+
+    .stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      line-height: 1;
+    }
+
+    .stat-value.correct { color: var(--success); }
+    .stat-value.incorrect { color: var(--error); }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+
+    .breakdown-section {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+      animation: fadeIn 0.5s ease-out 0.2s both;
+    }
+
+    .breakdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .breakdown-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .filter-tab {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      background: var(--cream-100);
+      color: var(--text-secondary);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .filter-tab:hover { background: var(--cream-200); }
+    .filter-tab.active { background: var(--navy-900); color: var(--white); }
+
+    .question-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .question-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1.25rem;
+      background: var(--cream-100);
+      border-radius: 12px;
+      border-left: 4px solid var(--success);
+      transition: all 0.2s ease;
+    }
+
+    .question-item.incorrect { border-left-color: var(--error); }
+    .question-item:hover { background: var(--cream-200); }
+
+    .question-number-badge {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      border-radius: 8px;
+      font-weight: 600;
+      color: var(--navy-900);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .question-content { flex: 1; }
+
+    .question-preview {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .answer-info {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .your-answer { color: var(--text-secondary); }
+    .your-answer span { font-weight: 600; color: var(--success); }
+    .question-item.incorrect .your-answer span { color: var(--error); }
+    .correct-answer { color: var(--text-secondary); }
+    .correct-answer span { font-weight: 600; color: var(--success); }
+
+    .question-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--success-light);
+      color: var(--success);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .question-item.incorrect .question-status {
+      background: var(--error-light);
+      color: var(--error);
+    }
+
+    .cta-section {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      animation: fadeIn 0.5s ease-out 0.3s both;
+    }
+
+    .cta-btn {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .cta-primary {
+      background: var(--navy-900);
+      color: var(--white);
+    }
+
+    .cta-primary:hover {
+      background: var(--navy-700);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(10, 22, 40, 0.2);
+    }
+
+    .cta-secondary {
+      background: var(--white);
+      color: var(--navy-900);
+      border: 2px solid var(--cream-200);
+    }
+
+    .cta-secondary:hover { border-color: var(--navy-900); }
+
+    @media (max-width: 768px) {
+      .results-container { padding: 1.5rem 1rem; }
+      .score-hero { padding: 2rem 1.5rem; }
+      .afqt-score { font-size: 4.5rem; }
+      .user-name { font-size: 1.5rem; }
+      .stats-row { grid-template-columns: 1fr; }
+      .breakdown-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .cta-section { flex-direction: column; }
+      .answer-info { flex-direction: column; gap: 0.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">ASVAB<span>Pro</span></a>
+    <div class="nav-actions">
+      <a href="index.html" class="nav-btn nav-btn-secondary">Back to Home</a>
+      <a href="select-test.html" class="nav-btn nav-btn-primary">Take Another Test</a>
+    </div>
+  </nav>
+
+  <main class="results-container">
+    <section class="score-hero">
+      <div class="completion-badge">Test Complete</div>
+      <p class="greeting">Great work,</p>
+      <h1 class="user-name" id="userName">Test Taker</h1>
+
+      <div class="afqt-section">
+        <p class="afqt-label">Estimated AFQT Score</p>
+        <div class="afqt-score" id="afqtScore">--</div>
+        <p class="afqt-percentile" id="afqtPercentile">--th Percentile</p>
+      </div>
+
+      <h2 class="score-message" id="scoreMessage">Calculating...</h2>
+      <p class="score-description" id="scoreDescription">Loading your results...</p>
+    </section>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-value correct" id="correctCount">--</div>
+        <div class="stat-label">Correct Answers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value incorrect" id="incorrectCount">--</div>
+        <div class="stat-label">Incorrect Answers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="timeUsed">--:--</div>
+        <div class="stat-label">Time Used</div>
+      </div>
+    </div>
+
+    <section class="breakdown-section">
+      <div class="breakdown-header">
+        <h3 class="breakdown-title">Question Breakdown</h3>
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-filter="all">All</button>
+          <button class="filter-tab" data-filter="correct">Correct</button>
+          <button class="filter-tab" data-filter="incorrect">Incorrect</button>
+        </div>
+      </div>
+      <div class="question-list" id="questionList">
+        <!-- Questions will be populated by JavaScript -->
+      </div>
+    </section>
+
+    <div class="cta-section">
+      <button class="cta-btn cta-secondary" onclick="showIncorrectOnly()">Review Incorrect</button>
+      <a href="select-test.html" class="cta-btn cta-primary">Take Another Test →</a>
+    </div>
+  </main>
+
+  <script>
+    const letters = ['A', 'B', 'C', 'D'];
+
+    function loadResults() {
+      const results = JSON.parse(localStorage.getItem('quizResults'));
+      const userName = localStorage.getItem('asvabUserName') || 'Test Taker';
+
+      if (!results) {
+        document.getElementById('scoreMessage').textContent = 'No results found';
+        document.getElementById('scoreDescription').textContent = 'Please take a practice test first.';
+        return;
+      }
+
+      // Display user name
+      document.getElementById('userName').textContent = userName;
+
+      // Display AFQT
+      document.getElementById('afqtScore').textContent = results.afqt;
+      document.getElementById('afqtPercentile').textContent = `${results.afqt}${getOrdinalSuffix(results.afqt)} Percentile`;
+
+      // Display stats
+      document.getElementById('correctCount').textContent = results.correct;
+      document.getElementById('incorrectCount').textContent = results.incorrect;
+
+      const minutes = Math.floor(results.timeUsed / 60);
+      const seconds = results.timeUsed % 60;
+      document.getElementById('timeUsed').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+      // Score message
+      const score = results.score;
+      let message, description;
+      if (score >= 90) {
+        message = "Outstanding Performance!";
+        description = "You're exceptionally well-prepared. You qualify for virtually all military occupations.";
+      } else if (score >= 75) {
+        message = "Excellent Work!";
+        description = "You're well-prepared for the ASVAB. Keep practicing to push your score even higher.";
+      } else if (score >= 60) {
+        message = "Solid Foundation";
+        description = "You're on the right track. Focus on the questions you missed to improve your score.";
+      } else if (score >= 40) {
+        message = "Room for Improvement";
+        description = "Review the material and practice more. You can significantly improve with focused study.";
+      } else {
+        message = "Keep Studying";
+        description = "Don't give up! Review the basics and take more practice tests to build your skills.";
+      }
+
+      document.getElementById('scoreMessage').textContent = message;
+      document.getElementById('scoreDescription').textContent = description;
+
+      // Render questions
+      renderQuestions(results.results);
+    }
+
+    function renderQuestions(questions, filter = 'all') {
+      const container = document.getElementById('questionList');
+      const filtered = questions.filter(q => {
+        if (filter === 'all') return true;
+        if (filter === 'correct') return q.isCorrect;
+        if (filter === 'incorrect') return !q.isCorrect;
+        return true;
+      });
+
+      container.innerHTML = filtered.map((q, idx) => {
+        const userAnswerText = q.userAnswer !== undefined
+          ? `${letters[q.userAnswer]} - ${q.options[q.userAnswer]}`
+          : 'No answer';
+        const correctAnswerText = `${letters[q.correctAnswer]} - ${q.options[q.correctAnswer]}`;
+
+        return `
+          <div class="question-item ${q.isCorrect ? '' : 'incorrect'}">
+            <span class="question-number-badge">${q.id}</span>
+            <div class="question-content">
+              <p class="question-preview">${q.text}</p>
+              <div class="answer-info">
+                <span class="your-answer">Your answer: <span>${userAnswerText}</span></span>
+                ${!q.isCorrect ? `<span class="correct-answer">Correct: <span>${correctAnswerText}</span></span>` : ''}
+              </div>
+            </div>
+            <div class="question-status">${q.isCorrect ? '✓' : '✗'}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function getOrdinalSuffix(n) {
+      const s = ['th', 'st', 'nd', 'rd'];
+      const v = n % 100;
+      return s[(v - 20) % 10] || s[v] || s[0];
+    }
+
+    function showIncorrectOnly() {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      document.querySelector('[data-filter="incorrect"]').classList.add('active');
+      const results = JSON.parse(localStorage.getItem('quizResults'));
+      if (results) renderQuestions(results.results, 'incorrect');
+    }
+
+    // Filter tabs
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        const results = JSON.parse(localStorage.getItem('quizResults'));
+        if (results) renderQuestions(results.results, this.dataset.filter);
+      });
+    });
+
+    // Load on page ready
+    document.addEventListener('DOMContentLoaded', loadResults);
+  </script>
+</body>
+</html>

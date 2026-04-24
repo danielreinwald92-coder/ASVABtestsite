@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASVAB Practice Test - Quick Results</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-900: #0a1628;
+      --navy-800: #132039;
+      --navy-700: #1e3a5f;
+      --gold-500: #d4a853;
+      --gold-400: #e8c17a;
+      --gold-300: #f0d69b;
+      --cream-100: #faf8f5;
+      --cream-200: #f2efe8;
+      --white: #ffffff;
+      --text-primary: #0a1628;
+      --text-secondary: #4a5568;
+      --success: #2d8a6e;
+      --success-light: #e8f5f0;
+      --error: #c53030;
+      --error-light: #fef2f2;
+      --warning: #b45309;
+      --warning-light: #fef3c7;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream-100);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-200);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--gold-500);
+    }
+
+    .nav-btn {
+      padding: 0.6rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      background: var(--navy-900);
+      color: var(--white);
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--navy-700);
+    }
+
+    /* Main Content */
+    .results-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    /* Score Card */
+    .score-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 3rem;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(10, 22, 40, 0.08);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .score-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
+    }
+
+    .completion-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--success-light);
+      color: var(--success);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .completion-badge::before {
+      content: "✓";
+      font-weight: 700;
+    }
+
+    .greeting {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+
+    .user-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 2rem;
+    }
+
+    .afqt-section {
+      margin-bottom: 2rem;
+    }
+
+    .afqt-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .afqt-score {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 6rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      line-height: 1;
+    }
+
+    .afqt-percentile {
+      font-size: 1rem;
+      color: var(--gold-500);
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    .score-message {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--navy-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .score-description {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* Areas to Review */
+    .review-section {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+      animation: fadeIn 0.5s ease-out 0.15s both;
+    }
+
+    .review-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .review-title::before {
+      content: "📋";
+    }
+
+    .section-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .section-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      background: var(--success-light);
+      border-left: 4px solid var(--success);
+    }
+
+    .section-item.needs-work {
+      background: var(--warning-light);
+      border-left-color: var(--warning);
+    }
+
+    .section-item.struggle {
+      background: var(--error-light);
+      border-left-color: var(--error);
+    }
+
+    .section-name {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .section-status {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--success);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .section-item.needs-work .section-status {
+      color: var(--warning);
+    }
+
+    .section-item.struggle .section-status {
+      color: var(--error);
+    }
+
+    /* CTA */
+    .cta-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+      animation: fadeIn 0.5s ease-out 0.3s both;
+    }
+
+    .cta-btn {
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cta-primary {
+      background: var(--navy-900);
+      color: var(--white);
+    }
+
+    .cta-primary:hover {
+      background: var(--navy-700);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(10, 22, 40, 0.2);
+    }
+
+    .cta-secondary {
+      background: var(--white);
+      color: var(--navy-900);
+      border: 2px solid var(--cream-200);
+    }
+
+    .cta-secondary:hover {
+      border-color: var(--navy-900);
+    }
+
+    @media (max-width: 600px) {
+      .results-container {
+        padding: 1.5rem 1rem;
+      }
+
+      .score-card {
+        padding: 2rem 1.5rem;
+      }
+
+      .afqt-score {
+        font-size: 4.5rem;
+      }
+
+      .user-name {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">ASVAB<span>Pro</span></a>
+    <a href="preview-test-intro.html" class="nav-btn">Take Full Practice Test</a>
+  </nav>
+
+  <main class="results-container">
+    <!-- Score Card -->
+    <section class="score-card">
+      <div class="completion-badge">Quick Test Complete</div>
+      <p class="greeting">Great work,</p>
+      <h1 class="user-name" id="userName">Daniel Martinez</h1>
+
+      <div class="afqt-section">
+        <p class="afqt-label">Your Estimated AFQT</p>
+        <div class="afqt-score">72</div>
+        <p class="afqt-percentile">72nd Percentile</p>
+      </div>
+
+      <h2 class="score-message">Solid Foundation</h2>
+      <p class="score-description">You qualify for most military occupations. Focus on the areas below to push your score higher.</p>
+    </section>
+
+    <!-- Areas to Review -->
+    <section class="review-section">
+      <h3 class="review-title">Performance by Section</h3>
+      <div class="section-list">
+        <div class="section-item">
+          <span class="section-name">Word Knowledge (WK)</span>
+          <span class="section-status">✓ Strong</span>
+        </div>
+        <div class="section-item">
+          <span class="section-name">Paragraph Comprehension (PC)</span>
+          <span class="section-status">✓ Strong</span>
+        </div>
+        <div class="section-item needs-work">
+          <span class="section-name">Arithmetic Reasoning (AR)</span>
+          <span class="section-status">⚠ Needs Practice</span>
+        </div>
+        <div class="section-item struggle">
+          <span class="section-name">Mathematics Knowledge (MK)</span>
+          <span class="section-status">✗ Focus Here</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Buttons -->
+    <div class="cta-section">
+      <button class="cta-btn cta-primary">Take Full Practice Test →</button>
+      <button class="cta-btn cta-secondary">Practice Weak Sections</button>
+    </div>
+  </main>
+
+  <script>
+    const storedName = localStorage.getItem('asvabUserName');
+    if (storedName) {
+      document.getElementById('userName').textContent = storedName;
+    }
+  </script>
+</body>
+</html>
