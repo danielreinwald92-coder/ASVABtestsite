@@ -379,11 +379,6 @@
         This section tests your ability to solve basic arithmetic word problems encountered in everyday life.
       </p>
 
-      <div class="name-input-section">
-        <label class="name-label" for="userName">Your Name</label>
-        <input type="text" id="userName" class="name-input" placeholder="Enter your name for the results">
-      </div>
-
       <div class="test-details">
         <div class="detail-item">
           <div class="detail-value" id="questionCount">20</div>
@@ -430,7 +425,6 @@
   <script>
     const checkbox = document.getElementById('acknowledge');
     const startBtn = document.getElementById('startBtn');
-    const nameInput = document.getElementById('userName');
 
     // Load test configuration from session storage
     const testConfig = JSON.parse(sessionStorage.getItem('testConfig') || '{}');
@@ -472,28 +466,14 @@
 
     loadTestInfo();
 
-    // Load saved name if exists
-    const savedName = localStorage.getItem('asvabUserName');
-    if (savedName) {
-      nameInput.value = savedName;
-    }
-
     function updateButtonState() {
-      const nameValid = nameInput.value.trim().length >= 2;
-      startBtn.disabled = !checkbox.checked || !nameValid;
+      startBtn.disabled = !checkbox.checked;
     }
 
     checkbox.addEventListener('change', updateButtonState);
-    nameInput.addEventListener('input', updateButtonState);
-
-    // Initial check
-    updateButtonState();
 
     startBtn.addEventListener('click', () => {
       if (!startBtn.disabled) {
-        // Save user name
-        localStorage.setItem('asvabUserName', nameInput.value.trim());
-        // Start the quiz (testConfig already in session storage)
         window.location.href = 'quiz.html';
       }
     });
