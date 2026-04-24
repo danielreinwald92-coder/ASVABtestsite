@@ -297,6 +297,111 @@
       }
     }
 
+    /* Section Breakdown */
+    .section-breakdown {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+      animation: fadeIn 0.5s ease-out 0.15s both;
+    }
+
+    .breakdown-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 0.25rem;
+    }
+
+    .breakdown-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .breakdown-grid {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .breakdown-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--cream-100);
+      border-radius: 10px;
+    }
+
+    .breakdown-item.needs-work {
+      background: var(--error-light);
+      border-left: 4px solid var(--error);
+    }
+
+    .breakdown-item.good {
+      background: var(--success-light);
+      border-left: 4px solid var(--success);
+    }
+
+    .breakdown-section-name {
+      flex: 1;
+      font-weight: 600;
+      color: var(--navy-900);
+    }
+
+    .breakdown-score {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .breakdown-item.needs-work .breakdown-score {
+      color: var(--error);
+    }
+
+    .breakdown-item.good .breakdown-score {
+      color: var(--success);
+    }
+
+    .breakdown-bar {
+      width: 100px;
+      height: 8px;
+      background: var(--cream-200);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .breakdown-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .breakdown-item.needs-work .breakdown-fill {
+      background: var(--error);
+    }
+
+    .breakdown-item.good .breakdown-fill {
+      background: var(--success);
+    }
+
+    @media (max-width: 768px) {
+      .section-breakdown {
+        padding: 1.5rem;
+      }
+
+      .breakdown-item {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .breakdown-bar {
+        width: 100%;
+        order: 3;
+      }
+    }
+
     /* Recruiter Section */
     .recruiter-section {
       margin-bottom: 2rem;
@@ -518,6 +623,12 @@
       </div>
     </div>
 
+    <section class="section-breakdown" id="sectionBreakdown" style="display: none;">
+      <h3 class="breakdown-title">Performance by Section</h3>
+      <p class="breakdown-subtitle">See which areas need more practice</p>
+      <div class="breakdown-grid" id="breakdownGrid"></div>
+    </section>
+
     <section class="recruiter-section" id="recruiterSection">
       <div class="recruiter-card">
         <div class="recruiter-icon">🎖️</div>
@@ -586,27 +697,83 @@
       const seconds = results.timeUsed % 60;
       document.getElementById('timeUsed').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
-      const score = results.score;
+      // Use AFQT score for messaging (31+ is eligible for enlistment)
+      const afqt = results.afqt || results.score;
       let message, description;
-      if (score >= 90) {
+
+      if (afqt >= 93) {
         message = "Outstanding Performance!";
-        description = "You're exceptionally well-prepared. You qualify for virtually all military occupations.";
-      } else if (score >= 75) {
+        description = "You're in the top tier! You qualify for virtually all military occupations. Contact a recruiter to schedule your official test.";
+      } else if (afqt >= 65) {
         message = "Excellent Work!";
-        description = "You're well-prepared for the ASVAB. Keep practicing to push your score even higher.";
-      } else if (score >= 60) {
-        message = "Solid Foundation";
-        description = "You're on the right track. Focus on weak areas to improve your score.";
-      } else if (score >= 40) {
-        message = "Room for Improvement";
-        description = "Review the material and practice more. You can significantly improve with focused study.";
+        description = "You're well above the minimum requirements and qualify for many career fields. A recruiter can help you explore your options.";
+      } else if (afqt >= 50) {
+        message = "Great Job!";
+        description = "You're above average and eligible for enlistment. A recruiter can discuss which jobs match your score.";
+      } else if (afqt >= 31) {
+        message = "You're Eligible!";
+        description = "You meet the minimum AFQT requirement for enlistment. A recruiter can explain your options and help you prepare for the official test.";
+      } else if (afqt >= 21) {
+        message = "Almost There";
+        description = "You're close to the minimum score of 31. Focus on the sections below and retake the practice test.";
       } else {
-        message = "Keep Studying";
-        description = "Don't give up! Review the basics and take more practice tests to build your skills.";
+        message = "Keep Practicing";
+        description = "Review the study guide and focus on the sections marked below. You can improve with dedicated practice.";
       }
 
       document.getElementById('scoreMessage').textContent = message;
       document.getElementById('scoreDescription').textContent = description;
+
+      // Update recruiter section messaging for eligible users
+      if (afqt >= 31) {
+        document.querySelector('.recruiter-content h3').textContent = "Ready to Take the Next Step?";
+        document.querySelector('.recruiter-content p').textContent = "Connect with a recruiter to schedule your official ASVAB and discuss career opportunities that match your score.";
+      }
+
+      // Render section breakdown
+      renderSectionBreakdown(results.sectionResults);
+    }
+
+    function renderSectionBreakdown(sectionResults) {
+      if (!sectionResults || Object.keys(sectionResults).length === 0) return;
+
+      const container = document.getElementById('sectionBreakdown');
+      const grid = document.getElementById('breakdownGrid');
+
+      container.style.display = 'block';
+
+      const sectionNames = {
+        'AR': 'Arithmetic Reasoning',
+        'WK': 'Word Knowledge',
+        'PC': 'Paragraph Comprehension',
+        'MK': 'Mathematics Knowledge',
+        'GS': 'General Science',
+        'AS': 'Auto & Shop',
+        'MC': 'Mechanical Comprehension',
+        'EI': 'Electronics Information',
+        'AO': 'Assembling Objects'
+      };
+
+      let html = '';
+      for (const [code, data] of Object.entries(sectionResults)) {
+        const percent = Math.round((data.correct / data.total) * 100);
+        const missed = data.total - data.correct;
+        const needsWork = percent < 70;
+        const statusClass = needsWork ? 'needs-work' : 'good';
+        const name = sectionNames[code] || data.name || code;
+
+        html += `
+          <div class="breakdown-item ${statusClass}">
+            <span class="breakdown-section-name">${name}</span>
+            <span class="breakdown-score">${data.correct}/${data.total} ${missed > 0 ? `(${missed} missed)` : ''}</span>
+            <div class="breakdown-bar">
+              <div class="breakdown-fill" style="width: ${percent}%"></div>
+            </div>
+          </div>
+        `;
+      }
+
+      grid.innerHTML = html;
     }
 
     function getOrdinalSuffix(n) {
