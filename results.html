@@ -297,6 +297,139 @@
       }
     }
 
+    /* Recruiter Section */
+    .recruiter-section {
+      margin-bottom: 2rem;
+      animation: fadeIn 0.5s ease-out 0.2s both;
+    }
+
+    .recruiter-card {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+    }
+
+    .recruiter-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+
+    .recruiter-content h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .recruiter-content p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .recruiter-toggle {
+      background: var(--navy-900);
+      color: var(--white);
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .recruiter-toggle:hover {
+      background: var(--navy-700);
+      transform: translateY(-2px);
+    }
+
+    .recruiter-form-container {
+      margin-top: 1rem;
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+    }
+
+    .recruiter-form .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .recruiter-form .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .recruiter-form .form-group:last-child {
+      margin-bottom: 1.25rem;
+    }
+
+    .recruiter-form label {
+      font-weight: 500;
+      color: var(--text-primary);
+      font-size: 0.85rem;
+    }
+
+    .recruiter-form input,
+    .recruiter-form select,
+    .recruiter-form textarea {
+      padding: 0.7rem 0.9rem;
+      border: 1px solid var(--cream-200);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.2s ease;
+    }
+
+    .recruiter-form input:focus,
+    .recruiter-form select:focus,
+    .recruiter-form textarea:focus {
+      outline: none;
+      border-color: var(--navy-700);
+    }
+
+    .form-submit {
+      background: var(--gold-500);
+      color: var(--navy-900);
+      padding: 0.875rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'DM Sans', sans-serif;
+      width: 100%;
+    }
+
+    .form-submit:hover {
+      background: var(--gold-400);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .recruiter-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+      }
+
+      .recruiter-form .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 480px) {
       nav { justify-content: center; }
       .logo { width: 100%; text-align: center; }
@@ -346,6 +479,40 @@
         <div class="stat-label">Time Used</div>
       </div>
     </div>
+
+    <section class="recruiter-section" id="recruiterSection">
+      <div class="recruiter-card">
+        <div class="recruiter-icon">🎖️</div>
+        <div class="recruiter-content">
+          <h3>Want Help Understanding Your Score?</h3>
+          <p>A military recruiter can explain what your score qualifies you for and answer any questions about the enlistment process.</p>
+          <button class="recruiter-toggle" onclick="toggleRecruiterForm()">Connect with a Recruiter</button>
+        </div>
+      </div>
+      <div class="recruiter-form-container" id="recruiterForm" style="display: none;">
+        <form class="recruiter-form" onsubmit="submitRecruiterRequest(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="recruiterName">Full Name</label>
+              <input type="text" id="recruiterName" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="recruiterEmail">Email</label>
+              <input type="email" id="recruiterEmail" name="email" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="recruiterPhone">Phone Number</label>
+            <input type="tel" id="recruiterPhone" name="phone" required>
+          </div>
+          <div class="form-group">
+            <label for="recruiterMessage">Questions (optional)</label>
+            <textarea id="recruiterMessage" name="message" rows="3" placeholder="Any questions about your score, job qualifications, or next steps?"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Submit Request</button>
+        </form>
+      </div>
+    </section>
 
     <div class="cta-section">
       <a href="select-test.html" class="cta-btn cta-primary">Take Another Test →</a>
@@ -404,6 +571,54 @@
     }
 
     document.addEventListener('DOMContentLoaded', loadResults);
+
+    function toggleRecruiterForm() {
+      const form = document.getElementById('recruiterForm');
+      const btn = document.querySelector('.recruiter-toggle');
+      if (form.style.display === 'none') {
+        form.style.display = 'block';
+        btn.textContent = 'Hide Form';
+      } else {
+        form.style.display = 'none';
+        btn.textContent = 'Connect with a Recruiter';
+      }
+    }
+
+    function submitRecruiterRequest(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('.form-submit');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      const results = JSON.parse(localStorage.getItem('quizResults')) || {};
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        message: form.message.value,
+        source: 'results',
+        practiceScore: results.afqt || null
+      };
+
+      fetch('https://script.google.com/macros/s/AKfycbysvHm6clnX3xJrBiiPYeXRk6hmcHs1fiQ3w4piNlb0zqFHvAH-0WhW5c54xuE-Sydf0g/exec', {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        alert('Thank you! A recruiter will contact you soon to discuss your score and options.');
+        form.reset();
+        document.getElementById('recruiterForm').style.display = 'none';
+        document.querySelector('.recruiter-toggle').textContent = 'Connect with a Recruiter';
+      })
+      .catch(() => {
+        alert('Something went wrong. Please try again.');
+      })
+      .finally(() => {
+        btn.disabled = false;
+        btn.textContent = 'Submit Request';
+      });
+    }
   </script>
 
   <footer style="background: #0a1628; color: #f2efe8; padding: 2rem 5%; text-align: center; margin-top: 2rem;">

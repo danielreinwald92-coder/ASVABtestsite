@@ -622,6 +622,146 @@
       }
     }
 
+    /* Recruiter Section */
+    .recruiter-section {
+      padding: 4rem 5%;
+      background: var(--cream-100);
+    }
+
+    .recruiter-card {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(10, 22, 40, 0.08);
+    }
+
+    .recruiter-icon {
+      font-size: 3rem;
+      flex-shrink: 0;
+    }
+
+    .recruiter-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .recruiter-content p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .recruiter-toggle {
+      background: var(--navy-900);
+      color: var(--white);
+      padding: 0.875rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .recruiter-toggle:hover {
+      background: var(--navy-700);
+      transform: translateY(-2px);
+    }
+
+    .recruiter-form-container {
+      max-width: 800px;
+      margin: 1.5rem auto 0;
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(10, 22, 40, 0.08);
+    }
+
+    .recruiter-form .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .recruiter-form .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .recruiter-form .form-group:last-child {
+      margin-bottom: 1.5rem;
+    }
+
+    .recruiter-form label {
+      font-weight: 500;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .recruiter-form input,
+    .recruiter-form select,
+    .recruiter-form textarea {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--cream-200);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.2s ease;
+    }
+
+    .recruiter-form input:focus,
+    .recruiter-form select:focus,
+    .recruiter-form textarea:focus {
+      outline: none;
+      border-color: var(--navy-700);
+    }
+
+    .form-submit {
+      background: var(--gold-500);
+      color: var(--navy-900);
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'DM Sans', sans-serif;
+      width: 100%;
+    }
+
+    .form-submit:hover {
+      background: var(--gold-400);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .recruiter-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1.5rem;
+      }
+
+      .recruiter-form .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .recruiter-form-container {
+        padding: 1.5rem;
+      }
+    }
+
     /* Footer */
     .site-footer {
       background: var(--navy-900);
@@ -741,9 +881,91 @@
     </div>
   </section>
 
+  <section class="recruiter-section">
+    <div class="recruiter-card">
+      <div class="recruiter-icon">🎖️</div>
+      <div class="recruiter-content">
+        <h2>Have Questions About Eligibility?</h2>
+        <p>A military recruiter can answer questions about ASVAB scores, job qualifications, and enlistment requirements for your branch of interest.</p>
+        <button class="recruiter-toggle" onclick="toggleRecruiterForm()">Request Recruiter Contact</button>
+      </div>
+    </div>
+    <div class="recruiter-form-container" id="recruiterForm" style="display: none;">
+      <form class="recruiter-form" onsubmit="submitRecruiterRequest(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="recruiterName">Full Name</label>
+            <input type="text" id="recruiterName" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="recruiterEmail">Email</label>
+            <input type="email" id="recruiterEmail" name="email" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="recruiterPhone">Phone Number</label>
+          <input type="tel" id="recruiterPhone" name="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="recruiterMessage">Questions or Comments (optional)</label>
+          <textarea id="recruiterMessage" name="message" rows="3" placeholder="Any specific questions about eligibility, jobs, or the enlistment process?"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Submit Request</button>
+      </form>
+    </div>
+  </section>
+
   <footer class="site-footer">
     <p class="disclaimer">This website is not affiliated with, endorsed by, or sponsored by the U.S. Department of Defense, any branch of the U.S. Armed Forces, or the official ASVAB program. "ASVAB" is a registered trademark of the U.S. Department of Defense. This is an independent practice resource only.</p>
     <p class="copyright">© <script>document.write(new Date().getFullYear())</script> ASVABPro. For educational purposes only.</p>
   </footer>
+  <script>
+    function toggleRecruiterForm() {
+      const form = document.getElementById('recruiterForm');
+      const btn = document.querySelector('.recruiter-toggle');
+      if (form.style.display === 'none') {
+        form.style.display = 'block';
+        btn.textContent = 'Hide Form';
+      } else {
+        form.style.display = 'none';
+        btn.textContent = 'Request Recruiter Contact';
+      }
+    }
+
+    function submitRecruiterRequest(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('.form-submit');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        message: form.message.value,
+        source: 'homepage',
+        practiceScore: null
+      };
+
+      fetch('https://script.google.com/macros/s/AKfycbysvHm6clnX3xJrBiiPYeXRk6hmcHs1fiQ3w4piNlb0zqFHvAH-0WhW5c54xuE-Sydf0g/exec', {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        alert('Thank you! A recruiter will contact you soon.');
+        form.reset();
+        document.getElementById('recruiterForm').style.display = 'none';
+        document.querySelector('.recruiter-toggle').textContent = 'Request Recruiter Contact';
+      })
+      .catch(() => {
+        alert('Something went wrong. Please try again.');
+      })
+      .finally(() => {
+        btn.disabled = false;
+        btn.textContent = 'Submit Request';
+      });
+    }
+  </script>
 </body>
 </html>
