@@ -384,21 +384,39 @@ class QuizEngine {
   }
 
   goToQuestion(index) {
-    if (index >= 0 && index < this.quizData.questions.length) {
-      this.currentQuestion = index;
-      this.saveState();
-      this.renderQuestion();
+    if (index < 0 || index >= this.quizData.questions.length) return;
+
+    // Can only go to answered questions or current question
+    const targetQuestion = this.quizData.questions[index];
+    if (index > this.currentQuestion && this.answers[targetQuestion.id] === undefined) {
+      return;
     }
+
+    this.currentQuestion = index;
+    this.saveState();
+    this.renderQuestion();
   }
 
   nextQuestion() {
+    const question = this.quizData.questions[this.currentQuestion];
+    if (this.answers[question.id] === undefined) {
+      this.showAnswerRequired();
+      return;
+    }
+
     if (this.currentQuestion < this.quizData.questions.length - 1) {
       this.currentQuestion++;
       this.saveState();
       this.renderQuestion();
     } else {
-      this.showSubmitConfirm();
+      this.submitQuiz();
     }
+  }
+
+  showAnswerRequired() {
+    const container = document.getElementById('answersContainer');
+    container.classList.add('shake');
+    setTimeout(() => container.classList.remove('shake'), 500);
   }
 
   prevQuestion() {
