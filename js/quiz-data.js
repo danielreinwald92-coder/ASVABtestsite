@@ -299,7 +299,7 @@ const asvabData = {
     ],
 
     // ========================================
-    // ARITHMETIC REASONING (AR) - 35 questions
+    // ARITHMETIC REASONING (AR) - 63 questions
     // ========================================
     AR: [
       {
@@ -546,11 +546,207 @@ const asvabData = {
         options: ["6", "8", "9", "12"],
         correct: 2,
         difficulty: 3
+      },
+      {
+        id: "AR036",
+        text: "If 10 inches on a map represents an actual distance of 100 feet, then what actual distance does 25 inches on the map represent?",
+        options: ["25 feet", "100 feet", "150 feet", "250 feet"],
+        correct: 3,
+        difficulty: 2
+      },
+      {
+        id: "AR037",
+        text: "Jill bought 9 bottles of juice for 12 people. How many bottles would she need for 8 people?",
+        options: ["6", "8", "10", "12"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "AR038",
+        text: "A cleaning company charged $600 for cleaning 4,800 square feet. What would they charge for 12,000 square feet?",
+        options: ["$950", "$1,200", "$1,400", "$1,500"],
+        correct: 3,
+        difficulty: 3
+      },
+      {
+        id: "AR039",
+        text: "Kelly's rent increased from $500 to $525 monthly. What percent increase is this?",
+        options: ["0.5 percent", "5 percent", "10 percent", "12.5 percent"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "AR040",
+        text: "Diane gets a haircut ($45) and color treatment ($150) at a salon. If she's expected to leave a 15% tip, how much should she leave?",
+        options: ["$22.50", "$29.25", "$20.00", "$224.25"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "AR041",
+        text: "Oscar purchased a hat on sale for $5.06. The original price was $9.20. What percentage discount was the sale price?",
+        options: ["4.5%", "41.4%", "45%", "55%"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "AR042",
+        text: "Maya purchased a boat for $18,340. Its value depreciated 15% in the first year. What was it worth at year's end?",
+        options: ["$2,751", "$21,091", "$12,227", "$15,589"],
+        correct: 3,
+        difficulty: 4
+      },
+      {
+        id: "AR043",
+        text: "Of 200 conference attendees, 53 percent were women. How many women attended?",
+        options: ["94", "212", "53", "106"],
+        correct: 3,
+        difficulty: 2
+      },
+      {
+        id: "AR044",
+        text: "Captain Mike leaves the dock at 10:00 a.m. and travels down the river at 55 miles per hour. How far will he have traveled by 5:00 p.m.?",
+        options: ["330 miles", "275 miles", "380 miles", "385 miles"],
+        correct: 3,
+        difficulty: 2
+      },
+      {
+        id: "AR045",
+        text: "Delia walks at 2.5 mph for 12 minutes. How far has she traveled?",
+        options: ["0.2 miles", "0.5 miles", "2 miles", "4.8 miles"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "AR046",
+        text: "If a car travels 360 kilometers in 5 hours, how many kilometers will it travel in 9 hours at the same speed?",
+        options: ["72", "288", "620", "648"],
+        correct: 3,
+        difficulty: 2
+      },
+      {
+        id: "AR047",
+        text: "Sofia drives 70 km/h for 2 hours, then 63 km/h for 5 hours. What was her average speed over the 7-hour period?",
+        options: ["64 km/h", "65 km/h", "66 km/h", "67 km/h"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "AR048",
+        text: "Mia earns $8.10 per hour and worked 40 hours. Charlotte earns $10.80 per hour. How many hours would Charlotte need to work to equal Mia's earnings?",
+        options: ["25", "27", "28", "30"],
+        correct: 3,
+        difficulty: 3
+      },
+      {
+        id: "AR049",
+        text: "Two pizza ovens exist. Oven #1 burns three times as many pizzas as Oven #2. If a total of 12 pizzas were burned on Saturday, how many did Oven #2 burn?",
+        options: ["2", "3", "4", "5"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "AR050",
+        text: "A recruiter needs to process 180 applications. If she processes 12 applications per hour, how many hours will it take?",
+        options: ["12 hours", "15 hours", "16 hours", "18 hours"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "AR051",
+        text: "Paul invests $2,000 at 4 percent annual interest. How much interest does he earn in one year?",
+        options: ["$160", "$80", "$120", "$800"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "AR052",
+        text: "A vehicle worth $8,000 depreciates 15% each year for 2 years. After two years, how much is the vehicle worth?",
+        options: ["$5,440", "$5,780", "$6,400", "$6,800"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "AR053",
+        text: "Given 2 pints per quart and 4 quarts per gallon, how many pints are in 2 gallons?",
+        options: ["32 pints", "16 pints", "8 pints", "4 pints"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "AR054",
+        text: "Sergeant Jeffries walked 1.2 miles. With 5,280 feet per mile, how many feet did he walk?",
+        options: ["7,392 ft", "1,056 ft", "5,780 ft", "6,336 ft"],
+        correct: 3,
+        difficulty: 2
+      },
+      {
+        id: "AR055",
+        text: "Stephen needs 5 gallons of lemonade. His bucket contains 3.5 gallons. How many pints must he add to fill it?",
+        options: ["6", "8", "10", "12"],
+        correct: 3,
+        difficulty: 3
+      },
+      {
+        id: "AR056",
+        text: "A radar system beeps once every second. How many times will it beep in 3 days?",
+        options: ["10,800", "86,400", "129,600", "259,200"],
+        correct: 3,
+        difficulty: 4
+      },
+      {
+        id: "AR057",
+        text: "A phone company charges $2 for the first five minutes and 30 cents per minute thereafter. If Malik makes a 25-minute call, what is the total cost?",
+        options: ["$8.00", "$8.50", "$9.00", "$9.50"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "AR058",
+        text: "Five years ago, Amy was three times as old as Mike. If Mike is 10 years old now, how old is Amy?",
+        options: ["15", "20", "25", "30"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "AR059",
+        text: "A bag contains 8 pennies, 5 dimes, and 7 nickels. What's the probability of randomly selecting a dime?",
+        options: ["1/20", "1/4", "1/3", "3/10"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "AR060",
+        text: "Aisha wants to paint a room's walls. Each gallon covers 110 square feet. The walls are: two at 10x10 feet and two at 10x15 feet. How many 1-gallon buckets are needed?",
+        options: ["4", "5", "9", "10"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "AR061",
+        text: "Kendra earns $12/hour with 1.5x pay for overtime. She worked 40 hours plus 4 overtime hours. What are her total earnings?",
+        options: ["$552", "$528", "$480", "$500"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "AR062",
+        text: "If 45 gallons of water pass through a pipe in 9 seconds, how many gallons pass through in 4 seconds?",
+        options: ["15 gallons", "20 gallons", "25 gallons", "36 gallons"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "AR063",
+        text: "A store sells pencils for $0.25 each or a pack of 12 for $2.50. How much do you save by buying the pack instead of 12 individual pencils?",
+        options: ["$0.25", "$0.50", "$0.75", "$1.00"],
+        correct: 1,
+        difficulty: 2
       }
     ],
 
     // ========================================
-    // WORD KNOWLEDGE (WK) - 35 questions
+    // WORD KNOWLEDGE (WK) - 65 questions
     // ========================================
     WK: [
       {
@@ -797,11 +993,221 @@ const asvabData = {
         options: ["Poor", "Outstanding", "Average", "Ordinary"],
         correct: 1,
         difficulty: 3
+      },
+      {
+        id: "WK036",
+        text: "Antagonize most nearly means:",
+        options: ["Embarrass", "Struggle", "Provoke", "Worship"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "WK037",
+        text: "Wilted most nearly means:",
+        options: ["Left", "Limp", "Budding", "Requested"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK038",
+        text: "His record provides no reason for apprehension. Apprehension most nearly means:",
+        options: ["Anxiety", "Change", "Enjoyment", "Endorsement"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "WK039",
+        text: "Quiver most nearly means:",
+        options: ["Shake", "Dance", "Rest", "Run"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "WK040",
+        text: "The teenager abandoned his job because he found it to be onerous. Onerous most nearly means:",
+        options: ["Frightening", "Pointless", "Burdensome", "Boring"],
+        correct: 2,
+        difficulty: 4
+      },
+      {
+        id: "WK041",
+        text: "Disparate most nearly means:",
+        options: ["Different", "Dull", "Untrustworthy", "Unspeakable"],
+        correct: 0,
+        difficulty: 4
+      },
+      {
+        id: "WK042",
+        text: "She did not condone his insubordination. Condone most nearly means:",
+        options: ["Condemn", "Appreciate", "Excuse", "Report"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "WK043",
+        text: "The new senator was a man of candor. Candor most nearly means:",
+        options: ["Duplicity", "Corruption", "Honesty", "Attractiveness"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "WK044",
+        text: "Contrived most nearly means:",
+        options: ["Artificial", "Real", "Confusing", "Alarming"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "WK045",
+        text: "I paid a nominal amount of money to join the club. Nominal most nearly means:",
+        options: ["Huge", "Unreasonable", "Arbitrary", "Small"],
+        correct: 3,
+        difficulty: 3
+      },
+      {
+        id: "WK046",
+        text: "Clandestine most nearly means:",
+        options: ["Iconic", "Faction", "Riveting", "Covert"],
+        correct: 3,
+        difficulty: 4
+      },
+      {
+        id: "WK047",
+        text: "The fetid liquid soaked through my shoes. Fetid most nearly means:",
+        options: ["Putrid", "Oily", "Mysterious", "Flammable"],
+        correct: 0,
+        difficulty: 4
+      },
+      {
+        id: "WK048",
+        text: "Instigate most nearly means:",
+        options: ["Restrict", "Initiate", "Force", "Investigate"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK049",
+        text: "Our relationship was ephemeral. Ephemeral most nearly means:",
+        options: ["Superficial", "Respectful", "Deep", "Fleeting"],
+        correct: 3,
+        difficulty: 4
+      },
+      {
+        id: "WK050",
+        text: "Abrogate most nearly means:",
+        options: ["Advocate", "Rebel", "Repeal", "Answer"],
+        correct: 2,
+        difficulty: 5
+      },
+      {
+        id: "WK051",
+        text: "The decision was not based on any empirical evidence. Empirical most nearly means:",
+        options: ["Observational", "Theoretical", "Irrefutable", "Questionable"],
+        correct: 0,
+        difficulty: 4
+      },
+      {
+        id: "WK052",
+        text: "Deference most nearly means:",
+        options: ["Divergence", "Tranquility", "Respect", "Inaccuracy"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "WK053",
+        text: "Legitimate most nearly means:",
+        options: ["Secret", "Lawful", "Selfish", "Phony"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK054",
+        text: "My speech got little applause from the apathetic audience. Apathetic most nearly means:",
+        options: ["Indifferent", "Strange", "Hateful", "Empathetic"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "WK055",
+        text: "There is camaraderie within the small groups at our church. Camaraderie most nearly means:",
+        options: ["Competition", "Levity", "Apprehension", "Companionship"],
+        correct: 3,
+        difficulty: 3
+      },
+      {
+        id: "WK056",
+        text: "Amiable most nearly means:",
+        options: ["Hostile", "Friendly", "Cautious", "Uncertain"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK057",
+        text: "Inevitable most nearly means:",
+        options: ["Avoidable", "Certain", "Unlikely", "Possible"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK058",
+        text: "Hostile most nearly means:",
+        options: ["Welcoming", "Neutral", "Unfriendly", "Helpful"],
+        correct: 2,
+        difficulty: 1
+      },
+      {
+        id: "WK059",
+        text: "Procrastinate most nearly means:",
+        options: ["Finish", "Delay", "Hurry", "Organize"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK060",
+        text: "Versatile most nearly means:",
+        options: ["Rigid", "Limited", "Adaptable", "Specialized"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "WK061",
+        text: "Elated most nearly means:",
+        options: ["Depressed", "Jubilant", "Calm", "Nervous"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK062",
+        text: "Immaculate most nearly means:",
+        options: ["Dirty", "Spotless", "Ordinary", "Damaged"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK063",
+        text: "Infiltrate most nearly means:",
+        options: ["Exit", "Guard", "Expose", "Penetrate"],
+        correct: 3,
+        difficulty: 3
+      },
+      {
+        id: "WK064",
+        text: "Intrepid most nearly means:",
+        options: ["Fearless", "Cautious", "Nervous", "Weak"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "WK065",
+        text: "Tenacious most nearly means:",
+        options: ["Weak", "Flexible", "Persistent", "Careless"],
+        correct: 2,
+        difficulty: 3
       }
     ],
 
     // ========================================
-    // PARAGRAPH COMPREHENSION (PC) - 25 questions
+    // PARAGRAPH COMPREHENSION (PC) - 45 questions
     // ========================================
     PC: [
       {
@@ -953,11 +1359,132 @@ const asvabData = {
         text: "Read the passage: 'Veterans Day honors all who have served in the military, while Memorial Day specifically remembers those who died in service. Both holidays recognize the sacrifices made by military personnel. Veterans Day is observed on November 11th each year.'\n\nWhat is the difference between Veterans Day and Memorial Day?",
         options: ["They are the same", "Veterans Day honors all who served; Memorial Day honors those who died", "Memorial Day is for officers only", "Veterans Day is for Navy only"],
         correct: 1, difficulty: 3
+      },
+      // NEW: Science, History, and General Interest Passages
+      {
+        id: "PC026",
+        text: "Read the passage: 'The eastern part of Texas will ambush the senses of all who enter it with preconceptions of sand and cacti around every bend. It has a look and atmosphere that does not fit the boots-and-saddle image of the state.'\n\nThe author implies that the look and atmosphere of east Texas does NOT resemble that of the:",
+        options: ["marshlands", "mountains", "seashore", "desert"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "PC027",
+        text: "Read the passage: 'A thin transparent layer of oxide protects the metal titanium against corrosion. The same thin layer attracts artists interested in making their art with the help of technology. By using heat or electricity, an artist can thicken the oxide layer and thereby turn the metal a range of vivid colors.'\n\nAccording to the passage, some artists work with titanium because it:",
+        options: ["is transparent", "does not corrode", "generates its own heat", "can assume a variety of colors"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "PC028",
+        text: "Read the passage: 'They returned to the beach, where blankets spotted the slope to the water. An advancing wall of clouds, black and gray, darkening the expanse of ground beneath, approached from the west. To the east and above them, the sky remained clear, the sun warm, as if collaborating in the deception.'\n\nThe 'deception' referred to in the passage is that:",
+        options: ["there is no storm approaching", "the sky is clear in the east", "it is too cold to swim", "the sun is warm"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "PC029",
+        text: "Read the passage: 'The orientation of a large expanse of glass in a house is important. Improperly positioned, it can cost precious fuel dollars, whereas good orientation can minimize heat lost in the winter and gained in the summer. The best direction to face is south, to make good use of solar energy.'\n\nAccording to the passage, large expanses of glass should be positioned to:",
+        options: ["take advantage of summer sunlight", "control heat gain and loss", "shield the house from the low winter sun", "avoid blockage of sunlight by an overhanging roof"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "PC030",
+        text: "Read the passage: 'Nations are political and military units, but they are not necessarily the most important units in economic life, nor are they very much alike in any economic sense. All that nations really have in common is the political aspect of their sovereignty. Indeed, the failure of national governments to control economic forces suggests that nations are irrelevant to promoting economic success.'\n\nAccording to the paragraph, the economic power of nations is:",
+        options: ["controlled by political and military success", "the basis of their political success", "limited to a few powerful nations", "relatively unimportant"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "PC031",
+        text: "Read the passage: 'A lamb's thick winter coat keeps it warm during the cold winter months. In spring, farmers shear the sheep, removing the wool in a single piece called a fleece. This fleece is then cleaned, combed, and spun into yarn that is used to make clothing and blankets.'\n\nWhy are sheep sheared?",
+        options: ["Because they get too hot in summer", "So we can use the wool to make clothes", "The sheep's coat is dangerous to them", "They look better without their coat"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC032",
+        text: "Read the passage: 'DNA stands for deoxyribonucleic acid. It has proteins attached to it and exists in the form of chromosomes. DNA in chromosomes contains the information that determines all of the physical characteristics that were inherited from the previous generation, from a strawberry's shape to the color of your eyes.'\n\nThis author implies that:",
+        options: ["Species are subdivisions of a genus", "Strawberries are organisms", "DNA is only found in organisms' parents", "All species have similar physical characteristics"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "PC033",
+        text: "Read the passage: 'The Mississippi River is key to New Orleans' flavor and pizzazz. Its muddy water once carried jazz musicians upriver to Memphis and St. Louis, and the city's famous cuisine owes much to the fresh seafood that travels its currents from the Gulf of Mexico.'\n\nSome people believe New Orleans' atmosphere comes primarily from:",
+        options: ["Jazz music", "Its unique food", "The Mississippi River", "The history of its swamp"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "PC034",
+        text: "Read the passage: 'American Sign Language (ASL) is a conceptual language, and the way ideas are expressed differs from English. In ASL, the most important concept comes first, followed by supporting details. This is unlike English, which often places the subject at the beginning regardless of importance.'\n\nThis author implies that:",
+        options: ["English can never be conceptual", "Every language should have the same syntax", "American Sign Language has incorrect syntax", "English doesn't always begin with what is most important"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "PC035",
+        text: "Read the passage: 'While some playwrights are known for writing essays defending their own work or criticizing the efforts of rivals, Arthur Miller wrote thoughtful analyses of the theater as an art form. His essays examine the nature of tragedy, the role of the common man in drama, and the relationship between theater and society.'\n\nMiller's essays differ from other playwrights' in that:",
+        options: ["Miller's essays are more recent", "Miller's essays are not self-serving", "Miller's essays have had more influence", "Miller wrote about European theater"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "PC036",
+        text: "Read the passage: 'Although much about dolphin communication remains a mystery, researchers have made significant discoveries. Dolphins use clicks for echolocation, similar to sonar, which helps them navigate and find food. However, scientists recently discovered that dolphins also produce distinct whistles that may serve as individual identifiers.'\n\nWhistles are significant because they:",
+        options: ["Show dolphins express emotion", "Prompt questions about communication complexity", "Aid navigation and hunting", "Aren't used for dolphin communication"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "PC037",
+        text: "Read the passage: 'Although much about dolphin communication remains a mystery, researchers have made significant discoveries. Dolphins use clicks for echolocation, similar to sonar, which helps them navigate and find food. These sonic cues are similar to the ones used by other animal species like bats.'\n\nThe most reasonable inference is that:",
+        options: ["Dolphins aren't the only vocal communicating species", "Dolphins never use clicks for communication", "Dolphins are more intelligent than other species", "Dolphins frequently communicate locations"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "PC038",
+        text: "Read the passage: 'An industry trade association found that more than 13,000 martial arts schools exist in the United States with nearly 6 million active members. Of the 13,000 schools, nearly 7,000 offered tae kwon do lessons.'\n\nAccording to this passage, how many people actively participated in martial arts lessons?",
+        options: ["13,000", "7,000", "6 million", "It can't be determined"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "PC039",
+        text: "Read the passage: 'In the 18th century, the British Royal Navy had difficulty finding enough sailors. Young men found near seaports could be kidnapped, drugged, or otherwise hauled aboard a ship and made to work doing menial chores. This practice was known as being \"pressed\" into service.'\n\nIn this passage, pressed means:",
+        options: ["hired", "ironed", "enticed", "forced"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "PC040",
+        text: "Read the passage: 'Statistics show that twenty-five percent of all automobile thefts occur when the doors of a car are left unlocked. An additional fifteen percent happen when keys are left in the ignition. These preventable thefts suggest that car owners can significantly reduce their risk by taking simple precautions.'\n\nTo prevent auto theft, it's a person's responsibility to:",
+        options: ["leave the doors unlocked", "never be in a rush", "prevent the opportunity", "be willing to perform a citizen's arrest"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "PC041",
+        text: "Read the passage: 'Sir Edmund Hillary was the first man to successfully complete the ascent to the peak of Mount Everest in May 1953. He was accompanied by Tenzing Norgay, a Sherpa mountaineer from Nepal. Their achievement marked one of the greatest moments in exploration history.'\n\nWho accompanied Sir Edmund Hillary on his historic climb?",
+        options: ["Another British climber", "Tenzing Norgay", "A team of scientists", "He climbed alone"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "PC042",
+        text: "Read the passage: 'Photosynthesis is the process by which plants convert sunlight into energy. During this process, plants absorb carbon dioxide from the air and release oxygen as a byproduct. Without photosynthesis, most life on Earth could not exist as we know it.'\n\nWhat do plants release during photosynthesis?",
+        options: ["Carbon dioxide", "Nitrogen", "Oxygen", "Hydrogen"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "PC043",
+        text: "Read the passage: 'The Great Wall of China was built over many centuries by various Chinese dynasties. Its primary purpose was to protect the Chinese empire from invasions by nomadic groups from the north. The wall stretches over 13,000 miles, making it one of the most impressive engineering feats in human history.'\n\nWhat was the main purpose of the Great Wall of China?",
+        options: ["To display Chinese wealth", "To protect against invasions", "To mark territorial boundaries", "To provide a trade route"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC044",
+        text: "Read the passage: 'The human brain weighs approximately three pounds and contains about 86 billion neurons. These neurons form trillions of connections called synapses, which allow us to think, remember, and perform complex tasks. Despite representing only 2% of body weight, the brain uses about 20% of the body's energy.'\n\nWhat percentage of the body's energy does the brain use?",
+        options: ["2%", "10%", "20%", "86%"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "PC045",
+        text: "Read the passage: 'The Industrial Revolution began in Britain in the late 18th century and fundamentally changed how goods were produced. Factories replaced small workshops, and machines replaced hand tools. While this transformation brought economic growth, it also created harsh working conditions for many laborers, including children.'\n\nThe author's tone regarding the Industrial Revolution is:",
+        options: ["entirely positive", "entirely negative", "balanced, acknowledging both benefits and drawbacks", "indifferent"],
+        correct: 2, difficulty: 3
       }
     ],
 
     // ========================================
-    // MATHEMATICS KNOWLEDGE (MK) - 35 questions
+    // MATHEMATICS KNOWLEDGE (MK) - 67 questions
     // ========================================
     MK: [
       {
@@ -1169,6 +1696,230 @@ const asvabData = {
         text: "If two angles are complementary and one measures 35°, what does the other measure?",
         options: ["145°", "55°", "35°", "125°"],
         correct: 1, difficulty: 2
+      },
+      {
+        id: "MK036",
+        text: "Solve for x: x + 9 = 13",
+        options: ["3", "4", "5", "13"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "MK037",
+        text: "Solve for x: 3(x + 1) = 5(x - 2) + 7",
+        options: ["-2", "2", "1/2", "3"],
+        correct: 3,
+        difficulty: 3
+      },
+      {
+        id: "MK038",
+        text: "Solve: 2x - 3 = x + 7",
+        options: ["10", "6", "21", "-10"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK039",
+        text: "Solve: 12x + 6 = 8x + 10",
+        options: ["x = 1", "x = 2", "x = 4", "x = 6"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK040",
+        text: "If 3(x - 4) = 18, what is the value of x?",
+        options: ["3/2", "22/3", "6", "10"],
+        correct: 3,
+        difficulty: 2
+      },
+      {
+        id: "MK041",
+        text: "If 6w + 4 = 8w, then 4w =",
+        options: ["1", "2", "4", "8"],
+        correct: 3,
+        difficulty: 3
+      },
+      {
+        id: "MK042",
+        text: "If 3 + y >= 13, what is the value of y?",
+        options: ["Greater than or equal to 10", "Less than or equal to 10", "Exactly 10", "6"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK043",
+        text: "(4x + 2)(x + 1) =",
+        options: ["5x + 3", "4x² + 6x + 2", "4x + 2x + 2", "4x² + 2"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "MK044",
+        text: "Factor: x² - 5x + 6",
+        options: ["(x - 6)(x + 1)", "3(x - 2)(x - 3)", "x(x - 2) - 3(x - 3)", "(x - 2)(x - 3)"],
+        correct: 3,
+        difficulty: 3
+      },
+      {
+        id: "MK045",
+        text: "Factor: 36x² - 49y²",
+        options: ["(6x + 7y)(6x - 7y)", "(6x)(6x)(7y)(7y)", "(6x + 6x)(7y - 7y)", "(6x³)(7y³)"],
+        correct: 0,
+        difficulty: 4
+      },
+      {
+        id: "MK046",
+        text: "Factor: y² - 16y + 48",
+        options: ["(y - 1)(y + 48)", "(y - 4)(y - 12)", "(y - 4)(y + 4)", "(y + 1)(y - 16)"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "MK047",
+        text: "Simplify: (7y² + 3xy - 9) - (2y² + 3xy - 5)",
+        options: ["5y² - 4", "9y² + 6xy - 14", "5y² + 4", "5y² + 6xy - 14"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "MK048",
+        text: "Simplify: 3x + 2 - (4x - 6)",
+        options: ["-x + 8", "-x - 8", "x + 8", "x - 8"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK049",
+        text: "Simplify: (x⁶)(x⁵)",
+        options: ["2x¹¹", "2x³⁰", "x¹¹", "x³⁰"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "MK050",
+        text: "x¹² / x⁴ =",
+        options: ["x⁻⁴", "x⁸", "x¹⁸", "x⁻¹⁶"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK051",
+        text: "y³ × y² × y⁻³ =",
+        options: ["y²", "y⁻¹⁸", "y⁸", "y²³"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "MK052",
+        text: "If 5¹¹ = 5² × 5ᵐ, what is the value of m?",
+        options: ["3", "5.5", "9", "12.5"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "MK053",
+        text: "Solve: (-3)³ =",
+        options: ["9", "-9", "27", "-27"],
+        correct: 3,
+        difficulty: 2
+      },
+      {
+        id: "MK054",
+        text: "6.6 × 10⁻⁴ =",
+        options: ["0.000066", "0.00066", "0.0066", "0.066"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "MK055",
+        text: "What is the value if x = 2 and y = 4? 2x³ × y²",
+        options: ["52", "106", "256", "512"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "MK056",
+        text: "Evaluate: √(6² + 8²)",
+        options: ["7", "14", "10", "100"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "MK057",
+        text: "What is the value of: √(25 + 144)",
+        options: ["60", "17", "13", "11"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "MK058",
+        text: "The cube root of 27 =",
+        options: ["3", "4", "5", "2.25"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK059",
+        text: "A rectangle is cut in half to create two squares, each with area 25. What is the perimeter of the original rectangle?",
+        options: ["20", "25", "30", "50"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "MK060",
+        text: "A circle has a radius of 15 feet. What is most nearly its circumference?",
+        options: ["30 feet", "25 feet", "94 feet", "150 feet"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "MK061",
+        text: "At 3 p.m., the angle between the hands of the clock is:",
+        options: ["90 degrees", "180 degrees", "120 degrees", "360 degrees"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK062",
+        text: "Volume of a rectangular box with dimensions 3 cm × 4 cm × 5 cm =",
+        options: ["12 cm³", "15 cm³", "20 cm³", "60 cm³"],
+        correct: 3,
+        difficulty: 1
+      },
+      {
+        id: "MK063",
+        text: "Simplify: 6!",
+        options: ["120", "720", "360", "24"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "MK064",
+        text: "If n is a positive integer divisible by 7, and n < 70, what is the greatest possible value of n?",
+        options: ["49", "56", "63", "69"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "MK065",
+        text: "Evaluate: 26 - 7(3 + 5) / 4 + 2",
+        options: ["14", "16.67", "23", "40"],
+        correct: 0,
+        difficulty: 4
+      },
+      {
+        id: "MK066",
+        text: "3² + 4(5 - 2) =",
+        options: ["21", "36", "39", "40"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK067",
+        text: "Factor: 4y(3x + 2) - 2(3x + 2)",
+        options: ["(4y - 2)(3x + 2)", "(3x - 2)(4y + 2)", "(4y + 2)(6x)", "(3x + 2)(4y + 2)"],
+        correct: 0,
+        difficulty: 4
       }
     ],
 
