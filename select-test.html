@@ -354,15 +354,51 @@
     }
 
     @media (max-width: 700px) {
+      nav { padding: 1rem; }
+      .logo { font-size: 1.5rem; }
+      .back-link { font-size: 0.85rem; }
+
+      .main-content { padding: 1.5rem 1rem; }
+      .page-header { margin-bottom: 2rem; }
+      .page-header h1 { font-size: 1.75rem; }
+      .page-header p { font-size: 1rem; }
+
+      .section-title { font-size: 1.25rem; }
+
       .test-type-grid,
       .section-grid {
         grid-template-columns: 1fr;
       }
 
+      .test-type-card { padding: 1.5rem; border-radius: 16px; }
+      .test-type-name { font-size: 1.5rem; }
+      .test-type-desc { font-size: 0.9rem; }
+
       .test-type-details {
         flex-wrap: wrap;
         gap: 1rem;
       }
+
+      .section-card { padding: 1rem; border-radius: 10px; }
+      .section-name { font-size: 0.95rem; }
+      .section-questions { font-size: 0.8rem; }
+
+      .name-input { padding: 0.875rem 1rem; font-size: 1rem; }
+
+      .start-btn {
+        padding: 1.125rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-header h1 { font-size: 1.5rem; }
+      .test-type-card { padding: 1.25rem; }
+      .test-type-badge { font-size: 0.75rem; padding: 0.25rem 0.6rem; }
+      .test-type-name { font-size: 1.25rem; }
+      .detail-value { font-size: 1rem; }
+      .detail-label { font-size: 0.7rem; }
     }
   </style>
 </head>
