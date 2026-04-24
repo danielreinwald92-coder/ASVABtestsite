@@ -551,6 +551,12 @@
 
   <script src="js/quiz-data.js"></script>
   <script>
+    // Clear any previous test session when visiting this page
+    // This ensures users always get a fresh test
+    sessionStorage.removeItem('quizState');
+    sessionStorage.removeItem('generatedTest');
+    sessionStorage.removeItem('testConfig');
+
     let selectedType = 'quick';
     const nameInput = document.getElementById('userName');
     const startBtn = document.getElementById('startBtn');
