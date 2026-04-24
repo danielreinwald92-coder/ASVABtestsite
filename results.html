@@ -739,14 +739,26 @@
 
   <script>
     function loadResults() {
-      const results = JSON.parse(localStorage.getItem('quizResults'));
-      const userName = localStorage.getItem('asvabUserName') || 'Test Taker';
+      try {
+        const resultsRaw = localStorage.getItem('quizResults');
+        console.log('Raw results from localStorage:', resultsRaw);
 
-      if (!results) {
-        document.getElementById('scoreMessage').textContent = 'No results found';
-        document.getElementById('scoreDescription').textContent = 'Please take a practice test first.';
-        return;
-      }
+        if (!resultsRaw) {
+          document.getElementById('scoreMessage').textContent = 'No results found';
+          document.getElementById('scoreDescription').textContent = 'Please take a practice test first.';
+          return;
+        }
+
+        const results = JSON.parse(resultsRaw);
+        console.log('Parsed results:', results);
+
+        const userName = localStorage.getItem('asvabUserName') || 'Test Taker';
+
+        if (!results || typeof results !== 'object') {
+          document.getElementById('scoreMessage').textContent = 'Invalid results data';
+          document.getElementById('scoreDescription').textContent = 'Please retake the practice test.';
+          return;
+        }
 
       document.getElementById('userName').textContent = userName;
 
@@ -798,6 +810,12 @@
 
       // Render section breakdown
       renderSectionBreakdown(results.sectionResults);
+
+      } catch (error) {
+        console.error('Error loading results:', error);
+        document.getElementById('scoreMessage').textContent = 'Error loading results';
+        document.getElementById('scoreDescription').textContent = 'Please try taking the test again. Error: ' + error.message;
+      }
     }
 
     function renderSectionBreakdown(sectionResults) {
