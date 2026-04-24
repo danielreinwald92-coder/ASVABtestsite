@@ -35,30 +35,30 @@ const courses = {
             {
               title: "The Cross-Multiply Trick",
               content: "To solve any proportion, cross-multiply. If a/b = c/d, then a×d = b×c. This is your secret weapon for these problems.",
-              svg: `<svg width="280" height="140" viewBox="0 0 280 140">
+              svg: `<svg width="300" height="120" viewBox="0 0 300 120">
                 <style>
-                  text { font-family: 'DM Sans', sans-serif; font-size: 18px; fill: #0a1628; }
-                  .var { font-style: italic; font-weight: 600; }
-                  .line { stroke: #0a1628; stroke-width: 2; }
-                  .cross { stroke: #d4a853; stroke-width: 3; }
-                  .label { font-size: 14px; fill: #666; }
+                  text { font-family: 'DM Sans', sans-serif; fill: #0a1628; }
+                  .var { font-size: 22px; font-weight: 700; }
+                  .sym { font-size: 20px; }
+                  .result { font-size: 18px; font-weight: 600; }
+                  .frac-line { stroke: #0a1628; stroke-width: 2; }
+                  .cross { stroke: #d4a853; stroke-width: 2; }
                 </style>
-                <text x="40" y="35" class="var">a</text>
-                <line x1="30" y1="45" x2="55" y2="45" class="line"/>
-                <text x="40" y="70" class="var">b</text>
-                <text x="80" y="52">=</text>
-                <text x="120" y="35" class="var">c</text>
-                <line x1="110" y1="45" x2="135" y2="45" class="line"/>
-                <text x="120" y="70" class="var">d</text>
-                <line x1="35" y1="85" x2="130" y2="130" class="cross"/>
-                <line x1="35" y1="130" x2="130" y2="85" class="cross"/>
-                <text x="180" y="100" class="var">a</text>
-                <text x="195" y="100">×</text>
-                <text x="210" y="100" class="var">d</text>
-                <text x="230" y="100">=</text>
-                <text x="245" y="100" class="var">b</text>
-                <text x="260" y="100">×</text>
-                <text x="275" y="100" class="var">c</text>
+                <!-- a/b -->
+                <text x="30" y="35" class="var">a</text>
+                <line x1="20" y1="48" x2="50" y2="48" class="frac-line"/>
+                <text x="30" y="75" class="var">b</text>
+                <!-- equals -->
+                <text x="65" y="55" class="sym">=</text>
+                <!-- c/d -->
+                <text x="100" y="35" class="var">c</text>
+                <line x1="90" y1="48" x2="120" y2="48" class="frac-line"/>
+                <text x="100" y="75" class="var">d</text>
+                <!-- cross arrows -->
+                <line x1="35" y1="30" x2="105" y2="78" class="cross" marker-end="url(#arrow)"/>
+                <line x1="35" y1="78" x2="105" y2="30" class="cross"/>
+                <!-- result -->
+                <text x="150" y="55" class="result">a × d = b × c</text>
               </svg>`
             }
           ],
