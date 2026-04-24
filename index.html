@@ -93,6 +93,16 @@
       transform: translateY(-1px);
     }
 
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+    .hamburger span { width: 24px; height: 2px; background: var(--navy-900); transition: all 0.3s; }
+    .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--white); z-index: 1000; padding: 1.5rem 5%; flex-direction: column; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .mobile-menu-close { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--navy-900); }
+    .mobile-menu-links { display: flex; flex-direction: column; gap: 1.5rem; }
+    .mobile-menu-links a { text-decoration: none; color: var(--navy-900); font-size: 1.25rem; font-weight: 500; padding: 0.5rem 0; border-bottom: 1px solid var(--cream-200); }
+    .mobile-menu-cta { margin-top: 2rem; background: var(--navy-900); color: var(--white); padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; text-align: center; }
+
     /* Hero Section */
     .hero {
       display: grid;
@@ -506,6 +516,10 @@
         display: none;
       }
 
+      .hamburger {
+        display: flex;
+      }
+
       .score-card {
         width: 100%;
         max-width: 380px;
@@ -639,7 +653,22 @@
       <li><a href="about.html">About the ASVAB</a></li>
     </ul>
     <a href="select-test.html" class="nav-cta">Take a Practice Test</a>
+    <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+      <a href="index.html" class="logo" style="text-decoration: none;">ASVAB<span>Pro</span></a>
+      <button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="select-test.html">Practice Tests</a>
+      <a href="study-guide.html">Study Guide</a>
+      <a href="about.html">About the ASVAB</a>
+    </div>
+    <a href="select-test.html" class="mobile-menu-cta">Take a Practice Test</a>
+  </div>
 
   <section class="hero">
     <div class="hero-content">
