@@ -1,0 +1,20 @@
+{
+  "name": "mission-asvab",
+  "version": "1.0.0",
+  "description": "Mission ASVAB - Master the ASVAB test preparation website",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'No build step required for static site'",
+    "lint": "echo 'No linter configured'"
+  },
+  "keywords": [
+    "asvab",
+    "test-preparation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
