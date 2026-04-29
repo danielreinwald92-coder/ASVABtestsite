@@ -410,6 +410,114 @@
       }
     }
 
+    /* Line Scores Section */
+    .line-scores {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+      animation: fadeIn 0.5s ease-out 0.2s both;
+    }
+
+    .line-scores-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 0.25rem;
+    }
+
+    .line-scores-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .line-scores-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+
+    .line-score-card {
+      background: var(--cream-100);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .line-score-card.high {
+      background: var(--success-light);
+      border-color: var(--success);
+    }
+
+    .line-score-card.medium {
+      background: var(--warning-light);
+      border-color: var(--warning);
+    }
+
+    .line-score-card.low {
+      background: var(--error-light);
+      border-color: var(--error);
+    }
+
+    .line-score-code {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 0.25rem;
+    }
+
+    .line-score-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .line-score-card.high .line-score-value { color: var(--success); }
+    .line-score-card.medium .line-score-value { color: var(--warning); }
+    .line-score-card.low .line-score-value { color: var(--error); }
+
+    .line-score-name {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.3;
+    }
+
+    .line-scores-note {
+      margin-top: 1.25rem;
+      padding: 1rem;
+      background: var(--cream-100);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .line-scores {
+        padding: 1.5rem;
+      }
+
+      .line-scores-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .line-score-card {
+        padding: 1rem;
+      }
+
+      .line-score-value {
+        font-size: 1.75rem;
+      }
+    }
+
     /* Recruiter Section */
     .recruiter-section {
       margin-bottom: 2rem;
@@ -637,6 +745,15 @@
       <div class="breakdown-grid" id="breakdownGrid"></div>
     </section>
 
+    <section class="line-scores" id="lineScores" style="display: none;">
+      <h3 class="line-scores-title">Military Line Scores</h3>
+      <p class="line-scores-subtitle">Composite scores used for job qualification</p>
+      <div class="line-scores-grid" id="lineScoresGrid"></div>
+      <div class="line-scores-note">
+        <strong>Note:</strong> These are estimated line scores based on your practice test. Official scores are calculated differently and may vary. Line scores determine which Military Occupational Specialties (MOS) you qualify for.
+      </div>
+    </section>
+
     <section class="recruiter-section" id="recruiterSection">
       <div class="recruiter-card">
         <div class="recruiter-icon">🎖️</div>
@@ -757,6 +874,11 @@
       // Render section breakdown
       renderSectionBreakdown(results.sectionResults);
 
+      // Render line scores for full tests
+      if (results.testType === 'full') {
+        renderLineScores(results.sectionResults);
+      }
+
       } catch (error) {
         console.error('Error loading results:', error);
         document.getElementById('scoreMessage').textContent = 'Error loading results';
@@ -798,6 +920,74 @@
             <div class="breakdown-bar">
               <div class="breakdown-fill" style="width: ${percent}%"></div>
             </div>
+          </div>
+        `;
+      }
+
+      grid.innerHTML = html;
+    }
+
+    function renderLineScores(sectionResults) {
+      if (!sectionResults) return;
+
+      const container = document.getElementById('lineScores');
+      const grid = document.getElementById('lineScoresGrid');
+
+      // Calculate standard scores (0-100 scale based on percent correct)
+      function getScore(code) {
+        if (!sectionResults[code]) return 0;
+        return Math.round((sectionResults[code].correct / sectionResults[code].total) * 100);
+      }
+
+      // VE (Verbal Expression) = WK + PC combined
+      const wkScore = getScore('WK');
+      const pcScore = getScore('PC');
+      const veScore = Math.round((wkScore + pcScore) / 2);
+
+      const arScore = getScore('AR');
+      const mkScore = getScore('MK');
+      const gsScore = getScore('GS');
+      const asScore = getScore('AS');
+      const mcScore = getScore('MC');
+      const eiScore = getScore('EI');
+      const aoScore = getScore('AO');
+
+      // Line score formulas (simplified to 0-150 scale like real ASVAB)
+      // These are estimates based on combining section percentages
+      const lineScores = {
+        GT: { name: 'General Technical', score: Math.round((veScore + arScore) * 0.75) },
+        CL: { name: 'Clerical', score: Math.round((veScore + arScore + mkScore) * 0.5) },
+        CO: { name: 'Combat', score: Math.round((arScore + asScore + aoScore + mcScore) * 0.375) },
+        EL: { name: 'Electronics', score: Math.round((gsScore + arScore + mkScore + eiScore) * 0.375) },
+        FA: { name: 'Field Artillery', score: Math.round((arScore + mkScore + mcScore) * 0.5) },
+        GM: { name: 'General Maintenance', score: Math.round((gsScore + asScore + mkScore + eiScore) * 0.375) },
+        MM: { name: 'Mechanical Maintenance', score: Math.round((asScore + mcScore + eiScore) * 0.5) },
+        OF: { name: 'Operators & Food', score: Math.round((veScore + asScore + mcScore) * 0.5) },
+        SC: { name: 'Surveillance & Comms', score: Math.round((veScore + arScore + asScore + mcScore) * 0.375) },
+        ST: { name: 'Skilled Technical', score: Math.round((veScore + gsScore + mkScore + mcScore) * 0.375) }
+      };
+
+      // Check if we have enough sections to show line scores
+      const requiredSections = ['AR', 'WK', 'PC', 'MK', 'GS', 'AS', 'MC', 'EI', 'AO'];
+      const hasSections = requiredSections.filter(s => sectionResults[s]).length;
+      if (hasSections < 5) return; // Need at least 5 sections for meaningful line scores
+
+      container.style.display = 'block';
+
+      let html = '';
+      for (const [code, data] of Object.entries(lineScores)) {
+        // Skip if score is 0 (missing required sections)
+        if (data.score === 0) continue;
+
+        let scoreClass = 'medium';
+        if (data.score >= 110) scoreClass = 'high';
+        else if (data.score < 90) scoreClass = 'low';
+
+        html += `
+          <div class="line-score-card ${scoreClass}">
+            <div class="line-score-code">${code}</div>
+            <div class="line-score-value">${data.score}</div>
+            <div class="line-score-name">${data.name}</div>
           </div>
         `;
       }
