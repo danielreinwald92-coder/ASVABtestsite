@@ -979,12 +979,9 @@
         // Skip if score is 0 (missing required sections)
         if (data.score === 0) continue;
 
-        let scoreClass = 'medium';
-        if (data.score >= 110) scoreClass = 'high';
-        else if (data.score < 90) scoreClass = 'low';
 
         html += `
-          <div class="line-score-card ${scoreClass}">
+          <div class="line-score-card ">
             <div class="line-score-code">${code}</div>
             <div class="line-score-value">${data.score}</div>
             <div class="line-score-name">${data.name}</div>
