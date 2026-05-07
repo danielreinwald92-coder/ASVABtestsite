@@ -54,9 +54,9 @@ class QuizEngine {
     } else if (sectionParam) {
       this.testSections = sectionParam.split(',');
     } else if (typeParam === 'afqt') {
-      this.testSections = QuizManager.getAFQTSections();
+      this.testSections = MissionASVABConfig.getSectionsForType('quick');
     } else if (typeParam === 'full') {
-      this.testSections = QuizManager.getAllSectionCodes();
+      this.testSections = MissionASVABConfig.getSectionsForType('full');
     } else {
       this.testSections = ['AR']; // Default to AR
     }
@@ -122,7 +122,7 @@ class QuizEngine {
     this.quizData = {
       section: this.testSections.length === 1
         ? QuizManager.getSectionInfo(this.testSections[0])?.name
-        : (this.testSections.length === 4 && this.testSections.every(s => ['AR', 'WK', 'PC', 'MK'].includes(s))
+        : (MissionASVABConfig.getTestTypeFromSections(this.testSections) === 'afqt'
           ? 'AFQT Practice Test'
           : 'Full ASVAB Practice Test'),
       sectionCode: this.testSections.join(','),
@@ -486,27 +486,11 @@ class QuizEngine {
 
     // Calculate AFQT estimate if applicable
     let afqtEstimate = null;
-    const afqtSections = ['AR', 'WK', 'PC', 'MK'];
-    const hasAFQTSections = afqtSections.some(s => sectionResults[s]);
-
-    if (hasAFQTSections) {
-      // AFQT = 2(VE) + AR + MK where VE = WK + PC
-      let arScore = sectionResults['AR'] ? (sectionResults['AR'].correct / sectionResults['AR'].total) * 100 : 0;
-      let mkScore = sectionResults['MK'] ? (sectionResults['MK'].correct / sectionResults['MK'].total) * 100 : 0;
-      let wkScore = sectionResults['WK'] ? (sectionResults['WK'].correct / sectionResults['WK'].total) * 100 : 0;
-      let pcScore = sectionResults['PC'] ? (sectionResults['PC'].correct / sectionResults['PC'].total) * 100 : 0;
-
-      // VE (Verbal Expression) combines WK and PC
-      let veScore = (wkScore + pcScore) / 2;
-
-      // Weighted AFQT calculation (simplified percentile estimate)
-      let rawAFQT = (2 * veScore + arScore + mkScore) / 4;
-      afqtEstimate = Math.min(99, Math.max(1, Math.round(rawAFQT)));
-    }
+    afqtEstimate = MissionASVABScoring.calculateAFQTEstimate(sectionResults);
 
     // Store results
     const quizResults = {
-      testType: this.testSections.length === 1 ? 'single' : (this.testSections.length === 4 ? 'afqt' : 'full'),
+      testType: MissionASVABConfig.getTestTypeFromSections(this.testSections),
       section: this.quizData.section,
       sectionCode: this.quizData.sectionCode,
       sections: this.testSections,

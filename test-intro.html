@@ -421,6 +421,7 @@
     </div>
   </main>
 
+  <script src="js/test-config.js"></script>
   <script src="js/quiz-data.js"></script>
   <script>
     const checkbox = document.getElementById('acknowledge');
@@ -429,38 +430,35 @@
     // Load test configuration from session storage
     const testConfig = JSON.parse(sessionStorage.getItem('testConfig') || '{}');
     const testType = localStorage.getItem('testType') || 'quick';
-    const sections = testConfig.sections || (testType === 'full'
-      ? ['GS', 'AR', 'WK', 'PC', 'MK', 'EI', 'AS', 'MC', 'AO']
-      : ['AR', 'WK', 'PC', 'MK']);
+    const sections = testConfig.sections || MissionASVABConfig.getSectionsForType(testType);
 
     // Calculate actual test details from quiz data
     function loadTestInfo() {
-      let totalQuestions = 0;
-      let totalTimeSeconds = 0;
-
-      sections.forEach(code => {
+      const details = sections.reduce((currentDetails, code) => {
         const sectionInfo = QuizManager.getSectionInfo(code);
         if (sectionInfo) {
-          totalQuestions += sectionInfo.questionsPerTest;
-          totalTimeSeconds += sectionInfo.timeLimit;
+          currentDetails.totalQuestions += sectionInfo.questionsPerTest;
+          currentDetails.totalTimeSeconds += sectionInfo.timeLimit;
         }
-      });
+        return currentDetails;
+      }, { totalQuestions: 0, totalTimeSeconds: 0 });
 
-      const totalTimeMinutes = Math.ceil(totalTimeSeconds / 60);
+      const activeConfig = MissionASVABConfig.getTestConfig(testType);
+      const totalTimeMinutes = Math.ceil(details.totalTimeSeconds / 60);
 
       if (testType === 'full') {
-        document.getElementById('testBadge').textContent = 'Full ASVAB';
-        document.getElementById('sectionTitle').textContent = 'Full ASVAB Practice';
-        document.getElementById('sectionDesc').textContent = 'Complete all 9 CAT-ASVAB sections for your AFQT score plus line scores that determine MOS qualification.';
-        document.getElementById('sectionCode').textContent = 'ALL';
+        document.getElementById('testBadge').textContent = activeConfig.label;
+        document.getElementById('sectionTitle').textContent = activeConfig.title;
+        document.getElementById('sectionDesc').textContent = activeConfig.description;
+        document.getElementById('sectionCode').textContent = activeConfig.sectionCode;
       } else {
-        document.getElementById('testBadge').textContent = 'AFQT Practice';
-        document.getElementById('sectionTitle').textContent = 'AFQT Practice Test';
-        document.getElementById('sectionDesc').textContent = 'The 4 sections that determine your AFQT score: Arithmetic Reasoning, Word Knowledge, Paragraph Comprehension, and Mathematics Knowledge.';
-        document.getElementById('sectionCode').textContent = 'AFQT';
+        document.getElementById('testBadge').textContent = activeConfig.label;
+        document.getElementById('sectionTitle').textContent = activeConfig.title;
+        document.getElementById('sectionDesc').textContent = activeConfig.description;
+        document.getElementById('sectionCode').textContent = activeConfig.sectionCode;
       }
 
-      document.getElementById('questionCount').textContent = totalQuestions;
+      document.getElementById('questionCount').textContent = details.totalQuestions;
       document.getElementById('timeLimit').textContent = totalTimeMinutes;
     }
 

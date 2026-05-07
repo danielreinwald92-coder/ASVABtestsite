@@ -801,6 +801,8 @@
     </div>
   </main>
 
+  <script src="js/test-config.js"></script>
+  <script src="js/scoring.js"></script>
   <script>
     function loadResults() {
       try {
@@ -933,44 +935,8 @@
       const container = document.getElementById('lineScores');
       const grid = document.getElementById('lineScoresGrid');
 
-      // Calculate standard scores (0-100 scale based on percent correct)
-      function getScore(code) {
-        if (!sectionResults[code]) return 0;
-        return Math.round((sectionResults[code].correct / sectionResults[code].total) * 100);
-      }
-
-      // VE (Verbal Expression) = WK + PC combined
-      const wkScore = getScore('WK');
-      const pcScore = getScore('PC');
-      const veScore = Math.round((wkScore + pcScore) / 2);
-
-      const arScore = getScore('AR');
-      const mkScore = getScore('MK');
-      const gsScore = getScore('GS');
-      const asScore = getScore('AS');
-      const mcScore = getScore('MC');
-      const eiScore = getScore('EI');
-      const aoScore = getScore('AO');
-
-      // Line score formulas (simplified to 0-150 scale like real ASVAB)
-      // These are estimates based on combining section percentages
-      const lineScores = {
-        GT: { name: 'General Technical', score: Math.round((veScore + arScore) * 0.75) },
-        CL: { name: 'Clerical', score: Math.round((veScore + arScore + mkScore) * 0.5) },
-        CO: { name: 'Combat', score: Math.round((arScore + asScore + aoScore + mcScore) * 0.375) },
-        EL: { name: 'Electronics', score: Math.round((gsScore + arScore + mkScore + eiScore) * 0.375) },
-        FA: { name: 'Field Artillery', score: Math.round((arScore + mkScore + mcScore) * 0.5) },
-        GM: { name: 'General Maintenance', score: Math.round((gsScore + asScore + mkScore + eiScore) * 0.375) },
-        MM: { name: 'Mechanical Maintenance', score: Math.round((asScore + mcScore + eiScore) * 0.5) },
-        OF: { name: 'Operators & Food', score: Math.round((veScore + asScore + mcScore) * 0.5) },
-        SC: { name: 'Surveillance & Comms', score: Math.round((veScore + arScore + asScore + mcScore) * 0.375) },
-        ST: { name: 'Skilled Technical', score: Math.round((veScore + gsScore + mkScore + mcScore) * 0.375) }
-      };
-
-      // Check if we have enough sections to show line scores
-      const requiredSections = ['AR', 'WK', 'PC', 'MK', 'GS', 'AS', 'MC', 'EI', 'AO'];
-      const hasSections = requiredSections.filter(s => sectionResults[s]).length;
-      if (hasSections < 5) return; // Need at least 5 sections for meaningful line scores
+      const lineScores = MissionASVABScoring.calculateLineScores(sectionResults);
+      if (!lineScores) return;
 
       container.style.display = 'block';
 

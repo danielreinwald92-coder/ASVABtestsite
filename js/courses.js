@@ -588,7 +588,7 @@ const courses = {
             id: "AR3-007",
             text: "A train travels 90 miles at 60 mph, then 60 miles at 30 mph. What is the average speed for the whole trip?",
             options: [
-              { text: "45 mph", explanation: "This is (60+30)÷2, but average speed doesn't work that way!", correct: true },
+              { text: "45 mph", explanation: "This is (60+30)÷2, but average speed doesn't work that way." },
               { text: "50 mph", explanation: "Let's check: Time1 = 90÷60 = 1.5hrs. Time2 = 60÷30 = 2hrs. Total: 150mi in 3.5hrs = 42.9mph." },
               { text: "42.9 mph", explanation: "Correct! Total distance = 150mi. Total time = 1.5 + 2 = 3.5hrs. 150÷3.5 ≈ 42.9mph.", correct: true },
               { text: "55 mph", explanation: "Average speed = Total Distance ÷ Total Time, not the average of speeds." }
@@ -809,9 +809,9 @@ const courses = {
             id: "AR4-009",
             text: "John can finish a project in 8 hours. After John works alone for 2 hours, Mary joins him and they finish together in 2 more hours. How long would Mary take alone?",
             options: [
-              { text: "4 hours", explanation: "Correct! John did 2/8 alone + 2/8 with Mary = 4/8. Mary did 4/8 in 2 hrs, so 8 hrs for full job... wait, let me recalculate.", correct: false },
-              { text: "6 hours", explanation: "John did 2/8 alone. Together 2 hrs finished 6/8. John's share: 2/8. Mary: 4/8 in 2 hrs = 1/4 rate. Full job = 4 hrs... checking.", correct: false },
-              { text: "8 hours", explanation: "Correct! John alone: 2hrs = 2/8 = 1/4. Remaining: 3/4. Together in 2hrs: John adds 2/8 = 1/4, so Mary did 3/4 - 1/4 = 2/4 in 2 hrs. Rate = 1/4. Full job = 4 hrs. Let me recheck...", correct: false },
+              { text: "2 hours", explanation: "Mary completed 1/2 of the job in 2 hours, so she would need 4 hours for a full job." },
+              { text: "6 hours", explanation: "This underestimates Mary's rate. She completed 1/2 of the job in 2 hours." },
+              { text: "8 hours", explanation: "This is John's solo time. Mary worked faster during the shared portion." },
               { text: "4 hours", explanation: "Correct! John did 2/8 in first 2 hrs, 2/8 in next 2 hrs = 4/8. Mary did remaining 4/8 in 2 hrs, so her rate is 2/8 = 1/4/hr. Full job = 4 hrs.", correct: true }
             ]
           },

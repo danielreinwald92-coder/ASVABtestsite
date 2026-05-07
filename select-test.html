@@ -585,6 +585,7 @@
     <button class="start-btn" id="startBtn" disabled>Start Practice Test</button>
   </main>
 
+  <script src="js/test-config.js"></script>
   <script src="js/quiz-data.js"></script>
   <script>
     // Clear any previous test session when visiting this page
@@ -598,12 +599,6 @@
     const startBtn = document.getElementById('startBtn');
     const quickSections = document.getElementById('quickSections');
     const fullSections = document.getElementById('fullSections');
-
-    // Section configurations
-    const testConfigs = {
-      quick: ['AR', 'WK', 'PC', 'MK'], // AFQT sections
-      full: ['GS', 'AR', 'WK', 'PC', 'MK', 'EI', 'AS', 'MC', 'AO'] // All 9 sections
-    };
 
     // Load saved name
     const savedName = localStorage.getItem('asvabUserName');
@@ -636,9 +631,11 @@
       startBtn.disabled = !nameValid;
 
       if (selectedType === 'full') {
-        startBtn.textContent = 'Start Full ASVAB Test (125 questions)';
+        const details = MissionASVABConfig.getTestDetails('full', QuizManager);
+        startBtn.textContent = `${MissionASVABConfig.getTestConfig('full').startButtonText} (${details.totalQuestions} questions)`;
       } else {
-        startBtn.textContent = 'Start AFQT Practice (55 questions)';
+        const details = MissionASVABConfig.getTestDetails('quick', QuizManager);
+        startBtn.textContent = `${MissionASVABConfig.getTestConfig('quick').startButtonText} (${details.totalQuestions} questions)`;
       }
     }
 
@@ -657,7 +654,7 @@
       sessionStorage.removeItem('generatedTest');
 
       // Store test configuration
-      const sections = testConfigs[selectedType];
+      const sections = MissionASVABConfig.getSectionsForType(selectedType);
       sessionStorage.setItem('testConfig', JSON.stringify({ sections: sections }));
 
       window.location.href = 'test-intro.html';
