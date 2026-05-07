@@ -103,7 +103,7 @@ const asvabData = {
       {
         id: "GS003",
         text: "What type of rock is formed from cooled magma or lava?",
-        options: ["Sedimentary", "Metamorphic", "Igneous", "ite"],
+        options: ["Sedimentary", "Metamorphic", "Igneous", "Ite (Crystal)"],
         correct: 2,
         difficulty: 2
       },

@@ -697,6 +697,233 @@
       .afqt-score { font-size: 3rem; }
       .user-name { font-size: 1.1rem; }
     }
+
+    /* Answer Review Section */
+    .answer-review {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+      animation: fadeIn 0.5s ease-out 0.2s both;
+    }
+
+    .answer-review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .answer-review-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .review-filters {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid var(--cream-200);
+      background: var(--white);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--navy-900);
+      color: var(--navy-900);
+    }
+
+    .filter-btn.active {
+      background: var(--navy-900);
+      color: var(--white);
+      border-color: var(--navy-900);
+    }
+
+    .review-question {
+      border: 1px solid var(--cream-200);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      background: var(--cream-100);
+    }
+
+    .review-question.correct {
+      border-left: 4px solid var(--success);
+    }
+
+    .review-question.incorrect {
+      border-left: 4px solid var(--error);
+    }
+
+    .review-question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+
+    .review-question-number {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .review-question-status {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      text-transform: uppercase;
+    }
+
+    .review-question-status.correct {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .review-question-status.incorrect {
+      background: var(--error-light);
+      color: var(--error);
+    }
+
+    .review-question-text {
+      font-size: 1rem;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .review-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .review-option {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      background: var(--white);
+      border: 1px solid var(--cream-200);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .review-option.user-answer {
+      border-color: var(--navy-700);
+      background: rgba(30, 58, 95, 0.05);
+    }
+
+    .review-option.correct-answer {
+      border-color: var(--success);
+      background: var(--success-light);
+    }
+
+    .review-option.user-answer.incorrect {
+      border-color: var(--error);
+      background: var(--error-light);
+    }
+
+    .option-letter {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--cream-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .review-option.correct-answer .option-letter {
+      background: var(--success);
+      color: var(--white);
+    }
+
+    .review-option.user-answer.incorrect .option-letter {
+      background: var(--error);
+      color: var(--white);
+    }
+
+    .option-indicator {
+      margin-left: auto;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .review-option.correct-answer .option-indicator {
+      color: var(--success);
+    }
+
+    .review-option.user-answer.incorrect .option-indicator {
+      color: var(--error);
+    }
+
+    .review-toggle-btn {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: 2px solid var(--cream-200);
+      background: var(--white);
+      color: var(--navy-900);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'DM Sans', sans-serif;
+      margin-bottom: 1.5rem;
+    }
+
+    .review-toggle-btn:hover {
+      border-color: var(--navy-900);
+      transform: translateY(-2px);
+    }
+
+    .review-questions-list {
+      display: none;
+    }
+
+    .review-questions-list.visible {
+      display: block;
+    }
+
+    .no-questions-message {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .answer-review { padding: 1.5rem; }
+      .answer-review-header { flex-direction: column; align-items: flex-start; }
+      .review-filters { width: 100%; }
+      .filter-btn { flex: 1; text-align: center; padding: 0.6rem 0.75rem; }
+      .review-question { padding: 1rem; }
+      .review-question-header { flex-direction: column; gap: 0.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -752,6 +979,21 @@
       <div class="line-scores-note">
         <strong>Note:</strong> These are estimated line scores based on your practice test. Official scores are calculated differently and may vary. Line scores determine which Military Occupational Specialties (MOS) you qualify for.
       </div>
+    </section>
+
+    <section class="answer-review" id="answerReview" style="display: none;">
+      <div class="answer-review-header">
+        <h3 class="answer-review-title">Review Your Answers</h3>
+        <div class="review-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="incorrect">Incorrect Only</button>
+          <button class="filter-btn" data-filter="correct">Correct Only</button>
+        </div>
+      </div>
+      <button class="review-toggle-btn" id="reviewToggleBtn" onclick="toggleAnswerReview()">
+        Show All Answers ▼
+      </button>
+      <div class="review-questions-list" id="reviewQuestionsList"></div>
     </section>
 
     <section class="recruiter-section" id="recruiterSection">
@@ -881,6 +1123,9 @@
         renderLineScores(results.sectionResults);
       }
 
+      // Render answer review
+      renderAnswerReview(results.sectionResults);
+
       } catch (error) {
         console.error('Error loading results:', error);
         document.getElementById('scoreMessage').textContent = 'Error loading results';
@@ -946,8 +1191,9 @@
         if (data.score === 0) continue;
 
 
+        const scoreClass = data.score >= 110 ? 'high' : data.score >= 90 ? 'medium' : 'low';
         html += `
-          <div class="line-score-card ">
+          <div class="line-score-card ${scoreClass}">
             <div class="line-score-code">${code}</div>
             <div class="line-score-value">${data.score}</div>
             <div class="line-score-name">${data.name}</div>
@@ -956,6 +1202,134 @@
       }
 
       grid.innerHTML = html;
+    }
+
+    let allReviewQuestions = [];
+
+    function renderAnswerReview(sectionResults) {
+      if (!sectionResults || Object.keys(sectionResults).length === 0) return;
+
+      const container = document.getElementById('answerReview');
+      const list = document.getElementById('reviewQuestionsList');
+
+      container.style.display = 'block';
+
+      const sectionNames = {
+        'AR': 'Arithmetic Reasoning',
+        'WK': 'Word Knowledge',
+        'PC': 'Paragraph Comprehension',
+        'MK': 'Mathematics Knowledge',
+        'GS': 'General Science',
+        'AS': 'Auto & Shop',
+        'MC': 'Mechanical Comprehension',
+        'EI': 'Electronics Information',
+        'AO': 'Assembling Objects'
+      };
+
+      const letters = ['A', 'B', 'C', 'D'];
+      allReviewQuestions = [];
+      let questionNum = 1;
+
+      for (const [code, data] of Object.entries(sectionResults)) {
+        if (!data.questions) continue;
+
+        data.questions.forEach(q => {
+          allReviewQuestions.push({
+            num: questionNum++,
+            section: code,
+            sectionName: sectionNames[code] || code,
+            ...q
+          });
+        });
+      }
+
+      renderFilteredQuestions('all');
+
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          renderFilteredQuestions(e.target.dataset.filter);
+        });
+      });
+    }
+
+    function renderFilteredQuestions(filter) {
+      const list = document.getElementById('reviewQuestionsList');
+      const letters = ['A', 'B', 'C', 'D'];
+
+      let filtered = allReviewQuestions;
+      if (filter === 'incorrect') {
+        filtered = allReviewQuestions.filter(q => !q.isCorrect);
+      } else if (filter === 'correct') {
+        filtered = allReviewQuestions.filter(q => q.isCorrect);
+      }
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="no-questions-message">No ${filter === 'incorrect' ? 'incorrect' : 'correct'} answers to show.</div>`;
+        return;
+      }
+
+      let html = '';
+      filtered.forEach(q => {
+        const statusClass = q.isCorrect ? 'correct' : 'incorrect';
+        const statusText = q.isCorrect ? 'Correct' : 'Incorrect';
+
+        html += `
+          <div class="review-question ${statusClass}">
+            <div class="review-question-header">
+              <span class="review-question-number">${q.sectionName} - Question ${q.num}</span>
+              <span class="review-question-status ${statusClass}">${statusText}</span>
+            </div>
+            <div class="review-question-text">${q.text}</div>
+            <div class="review-options">
+        `;
+
+        q.options.forEach((opt, idx) => {
+          let optionClass = '';
+          let indicator = '';
+
+          if (idx === q.correctAnswer) {
+            optionClass = 'correct-answer';
+            indicator = '✓ Correct';
+          }
+          if (idx === q.userAnswer && !q.isCorrect) {
+            optionClass = 'user-answer incorrect';
+            indicator = '✗ Your answer';
+          } else if (idx === q.userAnswer && q.isCorrect) {
+            optionClass = 'correct-answer';
+            indicator = '✓ Your answer';
+          }
+
+          html += `
+            <div class="review-option ${optionClass}">
+              <span class="option-letter">${letters[idx]}</span>
+              <span class="option-text">${opt}</span>
+              ${indicator ? `<span class="option-indicator">${indicator}</span>` : ''}
+            </div>
+          `;
+        });
+
+        html += `
+            </div>
+          </div>
+        `;
+      });
+
+      list.innerHTML = html;
+    }
+
+    function toggleAnswerReview() {
+      const list = document.getElementById('reviewQuestionsList');
+      const btn = document.getElementById('reviewToggleBtn');
+
+      if (list.classList.contains('visible')) {
+        list.classList.remove('visible');
+        btn.textContent = 'Show All Answers ▼';
+      } else {
+        list.classList.add('visible');
+        btn.textContent = 'Hide Answers ▲';
+      }
     }
 
     function getOrdinalSuffix(n) {
@@ -1017,7 +1391,7 @@
 
   <footer style="background: #0a1628; color: #f2efe8; padding: 2rem 5%; text-align: center; margin-top: 2rem;">
     <p style="font-size: 0.8rem; line-height: 1.6; max-width: 800px; margin: 0 auto 1rem; opacity: 0.8;">This website is not affiliated with, endorsed by, or sponsored by the U.S. Department of Defense, any branch of the U.S. Armed Forces, or the official ASVAB program. "ASVAB" is a registered trademark of the U.S. Department of Defense. This is an independent practice resource only.</p>
-    <p style="font-size: 0.75rem; opacity: 0.6;">© 2024 Mission ASVAB. For educational purposes only.</p>
+    <p style="font-size: 0.75rem; opacity: 0.6;">© <script>document.write(new Date().getFullYear())</script> Mission ASVAB. For educational purposes only.</p>
   </footer>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>

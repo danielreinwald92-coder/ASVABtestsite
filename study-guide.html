@@ -84,6 +84,606 @@
     .chapter-info p { font-size: 0.85rem; color: var(--text-secondary); }
     .chapter-arrow { color: var(--text-secondary); font-size: 1.25rem; }
 
+    /* Video Resources Section */
+    .video-resources {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--cream-200);
+    }
+    .video-resources-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .video-resources-header h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--navy-900);
+    }
+    .video-resources-header .yt-icon {
+      width: 28px;
+      height: 20px;
+      background: #ff0000;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .video-resources-header .yt-icon::after {
+      content: '';
+      border-left: 8px solid white;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      margin-left: 2px;
+    }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .video-card {
+      background: var(--white);
+      border: 1px solid var(--cream-200);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .video-card:hover {
+      border-color: var(--gold-400);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(10, 22, 40, 0.08);
+    }
+    .video-thumbnail {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: var(--navy-900);
+      overflow: hidden;
+    }
+    .video-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 42px;
+      background: rgba(255, 0, 0, 0.9);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .video-play-btn::after {
+      content: '';
+      border-left: 16px solid white;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      margin-left: 4px;
+    }
+    .video-card:hover .video-play-btn { background: #ff0000; }
+    .video-info {
+      padding: 1rem;
+    }
+    .video-info h4 {
+      font-size: 0.95rem;
+      color: var(--navy-900);
+      line-height: 1.4;
+      margin-bottom: 0.35rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .video-info .channel {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    /* Section Practice Card */
+    .section-practice-card {
+      background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 100%);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-top: 2rem;
+      color: var(--white);
+      text-align: center;
+    }
+    .section-practice-card .badge {
+      display: inline-block;
+      background: var(--gold-500);
+      color: var(--navy-900);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+    .section-practice-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .section-practice-card p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+    .section-practice-card .meta {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      margin-bottom: 1.25rem;
+    }
+    .section-practice-btn {
+      background: var(--gold-500);
+      color: var(--navy-900);
+      border: none;
+      padding: 0.875rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .section-practice-btn:hover {
+      background: var(--gold-400);
+      transform: translateY(-2px);
+    }
+    .section-practice-card.locked {
+      background: var(--cream-200);
+      color: var(--text-primary);
+    }
+    .section-practice-card.locked .badge {
+      background: var(--text-secondary);
+      color: var(--white);
+    }
+    .section-practice-card.locked p { opacity: 0.7; }
+
+    /* Section Practice Quiz View */
+    .section-quiz-header {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .section-quiz-info h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--navy-900);
+    }
+    .section-quiz-info p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .section-quiz-timer {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      background: var(--cream-100);
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+    }
+    .section-quiz-timer.warning { color: var(--gold-500); background: #fef3c7; }
+    .section-quiz-timer.danger { color: #c53030; background: #fee2e2; }
+
+    .section-question-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1rem;
+    }
+    .section-question-num {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+    .section-question-text {
+      font-size: 1.15rem;
+      color: var(--navy-900);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .section-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-option-btn {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--cream-100);
+      border: 2px solid var(--cream-200);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+      font-size: 1rem;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .section-option-btn:hover { border-color: var(--navy-700); }
+    .section-option-btn.selected {
+      border-color: var(--navy-900);
+      background: rgba(30, 58, 95, 0.08);
+    }
+    .section-option-btn .letter {
+      width: 32px;
+      height: 32px;
+      background: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .section-option-btn.selected .letter {
+      background: var(--navy-900);
+      color: var(--white);
+    }
+
+    .section-quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .section-nav-btn {
+      padding: 0.875rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'DM Sans', sans-serif;
+      border: none;
+    }
+    .section-nav-btn.secondary {
+      background: var(--cream-200);
+      color: var(--text-primary);
+    }
+    .section-nav-btn.secondary:hover { background: var(--cream-100); border: 1px solid var(--navy-900); }
+    .section-nav-btn.primary {
+      background: var(--navy-900);
+      color: var(--white);
+    }
+    .section-nav-btn.primary:hover { background: var(--navy-700); }
+    .section-nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Section Practice Results */
+    .section-results {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .section-results .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .section-results h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--navy-900);
+      margin-bottom: 0.5rem;
+    }
+    .section-results .score {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      line-height: 1;
+      margin: 1rem 0;
+    }
+    .section-results .score span { font-size: 2rem; color: var(--text-secondary); }
+    .section-results .stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    .section-results .stat {
+      text-align: center;
+    }
+    .section-results .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+    .section-results .stat-value.correct { color: var(--green-500); }
+    .section-results .stat-value.incorrect { color: var(--red-500); }
+    .section-results .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .section-results .message {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-results-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+      .section-quiz-header { flex-direction: column; text-align: center; }
+      .section-quiz-timer { font-size: 1.5rem; }
+      .section-question-card { padding: 1.25rem; }
+      .section-quiz-nav { flex-direction: column; }
+      .section-nav-btn { width: 100%; }
+    }
+
+    /* Tools Section (Formulas & Flashcards) */
+    .tools-section {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 2px solid var(--cream-200);
+    }
+    .tools-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--navy-900);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .tool-card {
+      background: var(--white);
+      border: 2px solid var(--cream-200);
+      border-radius: 16px;
+      padding: 1.75rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .tool-card:hover {
+      border-color: var(--gold-400);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(10, 22, 40, 0.08);
+    }
+    .tool-card .icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .tool-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--navy-900);
+      margin-bottom: 0.5rem;
+    }
+    .tool-card p { font-size: 0.9rem; color: var(--text-secondary); }
+
+    /* Formula Cheat Sheet */
+    .formula-header {
+      text-align: center;
+      padding: 2rem 0;
+    }
+    .formula-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.25rem;
+      color: var(--navy-900);
+      margin-bottom: 0.5rem;
+    }
+    .formula-header p { color: var(--text-secondary); }
+    .formula-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .formula-tab {
+      padding: 0.6rem 1.25rem;
+      border-radius: 25px;
+      border: 2px solid var(--cream-200);
+      background: var(--white);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+    }
+    .formula-tab:hover { border-color: var(--navy-700); }
+    .formula-tab.active {
+      background: var(--navy-900);
+      color: var(--white);
+      border-color: var(--navy-900);
+    }
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .formula-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid var(--cream-200);
+    }
+    .formula-card h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gold-500);
+      margin-bottom: 0.75rem;
+    }
+    .formula-card .formula {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 0.5rem;
+    }
+    .formula-card .description {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .formula-card .example {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--cream-200);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .formula-card .example strong { color: var(--navy-900); }
+
+    /* Flashcard Mode */
+    .flashcard-header {
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+    .flashcard-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--navy-900);
+      margin-bottom: 0.25rem;
+    }
+    .flashcard-progress {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .flashcard-container {
+      perspective: 1000px;
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+    .flashcard {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3/2;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
+    }
+    .flashcard.flipped { transform: rotateY(180deg); }
+    .flashcard-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    .flashcard-front {
+      background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 100%);
+      color: var(--white);
+    }
+    .flashcard-front .category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+      margin-bottom: 1rem;
+    }
+    .flashcard-front .question {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .flashcard-front .hint {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+    .flashcard-back {
+      background: var(--white);
+      border: 2px solid var(--cream-200);
+      transform: rotateY(180deg);
+    }
+    .flashcard-back .answer {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 1rem;
+    }
+    .flashcard-back .explanation {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .flashcard-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .flashcard-nav-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid var(--cream-200);
+      background: var(--white);
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .flashcard-nav-btn:hover { border-color: var(--navy-900); }
+    .flashcard-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .flashcard-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .flashcard-action-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      border: none;
+    }
+    .flashcard-action-btn.knew-it {
+      background: var(--green-100);
+      color: #166534;
+    }
+    .flashcard-action-btn.knew-it:hover { background: #bbf7d0; }
+    .flashcard-action-btn.study-more {
+      background: var(--red-100);
+      color: #991b1b;
+    }
+    .flashcard-action-btn.study-more:hover { background: #fecaca; }
+
+    @media (max-width: 500px) {
+      .flashcard-front .question { font-size: 1.35rem; }
+      .flashcard-back .answer { font-size: 1.5rem; }
+      .flashcard-face { padding: 1.5rem; }
+    }
+
     .lesson-container { background: var(--white); border-radius: 16px; padding: 2.5rem; border: 1px solid var(--cream-200); }
     .lesson-header { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--cream-200); }
     .lesson-header .chapter-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-500); font-weight: 600; margin-bottom: 0.5rem; }
@@ -271,13 +871,163 @@
     <div class="view" id="results-view">
       <div class="results-card" id="results-card"></div>
     </div>
+
+    <div class="view" id="section-practice-view">
+      <span class="back-btn" id="section-practice-back-btn">← Exit Practice</span>
+      <div class="section-quiz-header">
+        <div class="section-quiz-info">
+          <h2 id="section-practice-title">Section Practice</h2>
+          <p id="section-practice-progress">Question 1 of 15</p>
+        </div>
+        <div class="section-quiz-timer" id="section-practice-timer">--:--</div>
+      </div>
+      <div class="section-question-card" id="section-question-card"></div>
+    </div>
+
+    <div class="view" id="section-results-view">
+      <div class="section-results" id="section-results-card"></div>
+    </div>
+
+    <div class="view" id="formulas-view">
+      <span class="back-btn" id="formulas-back-btn">← Back to Course</span>
+      <div class="formula-header">
+        <h1>Formula Cheat Sheet</h1>
+        <p>Essential formulas for the ASVAB math sections</p>
+      </div>
+      <div class="formula-tabs" id="formula-tabs"></div>
+      <div class="formula-grid" id="formula-grid"></div>
+    </div>
+
+    <div class="view" id="flashcards-view">
+      <span class="back-btn" id="flashcards-back-btn">← Back to Course</span>
+      <div class="flashcard-header">
+        <h1>Formula Flashcards</h1>
+        <p class="flashcard-progress" id="flashcard-progress">Card 1 of 20</p>
+      </div>
+      <div class="flashcard-container">
+        <div class="flashcard" id="flashcard" onclick="flipCard()">
+          <div class="flashcard-face flashcard-front" id="flashcard-front"></div>
+          <div class="flashcard-face flashcard-back" id="flashcard-back"></div>
+        </div>
+      </div>
+      <div class="flashcard-nav">
+        <button class="flashcard-nav-btn" id="prevCardBtn" onclick="prevCard()">←</button>
+        <button class="flashcard-nav-btn" id="nextCardBtn" onclick="nextCard()">→</button>
+      </div>
+      <div class="flashcard-actions">
+        <button class="flashcard-action-btn study-more" onclick="markCard('study')">Study More</button>
+        <button class="flashcard-action-btn knew-it" onclick="markCard('knew')">Got It!</button>
+      </div>
+    </div>
   </div>
 
+  <script src="js/quiz-data.js"></script>
   <script src="js/courses.js"></script>
   <script>
     let currentCourse = null, currentChapter = null, currentQuiz = null;
     let currentQuestionIndex = 0, score = 0, selectedOption = null, answered = false;
     let completedChapters = JSON.parse(localStorage.getItem('completedChapters') || '{}');
+
+    // Vocabulary flashcards for Word Knowledge
+    const vocabFlashcards = [
+      { word: 'Abate', definition: 'To reduce or lessen', example: 'The storm began to abate after midnight.' },
+      { word: 'Candid', definition: 'Honest and straightforward', example: 'She gave a candid assessment of the situation.' },
+      { word: 'Diligent', definition: 'Hardworking and careful', example: 'The diligent student studied every night.' },
+      { word: 'Elusive', definition: 'Hard to catch or define', example: 'The elusive answer finally came to him.' },
+      { word: 'Frugal', definition: 'Careful with money, not wasteful', example: 'His frugal habits helped him save money.' },
+      { word: 'Gregarious', definition: 'Sociable, enjoys company', example: 'The gregarious host welcomed every guest.' },
+      { word: 'Hinder', definition: 'To slow down or obstruct', example: 'Bad weather will hinder our progress.' },
+      { word: 'Imminent', definition: 'About to happen very soon', example: 'The imminent deadline caused stress.' },
+      { word: 'Jovial', definition: 'Cheerful and friendly', example: 'His jovial personality made everyone smile.' },
+      { word: 'Keen', definition: 'Sharp, eager, or intense', example: 'She has a keen eye for detail.' },
+      { word: 'Lethargic', definition: 'Sluggish, lacking energy', example: 'The hot weather made everyone lethargic.' },
+      { word: 'Mundane', definition: 'Ordinary, not exciting', example: 'He was bored with mundane daily tasks.' },
+      { word: 'Novice', definition: 'A beginner', example: 'As a novice, she needed extra training.' },
+      { word: 'Obsolete', definition: 'No longer used or outdated', example: 'Typewriters are now obsolete.' },
+      { word: 'Prudent', definition: 'Wise and careful in decisions', example: 'It was prudent to save for emergencies.' },
+      { word: 'Resilient', definition: 'Able to recover quickly', example: 'The resilient team bounced back from defeat.' },
+      { word: 'Sparse', definition: 'Thinly scattered, not dense', example: 'The sparse vegetation offered little shade.' },
+      { word: 'Tenacious', definition: 'Persistent, not giving up', example: 'Her tenacious attitude led to success.' },
+      { word: 'Urbane', definition: 'Sophisticated and polished', example: 'The urbane diplomat handled the situation well.' },
+      { word: 'Viable', definition: 'Capable of working or succeeding', example: 'Is this a viable solution to the problem?' },
+      { word: 'Wary', definition: 'Cautious, on guard', example: 'Be wary of offers that seem too good.' },
+      { word: 'Zealous', definition: 'Very enthusiastic', example: 'The zealous volunteers worked all day.' },
+      { word: 'Ambiguous', definition: 'Having more than one meaning, unclear', example: 'The ambiguous instructions confused everyone.' },
+      { word: 'Brevity', definition: 'Shortness, being brief', example: 'The brevity of his speech was appreciated.' },
+      { word: 'Concise', definition: 'Brief but complete', example: 'Write a concise summary of the article.' },
+      { word: 'Denounce', definition: 'To publicly criticize', example: 'Leaders denounced the violent actions.' },
+      { word: 'Exemplary', definition: 'Serving as an excellent example', example: 'Her exemplary work earned a promotion.' },
+      { word: 'Feasible', definition: 'Possible and practical', example: 'The plan was feasible within our budget.' },
+      { word: 'Gratuitous', definition: 'Unnecessary, uncalled for', example: 'The movie had gratuitous violence.' },
+      { word: 'Hypothetical', definition: 'Based on assumption, not real', example: 'Let\'s consider a hypothetical situation.' }
+    ];
+
+    // Formula data for cheat sheet and flashcards - ASVAB essentials only
+    const formulaData = {
+      'Percentages': [
+        { name: 'Find the Part', formula: 'Part = Whole × Percent', description: 'Convert percent to decimal first (20% = 0.20)', example: '20% of 150 = 150 × 0.20 = 30' },
+        { name: 'Find the Percent', formula: 'Percent = Part ÷ Whole', description: 'Divide then multiply by 100', example: '30 out of 150 = 30÷150 = 0.20 = 20%' }
+      ],
+      'Proportions': [
+        { name: 'Cross Multiply', formula: 'a/b = c/d → a×d = b×c', description: 'The #1 most useful trick on the ASVAB', example: '3/4 = x/20 → 3×20 = 4×x → x = 15' },
+        { name: 'Unit Rate', formula: 'Rate = Total ÷ Units', description: 'Find the cost or value per one item', example: '$45 for 5 items = $9 each' }
+      ],
+      'Distance, Rate, Time': [
+        { name: 'Distance', formula: 'Distance = Rate × Time', description: 'How far you travel', example: '60 mph × 2 hours = 120 miles' },
+        { name: 'Rate', formula: 'Rate = Distance ÷ Time', description: 'How fast you go', example: '120 miles ÷ 2 hours = 60 mph' },
+        { name: 'Time', formula: 'Time = Distance ÷ Rate', description: 'How long it takes', example: '120 miles ÷ 60 mph = 2 hours' }
+      ],
+      'Area': [
+        { name: 'Rectangle', formula: 'A = length × width', description: 'Multiply the two sides', example: '8 × 5 = 40 square feet' },
+        { name: 'Triangle', formula: 'A = ½ × base × height', description: 'Half of base times height', example: '½ × 10 × 6 = 30' },
+        { name: 'Circle', formula: 'A = π × r²', description: 'Pi (3.14) times radius squared', example: '3.14 × 5² = 78.5' }
+      ],
+      'Perimeter': [
+        { name: 'Rectangle', formula: 'P = 2l + 2w', description: 'Add all four sides', example: '2(8) + 2(5) = 26 feet' },
+        { name: 'Circle (Circumference)', formula: 'C = π × diameter', description: 'Pi times the diameter across', example: '3.14 × 10 = 31.4' }
+      ],
+      'Right Triangles': [
+        { name: 'Pythagorean Theorem', formula: 'a² + b² = c²', description: 'Two short sides squared = long side squared', example: '3² + 4² = 5² → 9 + 16 = 25 ✓' }
+      ],
+      'Averages': [
+        { name: 'Mean (Average)', formula: 'Average = Sum ÷ Count', description: 'Add all numbers, divide by how many', example: '(80 + 90 + 100) ÷ 3 = 90' }
+      ]
+    };
+
+    // Video resources by section
+    const videoResources = {
+      AR: [
+        { id: 'O0brxMViHuk', title: 'ASVAB Study Guide - Arithmetic Reasoning Review', channel: 'Mometrix Test Preparation' },
+        { id: 'JsNDcbUPKEI', title: 'How to Solve ASVAB Arithmetic Reasoning Word Problems', channel: 'ASVAB Boot Camp' },
+        { id: 'BHc3Bjb3BIc', title: 'Arithmetic Reasoning Practice Test (115 Questions)', channel: 'Grammar Hero' }
+      ],
+      MK: [
+        { id: 'LJ14urgyIGA', title: 'ASVAB Mathematics Knowledge 2023', channel: 'The Organic Chemistry Tutor' },
+        { id: 'e5fpdRtRMMk', title: 'ASVAB 2025 Mathematical Knowledge Practice Test', channel: 'ASVAB Coach' },
+        { id: 'HUsYt61FkxI', title: 'Math Knowledge: Algebra & Word Problem Practice', channel: 'ASVAB Boot Camp' }
+      ],
+      WK: [
+        { id: 'jcnZpzGr8s4', title: 'ASVAB Word Knowledge Study Guide', channel: 'Mometrix Test Preparation' },
+        { id: 'opftbWXzDFY', title: 'How to Raise Your Word Knowledge Score', channel: 'ASVAB Boot Camp' },
+        { id: 'G_4wCzm1JYU', title: 'Word Knowledge Practice Test (40 Questions)', channel: 'ASVAB Coach' }
+      ],
+      PC: [
+        { id: 'LrTL3sl1F9k', title: 'ASVAB Paragraph Comprehension Study Guide', channel: 'Mometrix Test Preparation' },
+        { id: 'FAT3Zlut11Y', title: 'How to Raise Your PC Score', channel: 'ASVAB Boot Camp' },
+        { id: 'd4MRxAPoW28', title: 'How to PASS Paragraph Comprehension (2 Hour Class)', channel: 'ASVAB Coach' }
+      ]
+    };
+
+    // Section Practice state
+    let sectionPractice = {
+      code: null,
+      questions: [],
+      answers: {},
+      currentIndex: 0,
+      timeLimit: 0,
+      timeRemaining: 0,
+      timerInterval: null
+    };
 
     function showView(name) {
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -336,6 +1086,7 @@
 
     function showCourse(code) {
       currentCourse = courses[code];
+      currentCourse.code = code;
       showView('course');
       document.getElementById('course-header').innerHTML = `
         <div class="icon">${currentCourse.icon}</div>
@@ -356,6 +1107,96 @@
         `;
         list.appendChild(card);
       });
+
+      // Add Video Resources section
+      const videos = videoResources[code];
+      if (videos && videos.length > 0) {
+        const videoSection = document.createElement('div');
+        videoSection.className = 'video-resources';
+        videoSection.innerHTML = `
+          <div class="video-resources-header">
+            <div class="yt-icon"></div>
+            <h3>Video Resources</h3>
+          </div>
+          <div class="video-grid">
+            ${videos.map(v => `
+              <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener" class="video-card">
+                <div class="video-thumbnail">
+                  <img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="${v.title}" loading="lazy">
+                  <div class="video-play-btn"></div>
+                </div>
+                <div class="video-info">
+                  <h4>${v.title}</h4>
+                  <span class="channel">${v.channel}</span>
+                </div>
+              </a>
+            `).join('')}
+          </div>
+        `;
+        list.appendChild(videoSection);
+      }
+
+      // Add Study Tools section (contextual to course)
+      const toolsSection = document.createElement('div');
+      toolsSection.className = 'video-resources'; // reuse styling
+
+      if (code === 'AR' || code === 'MK') {
+        toolsSection.innerHTML = `
+          <div class="video-resources-header">
+            <h3>📚 Study Tools</h3>
+          </div>
+          <div class="tools-grid">
+            <div class="tool-card" onclick="showFlashcards('formulas')">
+              <div class="icon">🃏</div>
+              <h3>Formula Flashcards</h3>
+              <p>Drill the essential math formulas</p>
+            </div>
+            <div class="tool-card" onclick="showFormulas()">
+              <div class="icon">📋</div>
+              <h3>Formula Cheat Sheet</h3>
+              <p>Quick reference for all formulas</p>
+            </div>
+          </div>
+        `;
+        list.appendChild(toolsSection);
+      } else if (code === 'WK') {
+        toolsSection.innerHTML = `
+          <div class="video-resources-header">
+            <h3>📚 Study Tools</h3>
+          </div>
+          <div class="tools-grid">
+            <div class="tool-card" onclick="showFlashcards('vocab')">
+              <div class="icon">🃏</div>
+              <h3>Vocabulary Flashcards</h3>
+              <p>Learn 30 common ASVAB words</p>
+            </div>
+          </div>
+        `;
+        list.appendChild(toolsSection);
+      }
+
+      // Add Section Practice card
+      const completedCount = currentCourse.chapters.filter(ch => completedChapters[ch.id]).length;
+      const allCompleted = completedCount === currentCourse.chapters.length;
+      const sectionConfig = asvabData.sections[code];
+      const timeMinutes = sectionConfig ? Math.floor(sectionConfig.timeLimit / 60) : 15;
+      const questionCount = sectionConfig ? sectionConfig.questionsPerTest : 15;
+
+      const practiceCard = document.createElement('div');
+      practiceCard.className = 'section-practice-card' + (allCompleted ? '' : ' locked');
+      practiceCard.innerHTML = allCompleted ? `
+        <span class="badge">Ready to Practice</span>
+        <h3>Section Practice Test</h3>
+        <p>Test your knowledge with a timed practice quiz using real ASVAB-style questions.</p>
+        <div class="meta">${questionCount} questions • ${timeMinutes} minutes • Timed</div>
+        <button class="section-practice-btn" onclick="startSectionPractice('${code}')">Start Practice Test →</button>
+      ` : `
+        <span class="badge">Locked</span>
+        <h3>Section Practice Test</h3>
+        <p>Complete all ${currentCourse.chapters.length} chapters to unlock the timed practice test.</p>
+        <div class="meta">${completedCount}/${currentCourse.chapters.length} chapters completed</div>
+      `;
+      list.appendChild(practiceCard);
     }
 
     function showLesson(chapter) {
@@ -487,6 +1328,378 @@
              <button class="result-btn secondary" onclick="startQuiz()">Try Quiz Again</button>`}
         </div>
       `;
+    }
+
+    // ============================================
+    // SECTION PRACTICE FUNCTIONS
+    // ============================================
+
+    function startSectionPractice(code) {
+      const config = asvabData.sections[code];
+      const questions = asvabData.questions[code];
+
+      if (!config || !questions || questions.length === 0) {
+        alert('Questions not available for this section yet.');
+        return;
+      }
+
+      // Shuffle and select questions
+      const shuffled = shuffleArray([...questions]);
+      const selected = shuffled.slice(0, config.questionsPerTest);
+
+      sectionPractice = {
+        code: code,
+        questions: selected,
+        answers: {},
+        currentIndex: 0,
+        timeLimit: config.timeLimit,
+        timeRemaining: config.timeLimit,
+        timerInterval: null
+      };
+
+      showView('section-practice');
+      document.getElementById('section-practice-title').textContent = config.name + ' Practice';
+      document.getElementById('section-practice-back-btn').onclick = () => {
+        if (confirm('Are you sure you want to exit? Your progress will be lost.')) {
+          clearInterval(sectionPractice.timerInterval);
+          showCourse(code);
+        }
+      };
+
+      startSectionTimer();
+      showSectionQuestion();
+    }
+
+    function startSectionTimer() {
+      updateTimerDisplay();
+      sectionPractice.timerInterval = setInterval(() => {
+        sectionPractice.timeRemaining--;
+        updateTimerDisplay();
+        if (sectionPractice.timeRemaining <= 0) {
+          clearInterval(sectionPractice.timerInterval);
+          submitSectionPractice();
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(sectionPractice.timeRemaining / 60);
+      const secs = sectionPractice.timeRemaining % 60;
+      const timer = document.getElementById('section-practice-timer');
+      timer.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+      timer.classList.remove('warning', 'danger');
+      if (sectionPractice.timeRemaining <= 60) {
+        timer.classList.add('danger');
+      } else if (sectionPractice.timeRemaining <= 300) {
+        timer.classList.add('warning');
+      }
+    }
+
+    function showSectionQuestion() {
+      const q = sectionPractice.questions[sectionPractice.currentIndex];
+      const total = sectionPractice.questions.length;
+      const current = sectionPractice.currentIndex + 1;
+
+      document.getElementById('section-practice-progress').textContent = `Question ${current} of ${total}`;
+
+      const letters = ['A', 'B', 'C', 'D'];
+      const savedAnswer = sectionPractice.answers[sectionPractice.currentIndex];
+
+      document.getElementById('section-question-card').innerHTML = `
+        <div class="section-question-num">Question ${current}</div>
+        <div class="section-question-text">${q.text}</div>
+        <div class="section-options">
+          ${q.options.map((opt, i) => `
+            <button class="section-option-btn ${savedAnswer === i ? 'selected' : ''}" onclick="selectSectionAnswer(${i})">
+              <span class="letter">${letters[i]}</span>
+              <span>${opt}</span>
+            </button>
+          `).join('')}
+        </div>
+        <div class="section-quiz-nav">
+          <button class="section-nav-btn secondary" onclick="prevSectionQuestion()" ${current === 1 ? 'disabled' : ''}>← Previous</button>
+          ${current === total ?
+            `<button class="section-nav-btn primary" onclick="submitSectionPractice()">Submit Test</button>` :
+            `<button class="section-nav-btn primary" onclick="nextSectionQuestion()">Next →</button>`
+          }
+        </div>
+      `;
+    }
+
+    function selectSectionAnswer(index) {
+      sectionPractice.answers[sectionPractice.currentIndex] = index;
+      document.querySelectorAll('.section-option-btn').forEach((btn, i) => {
+        btn.classList.toggle('selected', i === index);
+      });
+    }
+
+    function prevSectionQuestion() {
+      if (sectionPractice.currentIndex > 0) {
+        sectionPractice.currentIndex--;
+        showSectionQuestion();
+      }
+    }
+
+    function nextSectionQuestion() {
+      if (sectionPractice.currentIndex < sectionPractice.questions.length - 1) {
+        sectionPractice.currentIndex++;
+        showSectionQuestion();
+      }
+    }
+
+    function submitSectionPractice() {
+      clearInterval(sectionPractice.timerInterval);
+
+      const unanswered = sectionPractice.questions.length - Object.keys(sectionPractice.answers).length;
+      if (unanswered > 0) {
+        if (!confirm(`You have ${unanswered} unanswered question${unanswered > 1 ? 's' : ''}. Submit anyway?`)) {
+          return;
+        }
+      }
+
+      let correct = 0;
+      sectionPractice.questions.forEach((q, i) => {
+        if (sectionPractice.answers[i] === q.correct) correct++;
+      });
+
+      const total = sectionPractice.questions.length;
+      const pct = Math.round((correct / total) * 100);
+      const timeUsed = sectionPractice.timeLimit - sectionPractice.timeRemaining;
+      const mins = Math.floor(timeUsed / 60);
+      const secs = timeUsed % 60;
+
+      let message, icon;
+      if (pct >= 80) {
+        icon = '🎉';
+        message = "Excellent! You're well-prepared for this section of the ASVAB.";
+      } else if (pct >= 60) {
+        icon = '👍';
+        message = "Good progress! Review the chapters for topics you missed.";
+      } else {
+        icon = '📚';
+        message = "Keep studying! Go back through the chapters and try again.";
+      }
+
+      showView('section-results');
+      document.getElementById('section-results-card').innerHTML = `
+        <div class="icon">${icon}</div>
+        <h2>${asvabData.sections[sectionPractice.code].name} Complete</h2>
+        <div class="score">${pct}<span>%</span></div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-value correct">${correct}</div>
+            <div class="stat-label">Correct</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value incorrect">${total - correct}</div>
+            <div class="stat-label">Incorrect</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">${mins}:${secs.toString().padStart(2, '0')}</div>
+            <div class="stat-label">Time Used</div>
+          </div>
+        </div>
+        <p class="message">${message}</p>
+        <div class="section-results-btns">
+          <button class="section-nav-btn primary" onclick="startSectionPractice('${sectionPractice.code}')">Try Again</button>
+          <button class="section-nav-btn secondary" onclick="showCourse('${sectionPractice.code}')">Back to Course</button>
+        </div>
+      `;
+    }
+
+    // ============================================
+    // FORMULA CHEAT SHEET FUNCTIONS
+    // ============================================
+
+    let currentFormulaCategory = 'All';
+
+    function showFormulas() {
+      showView('formulas');
+
+      // Set back button to return to current course
+      const backBtn = document.getElementById('formulas-back-btn');
+      if (currentCourse && currentCourse.code) {
+        backBtn.onclick = () => showCourse(currentCourse.code);
+      } else {
+        backBtn.onclick = () => showView('home');
+      }
+
+      renderFormulaTabs();
+      renderFormulas('All');
+    }
+
+    function renderFormulaTabs() {
+      const tabs = document.getElementById('formula-tabs');
+      const categories = ['All', ...Object.keys(formulaData)];
+      tabs.innerHTML = categories.map(cat => `
+        <button class="formula-tab ${cat === currentFormulaCategory ? 'active' : ''}" onclick="renderFormulas('${cat}')">${cat}</button>
+      `).join('');
+    }
+
+    function renderFormulas(category) {
+      currentFormulaCategory = category;
+      renderFormulaTabs();
+
+      const grid = document.getElementById('formula-grid');
+      let formulas = [];
+
+      if (category === 'All') {
+        Object.entries(formulaData).forEach(([cat, items]) => {
+          items.forEach(f => formulas.push({ ...f, category: cat }));
+        });
+      } else {
+        formulas = formulaData[category].map(f => ({ ...f, category }));
+      }
+
+      grid.innerHTML = formulas.map(f => `
+        <div class="formula-card">
+          <h4>${f.name}</h4>
+          <div class="formula">${f.formula}</div>
+          <div class="description">${f.description}</div>
+          <div class="example"><strong>Example:</strong> ${f.example}</div>
+        </div>
+      `).join('');
+    }
+
+    // ============================================
+    // FLASHCARD FUNCTIONS
+    // ============================================
+
+    let flashcardState = {
+      cards: [],
+      currentIndex: 0,
+      flipped: false,
+      known: [],
+      studying: []
+    };
+
+    function showFlashcards(type) {
+      flashcardState.cards = [];
+      flashcardState.type = type;
+
+      if (type === 'vocab') {
+        // Build vocabulary cards
+        vocabFlashcards.forEach(v => {
+          flashcardState.cards.push({
+            category: 'Vocabulary',
+            question: v.word,
+            answer: v.definition,
+            explanation: v.example
+          });
+        });
+      } else {
+        // Build formula cards
+        Object.entries(formulaData).forEach(([category, formulas]) => {
+          formulas.forEach(f => {
+            flashcardState.cards.push({
+              category,
+              question: f.name,
+              answer: f.formula,
+              explanation: f.description + '. Example: ' + f.example
+            });
+          });
+        });
+      }
+
+      // Shuffle cards
+      flashcardState.cards = shuffleArray(flashcardState.cards);
+      flashcardState.currentIndex = 0;
+      flashcardState.flipped = false;
+      flashcardState.known = [];
+      flashcardState.studying = [];
+
+      showView('flashcards');
+
+      // Update header based on type
+      const header = document.querySelector('#flashcards-view .flashcard-header h1');
+      header.textContent = type === 'vocab' ? 'Vocabulary Flashcards' : 'Formula Flashcards';
+
+      // Set back button to return to current course
+      const backBtn = document.getElementById('flashcards-back-btn');
+      if (currentCourse && currentCourse.code) {
+        backBtn.onclick = () => showCourse(currentCourse.code);
+      } else {
+        backBtn.onclick = () => showView('home');
+      }
+
+      renderFlashcard();
+    }
+
+    function renderFlashcard() {
+      const card = flashcardState.cards[flashcardState.currentIndex];
+      const total = flashcardState.cards.length;
+      const current = flashcardState.currentIndex + 1;
+      const isVocab = flashcardState.type === 'vocab';
+
+      document.getElementById('flashcard-progress').textContent = `Card ${current} of ${total}`;
+
+      document.getElementById('flashcard-front').innerHTML = `
+        <div class="category">${card.category}</div>
+        <div class="question">${card.question}</div>
+        <div class="hint">Tap to reveal ${isVocab ? 'definition' : 'formula'}</div>
+      `;
+
+      document.getElementById('flashcard-back').innerHTML = `
+        <div class="answer">${card.answer}</div>
+        <div class="explanation">${isVocab ? '"' + card.explanation + '"' : card.explanation}</div>
+      `;
+
+      // Reset flip state
+      document.getElementById('flashcard').classList.remove('flipped');
+      flashcardState.flipped = false;
+
+      // Update nav buttons
+      document.getElementById('prevCardBtn').disabled = flashcardState.currentIndex === 0;
+      document.getElementById('nextCardBtn').disabled = flashcardState.currentIndex === total - 1;
+    }
+
+    function flipCard() {
+      const card = document.getElementById('flashcard');
+      card.classList.toggle('flipped');
+      flashcardState.flipped = !flashcardState.flipped;
+    }
+
+    function prevCard() {
+      if (flashcardState.currentIndex > 0) {
+        flashcardState.currentIndex--;
+        renderFlashcard();
+      }
+    }
+
+    function nextCard() {
+      if (flashcardState.currentIndex < flashcardState.cards.length - 1) {
+        flashcardState.currentIndex++;
+        renderFlashcard();
+      }
+    }
+
+    function markCard(status) {
+      const cardIndex = flashcardState.currentIndex;
+
+      if (status === 'knew') {
+        flashcardState.known.push(cardIndex);
+      } else {
+        flashcardState.studying.push(cardIndex);
+      }
+
+      // Move to next card or show completion
+      if (flashcardState.currentIndex < flashcardState.cards.length - 1) {
+        flashcardState.currentIndex++;
+        renderFlashcard();
+      } else {
+        // Show completion summary
+        const knewCount = flashcardState.known.length;
+        const studyCount = flashcardState.studying.length;
+        const total = flashcardState.cards.length;
+
+        document.getElementById('flashcard-front').innerHTML = `
+          <div class="category">Complete!</div>
+          <div class="question">You reviewed all ${total} cards</div>
+          <div class="hint">${knewCount} mastered • ${studyCount} need review</div>
+        `;
+        document.getElementById('flashcard').classList.remove('flipped');
+      }
     }
 
     initHome();
