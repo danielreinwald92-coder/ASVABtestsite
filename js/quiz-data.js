@@ -646,13 +646,6 @@ const asvabData = {
         difficulty: 3
       },
       {
-        id: "AR050",
-        text: "A recruiter needs to process 180 applications. If she processes 12 applications per hour, how many hours will it take?",
-        options: ["12 hours", "15 hours", "16 hours", "18 hours"],
-        correct: 1,
-        difficulty: 1
-      },
-      {
         id: "AR051",
         text: "Paul invests $2,000 at 4 percent annual interest. How much interest does he earn in one year?",
         options: ["$160", "$80", "$120", "$800"],
@@ -741,6 +734,436 @@ const asvabData = {
         text: "A store sells pencils for $0.25 each or a pack of 12 for $2.50. How much do you save by buying the pack instead of 12 individual pencils?",
         options: ["$0.25", "$0.50", "$0.75", "$1.00"],
         correct: 1,
+        difficulty: 2
+      },
+      // Ratios and Proportions
+      {
+        id: "AR064",
+        text: "The ratio of men to women in a training class is 5:3. If there are 40 men, how many women are in the class?",
+        options: ["15", "24", "30", "35"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "AR065",
+        text: "A recipe calls for flour and sugar in a ratio of 4:1. If you use 12 cups of flour, how many cups of sugar do you need?",
+        options: ["2", "3", "4", "6"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "AR066",
+        text: "On a map, 2 inches represents 50 miles. How many miles does 7 inches represent?",
+        options: ["150 miles", "175 miles", "200 miles", "250 miles"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "AR067",
+        text: "The ratio of sergeants to privates is 2:9. If there are 99 total personnel, how many are sergeants?",
+        options: ["11", "18", "22", "81"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "AR068",
+        text: "A car uses 3 gallons of gas for every 90 miles. How many gallons will it need for 450 miles?",
+        options: ["12 gallons", "15 gallons", "18 gallons", "20 gallons"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "AR069",
+        text: "If 8 workers can complete a task in 6 days, how many workers are needed to complete it in 4 days?",
+        options: ["10", "11", "12", "14"],
+        correct: 2,
+        difficulty: 4
+      },
+      // Percentages (discounts, tax, tips, percent change)
+      {
+        id: "AR070",
+        text: "A jacket originally priced at $120 is marked down 25%. What is the sale price?",
+        options: ["$30", "$85", "$90", "$95"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "AR071",
+        text: "A server receives an 18% tip on a $65 bill. How much is the tip?",
+        options: ["$9.75", "$10.40", "$11.70", "$13.00"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "AR072",
+        text: "A computer's price increased from $800 to $920. What is the percent increase?",
+        options: ["12%", "13%", "15%", "18%"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "AR073",
+        text: "An item costs $45 before tax. If the sales tax is 8%, what is the total cost?",
+        options: ["$48.00", "$48.60", "$49.20", "$53.00"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "AR074",
+        text: "A store sells an item for $63, which includes a 40% markup over cost. What was the original cost?",
+        options: ["$37.80", "$42.00", "$45.00", "$50.40"],
+        correct: 2,
+        difficulty: 4
+      },
+      {
+        id: "AR075",
+        text: "Last year a company had 250 employees. This year it has 300. What is the percent increase?",
+        options: ["15%", "17%", "20%", "25%"],
+        correct: 2,
+        difficulty: 3
+      },
+      // Distance/Rate/Time Problems
+      {
+        id: "AR076",
+        text: "A cyclist travels 48 miles in 3 hours. At this rate, how long will it take to travel 80 miles?",
+        options: ["4 hours", "4.5 hours", "5 hours", "5.5 hours"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "AR077",
+        text: "Two cars start from the same point traveling in opposite directions. One goes 55 mph and the other 65 mph. How far apart are they after 3 hours?",
+        options: ["330 miles", "360 miles", "390 miles", "420 miles"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "AR078",
+        text: "A plane flies 1,200 miles with a tailwind in 3 hours. On the return trip against the wind, it takes 4 hours. What is the plane's speed in still air?",
+        options: ["300 mph", "325 mph", "350 mph", "400 mph"],
+        correct: 2,
+        difficulty: 5
+      },
+      {
+        id: "AR079",
+        text: "A runner completes a 10-mile race in 1 hour and 40 minutes. What was her average speed in mph?",
+        options: ["5 mph", "6 mph", "7 mph", "8 mph"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "AR080",
+        text: "A train leaves at 8:15 AM traveling at 75 mph. At what time will it arrive at a station 225 miles away?",
+        options: ["10:45 AM", "11:00 AM", "11:15 AM", "11:30 AM"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "AR081",
+        text: "A delivery truck averages 45 mph including stops. How long will a 315-mile route take?",
+        options: ["6 hours", "7 hours", "8 hours", "9 hours"],
+        correct: 1,
+        difficulty: 2
+      },
+      // Work Problems (two workers, pipes filling tanks)
+      {
+        id: "AR082",
+        text: "Worker A can paint a house in 6 days. Worker B can paint it in 4 days. Working together, how many days will it take?",
+        options: ["2 days", "2.4 days", "3 days", "5 days"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "AR083",
+        text: "Pipe A fills a tank in 8 hours. Pipe B fills it in 12 hours. How long to fill the tank with both pipes open?",
+        options: ["4 hours", "4.8 hours", "5 hours", "6 hours"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "AR084",
+        text: "A crew of 6 can dig a trench in 10 hours. How long would it take 4 workers to dig the same trench?",
+        options: ["12 hours", "13 hours", "14 hours", "15 hours"],
+        correct: 3,
+        difficulty: 3
+      },
+      {
+        id: "AR085",
+        text: "Machine A produces 100 parts in 5 hours. Machine B produces 100 parts in 4 hours. How many parts can both machines produce together in 2 hours?",
+        options: ["80 parts", "90 parts", "100 parts", "120 parts"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "AR086",
+        text: "One pipe fills a pool in 10 hours while a drain empties it in 15 hours. If both are open, how long to fill the pool?",
+        options: ["25 hours", "30 hours", "35 hours", "40 hours"],
+        correct: 1,
+        difficulty: 5
+      },
+      {
+        id: "AR087",
+        text: "Two mechanics together complete a repair in 3 hours. One mechanic alone takes 5 hours. How long would the other mechanic take alone?",
+        options: ["6 hours", "7 hours", "7.5 hours", "8 hours"],
+        correct: 2,
+        difficulty: 5
+      },
+      // Age Problems
+      {
+        id: "AR088",
+        text: "Tom is twice as old as Jerry. In 6 years, Tom will be 1.5 times as old as Jerry. How old is Jerry now?",
+        options: ["6", "10", "12", "14"],
+        correct: 0,
+        difficulty: 4
+      },
+      {
+        id: "AR089",
+        text: "A father is 4 times as old as his son. In 20 years, he will be twice as old. How old is the son now?",
+        options: ["8", "10", "12", "15"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "AR090",
+        text: "Maria is 6 years older than Lisa. The sum of their ages is 34. How old is Maria?",
+        options: ["14", "17", "20", "23"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "AR091",
+        text: "Three years ago, Kevin was half his current age. How old is Kevin now?",
+        options: ["3", "5", "6", "9"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "AR092",
+        text: "The sum of a mother's and daughter's ages is 50. The mother is 20 years older than the daughter. How old is the daughter?",
+        options: ["12", "15", "18", "20"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "AR093",
+        text: "In 5 years, Jake will be 3 times as old as he was 5 years ago. How old is Jake now?",
+        options: ["8", "10", "12", "15"],
+        correct: 1,
+        difficulty: 4
+      },
+      // Money/Cost Problems
+      {
+        id: "AR094",
+        text: "A book costs $24 and a magazine costs $6. If you buy 3 books and 5 magazines, what is the total cost?",
+        options: ["$87", "$96", "$102", "$108"],
+        correct: 2,
+        difficulty: 1
+      },
+      {
+        id: "AR095",
+        text: "Maria bought 4 shirts at $18 each and returned one for a refund. She also bought a $45 jacket. How much did she spend?",
+        options: ["$81", "$90", "$99", "$117"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "AR096",
+        text: "Tickets cost $12 for adults and $7 for children. A family buys 2 adult and 4 children tickets. What is the total?",
+        options: ["$48", "$52", "$56", "$60"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "AR097",
+        text: "A phone plan costs $35 per month plus $0.10 per text over 500 texts. If James sent 780 texts, what is his bill?",
+        options: ["$58", "$61", "$63", "$78"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "AR098",
+        text: "Sarah earns $2,400 monthly. She spends 30% on rent and 15% on food. How much money remains?",
+        options: ["$1,080", "$1,200", "$1,320", "$1,440"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "AR099",
+        text: "A cable company charges $50 installation plus $75 monthly. What is the total cost for one year of service?",
+        options: ["$850", "$900", "$950", "$1,000"],
+        correct: 2,
+        difficulty: 2
+      },
+      // Mixture Problems
+      {
+        id: "AR100",
+        text: "A 40-gallon solution is 15% acid. How many gallons of acid does it contain?",
+        options: ["4 gallons", "5 gallons", "6 gallons", "8 gallons"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "AR101",
+        text: "How many liters of a 20% salt solution must be added to 10 liters of a 50% salt solution to get a 30% solution?",
+        options: ["15 liters", "18 liters", "20 liters", "25 liters"],
+        correct: 2,
+        difficulty: 5
+      },
+      {
+        id: "AR102",
+        text: "A chemist mixes 6 liters of 25% acid with 4 liters of 45% acid. What is the concentration of the mixture?",
+        options: ["30%", "33%", "35%", "37%"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "AR103",
+        text: "A coffee blend uses beans that cost $8/lb and $12/lb in a ratio of 3:2. What is the cost per pound of the blend?",
+        options: ["$9.00", "$9.60", "$10.00", "$10.40"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "AR104",
+        text: "A grocer mixes 20 lbs of nuts worth $5/lb with 30 lbs worth $8/lb. What is the price per pound of the mixture?",
+        options: ["$6.40", "$6.60", "$6.80", "$7.00"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "AR105",
+        text: "A bartender mixes 2 quarts of juice costing $3/quart with 3 quarts costing $5/quart. What is the cost per quart of the mixture?",
+        options: ["$3.80", "$4.00", "$4.20", "$4.40"],
+        correct: 2,
+        difficulty: 3
+      },
+      // Simple Interest
+      {
+        id: "AR106",
+        text: "If $5,000 is invested at 6% simple annual interest, how much interest is earned in 2 years?",
+        options: ["$300", "$500", "$600", "$800"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "AR107",
+        text: "How much must be invested at 4% simple interest to earn $240 in interest over 3 years?",
+        options: ["$1,800", "$2,000", "$2,200", "$2,400"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "AR108",
+        text: "A loan of $3,000 at 8% simple annual interest is repaid after 18 months. What is the total amount repaid?",
+        options: ["$3,240", "$3,360", "$3,480", "$3,720"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "AR109",
+        text: "An account earns $180 interest in one year at 5% simple interest. What was the principal?",
+        options: ["$2,400", "$3,000", "$3,600", "$4,000"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "AR110",
+        text: "At what simple interest rate will $2,500 earn $375 in 3 years?",
+        options: ["4%", "5%", "6%", "7%"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "AR111",
+        text: "A CD pays 3% simple interest annually. If you invest $8,000, what is the total value after 4 years?",
+        options: ["$8,640", "$8,800", "$8,960", "$9,120"],
+        correct: 2,
+        difficulty: 3
+      },
+      // Unit Conversions
+      {
+        id: "AR112",
+        text: "How many inches are in 4.5 feet?",
+        options: ["48 inches", "52 inches", "54 inches", "56 inches"],
+        correct: 2,
+        difficulty: 1
+      },
+      {
+        id: "AR113",
+        text: "A container holds 3 gallons. How many cups is this? (1 gallon = 16 cups)",
+        options: ["36 cups", "42 cups", "48 cups", "64 cups"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "AR114",
+        text: "An athlete runs 5 kilometers. How many meters is this?",
+        options: ["50 meters", "500 meters", "5,000 meters", "50,000 meters"],
+        correct: 2,
+        difficulty: 1
+      },
+      {
+        id: "AR115",
+        text: "A package weighs 72 ounces. How many pounds is this?",
+        options: ["3.5 lbs", "4 lbs", "4.5 lbs", "5 lbs"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "AR116",
+        text: "A hike is 8 miles. How many yards is this? (1 mile = 1,760 yards)",
+        options: ["12,080 yards", "13,280 yards", "14,080 yards", "15,680 yards"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "AR117",
+        text: "A recipe calls for 2.5 liters of water. How many milliliters is this?",
+        options: ["250 mL", "1,250 mL", "2,500 mL", "25,000 mL"],
+        correct: 2,
+        difficulty: 1
+      },
+      // Basic Operations Word Problems
+      {
+        id: "AR118",
+        text: "A company shipped 450 packages on Monday and 380 on Tuesday. How many packages were shipped in total?",
+        options: ["730", "820", "830", "930"],
+        correct: 2,
+        difficulty: 1
+      },
+      {
+        id: "AR119",
+        text: "A warehouse has 1,250 boxes. If 475 are shipped out, how many remain?",
+        options: ["675", "725", "775", "825"],
+        correct: 2,
+        difficulty: 1
+      },
+      {
+        id: "AR120",
+        text: "A theater has 24 rows with 32 seats each. How many total seats are there?",
+        options: ["648", "728", "768", "864"],
+        correct: 2,
+        difficulty: 1
+      },
+      {
+        id: "AR121",
+        text: "A charity divides $4,560 equally among 12 organizations. How much does each receive?",
+        options: ["$360", "$370", "$380", "$390"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "AR122",
+        text: "A bakery makes 840 muffins and packs them in boxes of 6. How many boxes are needed?",
+        options: ["120", "130", "140", "150"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "AR123",
+        text: "A tank holds 500 gallons. If it is filled at a rate of 25 gallons per minute, how long does it take to fill?",
+        options: ["15 minutes", "18 minutes", "20 minutes", "25 minutes"],
+        correct: 2,
         difficulty: 2
       }
     ],
@@ -1203,11 +1626,594 @@ const asvabData = {
         options: ["Weak", "Flexible", "Persistent", "Careless"],
         correct: 2,
         difficulty: 3
+      },
+      {
+        id: "WK066",
+        text: "Arduous most nearly means:",
+        options: ["Easy", "Difficult", "Quick", "Pleasant"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK067",
+        text: "Benevolent most nearly means:",
+        options: ["Cruel", "Kind", "Selfish", "Angry"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK068",
+        text: "Candid most nearly means:",
+        options: ["Secretive", "Honest", "Shy", "Confused"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK069",
+        text: "Deter most nearly means:",
+        options: ["Encourage", "Discourage", "Help", "Attract"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK070",
+        text: "Elusive most nearly means:",
+        options: ["Obvious", "Hard to catch", "Friendly", "Loud"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK071",
+        text: "Frugal most nearly means:",
+        options: ["Wasteful", "Thrifty", "Generous", "Careless"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK072",
+        text: "Gregarious most nearly means:",
+        options: ["Shy", "Sociable", "Angry", "Quiet"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "WK073",
+        text: "Hinder most nearly means:",
+        options: ["Help", "Obstruct", "Encourage", "Support"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK075",
+        text: "Jovial most nearly means:",
+        options: ["Sad", "Cheerful", "Serious", "Quiet"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK076",
+        text: "Keen most nearly means:",
+        options: ["Dull", "Sharp", "Slow", "Weak"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "WK077",
+        text: "Lethargic most nearly means:",
+        options: ["Energetic", "Sluggish", "Alert", "Active"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "WK078",
+        text: "Mundane most nearly means:",
+        options: ["Exciting", "Ordinary", "Unusual", "Thrilling"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK079",
+        text: "Nimble most nearly means:",
+        options: ["Clumsy", "Agile", "Slow", "Heavy"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK080",
+        text: "Ominous most nearly means:",
+        options: ["Cheerful", "Threatening", "Harmless", "Bright"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK081",
+        text: "Prudent most nearly means:",
+        options: ["Reckless", "Wise", "Careless", "Foolish"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK082",
+        text: "Quell most nearly means:",
+        options: ["Increase", "Suppress", "Encourage", "Start"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "WK084",
+        text: "Serene most nearly means:",
+        options: ["Chaotic", "Peaceful", "Loud", "Angry"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK085",
+        text: "Tacit most nearly means:",
+        options: ["Spoken", "Unspoken", "Loud", "Written"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "WK086",
+        text: "Ubiquitous most nearly means:",
+        options: ["Rare", "Everywhere", "Hidden", "Unique"],
+        correct: 1,
+        difficulty: 5
+      },
+      {
+        id: "WK087",
+        text: "Vindicate most nearly means:",
+        options: ["Blame", "Clear of blame", "Punish", "Accuse"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "WK088",
+        text: "Wary most nearly means:",
+        options: ["Trusting", "Cautious", "Bold", "Reckless"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK089",
+        text: "Zeal most nearly means:",
+        options: ["Apathy", "Enthusiasm", "Boredom", "Laziness"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK090",
+        text: "Abate most nearly means:",
+        options: ["Increase", "Decrease", "Remain", "Worsen"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "WK091",
+        text: "Concise most nearly means:",
+        options: ["Lengthy", "Brief", "Confusing", "Detailed"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK092",
+        text: "Denounce most nearly means:",
+        options: ["Praise", "Condemn", "Support", "Accept"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK093",
+        text: "Eloquent most nearly means:",
+        options: ["Inarticulate", "Well-spoken", "Silent", "Confused"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK095",
+        text: "Gaunt most nearly means:",
+        options: ["Plump", "Thin", "Healthy", "Strong"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK097",
+        text: "Impede most nearly means:",
+        options: ["Assist", "Block", "Speed up", "Allow"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK098",
+        text: "Jeopardy most nearly means:",
+        options: ["Safety", "Danger", "Security", "Protection"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK099",
+        text: "Kindle most nearly means:",
+        options: ["Extinguish", "Ignite", "Cool", "Dampen"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK100",
+        text: "Lucid most nearly means:",
+        options: ["Confusing", "Clear", "Vague", "Murky"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK101",
+        text: "Meager most nearly means:",
+        options: ["Abundant", "Scarce", "Generous", "Plentiful"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK102",
+        text: "Novice most nearly means:",
+        options: ["Expert", "Beginner", "Master", "Professional"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK104",
+        text: "Plausible most nearly means:",
+        options: ["Unbelievable", "Believable", "False", "Ridiculous"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK105",
+        text: "Quarantine most nearly means:",
+        options: ["Release", "Isolate", "Free", "Connect"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK106",
+        text: "Rectify most nearly means:",
+        options: ["Worsen", "Correct", "Ignore", "Break"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK107",
+        text: "Sparse most nearly means:",
+        options: ["Dense", "Scattered", "Thick", "Crowded"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK108",
+        text: "Terse most nearly means:",
+        options: ["Lengthy", "Brief", "Wordy", "Elaborate"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "WK109",
+        text: "Uniform most nearly means:",
+        options: ["Varied", "Consistent", "Different", "Random"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK111",
+        text: "Wane most nearly means:",
+        options: ["Grow", "Decrease", "Increase", "Expand"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK112",
+        text: "Yield most nearly means:",
+        options: ["Resist", "Surrender", "Fight", "Oppose"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK113",
+        text: "Zealous most nearly means:",
+        options: ["Indifferent", "Passionate", "Calm", "Apathetic"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK114",
+        text: "Abolish most nearly means:",
+        options: ["Create", "Eliminate", "Begin", "Start"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK115",
+        text: "Blatant most nearly means:",
+        options: ["Subtle", "Obvious", "Hidden", "Secret"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK116",
+        text: "Comply most nearly means:",
+        options: ["Refuse", "Obey", "Reject", "Resist"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK118",
+        text: "Enhance most nearly means:",
+        options: ["Worsen", "Improve", "Damage", "Reduce"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK119",
+        text: "Futile most nearly means:",
+        options: ["Useful", "Useless", "Helpful", "Effective"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK120",
+        text: "Grueling most nearly means:",
+        options: ["Easy", "Exhausting", "Simple", "Light"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK121",
+        text: "Hasty most nearly means:",
+        options: ["Slow", "Quick", "Careful", "Deliberate"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "WK122",
+        text: "Impartial most nearly means:",
+        options: ["Biased", "Fair", "Prejudiced", "One-sided"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK123",
+        text: "Jubilant most nearly means:",
+        options: ["Sad", "Joyful", "Angry", "Depressed"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK124",
+        text: "Knack most nearly means:",
+        options: ["Inability", "Talent", "Weakness", "Failure"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK125",
+        text: "Liable most nearly means:",
+        options: ["Exempt", "Responsible", "Free", "Innocent"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK126",
+        text: "Moderate most nearly means:",
+        options: ["Extreme", "Average", "Excessive", "Intense"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "WK127",
+        text: "Negate most nearly means:",
+        options: ["Confirm", "Cancel out", "Agree", "Support"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK128",
+        text: "Obscure most nearly means:",
+        options: ["Clear", "Unclear", "Obvious", "Visible"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK129",
+        text: "Ponder most nearly means:",
+        options: ["Ignore", "Think about", "Forget", "Dismiss"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK130",
+        text: "Reluctant most nearly means:",
+        options: ["Eager", "Unwilling", "Ready", "Enthusiastic"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK131",
+        text: "Supplement most nearly means:",
+        options: ["Replace", "Add to", "Remove", "Subtract"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK132",
+        text: "Trivial most nearly means:",
+        options: ["Important", "Unimportant", "Serious", "Significant"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK133",
+        text: "Utter most nearly means:",
+        options: ["Partial", "Complete", "Slight", "Minimal"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK134",
+        text: "Vague most nearly means:",
+        options: ["Clear", "Unclear", "Specific", "Precise"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "WK135",
+        text: "Wholesome most nearly means:",
+        options: ["Harmful", "Healthy", "Dangerous", "Toxic"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "WK136",
+        text: "Adjacent most nearly means:",
+        options: ["Far", "Next to", "Distant", "Remote"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK137",
+        text: "Brevity most nearly means:",
+        options: ["Length", "Shortness", "Duration", "Extension"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "WK138",
+        text: "Coerce most nearly means:",
+        options: ["Ask nicely", "Force", "Suggest", "Request"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "WK139",
+        text: "Deviate most nearly means:",
+        options: ["Follow", "Stray from", "Conform", "Obey"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK140",
+        text: "Erratic most nearly means:",
+        options: ["Steady", "Unpredictable", "Consistent", "Regular"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK141",
+        text: "Fluctuate most nearly means:",
+        options: ["Stay constant", "Vary", "Remain stable", "Fix"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK142",
+        text: "Grave most nearly means:",
+        options: ["Trivial", "Serious", "Minor", "Light"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK143",
+        text: "Hypothesis most nearly means:",
+        options: ["Fact", "Theory", "Proof", "Certainty"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK144",
+        text: "Integrate most nearly means:",
+        options: ["Separate", "Combine", "Divide", "Split"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK145",
+        text: "Justify most nearly means:",
+        options: ["Accuse", "Defend", "Blame", "Criticize"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK146",
+        text: "Laborious most nearly means:",
+        options: ["Easy", "Difficult", "Quick", "Simple"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK147",
+        text: "Malicious most nearly means:",
+        options: ["Kind", "Harmful", "Gentle", "Friendly"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK148",
+        text: "Notable most nearly means:",
+        options: ["Ordinary", "Remarkable", "Common", "Average"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK149",
+        text: "Optimum most nearly means:",
+        options: ["Worst", "Best", "Average", "Poor"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK150",
+        text: "Precede most nearly means:",
+        options: ["Follow", "Come before", "Come after", "Trail"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK151",
+        text: "Perpetual most nearly means:",
+        options: ["Temporary", "Constant", "Brief", "Short"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "WK152",
+        text: "Rebuke most nearly means:",
+        options: ["Praise", "Criticize", "Compliment", "Honor"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "WK153",
+        text: "Sustain most nearly means:",
+        options: ["End", "Maintain", "Stop", "Finish"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "WK154",
+        text: "Tangible most nearly means:",
+        options: ["Abstract", "Touchable", "Invisible", "Imaginary"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "WK155",
+        text: "Unanimous most nearly means:",
+        options: ["Divided", "In complete agreement", "Split", "Partial"],
+        correct: 1,
+        difficulty: 3
       }
     ],
 
     // ========================================
-    // PARAGRAPH COMPREHENSION (PC) - 45 questions
+    // PARAGRAPH COMPREHENSION (PC) - 85 questions
+    // Topics: Science, History, Technology, Social Studies, Health/Medicine, Military/Civic, Nature/Environment
+    // Question Types: Main Idea, Detail, Inference, Vocabulary in Context
     // ========================================
     PC: [
       {
@@ -1480,6 +2486,247 @@ const asvabData = {
         text: "Read the passage: 'The Industrial Revolution began in Britain in the late 18th century and fundamentally changed how goods were produced. Factories replaced small workshops, and machines replaced hand tools. While this transformation brought economic growth, it also created harsh working conditions for many laborers, including children.'\n\nThe author's tone regarding the Industrial Revolution is:",
         options: ["entirely positive", "entirely negative", "balanced, acknowledging both benefits and drawbacks", "indifferent"],
         correct: 2, difficulty: 3
+      },
+      // NEW: Diverse PC Questions (Science, History, Technology, Health, Nature, Social Studies)
+      {
+        id: "PC046",
+        text: "Read the passage and answer the question.\n\nThe human immune system is a complex network of cells, tissues, and organs that work together to defend the body against harmful pathogens. White blood cells, also called leukocytes, are the primary defenders in this system. They circulate through the bloodstream and lymphatic system, constantly searching for and destroying bacteria, viruses, and other foreign invaders.\n\nWhat is the main function of white blood cells?",
+        options: ["To carry oxygen throughout the body", "To defend the body against pathogens", "To regulate body temperature", "To produce hormones"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC047",
+        text: "Read the passage and answer the question.\n\nCoral reefs are among the most diverse ecosystems on Earth, supporting approximately 25% of all marine species despite covering less than 1% of the ocean floor. These underwater structures are built by tiny animals called coral polyps, which secrete calcium carbonate to form hard skeletons. When polyps die, their skeletons remain, and new polyps build on top of them.\n\nAccording to the passage, what percentage of the ocean floor do coral reefs cover?",
+        options: ["25%", "Less than 1%", "50%", "10%"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC048",
+        text: "Read the passage and answer the question.\n\nSound travels at different speeds depending on the medium through which it passes. In air at room temperature, sound travels at approximately 343 meters per second. However, sound travels much faster through water and even faster through steel. This is because sound waves travel more efficiently through denser materials where molecules are closer together.\n\nThe author implies that:",
+        options: ["Sound cannot travel through steel", "Denser materials slow down sound", "Molecular proximity affects sound speed", "Air is the best conductor of sound"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "PC049",
+        text: "Read the passage and answer the question.\n\nGravity is often misunderstood as a force that only pulls things downward. In reality, gravity is a mutual attraction between any two objects with mass. The Earth pulls on you, but you also pull on the Earth with equal force. The reason you move toward the Earth rather than the Earth moving toward you is simply because the Earth's mass is so much greater.\n\nWhat is the main idea of this passage?",
+        options: ["Gravity only affects heavy objects", "Gravity is a one-way force", "Gravity is a mutual attraction between objects with mass", "The Earth has no gravitational effect on humans"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "PC050",
+        text: "Read the passage and answer the question.\n\nThe water cycle describes the continuous movement of water on, above, and below the surface of the Earth. Water evaporates from oceans, lakes, and rivers, rises into the atmosphere where it condenses into clouds, and eventually falls back to Earth as precipitation. This cycle is driven primarily by solar energy and gravity.\n\nWhat two forces drive the water cycle?",
+        options: ["Wind and pressure", "Solar energy and gravity", "Temperature and humidity", "Magnetism and friction"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC051",
+        text: "Read the passage and answer the question.\n\nEarthquakes occur when tectonic plates, massive slabs of rock that make up the Earth's outer layer, suddenly shift along fault lines. The energy released by this movement travels through the ground as seismic waves. While most earthquakes are too small to be felt by humans, major earthquakes can cause devastating damage to buildings and infrastructure.\n\nThe word 'devastating' most nearly means:",
+        options: ["minor", "destructive", "temporary", "invisible"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC052",
+        text: "Read the passage and answer the question.\n\nThe Louisiana Purchase of 1803 doubled the size of the United States overnight. President Thomas Jefferson negotiated the purchase of approximately 828,000 square miles of territory from France for about $15 million. This acquisition not only provided access to the Mississippi River and the port of New Orleans but also opened the way for westward expansion.\n\nAccording to the passage, what was one benefit of the Louisiana Purchase?",
+        options: ["It reduced the national debt", "It provided access to the Mississippi River", "It ended conflicts with Native Americans", "It established trade with China"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC053",
+        text: "Read the passage and answer the question.\n\nThe Civil Rights Movement of the 1950s and 1960s was characterized by both legal challenges and grassroots activism. While landmark Supreme Court cases like Brown v. Board of Education challenged segregation through the courts, ordinary citizens participated in sit-ins, boycotts, and marches. This combination ultimately led to significant legislative changes.\n\nWhat is the main point of this passage?",
+        options: ["The Civil Rights Movement relied solely on court cases", "Protests were ineffective during the Civil Rights era", "Both legal challenges and activism contributed to change", "The Civil Rights Act was passed in 1950"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "PC054",
+        text: "Read the passage and answer the question.\n\nThe Battle of Midway in June 1942 is often considered the turning point of the Pacific War during World War II. American codebreakers had deciphered Japanese naval communications, allowing the U.S. Navy to anticipate the attack and prepare an ambush. In the ensuing battle, American forces sank four Japanese aircraft carriers while losing only one of their own.\n\nAccording to the passage, what advantage helped American forces at Midway?",
+        options: ["Superior numbers of ships", "Better weather conditions", "Knowledge from deciphered communications", "More experienced pilots"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "PC055",
+        text: "Read the passage and answer the question.\n\nThe Berlin Airlift of 1948-1949 was a remarkable logistical achievement during the early Cold War. When the Soviet Union blocked all land and water routes to West Berlin, the United States and its allies responded by flying in supplies. Over the course of nearly a year, cargo planes made over 270,000 flights, delivering food and fuel to more than two million West Berliners.\n\nThe author implies that the Berlin Airlift was:",
+        options: ["a failure that weakened Western resolve", "an impressive organizational accomplishment", "a minor incident in Cold War history", "supported by the Soviet Union"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "PC056",
+        text: "Read the passage and answer the question.\n\nThe ancient Romans developed a sophisticated system of roads that connected their vast empire. These roads, built with multiple layers of stone and gravel, were designed to last for centuries. The expression 'all roads lead to Rome' reflects the fact that this road network radiated outward from the capital city, facilitating trade, communication, and military movement.\n\nWhat was the purpose of the Roman road system?",
+        options: ["To provide employment for workers", "To facilitate trade, communication, and military movement", "To mark territorial boundaries", "To prevent flooding"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC057",
+        text: "Read the passage and answer the question.\n\nThe Black Death, which swept through Europe between 1347 and 1351, killed an estimated one-third of the continent's population. With fewer workers available, surviving peasants could demand higher wages. The labor shortage also accelerated the decline of feudalism and contributed to significant changes in European society.\n\nAccording to the passage, one consequence of the Black Death was:",
+        options: ["Population growth in Europe", "Lower wages for workers", "Increased bargaining power for surviving peasants", "The strengthening of feudalism"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "PC058",
+        text: "Read the passage and answer the question.\n\nArtificial intelligence (AI) refers to computer systems designed to perform tasks that typically require human intelligence. These tasks include visual perception, speech recognition, decision-making, and language translation. While AI has made remarkable progress, current systems are considered 'narrow AI' because they excel at specific tasks but lack general intelligence.\n\nThe term 'narrow AI' refers to systems that:",
+        options: ["have human-like general intelligence", "are physically small", "excel at specific tasks only", "are no longer being developed"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "PC059",
+        text: "Read the passage and answer the question.\n\nGlobal Positioning System (GPS) technology relies on a network of at least 24 satellites orbiting the Earth. A GPS receiver calculates its position by measuring the time it takes for signals to arrive from multiple satellites. By knowing the exact position of each satellite and the time delay of each signal, the receiver can determine its location with remarkable accuracy.\n\nHow does a GPS receiver determine its location?",
+        options: ["By receiving signals from ground stations", "By measuring signal delays from multiple satellites", "By connecting to cellular networks", "By using magnetic compasses"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "PC060",
+        text: "Read the passage and answer the question.\n\nThe invention of the printing press by Johannes Gutenberg around 1440 revolutionized the spread of information. Before the printing press, books had to be copied by hand, making them expensive and rare. Gutenberg's movable type technology allowed books to be produced quickly and affordably, democratizing access to knowledge.\n\nThe word 'democratizing' most nearly means:",
+        options: ["restricting", "complicating", "making widely available", "politicizing"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "PC061",
+        text: "Read the passage and answer the question.\n\nThe United States Constitution establishes a system of checks and balances among the three branches of government. The legislative branch makes laws, the executive branch enforces them, and the judicial branch interprets them. Each branch has specific powers that allow it to limit the actions of the other branches.\n\nWhat is the main purpose of checks and balances?",
+        options: ["To speed up the legislative process", "To prevent any single branch from becoming too powerful", "To reduce the size of government", "To eliminate the need for elections"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC062",
+        text: "Read the passage and answer the question.\n\nSupply and demand is a fundamental economic principle that explains how prices are determined in a market. When demand for a product exceeds supply, prices tend to rise. Conversely, when supply exceeds demand, prices typically fall. This dynamic interaction helps allocate resources efficiently in a market economy.\n\nAccording to the passage, what happens when supply exceeds demand?",
+        options: ["Prices rise", "Prices fall", "Prices remain stable", "Production stops"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC063",
+        text: "Read the passage and answer the question.\n\nUrbanization, the movement of people from rural areas to cities, has accelerated dramatically over the past century. In 1900, only about 15% of the world's population lived in urban areas. Today, more than half of all humans live in cities. Cities offer economic opportunities, educational institutions, and cultural amenities that attract people from the countryside.\n\nThe author implies that urbanization is:",
+        options: ["decreasing worldwide", "driven partly by economic opportunities", "harmful to economic development", "limited to developed countries"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "PC064",
+        text: "Read the passage and answer the question.\n\nVaccines work by training the immune system to recognize and fight specific pathogens. When a vaccine is administered, it introduces a weakened or inactivated form of the pathogen, or just a piece of it. The immune system responds by producing antibodies. If the person is later exposed to the actual pathogen, their immune system can quickly neutralize it.\n\nWhat is the main idea of this passage?",
+        options: ["Vaccines contain dangerous pathogens", "Vaccines weaken the immune system", "Vaccines train the immune system to fight specific diseases", "Vaccines are only effective for children"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "PC065",
+        text: "Read the passage and answer the question.\n\nSleep is essential for physical and mental health. During sleep, the body repairs tissues, consolidates memories, and releases hormones that regulate growth and appetite. Chronic sleep deprivation has been linked to numerous health problems, including obesity, diabetes, and cardiovascular disease. Most adults need seven to nine hours of sleep per night.\n\nAccording to the passage, how many hours of sleep do most adults need?",
+        options: ["Four to five hours", "Five to six hours", "Seven to nine hours", "Ten to twelve hours"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "PC066",
+        text: "Read the passage and answer the question.\n\nAntibiotics are medications that kill or inhibit the growth of bacteria. However, overuse and misuse of antibiotics have led to the emergence of antibiotic-resistant bacteria, sometimes called 'superbugs.' When antibiotics are used inappropriately, bacteria can develop resistance, making future infections harder to treat.\n\nThe word 'inhibit' most nearly means:",
+        options: ["encourage", "prevent", "observe", "multiply"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC067",
+        text: "Read the passage and answer the question.\n\nThe human heart beats approximately 100,000 times per day, pumping about 2,000 gallons of blood through the body. This blood delivers oxygen and nutrients to cells while removing waste products like carbon dioxide. Regular cardiovascular exercise strengthens the heart muscle and reduces the risk of heart disease.\n\nWhat benefit does cardiovascular exercise provide?",
+        options: ["It weakens the heart muscle", "It strengthens the heart and reduces disease risk", "It slows blood circulation", "It increases carbon dioxide levels"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC068",
+        text: "Read the passage and answer the question.\n\nThe Selective Service System requires nearly all male U.S. citizens and immigrants to register within 30 days of their 18th birthday. While there has been no draft since 1973, registration ensures that the country can quickly mobilize a military force if a national emergency requires it.\n\nAccording to the passage, when must male citizens register for Selective Service?",
+        options: ["At age 16", "At age 21", "Within 30 days of turning 18", "When they graduate high school"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "PC069",
+        text: "Read the passage and answer the question.\n\nRainforests, despite covering only about 6% of Earth's land surface, contain more than half of the world's plant and animal species. These ecosystems play a crucial role in regulating global climate by absorbing carbon dioxide and releasing oxygen. Deforestation threatens biodiversity and contributes to climate change.\n\nWhat is the main point of this passage?",
+        options: ["Rainforests cover most of Earth's surface", "Rainforests are important for biodiversity and climate", "Deforestation has no environmental impact", "Rainforests contain few plant species"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC070",
+        text: "Read the passage and answer the question.\n\nMigration patterns of birds have fascinated scientists for centuries. Many species travel thousands of miles between their breeding grounds and winter habitats, navigating using a combination of the Earth's magnetic field, the position of the sun and stars, and visual landmarks. Climate change is altering these ancient patterns.\n\nHow do birds navigate during migration?",
+        options: ["Using GPS technology", "Following other animals", "Using magnetic field, celestial bodies, and landmarks", "By swimming through ocean currents"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "PC071",
+        text: "Read the passage and answer the question.\n\nWetlands, including marshes, swamps, and bogs, provide numerous ecological services. They filter pollutants from water, reduce flooding by absorbing excess rainwater, and provide habitat for countless species of fish, birds, and other wildlife. Despite their importance, more than half of the original wetlands in the United States have been lost.\n\nThe word 'ecological' most nearly means:",
+        options: ["economic", "political", "environmental", "historical"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "PC072",
+        text: "Read the passage and answer the question.\n\nPolar bears are uniquely adapted to life in the Arctic. Their white fur provides camouflage against snow and ice, while a thick layer of blubber insulates them from freezing temperatures. Polar bears are excellent swimmers and can travel long distances between ice floes in search of their primary prey, seals.\n\nAccording to the passage, what is the primary prey of polar bears?",
+        options: ["Fish", "Seals", "Penguins", "Whales"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "PC073",
+        text: "Read the passage and answer the question.\n\nThe periodic table organizes elements based on their atomic structure and chemical properties. Elements in the same column, called a group, share similar characteristics because they have the same number of electrons in their outer shell. The noble gases in Group 18 are highly stable because their outer electron shells are full.\n\nWhy are noble gases highly stable?",
+        options: ["They have no electrons", "Their outer electron shells are full", "They are heavier than other elements", "They exist only at high temperatures"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "PC074",
+        text: "Read the passage and answer the question.\n\nPhotosynthesis is the process by which plants, algae, and some bacteria convert light energy into chemical energy stored in glucose. This process takes place primarily in the chloroplasts of plant cells, which contain the green pigment chlorophyll. Chlorophyll absorbs light from the sun, which powers the chemical reactions.\n\nWhat role does chlorophyll play in photosynthesis?",
+        options: ["It stores glucose", "It absorbs light energy", "It releases carbon dioxide", "It produces water"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC075",
+        text: "Read the passage and answer the question.\n\nThe Manhattan Project was a secret research program during World War II that developed the first nuclear weapons. Led by physicist J. Robert Oppenheimer, the project employed over 125,000 workers at multiple sites across the United States. The first successful test occurred in New Mexico on July 16, 1945.\n\nWho led the Manhattan Project?",
+        options: ["Albert Einstein", "J. Robert Oppenheimer", "Harry Truman", "Enrico Fermi"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC076",
+        text: "Read the passage and answer the question.\n\nThe Silk Road was not a single road but a network of trade routes connecting China to the Mediterranean world for over 1,500 years. Besides silk, merchants transported spices, precious metals, and other goods. Perhaps more importantly, the Silk Road facilitated the exchange of ideas, religions, and technologies between civilizations.\n\nThe author implies that the Silk Road's most significant contribution was:",
+        options: ["transporting silk to Europe", "generating wealth for merchants", "facilitating cultural and intellectual exchange", "establishing military alliances"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "PC077",
+        text: "Read the passage and answer the question.\n\nCloud computing allows users to access computing resources, such as storage, processing power, and software, over the internet rather than from local computers. This model offers several advantages: businesses can scale their resources up or down as needed, avoid large upfront investments in hardware, and access their data from anywhere.\n\nWhat is one advantage of cloud computing mentioned in the passage?",
+        options: ["It eliminates the need for the internet", "It requires large upfront investments", "Businesses can scale resources as needed", "Data can only be accessed from one location"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "PC078",
+        text: "Read the passage and answer the question.\n\nRenewable energy sources, including solar, wind, and hydroelectric power, generate electricity without depleting natural resources or producing greenhouse gas emissions. While these technologies have become increasingly cost-competitive with fossil fuels, challenges remain. Solar and wind power are intermittent, generating electricity only when the sun shines or the wind blows.\n\nThe word 'intermittent' most nearly means:",
+        options: ["constant", "powerful", "irregular or occasional", "expensive"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "PC079",
+        text: "Read the passage and answer the question.\n\nThe Electoral College is the system used to elect the President of the United States. Rather than directly electing the president, voters in each state choose electors who then cast votes for president. A candidate needs 270 of the 538 total electoral votes to win the presidency.\n\nHow many electoral votes does a candidate need to win the presidency?",
+        options: ["218", "270", "435", "538"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC080",
+        text: "Read the passage and answer the question.\n\nInflation refers to the general increase in prices over time, which reduces the purchasing power of money. Moderate inflation is considered normal in a healthy economy, but high inflation can be harmful, eroding savings and making it difficult for people to plan for the future. Central banks use monetary policy to manage inflation.\n\nWhat effect does inflation have on the purchasing power of money?",
+        options: ["It increases purchasing power", "It reduces purchasing power", "It has no effect on purchasing power", "It stabilizes purchasing power"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC081",
+        text: "Read the passage and answer the question.\n\nDehydration occurs when the body loses more fluids than it takes in. Even mild dehydration can cause fatigue, headaches, and difficulty concentrating. During physical activity or in hot weather, the body loses water through sweat. Thirst is not always a reliable indicator of dehydration, as it often develops after the body is already significantly dehydrated.\n\nThe author implies that:",
+        options: ["Thirst always indicates the need for water", "People should drink only when thirsty", "People should drink fluids before feeling thirsty", "Dehydration only occurs during exercise"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "PC082",
+        text: "Read the passage and answer the question.\n\nMental health is as important as physical health, yet it often receives less attention. Conditions like depression and anxiety affect millions of people worldwide. Treatment options include therapy, medication, and lifestyle changes such as regular exercise, adequate sleep, and social connection. Early intervention typically leads to better outcomes.\n\nWhat is the main idea of this passage?",
+        options: ["Mental health conditions are rare", "Physical health is more important than mental health", "Mental health is important and treatable", "Medication is the only treatment for mental illness"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "PC083",
+        text: "Read the passage and answer the question.\n\nBees play a crucial role in food production through pollination. As bees collect nectar from flowers, pollen sticks to their bodies and is transferred to other flowers, enabling plants to reproduce. Approximately one-third of the food we eat depends on pollination by bees and other insects.\n\nWhat percentage of human food depends on pollination by bees and other insects?",
+        options: ["About 10%", "About one-third", "About half", "Nearly all"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "PC084",
+        text: "Read the passage and answer the question.\n\nThe ocean covers more than 70% of Earth's surface, yet more than 80% of it remains unexplored. The deep ocean presents extreme challenges for exploration, including crushing pressure, complete darkness, and near-freezing temperatures. Despite these difficulties, scientists continue to discover new species in the deep sea.\n\nThe author implies that:",
+        options: ["The ocean is completely explored", "Deep sea exploration is easy", "Many ocean species are yet to be discovered", "The ocean is shrinking"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "PC085",
+        text: "Read the passage and answer the question.\n\nThe assembly line, pioneered by Henry Ford in the early 20th century, revolutionized manufacturing. By breaking down production into simple, repetitive tasks performed by specialized workers, Ford dramatically reduced the time required to build an automobile. The Model T, which took over 12 hours to assemble before, could be completed in just 93 minutes afterward.\n\nAccording to the passage, how long did it take to assemble a Model T after the assembly line was introduced?",
+        options: ["Over 12 hours", "About 6 hours", "93 minutes", "24 hours"],
+        correct: 2, difficulty: 2
       }
     ],
 
@@ -1920,6 +3167,462 @@ const asvabData = {
         options: ["(4y - 2)(3x + 2)", "(3x - 2)(4y + 2)", "(4y + 2)(6x)", "(3x + 2)(4y + 2)"],
         correct: 0,
         difficulty: 4
+      },
+      // NEW MK QUESTIONS (MK068-MK132) - 65 questions
+      {
+        id: "MK068",
+        text: "Solve for x: 5x - 8 = 27",
+        options: ["x = 7", "x = 4", "x = 19", "x = 35"],
+        correct: 0,
+        difficulty: 1
+      },
+      {
+        id: "MK069",
+        text: "Solve for y: 4y + 12 = 36",
+        options: ["y = 12", "y = 6", "y = 8", "y = 48"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "MK070",
+        text: "Solve for x: 2x + 3x - 5 = 25",
+        options: ["x = 4", "x = 5", "x = 6", "x = 30"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "MK071",
+        text: "Simplify: 4(2x - 5) + 3x",
+        options: ["11x - 20", "8x - 5", "11x - 5", "5x - 20"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK072",
+        text: "Solve for x: x/5 + 3 = 7",
+        options: ["x = 2", "x = 20", "x = 50", "x = 35"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK073",
+        text: "What is the value of 7²?",
+        options: ["14", "21", "49", "343"],
+        correct: 2,
+        difficulty: 1
+      },
+      {
+        id: "MK074",
+        text: "Simplify: (3⁴) ÷ (3²)",
+        options: ["3²", "3⁶", "3⁸", "9"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK075",
+        text: "What is √196?",
+        options: ["12", "13", "14", "16"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "MK076",
+        text: "Simplify: √72",
+        options: ["6√2", "8√2", "9√2", "36√2"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "MK077",
+        text: "What is 2⁻³?",
+        options: ["-6", "-8", "1/8", "8"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "MK078",
+        text: "What is 2/5 + 1/3?",
+        options: ["3/8", "11/15", "3/15", "7/15"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK079",
+        text: "What is 5/6 - 1/4?",
+        options: ["4/2", "7/12", "1/3", "4/6"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK080",
+        text: "Convert 0.625 to a fraction in lowest terms:",
+        options: ["5/8", "625/1000", "3/5", "6/10"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK081",
+        text: "What is 3/8 × 4/5?",
+        options: ["12/40", "3/10", "7/13", "12/13"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK082",
+        text: "What is 2/3 ÷ 4/9?",
+        options: ["8/27", "3/2", "6/12", "2/3"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "MK083",
+        text: "If two angles are supplementary and one measures 65°, what does the other measure?",
+        options: ["25°", "115°", "65°", "90°"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK084",
+        text: "The sum of angles in a triangle is:",
+        options: ["90°", "180°", "270°", "360°"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "MK085",
+        text: "An isosceles triangle has two equal angles of 55° each. What is the third angle?",
+        options: ["55°", "70°", "90°", "125°"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK086",
+        text: "If two angles are complementary and one is 28°, what is the other?",
+        options: ["62°", "152°", "72°", "28°"],
+        correct: 0,
+        difficulty: 1
+      },
+      {
+        id: "MK087",
+        text: "A triangle has angles of 40° and 75°. What is the third angle?",
+        options: ["65°", "55°", "115°", "45°"],
+        correct: 0,
+        difficulty: 1
+      },
+      {
+        id: "MK088",
+        text: "What is the area of a rectangle with length 12 and width 7?",
+        options: ["38 square units", "84 square units", "19 square units", "96 square units"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "MK089",
+        text: "What is the area of a triangle with base 10 and height 9?",
+        options: ["90 square units", "45 square units", "19 square units", "50 square units"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "MK090",
+        text: "What is the area of a circle with radius 6? (Use π = 3.14)",
+        options: ["18.84 sq units", "37.68 sq units", "113.04 sq units", "56.52 sq units"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "MK091",
+        text: "A square has an area of 64 square feet. What is the length of one side?",
+        options: ["8 feet", "16 feet", "32 feet", "4 feet"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK092",
+        text: "What is the area of a trapezoid with bases 8 and 12, and height 5?",
+        options: ["50 square units", "100 square units", "40 square units", "60 square units"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "MK093",
+        text: "What is the perimeter of a square with side length 9?",
+        options: ["18", "27", "36", "81"],
+        correct: 2,
+        difficulty: 1
+      },
+      {
+        id: "MK094",
+        text: "What is the circumference of a circle with radius 8? (Use π = 3.14)",
+        options: ["25.12", "50.24", "200.96", "16"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK095",
+        text: "A triangle has sides of 7, 8, and 9. What is its perimeter?",
+        options: ["24", "56", "504", "15"],
+        correct: 0,
+        difficulty: 1
+      },
+      {
+        id: "MK096",
+        text: "What is the perimeter of a rectangle with length 15 and width 8?",
+        options: ["23", "46", "120", "92"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "MK097",
+        text: "What is the volume of a rectangular prism with length 6, width 4, and height 3?",
+        options: ["13 cubic units", "48 cubic units", "72 cubic units", "24 cubic units"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "MK098",
+        text: "What is the volume of a cube with sides of 5?",
+        options: ["15", "25", "125", "625"],
+        correct: 2,
+        difficulty: 1
+      },
+      {
+        id: "MK099",
+        text: "A cylinder has radius 3 and height 7. What is its volume? (Use π = 3.14)",
+        options: ["65.94 cu units", "131.88 cu units", "197.82 cu units", "263.76 cu units"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "MK100",
+        text: "What is the volume of a sphere with radius 3? (V = 4/3 πr³, π = 3.14)",
+        options: ["37.68 cu units", "113.04 cu units", "28.26 cu units", "84.78 cu units"],
+        correct: 1,
+        difficulty: 4
+      },
+      {
+        id: "MK101",
+        text: "Evaluate: 8 + 4 × 3",
+        options: ["36", "20", "15", "24"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "MK102",
+        text: "Evaluate: 24 ÷ 6 + 2 × 5",
+        options: ["14", "30", "7", "22"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK103",
+        text: "Evaluate: (15 - 3) × 2 + 8",
+        options: ["32", "28", "36", "44"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK104",
+        text: "Evaluate: 5² - 3 × 4 + 2",
+        options: ["90", "15", "13", "40"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK105",
+        text: "Evaluate: 48 ÷ (4 + 2) × 3",
+        options: ["24", "6", "36", "8"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "MK106",
+        text: "Solve: x + 5 > 12. What values satisfy this inequality?",
+        options: ["x > 7", "x < 7", "x > 17", "x < 17"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK107",
+        text: "Solve: 3x - 4 ≤ 11",
+        options: ["x ≤ 5", "x ≥ 5", "x ≤ 7/3", "x ≥ 7/3"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK108",
+        text: "Solve: 2x + 6 < 18",
+        options: ["x < 6", "x > 6", "x < 12", "x > 12"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK109",
+        text: "If -2x > 8, then:",
+        options: ["x > 4", "x < 4", "x > -4", "x < -4"],
+        correct: 3,
+        difficulty: 3
+      },
+      {
+        id: "MK110",
+        text: "What is the mean of 12, 18, 22, 24, and 24?",
+        options: ["18", "20", "22", "24"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK111",
+        text: "What is the median of 5, 8, 12, 15, 20?",
+        options: ["8", "12", "15", "11"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "MK112",
+        text: "What is the mode of: 3, 5, 7, 5, 9, 5, 11?",
+        options: ["3", "5", "7", "9"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "MK113",
+        text: "The median of 8, 3, 10, 7, 5, 12 is:",
+        options: ["7", "7.5", "8", "10"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK114",
+        text: "What is the range of: 4, 9, 15, 21, 28?",
+        options: ["15", "21", "24", "28"],
+        correct: 2,
+        difficulty: 1
+      },
+      {
+        id: "MK115",
+        text: "Express 4,500,000 in scientific notation:",
+        options: ["4.5 × 10⁵", "4.5 × 10⁶", "45 × 10⁵", "0.45 × 10⁷"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK116",
+        text: "Express 0.0023 in scientific notation:",
+        options: ["2.3 × 10⁻²", "2.3 × 10⁻³", "23 × 10⁻⁴", "0.23 × 10⁻²"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK117",
+        text: "What is 3.2 × 10⁴ in standard form?",
+        options: ["320", "3,200", "32,000", "320,000"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "MK118",
+        text: "(2 × 10³) × (4 × 10²) =",
+        options: ["8 × 10⁵", "8 × 10⁶", "6 × 10⁵", "6 × 10⁶"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "MK119",
+        text: "Factor: x² + 7x + 12",
+        options: ["(x + 3)(x + 4)", "(x + 2)(x + 6)", "(x + 1)(x + 12)", "(x - 3)(x - 4)"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK120",
+        text: "Factor: x² - 25",
+        options: ["(x + 5)(x + 5)", "(x - 5)(x - 5)", "(x + 5)(x - 5)", "(x + 25)(x - 1)"],
+        correct: 2,
+        difficulty: 2
+      },
+      {
+        id: "MK121",
+        text: "Factor: 2x² + 8x",
+        options: ["2x(x + 4)", "2(x² + 4x)", "x(2x + 8)", "4x(x + 2)"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK122",
+        text: "Factor: x² - 8x + 15",
+        options: ["(x - 3)(x - 5)", "(x + 3)(x + 5)", "(x - 1)(x - 15)", "(x + 3)(x - 5)"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "MK123",
+        text: "Solve for x: 7x + 2 = 4x + 17",
+        options: ["x = 5", "x = 3", "x = 19/3", "x = 15/11"],
+        correct: 0,
+        difficulty: 2
+      },
+      {
+        id: "MK124",
+        text: "Simplify: 2(3x + 4) - 5(x - 1)",
+        options: ["x + 13", "11x + 3", "x + 3", "11x + 13"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "MK125",
+        text: "What is 4⁰?",
+        options: ["0", "1", "4", "Undefined"],
+        correct: 1,
+        difficulty: 1
+      },
+      {
+        id: "MK126",
+        text: "What is (5²)³?",
+        options: ["5⁵", "5⁶", "5⁸", "15²"],
+        correct: 1,
+        difficulty: 3
+      },
+      {
+        id: "MK127",
+        text: "What is 7/8 as a decimal?",
+        options: ["0.78", "0.875", "0.857", "0.7"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK128",
+        text: "In a right triangle, one leg is 5 and the hypotenuse is 13. What is the other leg?",
+        options: ["8", "10", "12", "18"],
+        correct: 2,
+        difficulty: 3
+      },
+      {
+        id: "MK129",
+        text: "What is 40% of 75?",
+        options: ["25", "30", "35", "40"],
+        correct: 1,
+        difficulty: 2
+      },
+      {
+        id: "MK130",
+        text: "An exterior angle of a regular hexagon measures:",
+        options: ["60°", "120°", "45°", "90°"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "MK131",
+        text: "Simplify: (4x³y²)(3xy⁴)",
+        options: ["12x⁴y⁶", "12x³y⁸", "7x⁴y⁶", "12x⁴y⁸"],
+        correct: 0,
+        difficulty: 3
+      },
+      {
+        id: "MK132",
+        text: "If the area of a circle is 100π square units, what is the radius?",
+        options: ["5 units", "10 units", "25 units", "50 units"],
+        correct: 1,
+        difficulty: 3
       }
     ],
 
