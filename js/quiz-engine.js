@@ -407,7 +407,7 @@ class QuizEngine {
     }
   }
 
-  submitQuiz() {
+  async submitQuiz() {
     clearInterval(this.timerInterval);
 
     // Calculate results by section

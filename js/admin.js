@@ -212,11 +212,23 @@ function renderScoreGrid(scores, labels) {
   }
   return keys.map(k => {
     const v = scores[k];
-    const display = (v && typeof v === 'object') ? (v.score ?? v.raw ?? v.correct ?? JSON.stringify(v)) : v;
+    let display = '—';
+    if (v && typeof v === 'object') {
+      if (v.correct != null && v.total != null) {
+        const pct = v.total > 0 ? Math.round((v.correct / v.total) * 100) : 0;
+        display = `${v.correct}/${v.total} · ${pct}%`;
+      } else if (v.score != null) {
+        display = String(v.score);
+      } else if (v.raw != null) {
+        display = String(v.raw);
+      }
+    } else if (v != null) {
+      display = String(v);
+    }
     return `
       <div class="section-pill">
         <div class="code">${escHtml(k)}</div>
-        <div class="val">${escHtml(String(display ?? '—'))}${labels[k] ? ' · ' + escHtml(labels[k]) : ''}</div>
+        <div class="val">${escHtml(display)}${labels[k] ? ' · ' + escHtml(labels[k]) : ''}</div>
       </div>
     `;
   }).join('');
