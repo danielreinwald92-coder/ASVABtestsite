@@ -61,7 +61,7 @@ async function applyAuthNav() {
 
   if (session) {
     const profile = await getProfile();
-    const displayName = profile ? profile.name.split(' ')[0] : 'Account';
+    const displayName = profile?.name?.split(' ')[0] || 'Account';
 
     if (navCta) {
       navCta.textContent = 'Dashboard';
@@ -71,10 +71,15 @@ async function applyAuthNav() {
       mobileMenuCta.textContent = 'Dashboard';
       mobileMenuCta.href = 'dashboard.html';
     }
-    // Add sign out link to nav
+    // Add user name link to nav
     if (navLinks) {
       const li = document.createElement('li');
-      li.innerHTML = `<a href="dashboard.html" style="color: var(--gold-500); font-weight: 600;">${displayName}</a>`;
+      const a = document.createElement('a');
+      a.href = 'dashboard.html';
+      a.textContent = displayName;
+      a.style.color = 'var(--gold-500)';
+      a.style.fontWeight = '600';
+      li.appendChild(a);
       navLinks.appendChild(li);
     }
     if (mobileMenuLinks) {
