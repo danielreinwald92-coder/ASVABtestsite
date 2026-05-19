@@ -47,7 +47,7 @@
       <form id="registerForm">
         <div class="form-group">
           <label for="name">Full Name</label>
-          <input type="text" id="name" placeholder="Jane Smith" required autocomplete="name">
+          <input type="text" id="name" placeholder="Jane Smith" required autocomplete="name" maxlength="100">
         </div>
         <div class="form-group">
           <label for="email">Email Address</label>
@@ -75,7 +75,7 @@
           </div>
           <div class="form-group">
             <label for="zipcode">ZIP Code <span class="optional">(optional)</span></label>
-            <input type="text" id="zipcode" placeholder="90210" maxlength="10">
+            <input type="text" id="zipcode" placeholder="90210" maxlength="10" pattern="[0-9]{5}(-[0-9]{4})?" inputmode="numeric">
           </div>
         </div>
         <button type="submit" class="btn-primary" id="submitBtn">Create Account</button>
@@ -88,6 +88,12 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/auth.js"></script>
   <script>
+    // Redirect to dashboard if already logged in
+    (async () => {
+      const session = await getSession();
+      if (session) window.location.href = 'dashboard.html';
+    })();
+
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('submitBtn');
@@ -104,6 +110,16 @@
       const education = document.getElementById('education').value;
       const ageVal = document.getElementById('age').value;
       const zipcode = document.getElementById('zipcode').value.trim();
+
+      // Validate age
+      const ageNum = ageVal ? parseInt(ageVal, 10) : null;
+      if (ageVal && (isNaN(ageNum) || ageNum < 14 || ageNum > 42)) {
+        errorMsg.textContent = 'Please enter a valid age (14–42).';
+        errorMsg.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Create Account';
+        return;
+      }
 
       const client = getClient();
       const { data, error } = await client.auth.signUp({
@@ -123,14 +139,20 @@
       // Update profile with additional fields (trigger created the row)
       if (data.user) {
         const updates = { name, education };
-        if (ageVal) updates.age = parseInt(ageVal, 10);
+        if (ageNum !== null) updates.age = ageNum;
         if (zipcode) updates.zipcode = zipcode;
-        await client.from('profiles').update(updates).eq('id', data.user.id);
+        const { error: profileError } = await client.from('profiles').update(updates).eq('id', data.user.id);
+        if (profileError) {
+          successMsg.textContent = 'Account created! Check your email to confirm. Some profile details could not be saved.';
+        } else {
+          successMsg.textContent = 'Account created! Check your email to confirm, then log in.';
+        }
+      } else {
+        successMsg.textContent = 'Account created! Check your email to confirm, then log in.';
       }
-
-      successMsg.textContent = 'Account created! Check your email to confirm, then log in.';
       successMsg.style.display = 'block';
-      btn.textContent = 'Account Created';
+      btn.textContent = 'Account Created ✓';
+      setTimeout(() => { window.location.href = 'login.html'; }, 2500);
     });
   </script>
 </body>

@@ -92,7 +92,10 @@ async function applyAuthNav() {
     // Guest state — add Login link
     if (navLinks) {
       const li = document.createElement('li');
-      li.innerHTML = `<a href="login.html">Log In</a>`;
+      const a = document.createElement('a');
+      a.href = 'login.html';
+      a.textContent = 'Log In';
+      li.appendChild(a);
       navLinks.appendChild(li);
     }
     if (mobileMenuLinks) {
