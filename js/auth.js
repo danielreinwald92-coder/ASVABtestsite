@@ -88,6 +88,24 @@ async function applyAuthNav() {
       a.textContent = `My Dashboard (${displayName})`;
       mobileMenuLinks.appendChild(a);
     }
+    if (profile && profile.is_admin) {
+      if (navLinks) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = 'admin.html';
+        a.textContent = 'Admin';
+        a.style.color = 'var(--gold-500)';
+        a.style.fontWeight = '600';
+        li.appendChild(a);
+        navLinks.appendChild(li);
+      }
+      if (mobileMenuLinks) {
+        const a = document.createElement('a');
+        a.href = 'admin.html';
+        a.textContent = 'Admin';
+        mobileMenuLinks.appendChild(a);
+      }
+    }
   } else {
     // Guest state — add Login link
     if (navLinks) {

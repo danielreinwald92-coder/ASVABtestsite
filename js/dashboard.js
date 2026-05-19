@@ -16,7 +16,12 @@ async function loadDashboard() {
   const profile = profileRes.data;
   const results = resultsRes.data || [];
 
-  document.getElementById('userName').textContent = profile ? profile.name.split(' ')[0] : 'There';
+  document.getElementById('userName').textContent = getDisplayName(profile, session.user.email);
+
+  if (profile && profile.is_admin) {
+    const adminLink = document.getElementById('adminNavLink');
+    if (adminLink) adminLink.style.display = 'inline';
+  }
 
   if (results.length === 0) {
     showWelcomeState();
@@ -29,6 +34,19 @@ async function loadDashboard() {
   renderSectionBreakdown(results);
   renderFocusPanel(results);
   renderTestHistory(results);
+}
+
+function getDisplayName(profile, email) {
+  const raw = profile && profile.name ? String(profile.name).trim() : '';
+  if (raw) {
+    const first = raw.split(/\s+/)[0];
+    return first.charAt(0).toUpperCase() + first.slice(1);
+  }
+  if (email) {
+    const local = email.split('@')[0].split(/[._-]/)[0];
+    if (local) return local.charAt(0).toUpperCase() + local.slice(1);
+  }
+  return 'recruit';
 }
 
 function showWelcomeState() {
