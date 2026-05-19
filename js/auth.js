@@ -1,5 +1,5 @@
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://rcspwkmrtukblvvdifer.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjc3B3a21ydHVrYmx2dmRpZmVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxOTMzODksImV4cCI6MjA5NDc2OTM4OX0.9MraANb_EsQglZOHz7edSjAOy9JOXtReL6N48S-1dJA';
 
 // Singleton client — call getClient() everywhere instead of creating new instances
 let _client = null;
