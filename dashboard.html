@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Dashboard — Mission ASVAB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-900: #0a1628; --navy-800: #132039; --navy-700: #1e3a5f;
+      --navy-600: #2d5a87; --gold-500: #d4a853; --gold-400: #e8c17a;
+      --cream-100: #faf8f5; --cream-200: #f2efe8;
+      --white: #ffffff; --text-primary: #0a1628; --text-secondary: #4a5568;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream-100); color: var(--text-primary); }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: var(--white); border-bottom: 1px solid var(--cream-200); }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 700; color: var(--navy-900); text-decoration: none; }
+    .logo span { color: var(--gold-500); }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-right a { color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; }
+    .sign-out-btn { background: none; border: 1.5px solid var(--cream-200); border-radius: 8px; padding: 0.5rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; cursor: pointer; color: var(--text-secondary); }
+    .sign-out-btn:hover { border-color: var(--navy-600); color: var(--navy-700); }
+    main { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+    .page-heading { font-family: 'Cormorant Garamond', serif; font-size: 2.25rem; font-weight: 700; margin-bottom: 2rem; }
+    .page-heading span { color: var(--gold-500); }
+
+    /* Welcome state */
+    .welcome-state { background: var(--white); border-radius: 16px; padding: 3rem 2rem; text-align: center; }
+    .welcome-state h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; margin-bottom: 1rem; }
+    .welcome-state p { color: var(--text-secondary); margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .welcome-form { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    .welcome-form label { font-weight: 600; font-size: 0.875rem; align-self: flex-start; max-width: 300px; width: 100%; }
+    .welcome-form input { width: 100%; max-width: 300px; padding: 0.75rem 1rem; border: 1.5px solid var(--cream-200); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; }
+    .btn-primary { display: inline-block; padding: 0.875rem 2rem; background: var(--navy-900); color: var(--white); border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 0.2s; }
+    .btn-primary:hover { background: var(--navy-700); }
+    .skip-link { font-size: 0.875rem; color: var(--text-secondary); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+    /* Dashboard content */
+    #dashboardContent { display: none; }
+
+    /* Zone 1: Score summary */
+    .score-summary { background: var(--navy-900); color: var(--white); border-radius: 16px; padding: 2rem 2.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 2.5rem; }
+    .afqt-big { font-size: 4rem; font-weight: 700; font-family: 'Cormorant Garamond', serif; color: var(--gold-400); line-height: 1; }
+    .afqt-big-label { font-size: 0.875rem; opacity: 0.7; margin-top: 0.25rem; }
+    .score-meta { flex: 1; }
+    .score-meta-date { font-size: 0.9rem; opacity: 0.7; margin-bottom: 0.5rem; }
+    .score-delta { font-size: 1rem; font-weight: 600; display: none; }
+    .take-test-btn { background: var(--gold-500); color: var(--navy-900); padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; white-space: nowrap; }
+    .take-test-btn:hover { background: var(--gold-400); }
+
+    /* Zone 2: Chart */
+    .section-card-container { background: var(--white); border-radius: 16px; padding: 1.75rem; margin-bottom: 1.5rem; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 1.25rem; }
+    #progressChart { min-height: 100px; }
+
+    /* Zone 3: Section breakdown */
+    .section-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.25rem; }
+    @media (min-width: 600px) { .section-cards { grid-template-columns: repeat(4, 1fr); } }
+    .section-card { background: var(--cream-100); border-radius: 12px; padding: 1.25rem 1rem; text-align: center; }
+    .section-card-name { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+    .section-card-score { font-size: 1.75rem; font-weight: 700; font-family: 'Cormorant Garamond', serif; }
+    .section-card-trend { font-size: 1rem; margin-top: 0.25rem; }
+
+    /* Focus panel */
+    #focusPanel { background: var(--navy-800); color: var(--white); border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1rem; display: none; }
+    .focus-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 0.5rem; }
+    .focus-text { font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem; }
+    .focus-cta { color: var(--gold-400); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+    /* Zone 4: History */
+    .history-tbl { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .history-tbl th { text-align: left; padding: 0.6rem 1rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); border-bottom: 1px solid var(--cream-200); }
+    .history-tbl td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--cream-200); }
+    .expand-btn { background: none; border: none; cursor: pointer; font-size: 1rem; color: var(--text-secondary); }
+    .detail-sections { padding: 0.5rem 0; display: flex; flex-wrap: wrap; gap: 0.75rem; font-size: 0.875rem; color: var(--text-secondary); }
+    .history-pagination { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0 0; font-size: 0.9rem; }
+    .history-pagination button { background: none; border: 1.5px solid var(--cream-200); border-radius: 8px; padding: 0.4rem 1rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .history-pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">Mission <span>ASVAB</span></a>
+    <div class="nav-right">
+      <a href="select-test.html">Practice Tests</a>
+      <a href="study-guide.html">Study Guide</a>
+      <button class="sign-out-btn" onclick="signOut()">Sign Out</button>
+    </div>
+  </nav>
+
+  <main>
+    <h1 class="page-heading">Welcome back, <span id="userName">...</span></h1>
+
+    <!-- Welcome state: shown when no tests yet -->
+    <div id="welcomeState" style="display:none;">
+      <div class="welcome-state">
+        <h2>Let's get your baseline score</h2>
+        <p>Take a diagnostic practice test to see where you stand. Your scores will be tracked here so you can see your improvement over time.</p>
+        <div class="welcome-form">
+          <label for="testDateInput">When do you plan to take the ASVAB? <span style="font-weight:400; color: var(--text-secondary);">(optional)</span></label>
+          <input type="date" id="testDateInput">
+          <a href="select-test.html" class="btn-primary" id="diagnosticBtn">Take Your Diagnostic Test &rarr;</a>
+          <button class="skip-link" onclick="hideWelcomeState()">Skip for now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main dashboard content -->
+    <div id="dashboardContent">
+      <!-- Zone 1: Score Summary -->
+      <div class="score-summary">
+        <div>
+          <div class="afqt-big" id="latestAfqt">&mdash;</div>
+          <div class="afqt-big-label">AFQT Percentile</div>
+        </div>
+        <div class="score-meta">
+          <div class="score-meta-date" id="latestDate"></div>
+          <div class="score-delta" id="scoreDelta"></div>
+        </div>
+        <a href="select-test.html" class="take-test-btn">Take Another Test</a>
+      </div>
+
+      <!-- Zone 2: Progress Chart -->
+      <div class="section-card-container">
+        <div class="section-title">Score Progress</div>
+        <div id="progressChart"></div>
+      </div>
+
+      <!-- Zone 3: Section Breakdown -->
+      <div class="section-card-container">
+        <div class="section-title">Section Breakdown</div>
+        <div class="section-cards" id="sectionCards"></div>
+        <div id="focusPanel"></div>
+      </div>
+
+      <!-- Zone 4: Test History -->
+      <div class="section-card-container">
+        <div class="section-title">Test History</div>
+        <div id="historyTable"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script>
+    // Save test date if set before going to test
+    document.getElementById('diagnosticBtn').addEventListener('click', async (e) => {
+      const testDate = document.getElementById('testDateInput').value;
+      if (testDate) {
+        const session = await getSession();
+        if (session) {
+          await getClient().from('profiles').update({ test_date: testDate }).eq('id', session.user.id);
+        }
+      }
+    });
+
+    loadDashboard();
+  </script>
+</body>
+</html>
