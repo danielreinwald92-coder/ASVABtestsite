@@ -524,15 +524,18 @@ class QuizEngine {
     const session = await getSession();
     if (!session) return;
 
-    const lineScores = MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
-
-    await getClient().from('test_results').insert({
-      user_id: session.user.id,
-      test_type: quizResults.testType || 'afqt',
-      afqt_score: quizResults.afqt,
-      section_scores: quizResults.sectionResults,
-      line_scores: lineScores
-    });
+    try {
+      const lineScores = MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
+      await getClient().from('test_results').insert({
+        user_id: session.user.id,
+        test_type: quizResults.testType || 'afqt',
+        afqt_score: quizResults.afqt,
+        section_scores: quizResults.sectionResults,
+        line_scores: lineScores
+      });
+    } catch (err) {
+      console.error('Failed to save results to Supabase:', err);
+    }
   }
 
   bindEvents() {
