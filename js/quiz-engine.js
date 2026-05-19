@@ -470,15 +470,12 @@ class QuizEngine {
 
     localStorage.setItem('quizResults', JSON.stringify(quizResults));
 
-    // Save to Supabase if user is logged in (fire-and-forget, don't block redirect)
-    this.saveResultsToSupabase(quizResults);
-
-    // Clear session data so next test gets fresh questions
     sessionStorage.removeItem('quizState');
     sessionStorage.removeItem('generatedTest');
     sessionStorage.removeItem('testConfig');
 
-    // Redirect to results
+    await this.saveResultsToSupabase(quizResults);
+
     window.location.href = 'results.html';
   }
 
@@ -498,13 +495,14 @@ class QuizEngine {
         }
       }
 
-      await getClient().from('test_results').insert({
+      const { error } = await getClient().from('test_results').insert({
         user_id: session.user.id,
         test_type: quizResults.testType || 'afqt',
         afqt_score: quizResults.afqt,
         section_scores: strippedSections,
         line_scores: lineScores
       });
+      if (error) console.error('Supabase insert error:', error);
     } catch (err) {
       console.error('Failed to save results to Supabase:', err);
     }
