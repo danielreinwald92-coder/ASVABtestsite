@@ -507,6 +507,9 @@ class QuizEngine {
 
     localStorage.setItem('quizResults', JSON.stringify(quizResults));
 
+    // Save to Supabase if user is logged in (fire-and-forget, don't block redirect)
+    this.saveResultsToSupabase(quizResults);
+
     // Clear session data so next test gets fresh questions
     sessionStorage.removeItem('quizState');
     sessionStorage.removeItem('generatedTest');
@@ -514,6 +517,22 @@ class QuizEngine {
 
     // Redirect to results
     window.location.href = 'results.html';
+  }
+
+  async saveResultsToSupabase(quizResults) {
+    if (typeof getClient !== 'function') return;
+    const session = await getSession();
+    if (!session) return;
+
+    const lineScores = MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
+
+    await getClient().from('test_results').insert({
+      user_id: session.user.id,
+      test_type: quizResults.testType || 'afqt',
+      afqt_score: quizResults.afqt,
+      section_scores: quizResults.sectionResults,
+      line_scores: lineScores
+    });
   }
 
   bindEvents() {
