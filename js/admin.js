@@ -86,7 +86,7 @@ function renderTable() {
     <tr>
       <td>${escHtml(u.name)}</td>
       <td>${escHtml(u.email)}</td>
-      <td>${u.age || '—'}</td>
+      <td>${escHtml(String(u.age || '—'))}</td>
       <td>${escHtml(u.education || '—')}</td>
       <td>${escHtml(u.zipcode || '—')}</td>
       <td>${formatDate(u.created_at)}</td>
@@ -101,11 +101,11 @@ function exportCsv() {
   const rows = filteredUsers.map(u => [
     csvCell(u.name),
     csvCell(u.email),
-    u.age || '',
+    csvCell(String(u.age || '')),
     csvCell(u.education || ''),
     csvCell(u.zipcode || ''),
     formatDate(u.created_at),
-    u.testCount,
+    csvCell(String(u.testCount)),
     u.bestAfqt !== null ? u.bestAfqt : ''
   ]);
 
