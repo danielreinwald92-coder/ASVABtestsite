@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In — Mission ASVAB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-900: #0a1628; --navy-800: #132039; --navy-700: #1e3a5f;
+      --navy-600: #2d5a87; --gold-500: #d4a853;
+      --cream-100: #faf8f5; --cream-200: #f2efe8;
+      --white: #ffffff; --text-primary: #0a1628; --text-secondary: #4a5568;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream-100); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: var(--white); border-bottom: 1px solid var(--cream-200); }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 700; color: var(--navy-900); text-decoration: none; }
+    .logo span { color: var(--gold-500); }
+    main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 1rem; }
+    .auth-card { background: var(--white); border-radius: 16px; padding: 2.5rem; width: 100%; max-width: 420px; box-shadow: 0 4px 24px rgba(10,22,40,0.08); }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.95rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    label { display: block; font-weight: 600; font-size: 0.875rem; margin-bottom: 0.4rem; color: var(--navy-800); }
+    input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--cream-200); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; transition: border-color 0.2s; }
+    input:focus { outline: none; border-color: var(--navy-600); }
+    .btn-primary { width: 100%; padding: 0.875rem; background: var(--navy-900); color: var(--white); border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .btn-primary:hover { background: var(--navy-700); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+    .forgot-link { text-align: right; margin-top: -0.75rem; margin-bottom: 1.25rem; }
+    .forgot-link button { background: none; border: none; color: var(--navy-600); font-size: 0.85rem; cursor: pointer; padding: 0; font-family: 'DM Sans', sans-serif; }
+    .error-msg { color: #c0392b; font-size: 0.875rem; margin-top: 1rem; display: none; }
+    .success-msg { color: #27ae60; font-size: 0.875rem; margin-top: 1rem; display: none; }
+    .bottom-link { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-secondary); }
+    .bottom-link a { color: var(--navy-700); font-weight: 600; text-decoration: none; }
+    #forgotSection { display: none; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">Mission <span>ASVAB</span></a>
+  </nav>
+  <main>
+    <div class="auth-card">
+      <!-- Sign in form -->
+      <div id="loginSection">
+        <h1>Welcome back</h1>
+        <p class="subtitle">Log in to view your progress dashboard.</p>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required autocomplete="current-password">
+          </div>
+          <div class="forgot-link">
+            <button type="button" id="showForgotBtn">Forgot password?</button>
+          </div>
+          <button type="submit" class="btn-primary" id="loginBtn">Log In</button>
+          <p class="error-msg" id="loginError"></p>
+        </form>
+        <p class="bottom-link">Don't have an account? <a href="register.html">Sign up free</a></p>
+      </div>
+
+      <!-- Forgot password form -->
+      <div id="forgotSection">
+        <h1>Reset password</h1>
+        <p class="subtitle">Enter your email and we'll send you a reset link.</p>
+        <form id="forgotForm">
+          <div class="form-group">
+            <label for="resetEmail">Email Address</label>
+            <input type="email" id="resetEmail" required autocomplete="email">
+          </div>
+          <button type="submit" class="btn-primary" id="resetBtn">Send Reset Link</button>
+          <p class="error-msg" id="resetError"></p>
+          <p class="success-msg" id="resetSuccess"></p>
+        </form>
+        <p class="bottom-link"><a href="#" id="backToLoginBtn">Back to log in</a></p>
+      </div>
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // If already logged in, go to dashboard
+    getSession().then(session => {
+      if (session) window.location.href = 'dashboard.html';
+    });
+
+    document.getElementById('showForgotBtn').addEventListener('click', () => {
+      document.getElementById('loginSection').style.display = 'none';
+      document.getElementById('forgotSection').style.display = 'block';
+    });
+
+    document.getElementById('backToLoginBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('forgotSection').style.display = 'none';
+      document.getElementById('loginSection').style.display = 'block';
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      const errorMsg = document.getElementById('loginError');
+      errorMsg.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Logging in...';
+
+      const { error } = await getClient().auth.signInWithPassword({
+        email: document.getElementById('email').value.trim(),
+        password: document.getElementById('password').value
+      });
+
+      if (error) {
+        errorMsg.textContent = error.message;
+        errorMsg.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Log In';
+        return;
+      }
+      window.location.href = 'dashboard.html';
+    });
+
+    document.getElementById('forgotForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('resetBtn');
+      const errorMsg = document.getElementById('resetError');
+      const successMsg = document.getElementById('resetSuccess');
+      errorMsg.style.display = 'none';
+      successMsg.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      const redirectTo = window.location.origin + '/reset-password.html';
+      const { error } = await getClient().auth.resetPasswordForEmail(
+        document.getElementById('resetEmail').value.trim(),
+        { redirectTo }
+      );
+
+      if (error) {
+        errorMsg.textContent = error.message;
+        errorMsg.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Send Reset Link';
+        return;
+      }
+      successMsg.textContent = 'Check your email for the reset link.';
+      successMsg.style.display = 'block';
+      btn.textContent = 'Email Sent';
+    });
+  </script>
+</body>
+</html>
