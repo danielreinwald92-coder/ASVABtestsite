@@ -44,7 +44,7 @@ assert(
   'Quick AFQT section contract changed'
 );
 assert(
-  JSON.stringify(config.getSectionsForType('full')) === JSON.stringify(['GS', 'AR', 'WK', 'PC', 'MK', 'EI', 'AS', 'MC', 'AO']),
+  JSON.stringify(config.getSectionsForType('full')) === JSON.stringify(['GS', 'AR', 'WK', 'PC', 'MK', 'EI', 'AS', 'MC']),
   'Full ASVAB section contract changed'
 );
 
