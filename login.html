@@ -86,11 +86,14 @@
   <script src="js/auth.js"></script>
   <script>
     // If already logged in, go to dashboard
-    getSession().then(session => {
+    (async () => {
+      const session = await getSession();
       if (session) window.location.href = 'dashboard.html';
-    });
+    })();
 
     document.getElementById('showForgotBtn').addEventListener('click', () => {
+      const loginEmail = document.getElementById('email').value.trim();
+      if (loginEmail) document.getElementById('resetEmail').value = loginEmail;
       document.getElementById('loginSection').style.display = 'none';
       document.getElementById('forgotSection').style.display = 'block';
     });
@@ -150,6 +153,10 @@
       successMsg.textContent = 'Check your email for the reset link.';
       successMsg.style.display = 'block';
       btn.textContent = 'Email Sent';
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = 'Resend Link';
+      }, 30000);
     });
   </script>
 </body>
