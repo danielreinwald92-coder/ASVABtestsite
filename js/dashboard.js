@@ -23,8 +23,15 @@ async function loadDashboard() {
     if (adminLink) adminLink.style.display = 'inline';
   }
 
+  const skipKey = `welcomeSkipped:${session.user.id}`;
+  const skipped = localStorage.getItem(skipKey) === '1';
+
   if (results.length === 0) {
-    showWelcomeState();
+    if (skipped) {
+      showEmptyDashboard();
+    } else {
+      showWelcomeState();
+    }
     return;
   }
 
@@ -52,11 +59,30 @@ function getDisplayName(profile, email) {
 function showWelcomeState() {
   document.getElementById('welcomeState').style.display = 'block';
   document.getElementById('dashboardContent').style.display = 'none';
+  const empty = document.getElementById('emptyDashboard');
+  if (empty) empty.style.display = 'none';
 }
 
 function hideWelcomeState() {
   document.getElementById('welcomeState').style.display = 'none';
   document.getElementById('dashboardContent').style.display = 'block';
+  const empty = document.getElementById('emptyDashboard');
+  if (empty) empty.style.display = 'none';
+}
+
+function showEmptyDashboard() {
+  document.getElementById('welcomeState').style.display = 'none';
+  document.getElementById('dashboardContent').style.display = 'none';
+  const empty = document.getElementById('emptyDashboard');
+  if (empty) empty.style.display = 'block';
+}
+
+async function skipWelcome() {
+  const session = await getSession();
+  if (session) {
+    localStorage.setItem(`welcomeSkipped:${session.user.id}`, '1');
+  }
+  showEmptyDashboard();
 }
 
 function renderScoreSummary(results) {

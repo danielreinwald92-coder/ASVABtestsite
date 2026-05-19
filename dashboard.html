@@ -121,7 +121,7 @@
             <input type="date" id="testDateInput">
           </div>
           <a href="select-test.html" class="btn-primary" id="diagnosticBtn">Take Your Diagnostic Test &rarr;</a>
-          <button class="skip-link" onclick="hideWelcomeState()">Skip for now</button>
+          <button class="skip-link" onclick="skipWelcome()">Skip for now</button>
         </div>
       </div>
 
@@ -141,6 +141,15 @@
           <div class="t">Track your progress</div>
           <div class="d">Every retest is plotted on your progress chart so you see real improvement.</div>
         </div>
+      </div>
+    </div>
+
+    <!-- Empty dashboard: shown when user skipped onboarding and has no tests -->
+    <div id="emptyDashboard" style="display:none;">
+      <div style="background: var(--white); border-radius: 16px; padding: 2.5rem 2rem; text-align: center;">
+        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">No tests yet</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Whenever you're ready, take a practice test and your scores will show up here.</p>
+        <a href="select-test.html" class="btn-primary">Take a Practice Test &rarr;</a>
       </div>
     </div>
 
