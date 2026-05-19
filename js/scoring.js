@@ -27,7 +27,7 @@
   function calculateLineScores(sectionResults) {
     if (!sectionResults) return null;
 
-    const requiredSections = ['AR', 'WK', 'PC', 'MK', 'GS', 'AS', 'MC', 'EI', 'AO'];
+    const requiredSections = ['AR', 'WK', 'PC', 'MK', 'GS', 'AS', 'MC', 'EI'];
     const hasSections = requiredSections.filter((code) => sectionResults[code]).length;
     if (hasSections < 5) return null;
 
@@ -40,12 +40,11 @@
     const asScore = getSectionPercent(sectionResults, 'AS');
     const mcScore = getSectionPercent(sectionResults, 'MC');
     const eiScore = getSectionPercent(sectionResults, 'EI');
-    const aoScore = getSectionPercent(sectionResults, 'AO');
 
     return {
       GT: { name: 'General Technical', score: Math.round((veScore + arScore) * 0.75) },
       CL: { name: 'Clerical', score: Math.round((veScore + arScore + mkScore) * 0.5) },
-      CO: { name: 'Combat', score: Math.round((arScore + asScore + aoScore + mcScore) * 0.375) },
+      CO: { name: 'Combat', score: Math.round((arScore + asScore + mcScore) * 0.5) },
       EL: { name: 'Electronics', score: Math.round((gsScore + arScore + mkScore + eiScore) * 0.375) },
       FA: { name: 'Field Artillery', score: Math.round((arScore + mkScore + mcScore) * 0.5) },
       GM: { name: 'General Maintenance', score: Math.round((gsScore + asScore + mkScore + eiScore) * 0.375) },

@@ -26,11 +26,6 @@ class QuizEngine {
       this.generateNewTest();
     }
 
-    // Always apply visual AO replacements (in case loaded from session without visuals)
-    if (typeof replaceAOWithVisuals === 'function' && this.quizData) {
-      this.quizData = replaceAOWithVisuals(this.quizData);
-    }
-
     this.startTime = Date.now();
     this.renderQuestion();
     this.renderNavigator();
@@ -135,17 +130,9 @@ class QuizEngine {
         correct: q.correct,
         sectionCode: q.sectionCode,
         sectionName: q.sectionName,
-        difficulty: q.difficulty,
-        isVisual: q.isVisual || false,
-        shapeSvg: q.shapeSvg || null,
-        visualType: q.visualType || null
+        difficulty: q.difficulty
       }))
     };
-
-    // Replace AO text questions with visual versions if available
-    if (typeof replaceAOWithVisuals === 'function') {
-      this.quizData = replaceAOWithVisuals(this.quizData);
-    }
 
     this.timeRemaining = this.quizData.timeLimit;
 
@@ -242,17 +229,7 @@ class QuizEngine {
     // Update question text (handle multi-line for paragraph comprehension)
     const questionTextEl = document.getElementById('questionText');
 
-    // Check if this is a visual AO question
-    if (question.isVisual && question.shapeSvg) {
-      questionTextEl.innerHTML = `
-        <div class="ao-question-container">
-          <p>${question.text}</p>
-          ${question.shapeSvg}
-        </div>
-      `;
-    } else {
-      questionTextEl.innerHTML = question.text.replace(/\n/g, '<br>');
-    }
+    questionTextEl.innerHTML = question.text.replace(/\n/g, '<br>');
 
     // Update progress
     const progress = (questionNum / totalQuestions) * 100;
@@ -263,30 +240,16 @@ class QuizEngine {
     const container = document.getElementById('answersContainer');
     const letters = ['A', 'B', 'C', 'D'];
 
-    // Visual options for AO questions
-    if (question.isVisual) {
-      container.innerHTML = question.options.map((option, idx) => {
-        const isSelected = this.answers[question.id] === idx;
-        return `
-          <div class="answer-option visual-option ${isSelected ? 'selected' : ''}" data-index="${idx}">
-            <span class="answer-letter">${letters[idx]}</span>
-            <span class="answer-text">${option}</span>
-            <span class="keyboard-hint">Press ${letters[idx]}</span>
-          </div>
-        `;
-      }).join('');
-    } else {
-      container.innerHTML = question.options.map((option, idx) => {
-        const isSelected = this.answers[question.id] === idx;
-        return `
-          <div class="answer-option ${isSelected ? 'selected' : ''}" data-index="${idx}">
-            <span class="answer-letter">${letters[idx]}</span>
-            <span class="answer-text">${option}</span>
-            <span class="keyboard-hint">Press ${letters[idx]}</span>
-          </div>
-        `;
-      }).join('');
-    }
+    container.innerHTML = question.options.map((option, idx) => {
+      const isSelected = this.answers[question.id] === idx;
+      return `
+        <div class="answer-option ${isSelected ? 'selected' : ''}" data-index="${idx}">
+          <span class="answer-letter">${letters[idx]}</span>
+          <span class="answer-text">${option}</span>
+          <span class="keyboard-hint">Press ${letters[idx]}</span>
+        </div>
+      `;
+    }).join('');
 
     // Update flag button
     const flagBtn = document.getElementById('flagBtn');

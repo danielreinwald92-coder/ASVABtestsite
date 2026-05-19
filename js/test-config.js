@@ -15,9 +15,9 @@
       label: 'Full ASVAB',
       title: 'Full ASVAB Practice',
       sectionCode: 'ALL',
-      description: 'Complete all 9 CAT-ASVAB sections for your AFQT score plus line scores that determine MOS qualification.',
+      description: 'Complete all 8 CAT-ASVAB sections for your AFQT score plus line scores that determine MOS qualification.',
       startButtonText: 'Start Full ASVAB Test',
-      sections: ['GS', 'AR', 'WK', 'PC', 'MK', 'EI', 'AS', 'MC', 'AO']
+      sections: ['GS', 'AR', 'WK', 'PC', 'MK', 'EI', 'AS', 'MC']
     }
   };
 
