@@ -1039,10 +1039,14 @@
 
     <div class="cta-section">
       <a href="select-test.html" class="cta-btn cta-primary">Take Another Test →</a>
-      <a href="index.html" class="cta-btn cta-secondary">Back to Home</a>
+      <a href="dashboard.html" class="cta-btn cta-secondary" id="dashboardBtn" style="display:none;">View My Progress</a>
+      <a href="register.html" class="cta-btn cta-secondary" id="signupBtn" style="display:none;">Save Progress — Sign Up Free</a>
+      <a href="index.html" class="cta-btn cta-secondary" id="homeBtn">Back to Home</a>
     </div>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/auth.js"></script>
   <script src="js/test-config.js"></script>
   <script src="js/scoring.js"></script>
   <script>
@@ -1339,6 +1343,16 @@
     }
 
     document.addEventListener('DOMContentLoaded', loadResults);
+
+    // Show auth-appropriate CTA
+    getSession().then(session => {
+      if (session) {
+        document.getElementById('dashboardBtn').style.display = 'inline-flex';
+        document.getElementById('homeBtn').style.display = 'none';
+      } else {
+        document.getElementById('signupBtn').style.display = 'inline-flex';
+      }
+    });
 
     function toggleRecruiterForm() {
       const form = document.getElementById('recruiterForm');
