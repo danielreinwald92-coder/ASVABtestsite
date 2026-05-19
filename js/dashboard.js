@@ -1,6 +1,10 @@
+let _currentProfile = null;
+let _currentSession = null;
+
 async function loadDashboard() {
   const session = await requireAuth();
   if (!session) return;
+  _currentSession = session;
 
   const client = getClient();
 
@@ -14,6 +18,7 @@ async function loadDashboard() {
   ]);
 
   const profile = profileRes.data;
+  _currentProfile = profile;
   const results = resultsRes.data || [];
 
   document.getElementById('userName').textContent = getDisplayName(profile, session.user.email);
@@ -342,4 +347,97 @@ function formatDate(iso) {
 
 function formatDateShort(iso) {
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function openAccountModal() {
+  const p = _currentProfile;
+  document.getElementById('accEmail').textContent = _currentSession?.user?.email || '';
+  document.getElementById('accName').value = (p && p.name) || '';
+  document.getElementById('accAge').value = (p && p.age) || '';
+  document.getElementById('accZip').value = (p && p.zipcode) || '';
+  document.getElementById('accEducation').value = (p && p.education) || '';
+  document.getElementById('accTestDate').value = (p && p.test_date) || '';
+  document.getElementById('accNewPw').value = '';
+  setAccMsg('accMsg', '');
+  setAccMsg('pwMsg', '');
+  setAccMsg('delMsg', '');
+  document.getElementById('accOverlay').classList.add('open');
+}
+
+function closeAccountModal() {
+  document.getElementById('accOverlay').classList.remove('open');
+}
+
+function setAccMsg(id, msg, cls) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.className = 'acc-msg' + (cls ? ' ' + cls : '');
+}
+
+async function saveProfile(e) {
+  e.preventDefault();
+  setAccMsg('accMsg', 'Saving…');
+  const name = document.getElementById('accName').value.trim();
+  const ageVal = document.getElementById('accAge').value;
+  const zip = document.getElementById('accZip').value.trim();
+  const education = document.getElementById('accEducation').value;
+  const testDate = document.getElementById('accTestDate').value;
+
+  const ageNum = parseInt(ageVal, 10);
+  if (isNaN(ageNum) || ageNum < 14 || ageNum > 42) {
+    return setAccMsg('accMsg', 'Age must be between 14 and 42.', 'err');
+  }
+  if (!/^[0-9]{5}(-[0-9]{4})?$/.test(zip)) {
+    return setAccMsg('accMsg', 'Enter a valid US ZIP code.', 'err');
+  }
+
+  const updates = {
+    name, age: ageNum, zipcode: zip, education,
+    test_date: testDate || null
+  };
+
+  const { data, error } = await getClient()
+    .from('profiles')
+    .update(updates)
+    .eq('id', _currentSession.user.id)
+    .select()
+    .single();
+
+  if (error) {
+    return setAccMsg('accMsg', error.message, 'err');
+  }
+  _currentProfile = data;
+  document.getElementById('userName').textContent = getDisplayName(data, _currentSession.user.email);
+  setAccMsg('accMsg', 'Profile updated.', 'ok');
+}
+
+async function changePassword(e) {
+  e.preventDefault();
+  const pw = document.getElementById('accNewPw').value;
+  if (!pw || pw.length < 8) {
+    return setAccMsg('pwMsg', 'Password must be at least 8 characters.', 'err');
+  }
+  setAccMsg('pwMsg', 'Updating…');
+  const { error } = await getClient().auth.updateUser({ password: pw });
+  if (error) {
+    return setAccMsg('pwMsg', error.message, 'err');
+  }
+  document.getElementById('accNewPw').value = '';
+  setAccMsg('pwMsg', 'Password updated.', 'ok');
+}
+
+async function confirmDeleteAccount() {
+  if (!confirm('Permanently delete your account and all test history? This cannot be undone.')) return;
+  const typed = prompt('Type DELETE to confirm:');
+  if (typed !== 'DELETE') {
+    return setAccMsg('delMsg', 'Cancelled.', 'err');
+  }
+  setAccMsg('delMsg', 'Deleting…');
+  const { error } = await getClient().rpc('delete_my_account');
+  if (error) {
+    return setAccMsg('delMsg', error.message, 'err');
+  }
+  await getClient().auth.signOut();
+  window.location.href = 'index.html';
 }

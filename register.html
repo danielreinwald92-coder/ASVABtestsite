@@ -70,12 +70,12 @@
         </div>
         <div class="row-2">
           <div class="form-group">
-            <label for="age">Age <span class="optional">(optional)</span></label>
-            <input type="number" id="age" placeholder="17" min="14" max="42">
+            <label for="age">Age</label>
+            <input type="number" id="age" placeholder="17" min="14" max="42" required>
           </div>
           <div class="form-group">
-            <label for="zipcode">ZIP Code <span class="optional">(optional)</span></label>
-            <input type="text" id="zipcode" placeholder="90210" maxlength="10" pattern="[0-9]{5}(-[0-9]{4})?" inputmode="numeric">
+            <label for="zipcode">ZIP Code</label>
+            <input type="text" id="zipcode" placeholder="90210" maxlength="10" pattern="[0-9]{5}(-[0-9]{4})?" inputmode="numeric" required>
           </div>
         </div>
         <button type="submit" class="btn-primary" id="submitBtn">Create Account</button>
@@ -111,14 +111,22 @@
       const ageVal = document.getElementById('age').value;
       const zipcode = document.getElementById('zipcode').value.trim();
 
-      // Validate age
-      const ageNum = ageVal ? parseInt(ageVal, 10) : null;
-      if (ageVal && (isNaN(ageNum) || ageNum < 14 || ageNum > 42)) {
-        errorMsg.textContent = 'Please enter a valid age (14–42).';
+      const failWith = (msg) => {
+        errorMsg.textContent = msg;
         errorMsg.style.display = 'block';
         btn.disabled = false;
         btn.textContent = 'Create Account';
-        return;
+      };
+
+      const ageNum = parseInt(ageVal, 10);
+      if (isNaN(ageNum) || ageNum < 14 || ageNum > 42) {
+        return failWith('Please enter a valid age (14–42).');
+      }
+      if (!education) {
+        return failWith('Please select your education level.');
+      }
+      if (!/^[0-9]{5}(-[0-9]{4})?$/.test(zipcode)) {
+        return failWith('Please enter a valid US ZIP code.');
       }
 
       const client = getClient();
@@ -129,30 +137,28 @@
       });
 
       if (error) {
-        errorMsg.textContent = error.message;
-        errorMsg.style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = 'Create Account';
-        return;
+        return failWith(error.message);
       }
 
-      // Update profile with additional fields (trigger created the row)
       if (data.user) {
-        const updates = { name, education };
-        if (ageNum !== null) updates.age = ageNum;
-        if (zipcode) updates.zipcode = zipcode;
-        const { error: profileError } = await client.from('profiles').update(updates).eq('id', data.user.id);
+        const { error: profileError } = await client.from('profiles')
+          .update({ name, education, age: ageNum, zipcode })
+          .eq('id', data.user.id);
         if (profileError) {
-          successMsg.textContent = 'Account created! Check your email to confirm. Some profile details could not be saved.';
-        } else {
-          successMsg.textContent = 'Account created! Check your email to confirm, then log in.';
+          console.error('Profile update error:', profileError);
         }
+      }
+
+      btn.textContent = 'Account Created ✓';
+      if (data.session) {
+        successMsg.textContent = 'Account created! Loading your dashboard...';
+        successMsg.style.display = 'block';
+        setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
       } else {
         successMsg.textContent = 'Account created! Check your email to confirm, then log in.';
+        successMsg.style.display = 'block';
+        setTimeout(() => { window.location.href = 'login.html'; }, 2500);
       }
-      successMsg.style.display = 'block';
-      btn.textContent = 'Account Created ✓';
-      setTimeout(() => { window.location.href = 'login.html'; }, 2500);
     });
   </script>
 </body>

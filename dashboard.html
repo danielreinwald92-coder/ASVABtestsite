@@ -93,6 +93,31 @@
     .history-pagination { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0 0; font-size: 0.9rem; }
     .history-pagination button { background: none; border: 1.5px solid var(--cream-200); border-radius: 8px; padding: 0.4rem 1rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
     .history-pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Account button + modal */
+    .account-btn { background: none; border: 1.5px solid var(--cream-200); border-radius: 8px; padding: 0.5rem 0.85rem; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; cursor: pointer; color: var(--text-secondary); }
+    .account-btn:hover { border-color: var(--navy-600); color: var(--navy-700); }
+    .acc-overlay { position: fixed; inset: 0; background: rgba(10,22,40,0.55); display: none; align-items: flex-start; justify-content: center; z-index: 100; padding: 2rem 1rem; overflow-y: auto; }
+    .acc-overlay.open { display: flex; }
+    .acc-modal { background: var(--white); border-radius: 14px; max-width: 520px; width: 100%; padding: 2rem; position: relative; }
+    .acc-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); }
+    .acc-modal h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; margin-bottom: 0.25rem; }
+    .acc-modal h3 { font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin: 1.5rem 0 0.5rem; }
+    .acc-modal .sub { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.25rem; }
+    .acc-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .acc-form label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.35rem; margin-top: 0.75rem; }
+    .acc-form input, .acc-form select { width: 100%; padding: 0.65rem 0.85rem; border: 1.5px solid var(--cream-200); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; }
+    .acc-form input:focus, .acc-form select:focus { outline: none; border-color: var(--navy-600); }
+    .acc-actions { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+    .acc-actions .save { background: var(--navy-900); color: var(--white); padding: 0.65rem 1.25rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .acc-actions .save:hover { background: var(--navy-700); }
+    .acc-msg { font-size: 0.85rem; margin-top: 0.75rem; min-height: 1em; }
+    .acc-msg.ok { color: #2f7d4f; }
+    .acc-msg.err { color: #b94a4a; }
+    .danger-zone { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--cream-200); }
+    .danger-zone .warn { color: #b94a4a; font-size: 0.8rem; margin-bottom: 0.5rem; }
+    .danger-zone .del { background: none; color: #b94a4a; border: 1.5px solid #f5d3d3; padding: 0.55rem 1rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; }
+    .danger-zone .del:hover { background: #fff5f5; }
   </style>
 </head>
 <body>
@@ -102,6 +127,7 @@
       <a href="select-test.html">Practice Tests</a>
       <a href="study-guide.html">Study Guide</a>
       <a href="admin.html" id="adminNavLink" style="display:none; color: var(--gold-500); font-weight:600;">Admin</a>
+      <button class="account-btn" onclick="openAccountModal()">Account</button>
       <button class="sign-out-btn" onclick="signOut()">Sign Out</button>
     </div>
   </nav>
@@ -188,6 +214,64 @@
       </div>
     </div>
   </main>
+
+  <!-- Account modal -->
+  <div class="acc-overlay" id="accOverlay" onclick="if(event.target===this)closeAccountModal()">
+    <div class="acc-modal">
+      <button class="acc-close" onclick="closeAccountModal()" aria-label="Close">&times;</button>
+      <h2>Your account</h2>
+      <p class="sub" id="accEmail"></p>
+
+      <h3>Profile</h3>
+      <form class="acc-form" onsubmit="saveProfile(event)">
+        <label for="accName">Full name</label>
+        <input type="text" id="accName" required maxlength="100">
+        <div class="row">
+          <div>
+            <label for="accAge">Age</label>
+            <input type="number" id="accAge" min="14" max="42" required>
+          </div>
+          <div>
+            <label for="accZip">ZIP code</label>
+            <input type="text" id="accZip" pattern="[0-9]{5}(-[0-9]{4})?" required>
+          </div>
+        </div>
+        <label for="accEducation">Education level</label>
+        <select id="accEducation" required>
+          <option value="" disabled>Select…</option>
+          <option>Some High School</option>
+          <option>High School Diploma / GED</option>
+          <option>Some College</option>
+          <option>College Graduate</option>
+          <option>Graduate Degree</option>
+        </select>
+        <label for="accTestDate">Target ASVAB date <span style="font-weight:400; color: var(--text-secondary);">(optional)</span></label>
+        <input type="date" id="accTestDate">
+
+        <div class="acc-actions">
+          <button type="submit" class="save">Save changes</button>
+        </div>
+        <div class="acc-msg" id="accMsg"></div>
+      </form>
+
+      <h3>Password</h3>
+      <form class="acc-form" onsubmit="changePassword(event)">
+        <label for="accNewPw">New password (min 8 chars)</label>
+        <input type="password" id="accNewPw" minlength="8" autocomplete="new-password">
+        <div class="acc-actions">
+          <button type="submit" class="save">Update password</button>
+        </div>
+        <div class="acc-msg" id="pwMsg"></div>
+      </form>
+
+      <div class="danger-zone">
+        <h3 style="color:#b94a4a;">Delete account</h3>
+        <p class="warn">Permanently removes your account and all test history. This cannot be undone.</p>
+        <button type="button" class="del" onclick="confirmDeleteAccount()">Delete my account</button>
+        <div class="acc-msg" id="delMsg"></div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/auth.js"></script>

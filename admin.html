@@ -35,9 +35,26 @@
     .filter-group { display: flex; flex-direction: column; gap: 0.35rem; min-width: 140px; }
     .filter-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); }
     .filter-group input, .filter-group select { padding: 0.6rem 0.75rem; border: 1.5px solid var(--cream-200); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; }
+    .filter-group.search { flex: 1; min-width: 200px; }
     .filter-actions { display: flex; gap: 0.75rem; align-items: center; }
     .btn-primary { padding: 0.65rem 1.25rem; background: var(--navy-900); color: var(--white); border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 600; cursor: pointer; }
     .btn-export { padding: 0.65rem 1.25rem; background: var(--gold-500); color: var(--navy-900); border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 600; cursor: pointer; }
+
+    /* Sortable headers */
+    th.sortable { cursor: pointer; user-select: none; }
+    th.sortable:hover { color: var(--navy-900); }
+    th .sort-ind { color: var(--gold-500); margin-left: 0.25rem; font-size: 0.7rem; }
+    .admin-badge-mini { display: inline-block; font-size: 0.65rem; font-weight: 700; background: var(--navy-900); color: var(--gold-500); padding: 0.1rem 0.4rem; border-radius: 99px; letter-spacing: 0.05em; text-transform: uppercase; margin-left: 0.4rem; vertical-align: middle; }
+
+    /* Action buttons in modal */
+    .modal-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--cream-200); }
+    .btn-action { padding: 0.5rem 0.9rem; border: 1.5px solid var(--cream-200); background: var(--white); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 600; cursor: pointer; color: var(--text-primary); }
+    .btn-action:hover { border-color: var(--navy-600); }
+    .btn-action.danger { color: #b94a4a; }
+    .btn-action.danger:hover { border-color: #b94a4a; background: #fff5f5; }
+    .action-status { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem; min-height: 1em; }
+    .action-status.ok { color: #2f7d4f; }
+    .action-status.err { color: #b94a4a; }
 
     /* Table */
     .table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
@@ -110,6 +127,10 @@
 
     <!-- Filters -->
     <div class="filters">
+      <div class="filter-group search">
+        <label>Search</label>
+        <input type="text" id="filterSearch" placeholder="Name or email">
+      </div>
       <div class="filter-group">
         <label>Joined From</label>
         <input type="date" id="filterFrom">
@@ -134,8 +155,8 @@
         <input type="text" id="filterZip" placeholder="e.g. 902">
       </div>
       <div class="filter-group">
-        <label>Min Tests Taken</label>
-        <input type="number" id="filterMinTests" placeholder="0" min="0" style="width:100px;">
+        <label>Min Tests</label>
+        <input type="number" id="filterMinTests" placeholder="0" min="0" style="width:90px;">
       </div>
       <div class="filter-actions">
         <button class="btn-primary" onclick="applyFilters()">Apply</button>
@@ -150,13 +171,21 @@
     <div class="table-wrap">
       <table>
         <thead>
-          <tr>
-            <th>Name</th><th>Email</th><th>Age</th><th>Education</th>
-            <th>ZIP</th><th>Joined</th><th>Tests</th><th>Best AFQT</th><th>Last Test</th>
+          <tr id="adminTableHead">
+            <th class="sortable" data-sort="name">Name <span class="sort-ind" data-for="name"></span></th>
+            <th class="sortable" data-sort="email">Email <span class="sort-ind" data-for="email"></span></th>
+            <th class="sortable" data-sort="age">Age <span class="sort-ind" data-for="age"></span></th>
+            <th>Education</th>
+            <th>ZIP</th>
+            <th class="sortable" data-sort="created_at">Joined <span class="sort-ind" data-for="created_at"></span></th>
+            <th class="sortable" data-sort="testCount">Tests <span class="sort-ind" data-for="testCount"></span></th>
+            <th class="sortable" data-sort="bestAfqt">Best AFQT <span class="sort-ind" data-for="bestAfqt"></span></th>
+            <th class="sortable" data-sort="lastTestAt">Last Test <span class="sort-ind" data-for="lastTestAt"></span></th>
+            <th class="sortable" data-sort="lastSignInAt">Last Login <span class="sort-ind" data-for="lastSignInAt"></span></th>
           </tr>
         </thead>
         <tbody id="adminTableBody">
-          <tr><td colspan="9" style="text-align:center; padding:2rem; color:var(--text-secondary);">Loading...</td></tr>
+          <tr><td colspan="10" style="text-align:center; padding:2rem; color:var(--text-secondary);">Loading...</td></tr>
         </tbody>
       </table>
     </div>
