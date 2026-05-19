@@ -173,8 +173,16 @@ function getSectionScore(sectionResults, code) {
 
 function renderSectionBreakdown(results) {
   const container = document.getElementById('sectionCards');
+  const wrapper = container.closest('.section-card-container');
   const latest = results[0];
   const previous = results[1];
+
+  const hasAnyAfqtSection = AFQT_SECTIONS.some(code => getSectionScore(latest.section_scores, code) !== null);
+  if (wrapper) wrapper.style.display = hasAnyAfqtSection ? 'block' : 'none';
+  if (!hasAnyAfqtSection) {
+    container.innerHTML = '';
+    return;
+  }
 
   container.innerHTML = AFQT_SECTIONS.map(code => {
     const score = getSectionScore(latest.section_scores, code);
