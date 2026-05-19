@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — Mission ASVAB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-900: #0a1628; --navy-800: #132039; --navy-700: #1e3a5f;
+      --navy-600: #2d5a87; --gold-500: #d4a853; --gold-400: #e8c17a;
+      --cream-100: #faf8f5; --cream-200: #f2efe8;
+      --white: #ffffff; --text-primary: #0a1628; --text-secondary: #4a5568;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream-100); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: var(--white); border-bottom: 1px solid var(--cream-200); }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 700; color: var(--navy-900); text-decoration: none; }
+    .logo span { color: var(--gold-500); }
+    main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 1rem; }
+    .auth-card { background: var(--white); border-radius: 16px; padding: 2.5rem; width: 100%; max-width: 460px; box-shadow: 0 4px 24px rgba(10,22,40,0.08); }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.95rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    label { display: block; font-weight: 600; font-size: 0.875rem; margin-bottom: 0.4rem; color: var(--navy-800); }
+    .optional { font-weight: 400; color: var(--text-secondary); font-size: 0.8rem; margin-left: 0.25rem; }
+    input, select { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--cream-200); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text-primary); background: var(--white); transition: border-color 0.2s; }
+    input:focus, select:focus { outline: none; border-color: var(--navy-600); }
+    .btn-primary { width: 100%; padding: 0.875rem; background: var(--navy-900); color: var(--white); border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 0.5rem; transition: background 0.2s; }
+    .btn-primary:hover { background: var(--navy-700); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+    .error-msg { color: #c0392b; font-size: 0.875rem; margin-top: 1rem; display: none; }
+    .success-msg { color: #27ae60; font-size: 0.875rem; margin-top: 1rem; display: none; }
+    .login-link { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-secondary); }
+    .login-link a { color: var(--navy-700); font-weight: 600; text-decoration: none; }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">Mission <span>ASVAB</span></a>
+  </nav>
+  <main>
+    <div class="auth-card">
+      <h1>Create your account</h1>
+      <p class="subtitle">Free forever. No payment required.</p>
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Jane Smith" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="jane@example.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="At least 8 characters" required minlength="8" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label for="education">Education Level</label>
+          <select id="education" required>
+            <option value="" disabled selected>Select your education level</option>
+            <option value="Some High School">Some High School</option>
+            <option value="High School Diploma / GED">High School Diploma / GED</option>
+            <option value="Some College">Some College</option>
+            <option value="College Graduate">College Graduate</option>
+            <option value="Graduate Degree">Graduate Degree</option>
+          </select>
+        </div>
+        <div class="row-2">
+          <div class="form-group">
+            <label for="age">Age <span class="optional">(optional)</span></label>
+            <input type="number" id="age" placeholder="17" min="14" max="42">
+          </div>
+          <div class="form-group">
+            <label for="zipcode">ZIP Code <span class="optional">(optional)</span></label>
+            <input type="text" id="zipcode" placeholder="90210" maxlength="10">
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="submitBtn">Create Account</button>
+        <p class="error-msg" id="errorMsg"></p>
+        <p class="success-msg" id="successMsg"></p>
+      </form>
+      <p class="login-link">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const errorMsg = document.getElementById('errorMsg');
+      const successMsg = document.getElementById('successMsg');
+      errorMsg.style.display = 'none';
+      successMsg.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Creating account...';
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const education = document.getElementById('education').value;
+      const ageVal = document.getElementById('age').value;
+      const zipcode = document.getElementById('zipcode').value.trim();
+
+      const client = getClient();
+      const { data, error } = await client.auth.signUp({
+        email,
+        password,
+        options: { data: { name } }
+      });
+
+      if (error) {
+        errorMsg.textContent = error.message;
+        errorMsg.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Create Account';
+        return;
+      }
+
+      // Update profile with additional fields (trigger created the row)
+      if (data.user) {
+        const updates = { name, education };
+        if (ageVal) updates.age = parseInt(ageVal, 10);
+        if (zipcode) updates.zipcode = zipcode;
+        await client.from('profiles').update(updates).eq('id', data.user.id);
+      }
+
+      successMsg.textContent = 'Account created! Check your email to confirm, then log in.';
+      successMsg.style.display = 'block';
+      btn.textContent = 'Account Created';
+    });
+  </script>
+</body>
+</html>
