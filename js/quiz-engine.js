@@ -526,11 +526,20 @@ class QuizEngine {
 
     try {
       const lineScores = MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
+
+      // Strip question details — only store correct/total counts to keep payload small
+      const strippedSections = {};
+      if (quizResults.sectionResults) {
+        for (const [code, data] of Object.entries(quizResults.sectionResults)) {
+          strippedSections[code] = { correct: data.correct, total: data.total };
+        }
+      }
+
       await getClient().from('test_results').insert({
         user_id: session.user.id,
         test_type: quizResults.testType || 'afqt',
         afqt_score: quizResults.afqt,
-        section_scores: quizResults.sectionResults,
+        section_scores: strippedSections,
         line_scores: lineScores
       });
     } catch (err) {

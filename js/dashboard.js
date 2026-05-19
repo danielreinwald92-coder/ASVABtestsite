@@ -196,22 +196,35 @@ function renderFocusPanel(results) {
     const isDropping = f.trend < 0;
 
     if (hasTrend && isDropping) {
-      return `<strong>${name}</strong> has dropped in your recent tests and is your weakest area.`;
+      return `${name} has dropped in your recent tests and is your weakest area.`;
     } else if (f.score < 50) {
-      return `<strong>${name}</strong> is your lowest-scoring section at ${f.score}%.`;
+      return `${name} is your lowest-scoring section at ${f.score}%.`;
     } else {
-      return `<strong>${name}</strong> has room to improve (${f.score}%).`;
+      return `${name} has room to improve (${f.score}%).`;
     }
   });
 
   const focusNames = focus.map(f => SECTION_NAMES[f.code]).join(' and ');
-  const suggestion = messages.join(' ') + ` Focus on ${focusNames} before your next test.`;
+  const suggestionText = messages.join(' ') + ` Focus on ${focusNames} before your next test.`;
 
-  panel.innerHTML = `
-    <div class="focus-label">Focus This Week</div>
-    <p class="focus-text">${suggestion}</p>
-    <a href="study-guide.html" class="focus-cta">Go to Study Guide →</a>
-  `;
+  panel.innerHTML = '';
+
+  const label = document.createElement('div');
+  label.className = 'focus-label';
+  label.textContent = 'Focus This Week';
+
+  const text = document.createElement('p');
+  text.className = 'focus-text';
+  text.textContent = suggestionText;
+
+  const cta = document.createElement('a');
+  cta.href = 'study-guide.html';
+  cta.className = 'focus-cta';
+  cta.textContent = 'Go to Study Guide →';
+
+  panel.appendChild(label);
+  panel.appendChild(text);
+  panel.appendChild(cta);
   panel.style.display = 'block';
 }
 
