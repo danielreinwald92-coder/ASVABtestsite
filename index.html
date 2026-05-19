@@ -894,12 +894,12 @@
 
   <section class="hero">
     <div class="hero-content">
-      <div class="hero-badge">100% Free • No Registration Required</div>
+      <div class="hero-badge">100% Free • Track Your Progress with a Free Account</div>
       <h1>Prepare for the <span class="highlight">ASVAB</span> with confidence.</h1>
       <p class="hero-text">Free practice tests and study guides with no registration, no payment, and no catches. Just focused prep to help you succeed on test day.</p>
       <div class="hero-cta-group">
         <a href="select-test.html" class="btn-primary">Start Practicing</a>
-        <a href="about.html" class="btn-secondary">Learn About the ASVAB</a>
+        <a href="register.html" class="btn-secondary" id="heroSignupBtn">Create Free Account</a>
       </div>
     </div>
     <div class="hero-visual">
@@ -1056,5 +1056,17 @@
     }
   </script>
 <script defer src="/_vercel/insights/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    applyAuthNav();
+    getSession().then(session => {
+      const btn = document.getElementById('heroSignupBtn');
+      if (btn && session) {
+        btn.textContent = 'My Dashboard';
+        btn.href = 'dashboard.html';
+      }
+    });
+  </script>
 </body>
 </html>
