@@ -533,12 +533,13 @@
         <span class="quiz-title">ASVAB Practice Test</span>
         <span class="quiz-section">Arithmetic Reasoning</span>
       </div>
-      <div class="quiz-timer">
-        <span class="timer-icon">⏱</span>
+      <div class="quiz-timer" role="timer" aria-label="Time remaining">
+        <span class="timer-icon" aria-hidden="true">⏱</span>
         <span class="timer-display" id="timerDisplay">39:00</span>
       </div>
       <button class="quit-btn" id="quitBtn">Save & Exit</button>
     </div>
+    <div id="timerLive" aria-live="polite" aria-atomic="true" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;"></div>
   </header>
 
   <div class="progress-container">

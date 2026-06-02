@@ -15,6 +15,14 @@ class QuizEngine {
     this.abilityLevels = {}; // Track ability per section
     this.questionPools = {}; // Adaptive question pools per section
     this.usedQuestionIds = new Set(); // Track used questions
+
+    // State persistence: debounce writes instead of saving every timer tick
+    this._lastSaveAt = 0;
+    this._timerSaveIntervalMs = 10000;
+
+    // Track whether timer warning thresholds have been announced for SR users
+    this._warned10 = false;
+    this._warned5 = false;
   }
 
   init() {
@@ -58,62 +66,33 @@ class QuizEngine {
   }
 
   generateNewTest() {
-    // Generate fresh randomized questions with adaptive difficulty
-    const allQuestions = [];
+    // True CAT-style: allocate empty slots per section. The actual question for
+    // each slot is selected on first reach using the current ability level,
+    // so wrong/right answers steer subsequent question difficulty.
+    const slots = [];
     let totalTimeLimit = 0;
+    let slotId = 0;
 
     this.testSections.forEach(sectionCode => {
       const sectionInfo = QuizManager.getSectionInfo(sectionCode);
-      if (sectionInfo) {
-        // Initialize adaptive state for this section
-        this.abilityLevels[sectionCode] = 3; // Start at medium
-        this.questionPools[sectionCode] = QuizManager.getAdaptiveQuestionPool(sectionCode);
+      if (!sectionInfo) return;
 
-        // Pre-select questions adaptively
-        const numQuestions = sectionInfo.questionsPerTest;
-        const sectionUsedIds = new Set();
+      this.abilityLevels[sectionCode] = 3; // start at medium difficulty
+      this.questionPools[sectionCode] = QuizManager.getAdaptiveQuestionPool(sectionCode);
 
-        for (let i = 0; i < numQuestions; i++) {
-          const ability = Math.round(this.abilityLevels[sectionCode]);
-          const question = QuizManager.selectNextAdaptiveQuestion(
-            this.questionPools[sectionCode],
-            ability,
-            sectionUsedIds
-          );
-
-          if (question) {
-            sectionUsedIds.add(question.id);
-            this.usedQuestionIds.add(question.id);
-
-            // Shuffle options
-            const shuffled = QuizManager.shuffleQuestionOptions(question);
-            allQuestions.push({
-              ...shuffled,
-              sectionCode: sectionCode,
-              sectionName: sectionInfo.name,
-              difficulty: question.difficulty
-            });
-
-            // Simulate adaptive progression for initial generation
-            // (Real adaptation happens during the test)
-            if (i % 3 === 0) {
-              // Every 3rd question, vary the ability slightly for distribution
-              this.abilityLevels[sectionCode] += (Math.random() - 0.5);
-              this.abilityLevels[sectionCode] = Math.max(1, Math.min(5, this.abilityLevels[sectionCode]));
-            }
-          }
-        }
-
-        totalTimeLimit += sectionInfo.timeLimit;
+      for (let i = 0; i < sectionInfo.questionsPerTest; i++) {
+        slotId++;
+        slots.push({
+          id: slotId,
+          sectionCode: sectionCode,
+          sectionName: sectionInfo.name
+          // Question content (text/options/correct/originalId/difficulty)
+          // is filled in by materializeSlot() on first navigation.
+        });
       }
+      totalTimeLimit += sectionInfo.timeLimit;
     });
 
-    // Reset ability levels for actual test taking
-    this.testSections.forEach(code => {
-      this.abilityLevels[code] = 3;
-    });
-
-    // Build quiz data object
     this.quizData = {
       section: this.testSections.length === 1
         ? QuizManager.getSectionInfo(this.testSections[0])?.name
@@ -122,21 +101,44 @@ class QuizEngine {
           : 'Full ASVAB Practice Test'),
       sectionCode: this.testSections.join(','),
       timeLimit: totalTimeLimit,
-      questions: allQuestions.map((q, idx) => ({
-        id: idx + 1,
-        originalId: q.id,
-        text: q.text,
-        options: q.options,
-        correct: q.correct,
-        sectionCode: q.sectionCode,
-        sectionName: q.sectionName,
-        difficulty: q.difficulty
-      }))
+      questions: slots
     };
 
     this.timeRemaining = this.quizData.timeLimit;
+    this.saveGeneratedTest();
+  }
 
-    // Save the generated test to session storage
+  // Resolve an empty slot into a concrete question using the current ability
+  // level for that section. Called lazily on first render of each slot.
+  materializeSlot(index) {
+    const slot = this.quizData?.questions?.[index];
+    if (!slot || slot.text !== undefined) return; // missing or already materialized
+
+    // Pool may be missing after reload — rebuild from data if needed.
+    if (!this.questionPools[slot.sectionCode]) {
+      this.questionPools[slot.sectionCode] = QuizManager.getAdaptiveQuestionPool(slot.sectionCode);
+    }
+    if (this.abilityLevels[slot.sectionCode] === undefined) {
+      this.abilityLevels[slot.sectionCode] = 3;
+    }
+
+    const ability = Math.max(1, Math.min(5, Math.round(this.abilityLevels[slot.sectionCode])));
+    const question = QuizManager.selectNextAdaptiveQuestion(
+      this.questionPools[slot.sectionCode],
+      ability,
+      this.usedQuestionIds
+    );
+    if (!question) return; // pool exhausted (shouldn't happen for production pools)
+
+    this.usedQuestionIds.add(question.id);
+    const shuffled = QuizManager.shuffleQuestionOptions(question);
+
+    slot.originalId = question.id;
+    slot.text = shuffled.text;
+    slot.options = shuffled.options;
+    slot.correct = shuffled.correct;
+    slot.difficulty = question.difficulty;
+
     this.saveGeneratedTest();
   }
 
@@ -156,6 +158,19 @@ class QuizEngine {
       this.flagged = new Set(state.flagged || []);
       this.currentQuestion = state.currentQuestion || 0;
       this.timeRemaining = state.timeRemaining || this.quizData.timeLimit;
+      this.abilityLevels = state.abilityLevels || {};
+      this.usedQuestionIds = new Set(state.usedQuestionIds || []);
+
+      // Rebuild question pools (not persisted — large; selectNextAdaptiveQuestion
+      // filters by usedQuestionIds so reshuffled pool order is harmless).
+      this.testSections.forEach(code => {
+        if (!this.questionPools[code]) {
+          this.questionPools[code] = QuizManager.getAdaptiveQuestionPool(code);
+        }
+        if (this.abilityLevels[code] === undefined) {
+          this.abilityLevels[code] = 3;
+        }
+      });
       return true;
     }
     return false;
@@ -166,9 +181,12 @@ class QuizEngine {
       answers: this.answers,
       flagged: Array.from(this.flagged),
       currentQuestion: this.currentQuestion,
-      timeRemaining: this.timeRemaining
+      timeRemaining: this.timeRemaining,
+      abilityLevels: this.abilityLevels,
+      usedQuestionIds: Array.from(this.usedQuestionIds)
     };
     sessionStorage.setItem('quizState', JSON.stringify(state));
+    this._lastSaveAt = Date.now();
   }
 
   startTimer() {
@@ -176,28 +194,57 @@ class QuizEngine {
     this.timerInterval = setInterval(() => {
       this.timeRemaining--;
       this.updateTimerDisplay();
-      this.saveState();
+
+      // Debounce: only persist every N seconds (navigation/answer events flush immediately)
+      const now = Date.now();
+      if (now - this._lastSaveAt >= this._timerSaveIntervalMs) {
+        this.saveState();
+      }
 
       if (this.timeRemaining <= 0) {
         clearInterval(this.timerInterval);
         this.submitQuiz();
       }
     }, 1000);
+
+    // Pause the timer when the tab is hidden so users aren't penalized for
+    // switching tabs (matches behavior of common practice-test platforms).
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (this.timerInterval) {
+          clearInterval(this.timerInterval);
+          this.timerInterval = null;
+          this.saveState();
+        }
+      } else if (!this.timerInterval && this.timeRemaining > 0) {
+        this.startTimer();
+      }
+    });
   }
 
   updateTimerDisplay() {
     const minutes = Math.floor(this.timeRemaining / 60);
     const seconds = this.timeRemaining % 60;
     const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-    document.getElementById('timerDisplay').textContent = display;
+    const timerDisplayEl = document.getElementById('timerDisplay');
+    if (timerDisplayEl) timerDisplayEl.textContent = display;
 
-    // Warning colors
+    // Warning colors + screen-reader announcements (color alone is not accessible)
     const timerEl = document.querySelector('.quiz-timer');
+    const liveEl = document.getElementById('timerLive');
     if (timerEl) {
       if (this.timeRemaining <= 300) { // 5 minutes
         timerEl.style.background = '#c53030';
+        if (!this._warned5 && liveEl) {
+          liveEl.textContent = '5 minutes remaining';
+          this._warned5 = true;
+        }
       } else if (this.timeRemaining <= 600) { // 10 minutes
         timerEl.style.background = '#b45309';
+        if (!this._warned10 && liveEl) {
+          liveEl.textContent = '10 minutes remaining';
+          this._warned10 = true;
+        }
       }
     }
   }
@@ -216,6 +263,9 @@ class QuizEngine {
   }
 
   renderQuestion() {
+    // Lazy-materialize the slot the user is about to see using the latest
+    // ability level for that section.
+    this.materializeSlot(this.currentQuestion);
     const question = this.quizData.questions[this.currentQuestion];
     const questionNum = this.currentQuestion + 1;
     const totalQuestions = this.quizData.questions.length;
@@ -240,13 +290,15 @@ class QuizEngine {
     const container = document.getElementById('answersContainer');
     const letters = ['A', 'B', 'C', 'D'];
 
+    container.setAttribute('role', 'radiogroup');
+    container.setAttribute('aria-label', `Answer options for question ${questionNum}`);
     container.innerHTML = question.options.map((option, idx) => {
       const isSelected = this.answers[question.id] === idx;
       return `
-        <div class="answer-option ${isSelected ? 'selected' : ''}" data-index="${idx}">
-          <span class="answer-letter">${letters[idx]}</span>
+        <div class="answer-option ${isSelected ? 'selected' : ''}" data-index="${idx}" role="radio" tabindex="0" aria-checked="${isSelected}" aria-label="Option ${letters[idx]}: ${option}. Press ${letters[idx]} to select.">
+          <span class="answer-letter" aria-hidden="true">${letters[idx]}</span>
           <span class="answer-text">${option}</span>
-          <span class="keyboard-hint">Press ${letters[idx]}</span>
+          <span class="keyboard-hint" aria-hidden="true">Press ${letters[idx]}</span>
         </div>
       `;
     }).join('');
@@ -316,7 +368,8 @@ class QuizEngine {
     const previousAnswer = this.answers[question.id];
     this.answers[question.id] = index;
 
-    // Update adaptive ability tracking (for results analysis)
+    // Adaptive: update ability so the next unreached slot in this section
+    // is materialized at the appropriate difficulty.
     if (this.adaptiveMode && previousAnswer === undefined) {
       const isCorrect = index === question.correct;
       const sectionCode = question.sectionCode || this.testSections[0];
@@ -410,11 +463,22 @@ class QuizEngine {
   async submitQuiz() {
     clearInterval(this.timerInterval);
 
+    // Materialize any slots the user never reached so scoring and the review
+    // page have complete question content. Unanswered slots stay unanswered
+    // (treated as wrong, same as before).
+    for (let i = 0; i < this.quizData.questions.length; i++) {
+      if (this.quizData.questions[i].text === undefined) {
+        this.materializeSlot(i);
+      }
+    }
+
     // Calculate results by section
     const sectionResults = {};
     let totalCorrect = 0;
 
     this.quizData.questions.forEach(q => {
+      // Skip slots that couldn't be materialized (pool exhausted) — extremely rare.
+      if (q.text === undefined) return;
       const userAnswer = this.answers[q.id];
       const isCorrect = userAnswer === q.correct;
       if (isCorrect) totalCorrect++;
@@ -480,31 +544,51 @@ class QuizEngine {
   }
 
   async saveResultsToSupabase(quizResults) {
-    if (typeof getClient !== 'function') return;
+    if (typeof getClient !== 'function') return { skipped: true };
     const session = await getSession();
-    if (!session) return;
+    if (!session) return { skipped: true };
+
+    const lineScores = MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
+    const strippedSections = {};
+    if (quizResults.sectionResults) {
+      for (const [code, data] of Object.entries(quizResults.sectionResults)) {
+        strippedSections[code] = { correct: data.correct, total: data.total };
+      }
+    }
+    const payload = {
+      user_id: session.user.id,
+      test_type: quizResults.testType || 'afqt',
+      afqt_score: quizResults.afqt,
+      section_scores: strippedSections,
+      line_scores: lineScores
+    };
 
     try {
-      const lineScores = MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
-
-      // Strip question details — only store correct/total counts to keep payload small
-      const strippedSections = {};
-      if (quizResults.sectionResults) {
-        for (const [code, data] of Object.entries(quizResults.sectionResults)) {
-          strippedSections[code] = { correct: data.correct, total: data.total };
-        }
+      const { error } = await getClient().from('test_results').insert(payload);
+      if (error) {
+        console.error('Supabase insert error:', error);
+        this._queuePendingResult(payload, error.message);
+        return { ok: false, error: error.message };
       }
-
-      const { error } = await getClient().from('test_results').insert({
-        user_id: session.user.id,
-        test_type: quizResults.testType || 'afqt',
-        afqt_score: quizResults.afqt,
-        section_scores: strippedSections,
-        line_scores: lineScores
-      });
-      if (error) console.error('Supabase insert error:', error);
+      // Clear any prior pending result on success
+      localStorage.removeItem('pendingTestResult');
+      return { ok: true };
     } catch (err) {
       console.error('Failed to save results to Supabase:', err);
+      this._queuePendingResult(payload, err.message || 'Network error');
+      return { ok: false, error: err.message || 'Network error' };
+    }
+  }
+
+  _queuePendingResult(payload, errorMessage) {
+    try {
+      localStorage.setItem('pendingTestResult', JSON.stringify({
+        payload,
+        error: errorMessage,
+        queuedAt: new Date().toISOString()
+      }));
+    } catch (_) {
+      // Quota or serialization error — nothing we can do client-side
     }
   }
 
