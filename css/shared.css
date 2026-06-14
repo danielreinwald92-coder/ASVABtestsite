@@ -1,0 +1,34 @@
+/*
+ * shared.css — design tokens shared across all Mission ASVAB pages.
+ * Extracted from per-page inline <style> :root blocks (identical values,
+ * zero conflicts across pages). Linked BEFORE each page's inline <style>
+ * so page-specific styles can still override if ever needed.
+ */
+:root {
+  /* Navy palette */
+  --navy-900: #0a1628;
+  --navy-800: #132039;
+  --navy-700: #1e3a5f;
+  --navy-600: #2d5a87;
+  /* Gold palette */
+  --gold-500: #d4a853;
+  --gold-400: #e8c17a;
+  --gold-300: #f0d69b;
+  /* Neutrals */
+  --cream-100: #faf8f5;
+  --cream-200: #f2efe8;
+  --white: #ffffff;
+  --text-primary: #0a1628;
+  --text-secondary: #4a5568;
+  /* Status colors */
+  --success: #2d8a6e;
+  --success-light: #e8f5f0;
+  --error: #c53030;
+  --error-light: #fef2f2;
+  --warning: #b45309;
+  --warning-light: #fef3c7;
+  --green-500: #22c55e;
+  --green-100: #dcfce7;
+  --red-500: #ef4444;
+  --red-100: #fee2e2;
+}
