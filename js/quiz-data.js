@@ -42,7 +42,7 @@ const asvabData = {
       code: "MK",
       description: "Math concepts including algebra and geometry",
       questionsPerTest: 15,
-      timeLimit: 23 * 60, // 23 minutes
+      timeLimit: 31 * 60, // 31 minutes
       inAFQT: true
     },
     EI: {
