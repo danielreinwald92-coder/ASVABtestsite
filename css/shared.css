@@ -4,6 +4,9 @@
  * zero conflicts across pages). Linked BEFORE each page's inline <style>
  * so page-specific styles can still override if ever needed.
  */
+/* Respect users who prefer reduced motion (applies on every page that links this file) */
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}}
+
 :root {
   /* Navy palette */
   --navy-900: #0a1628;
