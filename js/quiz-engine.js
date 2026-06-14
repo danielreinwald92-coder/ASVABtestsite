@@ -26,6 +26,8 @@ class QuizEngine {
 
     // Single visibilitychange handler reference (bound once, see bindVisibilityHandler)
     this._visHandler = null;
+    // Guard against double submission (double-click / timer-expiry race)
+    this._isSubmitting = false;
   }
 
   init() {
@@ -472,6 +474,17 @@ class QuizEngine {
   }
 
   async submitQuiz() {
+    // Guard against double submission: rapid double-click, or the timer-expiry
+    // path firing while a manual submit is already in flight. saveResultsToSupabase
+    // swallows errors and the flow always navigates to results, so we must NOT
+    // reset this guard (doing so would re-enable a duplicate insert).
+    if (this._isSubmitting) return;
+    this._isSubmitting = true;
+
+    // Disable the submit button in the DOM so the UI can't trigger a second submit.
+    const submitBtn = document.getElementById('nextBtn');
+    if (submitBtn) submitBtn.disabled = true;
+
     clearInterval(this.timerInterval);
 
     // Materialize any slots the user never reached so scoring and the review
