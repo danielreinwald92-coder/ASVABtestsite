@@ -64,6 +64,7 @@ async function loadAdmin() {
 
   bindSortHandlers();
   bindLiveSearch();
+  bindRowClicks();
   renderStats();
   applyFilters();
 }
@@ -85,6 +86,15 @@ function bindSortHandlers() {
 
 function bindLiveSearch() {
   document.getElementById('filterSearch').addEventListener('input', applyFilters);
+}
+
+// Delegated row-click handler (replaces inline onclick on each <tr>, which
+// helps future CSP work and avoids injecting raw ids into markup).
+function bindRowClicks() {
+  document.getElementById('adminTableBody').addEventListener('click', (e) => {
+    const row = e.target.closest('tr[data-id]');
+    if (row) openUserModal(row.dataset.id);
+  });
 }
 
 function renderStats() {
@@ -166,7 +176,7 @@ function renderTable() {
   document.getElementById('filteredCount').textContent = `${sorted.length} user${sorted.length !== 1 ? 's' : ''}`;
 
   tbody.innerHTML = sorted.map(u => `
-    <tr onclick="openUserModal('${u.id}')">
+    <tr data-id="${escHtml(u.id)}" class="user-row" style="cursor:pointer;">
       <td>${escHtml(u.name || '—')}${u.is_admin ? '<span class="admin-badge-mini">Admin</span>' : ''}</td>
       <td>${escHtml(u.email)}</td>
       <td>${escHtml(String(u.age || '—'))}</td>
@@ -389,7 +399,8 @@ function escHtml(str) {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 function formatDate(iso) {

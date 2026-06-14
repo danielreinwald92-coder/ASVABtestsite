@@ -397,6 +397,10 @@ async function saveProfile(e) {
     test_date: testDate || null
   };
 
+  // Double-click guard: disable the submit button while the request is in flight.
+  const btn = e.target.querySelector('button[type="submit"]');
+  if (btn) btn.disabled = true;
+
   const { data, error } = await getClient()
     .from('profiles')
     .update(updates)
@@ -405,10 +409,12 @@ async function saveProfile(e) {
     .single();
 
   if (error) {
+    if (btn) btn.disabled = false;
     return setAccMsg('accMsg', error.message, 'err');
   }
   _currentProfile = data;
   document.getElementById('userName').textContent = getDisplayName(data, _currentSession.user.email);
+  if (btn) btn.disabled = false;
   setAccMsg('accMsg', 'Profile updated.', 'ok');
 }
 
