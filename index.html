@@ -831,14 +831,14 @@
       <li><a href="about.html">About the ASVAB</a></li>
     </ul>
     <a href="select-test.html" class="nav-cta">Take a Practice Test</a>
-    <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')">
+    <button class="hamburger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </nav>
   <div class="mobile-menu" id="mobile-menu">
     <div class="mobile-menu-header">
       <a href="index.html" class="logo" style="text-decoration: none;">Mission <span>ASVAB</span></a>
-      <button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button>
+      <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
     </div>
     <div class="mobile-menu-links">
       <a href="select-test.html">Practice Tests</a>
@@ -1034,6 +1034,7 @@
       });
     }
   </script>
+  <script src="js/mobile-menu.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.js" integrity="sha384-EjUdIVmzWliPzdzhxZ9ZoO0etXLKWuUPUftAGxP6qH6Lm4oLwoLaJR0Ba4pIDiDL" crossorigin="anonymous"></script>
   <script src="js/auth.js"></script>

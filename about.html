@@ -304,14 +304,14 @@
       <li><a href="about.html" class="active">About the ASVAB</a></li>
     </ul>
     <a href="select-test.html" class="nav-cta">Take a Practice Test</a>
-    <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')">
+    <button class="hamburger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </nav>
   <div class="mobile-menu" id="mobile-menu">
     <div class="mobile-menu-header">
       <a href="index.html" class="logo">Mission <span>ASVAB</span></a>
-      <button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button>
+      <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
     </div>
     <div class="mobile-menu-links">
       <a href="select-test.html">Practice Tests</a>
@@ -484,6 +484,7 @@
     <p style="font-size: 0.8rem; line-height: 1.6; max-width: 800px; margin: 0 auto 1rem; opacity: 0.8;">This website is not affiliated with, endorsed by, or sponsored by the U.S. Department of Defense, any branch of the U.S. Armed Forces, or the official ASVAB program. "ASVAB" is a registered trademark of the U.S. Department of Defense. This is an independent practice resource only.</p>
     <p style="font-size: 0.75rem; opacity: 0.6;">© <script>document.write(new Date().getFullYear())</script> Mission ASVAB. For educational purposes only.</p>
   </footer>
+  <script src="js/mobile-menu.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

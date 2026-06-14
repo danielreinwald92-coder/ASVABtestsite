@@ -62,6 +62,7 @@
 
 /* ---- Mobile menu + hamburger (shared by index, about, study-guide) ---- */
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+.hamburger:focus-visible, .mobile-menu-close:focus-visible { outline: 3px solid var(--navy-900); outline-offset: 3px; border-radius: 4px; }
 .hamburger span { width: 24px; height: 2px; background: var(--navy-900); transition: all 0.3s; }
 .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--white); z-index: 1000; padding: 1.5rem 5%; flex-direction: column; }
 .mobile-menu.open { display: flex; }

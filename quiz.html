@@ -207,6 +207,17 @@
       border-color: var(--cream-200);
     }
 
+    .answer-option:focus-visible {
+      outline: 3px solid var(--navy-900);
+      outline-offset: 2px;
+    }
+
+    .answers-hint {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin: 0.75rem 0 0;
+    }
+
     .answer-option.selected {
       background: var(--white);
       border-color: var(--navy-900);
@@ -540,6 +551,7 @@
       <div class="question-number" id="questionNumber">Question 1</div>
       <h2 class="question-text" id="questionText">Loading question...</h2>
       <div class="answers-container" id="answersContainer"></div>
+      <p class="answers-hint">Press A–D or use Tab + Enter to choose an answer.</p>
     </div>
 
     <div class="quiz-nav">

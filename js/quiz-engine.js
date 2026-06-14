@@ -628,6 +628,19 @@ class QuizEngine {
           this.selectAnswer(parseInt(option.dataset.index));
         }
       });
+      // Keyboard activation for the focused answer option (Enter/Space).
+      // stopPropagation so the document-level Enter handler does not also
+      // advance to the next question while an option is focused.
+      answersContainer.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          const option = e.target.closest('.answer-option');
+          if (option) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.selectAnswer(parseInt(option.dataset.index));
+          }
+        }
+      });
     }
 
     // Navigation buttons
