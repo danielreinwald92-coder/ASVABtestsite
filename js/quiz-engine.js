@@ -438,7 +438,9 @@ class QuizEngine {
       this.saveState();
       this.renderQuestion();
     } else {
-      this.submitQuiz();
+      // Last question: route through the review/confirm step rather than
+      // submitting immediately.
+      this.showSubmitConfirm();
     }
   }
 
@@ -678,6 +680,8 @@ class QuizEngine {
   static startNewTest(sections) {
     sessionStorage.removeItem('quizState');
     sessionStorage.removeItem('generatedTest');
+    // Clear any prior result so a brand-new test never renders a stale score.
+    localStorage.removeItem('quizResults');
     sessionStorage.setItem('testConfig', JSON.stringify({ sections: sections }));
   }
 }
