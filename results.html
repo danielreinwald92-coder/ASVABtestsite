@@ -1180,7 +1180,7 @@
 
       let html = '';
       for (const [code, data] of Object.entries(sectionResults)) {
-        const percent = Math.round((data.correct / data.total) * 100);
+        const percent = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0;
         const needsWork = percent < 70;
         const statusClass = needsWork ? 'needs-work' : 'good';
         const name = sectionNames[code] || data.name || code;
