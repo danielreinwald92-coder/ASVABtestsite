@@ -1,0 +1,18 @@
+{
+  "name": "mission-asvab",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Static HTML/JS ASVAB practice test site",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test \"tests/unit/**/*.test.js\"",
+    "test:e2e": "playwright test",
+    "validate": "node scripts/validate-site.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "jsdom": "^25.0.0"
+  }
+}
