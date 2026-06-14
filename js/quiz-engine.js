@@ -23,6 +23,9 @@ class QuizEngine {
     // Track whether timer warning thresholds have been announced for SR users
     this._warned10 = false;
     this._warned5 = false;
+
+    // Single visibilitychange handler reference (bound once, see bindVisibilityHandler)
+    this._visHandler = null;
   }
 
   init() {
@@ -208,8 +211,15 @@ class QuizEngine {
     }, 1000);
 
     // Pause the timer when the tab is hidden so users aren't penalized for
-    // switching tabs (matches behavior of common practice-test platforms).
-    document.addEventListener('visibilitychange', () => {
+    // switching tabs. Bound ONCE — startTimer() is re-invoked when the tab
+    // becomes visible again, so re-binding here would accumulate listeners
+    // (and could multi-fire submit on timer expiry).
+    this.bindVisibilityHandler();
+  }
+
+  bindVisibilityHandler() {
+    if (this._visHandler) return; // already registered
+    this._visHandler = () => {
       if (document.hidden) {
         if (this.timerInterval) {
           clearInterval(this.timerInterval);
@@ -219,7 +229,8 @@ class QuizEngine {
       } else if (!this.timerInterval && this.timeRemaining > 0) {
         this.startTimer();
       }
-    });
+    };
+    document.addEventListener('visibilitychange', this._visHandler);
   }
 
   updateTimerDisplay() {
