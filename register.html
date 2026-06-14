@@ -140,22 +140,28 @@
         return failWith(error.message);
       }
 
+      let profileSaveFailed = false;
       if (data.user) {
         const { error: profileError } = await client.from('profiles')
           .update({ name, education, age: ageNum, zipcode })
           .eq('id', data.user.id);
         if (profileError) {
           console.error('Profile update error:', profileError);
+          profileSaveFailed = true;
         }
       }
 
       btn.textContent = 'Account Created ✓';
       if (data.session) {
-        successMsg.textContent = 'Account created! Loading your dashboard...';
+        successMsg.textContent = profileSaveFailed
+          ? 'Account created, but saving your details failed — you can update them in your dashboard. Loading…'
+          : 'Account created! Loading your dashboard...';
         successMsg.style.display = 'block';
         setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
       } else {
-        successMsg.textContent = 'Account created! Check your email to confirm, then log in.';
+        successMsg.textContent = profileSaveFailed
+          ? 'Account created, but saving your details failed — you can update them after you log in. Check your email to confirm, then log in.'
+          : 'Account created! Check your email to confirm, then log in.';
         successMsg.style.display = 'block';
         setTimeout(() => { window.location.href = 'login.html'; }, 2500);
       }

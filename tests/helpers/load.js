@@ -82,4 +82,86 @@ function loadDom(htmlFile) {
   };
 }
 
-module.exports = { rootDir, loadScripts, loadCore, loadDom };
+/**
+ * A minimal in-memory localStorage stand-in for jsdom-free script execution.
+ */
+function makeLocalStorage(initial = {}) {
+  const store = { ...initial };
+  return {
+    getItem: (k) => (k in store ? store[k] : null),
+    setItem: (k, v) => { store[k] = String(v); },
+    removeItem: (k) => { delete store[k]; },
+    clear: () => { for (const k of Object.keys(store)) delete store[k]; }
+  };
+}
+
+/**
+ * Load an HTML page via jsdom and execute ONE of its inline <script> blocks
+ * (the first script without a `src` attribute whose text contains `match`)
+ * inside a controllable vm sandbox. This lets us drive event handlers defined
+ * in page-level inline scripts while mocking out browser/Supabase seams
+ * (getClient, getSession, fetch, window.location, localStorage, alert).
+ *
+ * The jsdom `document` is shared into the sandbox so real DOM events work.
+ *
+ * @param {string} htmlFile          page path relative to repo root
+ * @param {string} match             substring identifying the inline script
+ * @param {object} [env]             overrides: getClient, getSession, fetch,
+ *                                   alert, localStorage, location
+ * @returns {{dom, document, window, sandbox}}
+ */
+function runPageScript(htmlFile, match, env = {}) {
+  const { dom, document } = loadDom(htmlFile);
+  const scripts = [...document.querySelectorAll('script:not([src])')];
+  const scriptEl = scripts.find((s) => s.textContent.includes(match));
+  if (!scriptEl) {
+    throw new Error(`runPageScript: no inline script in ${htmlFile} matching ${JSON.stringify(match)}`);
+  }
+
+  const win = {
+    location: env.location || { href: '', origin: 'https://example.test' },
+    addEventListener: () => {},
+    document
+  };
+
+  const sandbox = {
+    document,
+    window: win,
+    console,
+    setTimeout,
+    clearTimeout,
+    setInterval,
+    clearInterval,
+    setImmediate,
+    queueMicrotask,
+    Promise, Date, JSON, Math, RegExp, Error,
+    String, Number, Boolean, Object, Array,
+    parseInt, parseFloat, isNaN, isFinite,
+    AbortController, AbortSignal,
+    navigator: { userAgent: 'node' },
+    localStorage: env.localStorage || makeLocalStorage(),
+    alert: env.alert || (() => {}),
+    fetch: env.fetch,
+    getClient: env.getClient || (() => { throw new Error('getClient not mocked'); }),
+    getSession: env.getSession || (async () => null),
+    ...(env.globals || {})
+  };
+  sandbox.globalThis = sandbox;
+  vm.createContext(sandbox);
+  vm.runInContext(scriptEl.textContent, sandbox, { filename: htmlFile });
+
+  return { dom, document, window: win, sandbox };
+}
+
+/**
+ * Flush pending microtasks/macrotasks so awaited mock promises settle.
+ */
+function flush(times = 3) {
+  let p = Promise.resolve();
+  for (let i = 0; i < times; i++) {
+    p = p.then(() => new Promise((r) => setImmediate(r)));
+  }
+  return p;
+}
+
+module.exports = { rootDir, loadScripts, loadCore, loadDom, runPageScript, flush, makeLocalStorage };

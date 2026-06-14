@@ -147,6 +147,7 @@
             <input type="date" id="testDateInput">
           </div>
           <a href="select-test.html" class="btn-primary" id="diagnosticBtn">Take Your Diagnostic Test &rarr;</a>
+          <p id="diagMsg" style="display:none;color:#c0392b;font-size:0.85rem;margin-top:0.5rem;"></p>
           <button class="skip-link" onclick="skipWelcome()">Skip for now</button>
         </div>
       </div>
@@ -280,12 +281,23 @@
     // Save test date if set before going to test
     document.getElementById('diagnosticBtn').addEventListener('click', async (e) => {
       const testDate = document.getElementById('testDateInput').value;
-      if (testDate) {
-        const session = await getSession();
-        if (session) {
-          await getClient().from('profiles').update({ test_date: testDate }).eq('id', session.user.id);
+      if (!testDate) return; // no date to save — let the link navigate normally
+      e.preventDefault();
+      const diagMsg = document.getElementById('diagMsg');
+      diagMsg.style.display = 'none';
+      const session = await getSession();
+      if (session) {
+        const { error } = await getClient()
+          .from('profiles')
+          .update({ test_date: testDate })
+          .eq('id', session.user.id);
+        if (error) {
+          diagMsg.textContent = 'Could not save your test date. Please try again, or continue without saving.';
+          diagMsg.style.display = 'block';
+          return; // surface the error; user can retry or click again to proceed
         }
       }
+      window.location.href = 'select-test.html';
     });
 
     loadDashboard();
