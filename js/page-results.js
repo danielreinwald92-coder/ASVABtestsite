@@ -27,6 +27,9 @@ function loadResults() {
 
   document.getElementById('userName').textContent = userName;
 
+  // Test type used when a user reports a question (4.3 — report-a-question).
+  reviewTestType = results.testType || null;
+
   // Handle null AFQT (single section tests): show practice score, not a percentile
   const hasAFQT = typeof results.afqt === 'number';
   const displayScore = hasAFQT ? results.afqt : (results.score || 0);
@@ -180,6 +183,12 @@ function renderLineScores(sectionResults) {
 
 let allReviewQuestions = [];
 
+// 4.3 — report-a-question state. `reviewTestType` is the overall test type of
+// the results being reviewed; `reportedQuestionIds` is a client-side rate-limit
+// so the same question can't be reported twice in one session.
+let reviewTestType = null;
+const reportedQuestionIds = new Set();
+
 function renderAnswerReview(sectionResults) {
   if (!sectionResults || Object.keys(sectionResults).length === 0) return;
 
@@ -285,6 +294,23 @@ function renderFilteredQuestions(filter) {
 
     html += `
         </div>
+    `;
+
+    // 4.3 — per-question "Report" control. Only when the question has an id we
+    // can reference. Uses data-* hooks wired by a delegated listener (no inline
+    // on* handlers — CSP/inline-JS gate).
+    if (q.id) {
+      const reported = reportedQuestionIds.has(q.id);
+      html += `
+        <div class="review-report" data-qid="${q.id}" data-section="${q.section || ''}">
+          ${reported
+            ? '<span class="report-done">Reported ✓</span>'
+            : '<button type="button" class="report-btn" data-action="report-question">Report this question</button>'}
+        </div>
+      `;
+    }
+
+    html += `
       </div>
     `;
   });
@@ -425,6 +451,115 @@ function submitRecruiterRequest(e) {
   });
 }
 
+// ---------------------------------------------------------------------------
+// 4.3 — report-a-question on the review list (RLS-protected insert).
+// ---------------------------------------------------------------------------
+const REPORT_REASONS = [
+  'Incorrect answer',
+  'Typo or unclear wording',
+  'Confusing or ambiguous question',
+  'Other'
+];
+
+// Delegated click handler for the report controls inside the review list.
+async function onReportListClick(e) {
+  if (!e.target || !e.target.closest) return;
+
+  const reasonBtn = e.target.closest('[data-action="report-reason"]');
+  if (reasonBtn) return submitReport(reasonBtn);
+
+  const cancelBtn = e.target.closest('[data-action="report-cancel"]');
+  if (cancelBtn) return closeReportMenu(cancelBtn);
+
+  const reportBtn = e.target.closest('[data-action="report-question"]');
+  if (reportBtn) return openReportMenu(reportBtn);
+}
+
+async function openReportMenu(reportBtn) {
+  const wrap = reportBtn.closest('.review-report');
+  if (!wrap) return;
+  const qid = wrap.dataset.qid;
+  if (!qid || reportedQuestionIds.has(qid)) return;
+
+  const session = await getSession();
+  if (!session) {
+    wrap.innerHTML =
+      '<span class="report-note">Please <a href="login.html">sign in</a> to report a question.</span>';
+    return;
+  }
+
+  const options = REPORT_REASONS.map(
+    (r) => `<button type="button" class="report-reason-btn" data-action="report-reason" data-reason="${r}">${r}</button>`
+  ).join('');
+
+  wrap.innerHTML = `
+    <div class="report-menu">
+      <span class="report-menu-label">Why are you reporting this question?</span>
+      <div class="report-reasons">${options}</div>
+      <textarea class="report-details" rows="2" maxlength="500" placeholder="Optional details (what's wrong?)"></textarea>
+      <div class="report-menu-actions">
+        <button type="button" class="report-cancel-btn" data-action="report-cancel">Cancel</button>
+      </div>
+      <div class="report-msg" role="status"></div>
+    </div>
+  `;
+}
+
+function closeReportMenu(cancelBtn) {
+  const wrap = cancelBtn.closest('.review-report');
+  if (!wrap) return;
+  wrap.innerHTML =
+    '<button type="button" class="report-btn" data-action="report-question">Report this question</button>';
+}
+
+async function submitReport(reasonBtn) {
+  const wrap = reasonBtn.closest('.review-report');
+  if (!wrap) return;
+  const qid = wrap.dataset.qid;
+  const section = wrap.dataset.section || null;
+  const reason = reasonBtn.dataset.reason || 'Other';
+  if (!qid || reportedQuestionIds.has(qid)) return;
+
+  const detailsEl = wrap.querySelector('.report-details');
+  const details = detailsEl && detailsEl.value.trim() ? detailsEl.value.trim() : null;
+  const msgEl = wrap.querySelector('.report-msg');
+
+  const session = await getSession();
+  if (!session) {
+    wrap.innerHTML =
+      '<span class="report-note">Please <a href="login.html">sign in</a> to report a question.</span>';
+    return;
+  }
+
+  // Disable reason buttons while the insert is in flight (double-submit guard).
+  wrap.querySelectorAll('[data-action="report-reason"]').forEach((b) => { b.disabled = true; });
+  if (msgEl) msgEl.textContent = 'Submitting…';
+
+  try {
+    const { error } = await getClient()
+      .from('question_reports')
+      .insert({
+        user_id: session.user.id,
+        question_id: qid,
+        test_type: reviewTestType,
+        reason,
+        details
+      });
+
+    if (error) {
+      if (msgEl) msgEl.textContent = 'Could not submit report: ' + error.message;
+      wrap.querySelectorAll('[data-action="report-reason"]').forEach((b) => { b.disabled = false; });
+      return;
+    }
+
+    reportedQuestionIds.add(qid);
+    wrap.innerHTML = '<span class="report-done">Reported ✓</span>';
+  } catch (err) {
+    if (msgEl) msgEl.textContent = 'Could not submit report: ' + (err.message || 'Network error');
+    wrap.querySelectorAll('[data-action="report-reason"]').forEach((b) => { b.disabled = false; });
+  }
+}
+
 // Wire up controls that previously used inline on* attributes.
 (function wireResultsControls() {
   const reviewToggleBtn = document.getElementById('reviewToggleBtn');
@@ -433,4 +568,7 @@ function submitRecruiterRequest(e) {
   if (recruiterToggle) recruiterToggle.addEventListener('click', toggleRecruiterForm);
   const recruiterForm = document.querySelector('.recruiter-form');
   if (recruiterForm) recruiterForm.addEventListener('submit', submitRecruiterRequest);
+  // 4.3 — delegated report controls (rendered into the review list dynamically).
+  const reviewList = document.getElementById('reviewQuestionsList');
+  if (reviewList) reviewList.addEventListener('click', onReportListClick);
 })();
