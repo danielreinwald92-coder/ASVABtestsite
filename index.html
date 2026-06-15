@@ -924,11 +924,11 @@
       <div class="recruiter-content">
         <h2>Have Questions About Eligibility?</h2>
         <p>A military recruiter can answer questions about ASVAB scores, job qualifications, and enlistment requirements for your branch of interest.</p>
-        <button class="recruiter-toggle" onclick="toggleRecruiterForm()">Request Recruiter Contact</button>
+        <button class="recruiter-toggle">Request Recruiter Contact</button>
       </div>
     </div>
     <div class="recruiter-form-container" id="recruiterForm" style="display: none;">
-      <form class="recruiter-form" onsubmit="submitRecruiterRequest(event)">
+      <form class="recruiter-form">
         <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
         <div class="form-row">
           <div class="form-group">
@@ -962,91 +962,14 @@
 
   <footer class="site-footer">
     <p class="disclaimer">This website is not affiliated with, endorsed by, or sponsored by the U.S. Department of Defense, any branch of the U.S. Armed Forces, or the official ASVAB program. "ASVAB" is a registered trademark of the U.S. Department of Defense. This is an independent practice resource only.</p>
-    <p class="copyright">© <script>document.write(new Date().getFullYear())</script> Mission ASVAB. For educational purposes only.</p>
+    <p class="copyright">© <span id="year"></span> Mission ASVAB. For educational purposes only.</p>
   </footer>
-  <script>
-    function toggleRecruiterForm() {
-      const form = document.getElementById('recruiterForm');
-      const btn = document.querySelector('.recruiter-toggle');
-      if (form.style.display === 'none') {
-        form.style.display = 'block';
-        btn.textContent = 'Hide Form';
-      } else {
-        form.style.display = 'none';
-        btn.textContent = 'Request Recruiter Contact';
-      }
-    }
-
-    function submitRecruiterRequest(e) {
-      e.preventDefault();
-      const form = e.target;
-      const btn = form.querySelector('.form-submit');
-
-      // Honeypot: real users never fill the hidden "company" field. If it's
-      // populated, silently pretend success and send nothing.
-      const honeypot = form.elements.company ? form.elements.company.value : '';
-      if (honeypot) {
-        form.reset();
-        document.getElementById('recruiterForm').style.display = 'none';
-        document.querySelector('.recruiter-toggle').textContent = 'Request Recruiter Contact';
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = 'Submitting...';
-
-      const consentEl = form.querySelector('.consent-label');
-      const data = {
-        name: form.elements.name.value,
-        email: form.elements.email.value,
-        phone: form.elements.phone.value,
-        message: form.elements.message.value,
-        source: 'homepage',
-        practiceScore: null,
-        consentText: consentEl ? consentEl.textContent.trim().replace(/\s+/g, ' ') : '',
-        consentTimestamp: new Date().toISOString()
-      };
-
-      // The endpoint is a CORS-opaque Apps Script /exec (returns a 302 we can't
-      // read), so this is intentionally fire-and-forget — we never inspect the
-      // response. An AbortController gives us a real failure path for timeouts.
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 10000);
-
-      fetch('https://script.google.com/macros/s/AKfycbxsUDFUQYOTvbSsbXEfdZxz_1-kp8iA1yM24alVMwEZVo8jJsla_-lPgZUccSEqYBH2ow/exec', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        signal: controller.signal
-      })
-      .then(() => {
-        alert('Thank you! A recruiter will contact you soon.');
-        form.reset();
-        document.getElementById('recruiterForm').style.display = 'none';
-        document.querySelector('.recruiter-toggle').textContent = 'Request Recruiter Contact';
-      })
-      .catch(() => {
-        alert('Something went wrong. Please try again.');
-      })
-      .finally(() => {
-        clearTimeout(timeout);
-        btn.disabled = false;
-        btn.textContent = 'Submit Request';
-      });
-    }
-  </script>
+  <script src="js/year.js"></script>
+  <script src="js/page-index.js"></script>
   <script src="js/mobile-menu.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.js" integrity="sha384-EjUdIVmzWliPzdzhxZ9ZoO0etXLKWuUPUftAGxP6qH6Lm4oLwoLaJR0Ba4pIDiDL" crossorigin="anonymous"></script>
   <script src="js/auth.js"></script>
-  <script>
-    applyAuthNav();
-    getSession().then(session => {
-      const btn = document.getElementById('heroSignupBtn');
-      if (btn && session) {
-        btn.textContent = 'My Dashboard';
-        btn.href = 'dashboard.html';
-      }
-    });
-  </script>
+  <script src="js/page-index-nav.js"></script>
 </body>
 </html>
