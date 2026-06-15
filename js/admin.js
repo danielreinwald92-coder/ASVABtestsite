@@ -97,6 +97,26 @@ function bindRowClicks() {
   });
 }
 
+// Delegated handlers for the modal action buttons rendered into
+// #userModalContent (previously inline onclick attributes). Bound once at the
+// document level so it survives innerHTML re-renders.
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest && e.target.closest('.btn-action[data-action]');
+  if (!btn) return;
+  const id = btn.dataset.id;
+  switch (btn.dataset.action) {
+    case 'toggle-admin':
+      toggleAdminFlag(id, btn.dataset.makeAdmin === 'true');
+      break;
+    case 'delete-tests':
+      confirmDeleteTests(id);
+      break;
+    case 'delete-user':
+      confirmDeleteUser(id);
+      break;
+  }
+});
+
 function renderStats() {
   const now = new Date();
   const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
@@ -264,9 +284,9 @@ function openUserModal(userId, triggerEl) {
     `}
 
     <div class="modal-actions">
-      ${isSelf ? '' : `<button class="btn-action" onclick="toggleAdminFlag('${user.id}', ${!user.is_admin})">${adminToggleLabel}</button>`}
-      ${tests.length > 0 ? `<button class="btn-action danger" onclick="confirmDeleteTests('${user.id}')">Delete test history</button>` : ''}
-      ${isSelf ? '' : `<button class="btn-action danger" onclick="confirmDeleteUser('${user.id}')">Delete user</button>`}
+      ${isSelf ? '' : `<button class="btn-action" data-action="toggle-admin" data-id="${escHtml(user.id)}" data-make-admin="${!user.is_admin}">${adminToggleLabel}</button>`}
+      ${tests.length > 0 ? `<button class="btn-action danger" data-action="delete-tests" data-id="${escHtml(user.id)}">Delete test history</button>` : ''}
+      ${isSelf ? '' : `<button class="btn-action danger" data-action="delete-user" data-id="${escHtml(user.id)}">Delete user</button>`}
     </div>
     <div class="action-status" id="actionStatus"></div>
   `;
