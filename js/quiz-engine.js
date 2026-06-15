@@ -576,9 +576,15 @@ class QuizEngine {
 
     const lineScores = MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
     const strippedSections = {};
+    // Compact per-question results: id + section + correct only (NO text/options),
+    // so the mistake history stays small. Powers weak-area aggregation (see js/weak-areas.js).
+    const questionResults = [];
     if (quizResults.sectionResults) {
       for (const [code, data] of Object.entries(quizResults.sectionResults)) {
         strippedSections[code] = { correct: data.correct, total: data.total };
+        (data.questions || []).forEach(q => {
+          questionResults.push({ id: q.id, section: code, correct: !!q.isCorrect });
+        });
       }
     }
     const payload = {
@@ -586,7 +592,8 @@ class QuizEngine {
       test_type: quizResults.testType || 'afqt',
       afqt_score: quizResults.afqt,
       section_scores: strippedSections,
-      line_scores: lineScores
+      line_scores: lineScores,
+      question_results: questionResults
     };
 
     try {
