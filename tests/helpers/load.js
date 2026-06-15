@@ -51,7 +51,7 @@ function loadCore(opts = {}) {
   const { includeData = true, includeCourses = false } = opts;
 
   const files = ['js/test-config.js', 'js/scoring.js'];
-  if (includeData) files.push('js/quiz-data.js');
+  if (includeData) files.push('js/section-config.js', 'js/quiz-data.js');
   if (includeCourses) files.push({ file: 'js/courses.js', append: 'this.courses = courses;' });
 
   const context = loadScripts(files);
