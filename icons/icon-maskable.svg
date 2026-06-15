@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Mission ASVAB">
+  <rect width="512" height="512" fill="#0a1628"/>
+  <circle cx="256" cy="240" r="110" fill="none" stroke="#d4a853" stroke-width="12"/>
+  <path d="M256 150 l24 62 66 3 -52 42 18 64 -56 -37 -56 37 18 -64 -52 -42 66 -3 z" fill="#d4a853"/>
+  <text x="256" y="380" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="60" font-weight="700" fill="#f0d69b">ASVAB</text>
+</svg>
