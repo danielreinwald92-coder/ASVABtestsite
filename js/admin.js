@@ -64,6 +64,7 @@ async function loadAdmin() {
 
   bindSortHandlers();
   bindLiveSearch();
+  bindRowClicks();
   renderStats();
   applyFilters();
 }
@@ -86,6 +87,35 @@ function bindSortHandlers() {
 function bindLiveSearch() {
   document.getElementById('filterSearch').addEventListener('input', applyFilters);
 }
+
+// Delegated row-click handler (replaces inline onclick on each <tr>, which
+// helps future CSP work and avoids injecting raw ids into markup).
+function bindRowClicks() {
+  document.getElementById('adminTableBody').addEventListener('click', (e) => {
+    const row = e.target.closest('tr[data-id]');
+    if (row) openUserModal(row.dataset.id, row);
+  });
+}
+
+// Delegated handlers for the modal action buttons rendered into
+// #userModalContent (previously inline onclick attributes). Bound once at the
+// document level so it survives innerHTML re-renders.
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest && e.target.closest('.btn-action[data-action]');
+  if (!btn) return;
+  const id = btn.dataset.id;
+  switch (btn.dataset.action) {
+    case 'toggle-admin':
+      toggleAdminFlag(id, btn.dataset.makeAdmin === 'true');
+      break;
+    case 'delete-tests':
+      confirmDeleteTests(id);
+      break;
+    case 'delete-user':
+      confirmDeleteUser(id);
+      break;
+  }
+});
 
 function renderStats() {
   const now = new Date();
@@ -149,8 +179,11 @@ function renderTable() {
   const tbody = document.getElementById('adminTableBody');
 
   document.querySelectorAll('#adminTableHead .sort-ind').forEach(el => { el.textContent = ''; });
+  document.querySelectorAll('#adminTableHead th.sortable').forEach(th => { th.setAttribute('aria-sort', 'none'); });
   const ind = document.querySelector(`#adminTableHead .sort-ind[data-for="${sortKey}"]`);
   if (ind) ind.textContent = sortDir === 'asc' ? '▲' : '▼';
+  const activeTh = document.querySelector(`#adminTableHead th.sortable[data-sort="${sortKey}"]`);
+  if (activeTh) activeTh.setAttribute('aria-sort', sortDir === 'asc' ? 'ascending' : 'descending');
 
   const sorted = filteredUsers.slice().sort((a, b) => {
     const cmp = compareValues(a, b, sortKey);
@@ -166,7 +199,7 @@ function renderTable() {
   document.getElementById('filteredCount').textContent = `${sorted.length} user${sorted.length !== 1 ? 's' : ''}`;
 
   tbody.innerHTML = sorted.map(u => `
-    <tr onclick="openUserModal('${u.id}')">
+    <tr data-id="${escHtml(u.id)}" class="user-row" style="cursor:pointer;">
       <td>${escHtml(u.name || '—')}${u.is_admin ? '<span class="admin-badge-mini">Admin</span>' : ''}</td>
       <td>${escHtml(u.email)}</td>
       <td>${escHtml(String(u.age || '—'))}</td>
@@ -181,9 +214,13 @@ function renderTable() {
   `).join('');
 }
 
-function openUserModal(userId) {
+function openUserModal(userId, triggerEl) {
   const user = allUsers.find(u => u.id === userId);
   if (!user) return;
+
+  // Remember what to restore focus to once the modal closes (the clicked row,
+  // or whatever currently has focus, e.g. an action button on re-open).
+  const trigger = triggerEl || document.activeElement;
 
   const tests = user.tests;
   const latest = tests[0];
@@ -247,18 +284,28 @@ function openUserModal(userId) {
     `}
 
     <div class="modal-actions">
-      ${isSelf ? '' : `<button class="btn-action" onclick="toggleAdminFlag('${user.id}', ${!user.is_admin})">${adminToggleLabel}</button>`}
-      ${tests.length > 0 ? `<button class="btn-action danger" onclick="confirmDeleteTests('${user.id}')">Delete test history</button>` : ''}
-      ${isSelf ? '' : `<button class="btn-action danger" onclick="confirmDeleteUser('${user.id}')">Delete user</button>`}
+      ${isSelf ? '' : `<button class="btn-action" data-action="toggle-admin" data-id="${escHtml(user.id)}" data-make-admin="${!user.is_admin}">${adminToggleLabel}</button>`}
+      ${tests.length > 0 ? `<button class="btn-action danger" data-action="delete-tests" data-id="${escHtml(user.id)}">Delete test history</button>` : ''}
+      ${isSelf ? '' : `<button class="btn-action danger" data-action="delete-user" data-id="${escHtml(user.id)}">Delete user</button>`}
     </div>
     <div class="action-status" id="actionStatus"></div>
   `;
 
-  document.getElementById('userModal').classList.add('open');
+  const modal = document.getElementById('userModal');
+  modal.classList.add('open');
+  if (typeof FocusTrap !== 'undefined') {
+    FocusTrap.activate(modal, {
+      trigger,
+      initialFocus: modal.querySelector('.modal-close'),
+      onEscape: closeUserModal
+    });
+  }
 }
 
 function closeUserModal() {
-  document.getElementById('userModal').classList.remove('open');
+  const modal = document.getElementById('userModal');
+  modal.classList.remove('open');
+  if (typeof FocusTrap !== 'undefined') FocusTrap.release(modal);
 }
 
 function setActionStatus(msg, cls) {
@@ -389,7 +436,8 @@ function escHtml(str) {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 function formatDate(iso) {
@@ -417,6 +465,5 @@ function formatRelative(iso) {
   return formatDate(iso);
 }
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeUserModal();
-});
+// Escape-to-close is handled by FocusTrap while the modal is open (see
+// openUserModal), which also restores focus to the triggering element.

@@ -216,26 +216,38 @@ function renderSectionBreakdown(results) {
 }
 
 function computeFocusSections(results) {
+  if (!results || !results.length) return [];
+
+  const WA = (typeof MissionASVABWeakAreas !== 'undefined') ? MissionASVABWeakAreas : null;
+
+  // Historical aggregation across ALL of the user's tests (prefers per-question
+  // mistake history, falls back to section_scores for older rows). The previous
+  // implementation only looked at the latest test.
+  let weak;
+  if (WA) {
+    weak = WA.weakestSections(results, 2, { sections: AFQT_SECTIONS });
+  } else {
+    // Defensive fallback if js/weak-areas.js is not loaded: latest test only.
+    weak = AFQT_SECTIONS
+      .map(code => {
+        const score = getSectionScore(results[0].section_scores, code);
+        return score === null ? null : { code, accuracy: score };
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.accuracy - b.accuracy)
+      .slice(0, 2);
+  }
+
+  // Keep latest-vs-previous trend for the focus messaging.
   const latest = results[0];
   const previous = results.length > 1 ? results[1] : null;
 
-  const scored = AFQT_SECTIONS
-    .map(code => {
-      const score = getSectionScore(latest.section_scores, code);
-      if (score === null) return null;
-      const prevScore = previous ? getSectionScore(previous.section_scores, code) : null;
-      const trend = prevScore !== null ? score - prevScore : 0;
-      return { code, score, trend };
-    })
-    .filter(Boolean);
-
-  // Sort: lowest score first, then worst trend (most negative) as tiebreaker
-  scored.sort((a, b) => {
-    if (a.score !== b.score) return a.score - b.score;
-    return a.trend - b.trend;
+  return weak.map(w => {
+    const latestScore = getSectionScore(latest.section_scores, w.code);
+    const prevScore = previous ? getSectionScore(previous.section_scores, w.code) : null;
+    const trend = (latestScore !== null && prevScore !== null) ? latestScore - prevScore : 0;
+    return { code: w.code, score: w.accuracy, trend };
   });
-
-  return scored.slice(0, 2);
 }
 
 function renderFocusPanel(results) {
@@ -274,15 +286,88 @@ function renderFocusPanel(results) {
   text.className = 'focus-text';
   text.textContent = suggestionText;
 
+  // Actions: start a targeted quiz over the weakest sections, plus study guide.
+  const actions = document.createElement('div');
+  actions.className = 'focus-actions';
+
+  const codes = focus.map(f => f.code);
+  const practiceBtn = document.createElement('button');
+  practiceBtn.type = 'button';
+  practiceBtn.className = 'focus-btn';
+  practiceBtn.dataset.action = 'practice-weak-areas';
+  practiceBtn.dataset.sections = codes.join(',');
+  practiceBtn.textContent = 'Practice My Weak Areas →';
+
   const cta = document.createElement('a');
   cta.href = 'study-guide.html';
-  cta.className = 'focus-cta';
+  cta.className = 'focus-cta secondary';
   cta.textContent = 'Go to Study Guide →';
+
+  actions.appendChild(practiceBtn);
+  actions.appendChild(cta);
 
   panel.appendChild(label);
   panel.appendChild(text);
-  panel.appendChild(cta);
+  panel.appendChild(actions);
+  panel.appendChild(buildStudyPlan(focus));
   panel.style.display = 'block';
+}
+
+// Map the weakest sections to recommended study content (weakest first).
+// Chapter titles are listed when js/courses.js is loaded; the section link
+// works regardless via the study-guide deep link (?section=CODE).
+function buildStudyPlan(focus) {
+  const wrap = document.createElement('div');
+  wrap.className = 'study-plan';
+
+  const heading = document.createElement('div');
+  heading.className = 'study-plan-heading';
+  heading.textContent = 'Your Study Plan';
+  wrap.appendChild(heading);
+
+  const ol = document.createElement('ol');
+  ol.className = 'study-plan-list';
+
+  focus.forEach(f => {
+    const li = document.createElement('li');
+
+    const link = document.createElement('a');
+    link.href = `study-guide.html?section=${encodeURIComponent(f.code)}`;
+    link.className = 'study-plan-section';
+    link.textContent = SECTION_NAMES[f.code] || f.code;
+    li.appendChild(link);
+
+    const course = (typeof courses !== 'undefined' && courses) ? courses[f.code] : null;
+    if (course && Array.isArray(course.chapters) && course.chapters.length) {
+      const chs = document.createElement('div');
+      chs.className = 'study-plan-chapters';
+      chs.textContent = course.chapters.slice(0, 3).map(ch => ch.title).join(' • ');
+      li.appendChild(chs);
+    }
+
+    ol.appendChild(li);
+  });
+
+  wrap.appendChild(ol);
+  return wrap;
+}
+
+// Start a targeted quiz limited to the given weak sections. Reuses the existing
+// test-start mechanism (sessionStorage testConfig → test-intro.html → quiz.html),
+// the same path select-test.html uses.
+function startWeakAreaPractice(sections) {
+  const codes = Array.isArray(sections)
+    ? sections
+    : String(sections || '').split(',').map(s => s.trim()).filter(Boolean);
+  if (!codes.length) return;
+
+  sessionStorage.removeItem('quizState');
+  sessionStorage.removeItem('generatedTest');
+  localStorage.removeItem('quizResults');
+  localStorage.setItem('testType', 'custom');
+  sessionStorage.setItem('testConfig', JSON.stringify({ sections: codes }));
+
+  window.location.href = 'test-intro.html';
 }
 
 let historyPage = 0;
@@ -308,7 +393,7 @@ function renderTestHistory(results) {
         <td>${formatDate(r.taken_at)}</td>
         <td>${r.test_type === 'full' ? 'Full Assessment' : 'AFQT'}</td>
         <td>${r.afqt_score !== null ? r.afqt_score + 'th %ile' : '—'}</td>
-        <td><button class="expand-btn" onclick="toggleHistoryDetail(${globalIdx})">▾</button></td>
+        <td><button class="expand-btn" data-idx="${globalIdx}">▾</button></td>
       </tr>
       <tr class="history-detail" id="detail-${globalIdx}" style="display:none;">
         <td colspan="4"><div class="detail-sections">${sectionDetail}</div></td>
@@ -323,9 +408,9 @@ function renderTestHistory(results) {
     </table>
     ${results.length > HISTORY_PAGE_SIZE ? `
       <div class="history-pagination">
-        <button onclick="changeHistoryPage(-1)" ${historyPage === 0 ? 'disabled' : ''}>← Previous</button>
+        <button class="history-pagebtn" data-dir="-1" ${historyPage === 0 ? 'disabled' : ''}>← Previous</button>
         <span>Page ${historyPage + 1} of ${Math.ceil(results.length / HISTORY_PAGE_SIZE)}</span>
-        <button onclick="changeHistoryPage(1)" ${(historyPage + 1) * HISTORY_PAGE_SIZE >= results.length ? 'disabled' : ''}>Next →</button>
+        <button class="history-pagebtn" data-dir="1" ${(historyPage + 1) * HISTORY_PAGE_SIZE >= results.length ? 'disabled' : ''}>Next →</button>
       </div>
     ` : ''}
   `;
@@ -361,11 +446,22 @@ function openAccountModal() {
   setAccMsg('accMsg', '');
   setAccMsg('pwMsg', '');
   setAccMsg('delMsg', '');
-  document.getElementById('accOverlay').classList.add('open');
+  const trigger = document.activeElement;
+  const overlay = document.getElementById('accOverlay');
+  overlay.classList.add('open');
+  if (typeof FocusTrap !== 'undefined') {
+    FocusTrap.activate(overlay, {
+      trigger,
+      initialFocus: overlay.querySelector('.acc-close'),
+      onEscape: closeAccountModal
+    });
+  }
 }
 
 function closeAccountModal() {
-  document.getElementById('accOverlay').classList.remove('open');
+  const overlay = document.getElementById('accOverlay');
+  overlay.classList.remove('open');
+  if (typeof FocusTrap !== 'undefined') FocusTrap.release(overlay);
 }
 
 function setAccMsg(id, msg, cls) {
@@ -397,6 +493,10 @@ async function saveProfile(e) {
     test_date: testDate || null
   };
 
+  // Double-click guard: disable the submit button while the request is in flight.
+  const btn = e.target.querySelector('button[type="submit"]');
+  if (btn) btn.disabled = true;
+
   const { data, error } = await getClient()
     .from('profiles')
     .update(updates)
@@ -405,10 +505,12 @@ async function saveProfile(e) {
     .single();
 
   if (error) {
+    if (btn) btn.disabled = false;
     return setAccMsg('accMsg', error.message, 'err');
   }
   _currentProfile = data;
   document.getElementById('userName').textContent = getDisplayName(data, _currentSession.user.email);
+  if (btn) btn.disabled = false;
   setAccMsg('accMsg', 'Profile updated.', 'ok');
 }
 
@@ -425,6 +527,54 @@ async function changePassword(e) {
   }
   document.getElementById('accNewPw').value = '';
   setAccMsg('pwMsg', 'Password updated.', 'ok');
+}
+
+// 4.5 — user-initiated data export. Fetches the user's profile + all of their
+// test_results and triggers a client-side JSON download (no server round-trip
+// beyond the read). Wired via a delegated/data-action listener in
+// js/page-dashboard.js (no inline on* handlers — CSP/inline-JS gate).
+async function exportUserData() {
+  const session = _currentSession || await getSession();
+  if (!session) return;
+  setAccMsg('exportMsg', 'Preparing your data…');
+
+  const client = getClient();
+  const [profileRes, resultsRes] = await Promise.all([
+    client.from('profiles').select('*').eq('id', session.user.id).single(),
+    client.from('test_results').select('*').eq('user_id', session.user.id)
+  ]);
+
+  if (profileRes.error || resultsRes.error) {
+    const msg = (profileRes.error || resultsRes.error).message;
+    return setAccMsg('exportMsg', 'Could not export your data: ' + msg, 'err');
+  }
+
+  const payload = {
+    exported_at: new Date().toISOString(),
+    account: { id: session.user.id, email: session.user.email },
+    profile: profileRes.data || null,
+    test_results: resultsRes.data || []
+  };
+
+  const date = new Date().toISOString().slice(0, 10);
+  triggerDownload(
+    JSON.stringify(payload, null, 2),
+    `mission-asvab-data-${date}.json`,
+    'application/json'
+  );
+  setAccMsg('exportMsg', 'Download started.', 'ok');
+}
+
+function triggerDownload(contents, filename, mime) {
+  const blob = new Blob([contents], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 async function confirmDeleteAccount() {

@@ -7,21 +7,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a1628">
   <style>
-    :root {
-      --navy-900: #0a1628;
-      --navy-800: #132039;
-      --navy-700: #1e3a5f;
-      --navy-600: #2d5a87;
-      --gold-500: #d4a853;
-      --gold-400: #e8c17a;
-      --gold-300: #f0d69b;
-      --cream-100: #faf8f5;
-      --cream-200: #f2efe8;
-      --white: #ffffff;
-      --text-primary: #0a1628;
-      --text-secondary: #4a5568;
-    }
 
     * {
       margin: 0;
@@ -59,49 +48,18 @@
       color: var(--gold-500);
     }
 
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
 
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-secondary);
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: color 0.2s ease;
-    }
 
     .nav-links a:hover {
       color: var(--navy-900);
     }
 
-    .nav-cta {
-      background: var(--navy-900);
-      color: var(--white);
-      padding: 0.75rem 1.75rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.2s ease;
-    }
 
     .nav-cta:hover {
       background: var(--navy-700);
       transform: translateY(-1px);
     }
 
-    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 0.5rem; }
-    .hamburger span { width: 24px; height: 2px; background: var(--navy-900); transition: all 0.3s; }
-    .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--white); z-index: 1000; padding: 1.5rem 5%; flex-direction: column; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-    .mobile-menu-close { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--navy-900); }
-    .mobile-menu-links { display: flex; flex-direction: column; gap: 1.5rem; }
-    .mobile-menu-links a { text-decoration: none; color: var(--navy-900); font-size: 1.25rem; font-weight: 500; padding: 0.5rem 0; border-bottom: 1px solid var(--cream-200); }
-    .mobile-menu-cta { margin-top: 2rem; background: var(--navy-900); color: var(--white); padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; text-align: center; }
 
     /* Hero Section */
     .hero {
@@ -323,7 +281,7 @@
 
     .afqt-percentile-preview {
       font-size: 0.85rem;
-      color: var(--gold-500);
+      color: var(--gold-text);
       font-weight: 600;
       margin-top: 0.25rem;
     }
@@ -875,14 +833,14 @@
       <li><a href="about.html">About the ASVAB</a></li>
     </ul>
     <a href="select-test.html" class="nav-cta">Take a Practice Test</a>
-    <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')">
+    <button class="hamburger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </nav>
   <div class="mobile-menu" id="mobile-menu">
     <div class="mobile-menu-header">
       <a href="index.html" class="logo" style="text-decoration: none;">Mission <span>ASVAB</span></a>
-      <button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button>
+      <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
     </div>
     <div class="mobile-menu-links">
       <a href="select-test.html">Practice Tests</a>
@@ -968,11 +926,12 @@
       <div class="recruiter-content">
         <h2>Have Questions About Eligibility?</h2>
         <p>A military recruiter can answer questions about ASVAB scores, job qualifications, and enlistment requirements for your branch of interest.</p>
-        <button class="recruiter-toggle" onclick="toggleRecruiterForm()">Request Recruiter Contact</button>
+        <button class="recruiter-toggle">Request Recruiter Contact</button>
       </div>
     </div>
     <div class="recruiter-form-container" id="recruiterForm" style="display: none;">
-      <form class="recruiter-form" onsubmit="submitRecruiterRequest(event)">
+      <form class="recruiter-form">
+        <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
         <div class="form-row">
           <div class="form-group">
             <label for="recruiterName">Full Name</label>
@@ -998,75 +957,23 @@
           </label>
         </div>
         <button type="submit" class="form-submit">Submit Request</button>
-        <p class="form-disclaimer">Your information is only shared with authorized military recruiters. You may opt out at any time by contacting us.</p>
+        <p class="form-disclaimer">Your contact details — and, if you have taken a practice test, your estimated practice AFQT score — are shared only with authorized military recruiters. This is a practice estimate, not an official ASVAB result. You may opt out at any time by contacting us.</p>
       </form>
     </div>
   </section>
 
   <footer class="site-footer">
     <p class="disclaimer">This website is not affiliated with, endorsed by, or sponsored by the U.S. Department of Defense, any branch of the U.S. Armed Forces, or the official ASVAB program. "ASVAB" is a registered trademark of the U.S. Department of Defense. This is an independent practice resource only.</p>
-    <p class="copyright">© <script>document.write(new Date().getFullYear())</script> Mission ASVAB. For educational purposes only.</p>
+    <p class="copyright">© <span id="year"></span> Mission ASVAB. For educational purposes only.</p>
   </footer>
-  <script>
-    function toggleRecruiterForm() {
-      const form = document.getElementById('recruiterForm');
-      const btn = document.querySelector('.recruiter-toggle');
-      if (form.style.display === 'none') {
-        form.style.display = 'block';
-        btn.textContent = 'Hide Form';
-      } else {
-        form.style.display = 'none';
-        btn.textContent = 'Request Recruiter Contact';
-      }
-    }
-
-    function submitRecruiterRequest(e) {
-      e.preventDefault();
-      const form = e.target;
-      const btn = form.querySelector('.form-submit');
-      btn.disabled = true;
-      btn.textContent = 'Submitting...';
-
-      const data = {
-        name: form.name.value,
-        email: form.email.value,
-        phone: form.phone.value,
-        message: form.message.value,
-        source: 'homepage',
-        practiceScore: null
-      };
-
-      fetch('https://script.google.com/macros/s/AKfycbxsUDFUQYOTvbSsbXEfdZxz_1-kp8iA1yM24alVMwEZVo8jJsla_-lPgZUccSEqYBH2ow/exec', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      })
-      .then(() => {
-        alert('Thank you! A recruiter will contact you soon.');
-        form.reset();
-        document.getElementById('recruiterForm').style.display = 'none';
-        document.querySelector('.recruiter-toggle').textContent = 'Request Recruiter Contact';
-      })
-      .catch(() => {
-        alert('Something went wrong. Please try again.');
-      })
-      .finally(() => {
-        btn.disabled = false;
-        btn.textContent = 'Submit Request';
-      });
-    }
-  </script>
+  <script src="js/year.js"></script>
+  <script src="js/page-index.js"></script>
+  <script src="js/mobile-menu.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.js" integrity="sha384-EjUdIVmzWliPzdzhxZ9ZoO0etXLKWuUPUftAGxP6qH6Lm4oLwoLaJR0Ba4pIDiDL" crossorigin="anonymous"></script>
   <script src="js/auth.js"></script>
-  <script>
-    applyAuthNav();
-    getSession().then(session => {
-      const btn = document.getElementById('heroSignupBtn');
-      if (btn && session) {
-        btn.textContent = 'My Dashboard';
-        btn.href = 'dashboard.html';
-      }
-    });
-  </script>
+  <script src="js/page-index-nav.js"></script>
+  <script src="js/offline-queue.js"></script>
+  <script src="js/sw-register.js"></script>
 </body>
 </html>

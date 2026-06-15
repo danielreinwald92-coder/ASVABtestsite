@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Dashboard — Mission ASVAB</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a1628">
   <style>
-    :root {
-      --navy-900: #0a1628; --navy-800: #132039; --navy-700: #1e3a5f;
-      --navy-600: #2d5a87; --gold-500: #d4a853; --gold-400: #e8c17a;
-      --cream-100: #faf8f5; --cream-200: #f2efe8;
-      --white: #ffffff; --text-primary: #0a1628; --text-secondary: #4a5568;
-    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream-100); color: var(--text-primary); }
     nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: var(--white); border-bottom: 1px solid var(--cream-200); }
@@ -83,6 +80,16 @@
     .focus-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 0.5rem; }
     .focus-text { font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem; }
     .focus-cta { color: var(--gold-400); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    .focus-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin: 0.25rem 0 0.5rem; }
+    .focus-btn { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--gold-500); color: var(--navy-900); border: none; border-radius: 8px; padding: 0.6rem 1rem; font-weight: 700; font-size: 0.9rem; cursor: pointer; font-family: inherit; }
+    .focus-btn:hover { background: var(--gold-400); }
+    .focus-cta.secondary { color: var(--gold-300); }
+    .study-plan { margin-top: 1rem; padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.15); }
+    .study-plan-heading { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 0.6rem; }
+    .study-plan-list { list-style: decimal; padding-left: 1.25rem; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+    .study-plan-section { color: var(--white); font-weight: 600; text-decoration: none; font-size: 0.95rem; }
+    .study-plan-section:hover { color: var(--gold-300); text-decoration: underline; }
+    .study-plan-chapters { font-size: 0.82rem; color: rgba(255,255,255,0.7); margin-top: 0.15rem; }
 
     /* Zone 4: History */
     .history-tbl { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
@@ -126,9 +133,9 @@
     <div class="nav-right">
       <a href="select-test.html">Practice Tests</a>
       <a href="study-guide.html">Study Guide</a>
-      <a href="admin.html" id="adminNavLink" style="display:none; color: var(--gold-500); font-weight:600;">Admin</a>
-      <button class="account-btn" onclick="openAccountModal()">Account</button>
-      <button class="sign-out-btn" onclick="signOut()">Sign Out</button>
+      <a href="admin.html" id="adminNavLink" style="display:none; color: var(--gold-text); font-weight:600;">Admin</a>
+      <button class="account-btn">Account</button>
+      <button class="sign-out-btn">Sign Out</button>
     </div>
   </nav>
 
@@ -147,7 +154,8 @@
             <input type="date" id="testDateInput">
           </div>
           <a href="select-test.html" class="btn-primary" id="diagnosticBtn">Take Your Diagnostic Test &rarr;</a>
-          <button class="skip-link" onclick="skipWelcome()">Skip for now</button>
+          <p id="diagMsg" style="display:none;color:#c0392b;font-size:0.85rem;margin-top:0.5rem;"></p>
+          <button class="skip-link">Skip for now</button>
         </div>
       </div>
 
@@ -216,14 +224,14 @@
   </main>
 
   <!-- Account modal -->
-  <div class="acc-overlay" id="accOverlay" onclick="if(event.target===this)closeAccountModal()">
+  <div class="acc-overlay" id="accOverlay">
     <div class="acc-modal">
-      <button class="acc-close" onclick="closeAccountModal()" aria-label="Close">&times;</button>
+      <button class="acc-close" aria-label="Close">&times;</button>
       <h2>Your account</h2>
       <p class="sub" id="accEmail"></p>
 
       <h3>Profile</h3>
-      <form class="acc-form" onsubmit="saveProfile(event)">
+      <form class="acc-form" id="accProfileForm">
         <label for="accName">Full name</label>
         <input type="text" id="accName" required maxlength="100">
         <div class="row">
@@ -255,7 +263,7 @@
       </form>
 
       <h3>Password</h3>
-      <form class="acc-form" onsubmit="changePassword(event)">
+      <form class="acc-form" id="accPasswordForm">
         <label for="accNewPw">New password (min 8 chars)</label>
         <input type="password" id="accNewPw" minlength="8" autocomplete="new-password">
         <div class="acc-actions">
@@ -264,31 +272,28 @@
         <div class="acc-msg" id="pwMsg"></div>
       </form>
 
+      <h3>Your data</h3>
+      <p class="sub">Download a copy of your profile and all of your test results as a JSON file.</p>
+      <button type="button" class="save" data-action="export-data">Download my data</button>
+      <div class="acc-msg" id="exportMsg"></div>
+
       <div class="danger-zone">
         <h3 style="color:#b94a4a;">Delete account</h3>
         <p class="warn">Permanently removes your account and all test history. This cannot be undone.</p>
-        <button type="button" class="del" onclick="confirmDeleteAccount()">Delete my account</button>
+        <button type="button" class="del">Delete my account</button>
         <div class="acc-msg" id="delMsg"></div>
       </div>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.js" integrity="sha384-EjUdIVmzWliPzdzhxZ9ZoO0etXLKWuUPUftAGxP6qH6Lm4oLwoLaJR0Ba4pIDiDL" crossorigin="anonymous"></script>
   <script src="js/auth.js"></script>
+  <script src="js/focus-trap.js"></script>
+  <script src="js/weak-areas.js"></script>
+  <script src="js/courses.js"></script>
   <script src="js/dashboard.js"></script>
-  <script>
-    // Save test date if set before going to test
-    document.getElementById('diagnosticBtn').addEventListener('click', async (e) => {
-      const testDate = document.getElementById('testDateInput').value;
-      if (testDate) {
-        const session = await getSession();
-        if (session) {
-          await getClient().from('profiles').update({ test_date: testDate }).eq('id', session.user.id);
-        }
-      }
-    });
-
-    loadDashboard();
-  </script>
+  <script src="js/page-dashboard.js"></script>
+  <script src="js/offline-queue.js"></script>
+  <script src="js/sw-register.js"></script>
 </body>
 </html>

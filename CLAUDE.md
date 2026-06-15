@@ -78,10 +78,18 @@ git push                    # Auto-deploys to Vercel
 
 ## Percentile Scoring
 
-AFQT percentile based on 1997 norming study. Uses logistic curve approximation:
-- 31st percentile (Army minimum) ~ raw score 85
-- 50th percentile (average) ~ raw score 100
-- 93rd percentile (Category I) ~ raw score 135
+**This is a documented public approximation, not official scoring.** Full model,
+sources, and limits: [docs/scoring-methodology.md](docs/scoring-methodology.md).
+
+Section % correct → standard score (mean 50, SD 10, linear onto the 20–80 band).
+VE ≈ avg(WK, PC) standard scores. AFQT raw = 2·VE + AR + MK, rescaled to a
+~100-centered practice composite and mapped to a 1–99 percentile via a normal
+CDF fit to the 1997 (PAY97) reference. Anchor points (sanity checks, ±8):
+- 31st percentile (Army minimum) ~ raw composite 85
+- 50th percentile (average) ~ raw composite 100
+- 93rd percentile (Category I) ~ raw composite 135
+
+Army line scores are **sums of standard scores** (no percentage multipliers).
 
 ## Self-Correction Protocol
 

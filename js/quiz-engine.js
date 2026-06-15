@@ -23,6 +23,11 @@ class QuizEngine {
     // Track whether timer warning thresholds have been announced for SR users
     this._warned10 = false;
     this._warned5 = false;
+
+    // Single visibilitychange handler reference (bound once, see bindVisibilityHandler)
+    this._visHandler = null;
+    // Guard against double submission (double-click / timer-expiry race)
+    this._isSubmitting = false;
   }
 
   init() {
@@ -208,8 +213,15 @@ class QuizEngine {
     }, 1000);
 
     // Pause the timer when the tab is hidden so users aren't penalized for
-    // switching tabs (matches behavior of common practice-test platforms).
-    document.addEventListener('visibilitychange', () => {
+    // switching tabs. Bound ONCE — startTimer() is re-invoked when the tab
+    // becomes visible again, so re-binding here would accumulate listeners
+    // (and could multi-fire submit on timer expiry).
+    this.bindVisibilityHandler();
+  }
+
+  bindVisibilityHandler() {
+    if (this._visHandler) return; // already registered
+    this._visHandler = () => {
       if (document.hidden) {
         if (this.timerInterval) {
           clearInterval(this.timerInterval);
@@ -219,7 +231,8 @@ class QuizEngine {
       } else if (!this.timerInterval && this.timeRemaining > 0) {
         this.startTimer();
       }
-    });
+    };
+    document.addEventListener('visibilitychange', this._visHandler);
   }
 
   updateTimerDisplay() {
@@ -425,7 +438,9 @@ class QuizEngine {
       this.saveState();
       this.renderQuestion();
     } else {
-      this.submitQuiz();
+      // Last question: route through the review/confirm step rather than
+      // submitting immediately.
+      this.showSubmitConfirm();
     }
   }
 
@@ -461,6 +476,17 @@ class QuizEngine {
   }
 
   async submitQuiz() {
+    // Guard against double submission: rapid double-click, or the timer-expiry
+    // path firing while a manual submit is already in flight. saveResultsToSupabase
+    // swallows errors and the flow always navigates to results, so we must NOT
+    // reset this guard (doing so would re-enable a duplicate insert).
+    if (this._isSubmitting) return;
+    this._isSubmitting = true;
+
+    // Disable the submit button in the DOM so the UI can't trigger a second submit.
+    const submitBtn = document.getElementById('nextBtn');
+    if (submitBtn) submitBtn.disabled = true;
+
     clearInterval(this.timerInterval);
 
     // Materialize any slots the user never reached so scoring and the review
@@ -550,9 +576,15 @@ class QuizEngine {
 
     const lineScores = MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
     const strippedSections = {};
+    // Compact per-question results: id + section + correct only (NO text/options),
+    // so the mistake history stays small. Powers weak-area aggregation (see js/weak-areas.js).
+    const questionResults = [];
     if (quizResults.sectionResults) {
       for (const [code, data] of Object.entries(quizResults.sectionResults)) {
         strippedSections[code] = { correct: data.correct, total: data.total };
+        (data.questions || []).forEach(q => {
+          questionResults.push({ id: q.id, section: code, correct: !!q.isCorrect });
+        });
       }
     }
     const payload = {
@@ -560,7 +592,8 @@ class QuizEngine {
       test_type: quizResults.testType || 'afqt',
       afqt_score: quizResults.afqt,
       section_scores: strippedSections,
-      line_scores: lineScores
+      line_scores: lineScores,
+      question_results: questionResults
     };
 
     try {
@@ -570,8 +603,10 @@ class QuizEngine {
         this._queuePendingResult(payload, error.message);
         return { ok: false, error: error.message };
       }
-      // Clear any prior pending result on success
-      localStorage.removeItem('pendingTestResult');
+      // We just confirmed connectivity — drain any previously queued results.
+      if (typeof flushPendingTestResults === 'function') {
+        try { flushPendingTestResults(); } catch (_) {}
+      }
       return { ok: true };
     } catch (err) {
       console.error('Failed to save results to Supabase:', err);
@@ -581,12 +616,27 @@ class QuizEngine {
   }
 
   _queuePendingResult(payload, errorMessage) {
+    // Append to the array queue (supports multiple offline submits). Migrate a
+    // legacy single-result key if present so nothing is lost. js/offline-queue.js
+    // drains this queue on load and when connectivity returns.
     try {
-      localStorage.setItem('pendingTestResult', JSON.stringify({
+      let queue = [];
+      const raw = localStorage.getItem('pendingTestResults');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) queue = parsed;
+      }
+      const legacy = localStorage.getItem('pendingTestResult');
+      if (legacy) {
+        try { queue.push(JSON.parse(legacy)); } catch (_) {}
+        localStorage.removeItem('pendingTestResult');
+      }
+      queue.push({
         payload,
         error: errorMessage,
         queuedAt: new Date().toISOString()
-      }));
+      });
+      localStorage.setItem('pendingTestResults', JSON.stringify(queue));
     } catch (_) {
       // Quota or serialization error — nothing we can do client-side
     }
@@ -600,6 +650,19 @@ class QuizEngine {
         const option = e.target.closest('.answer-option');
         if (option) {
           this.selectAnswer(parseInt(option.dataset.index));
+        }
+      });
+      // Keyboard activation for the focused answer option (Enter/Space).
+      // stopPropagation so the document-level Enter handler does not also
+      // advance to the next question while an option is focused.
+      answersContainer.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          const option = e.target.closest('.answer-option');
+          if (option) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.selectAnswer(parseInt(option.dataset.index));
+          }
         }
       });
     }
@@ -654,6 +717,8 @@ class QuizEngine {
   static startNewTest(sections) {
     sessionStorage.removeItem('quizState');
     sessionStorage.removeItem('generatedTest');
+    // Clear any prior result so a brand-new test never renders a stale score.
+    localStorage.removeItem('quizResults');
     sessionStorage.setItem('testConfig', JSON.stringify({ sections: sections }));
   }
 }

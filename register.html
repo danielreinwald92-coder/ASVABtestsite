@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Account — Mission ASVAB</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a1628">
   <style>
-    :root {
-      --navy-900: #0a1628; --navy-800: #132039; --navy-700: #1e3a5f;
-      --navy-600: #2d5a87; --gold-500: #d4a853; --gold-400: #e8c17a;
-      --cream-100: #faf8f5; --cream-200: #f2efe8;
-      --white: #ffffff; --text-primary: #0a1628; --text-secondary: #4a5568;
-    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream-100); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
     nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: var(--white); border-bottom: 1px solid var(--cream-200); }
@@ -85,81 +82,10 @@
       <p class="login-link">Already have an account? <a href="login.html">Log in</a></p>
     </div>
   </main>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.js" integrity="sha384-EjUdIVmzWliPzdzhxZ9ZoO0etXLKWuUPUftAGxP6qH6Lm4oLwoLaJR0Ba4pIDiDL" crossorigin="anonymous"></script>
   <script src="js/auth.js"></script>
-  <script>
-    // Redirect to dashboard if already logged in
-    (async () => {
-      const session = await getSession();
-      if (session) window.location.href = 'dashboard.html';
-    })();
-
-    document.getElementById('registerForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('submitBtn');
-      const errorMsg = document.getElementById('errorMsg');
-      const successMsg = document.getElementById('successMsg');
-      errorMsg.style.display = 'none';
-      successMsg.style.display = 'none';
-      btn.disabled = true;
-      btn.textContent = 'Creating account...';
-
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const education = document.getElementById('education').value;
-      const ageVal = document.getElementById('age').value;
-      const zipcode = document.getElementById('zipcode').value.trim();
-
-      const failWith = (msg) => {
-        errorMsg.textContent = msg;
-        errorMsg.style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = 'Create Account';
-      };
-
-      const ageNum = parseInt(ageVal, 10);
-      if (isNaN(ageNum) || ageNum < 14 || ageNum > 42) {
-        return failWith('Please enter a valid age (14–42).');
-      }
-      if (!education) {
-        return failWith('Please select your education level.');
-      }
-      if (!/^[0-9]{5}(-[0-9]{4})?$/.test(zipcode)) {
-        return failWith('Please enter a valid US ZIP code.');
-      }
-
-      const client = getClient();
-      const { data, error } = await client.auth.signUp({
-        email,
-        password,
-        options: { data: { name } }
-      });
-
-      if (error) {
-        return failWith(error.message);
-      }
-
-      if (data.user) {
-        const { error: profileError } = await client.from('profiles')
-          .update({ name, education, age: ageNum, zipcode })
-          .eq('id', data.user.id);
-        if (profileError) {
-          console.error('Profile update error:', profileError);
-        }
-      }
-
-      btn.textContent = 'Account Created ✓';
-      if (data.session) {
-        successMsg.textContent = 'Account created! Loading your dashboard...';
-        successMsg.style.display = 'block';
-        setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
-      } else {
-        successMsg.textContent = 'Account created! Check your email to confirm, then log in.';
-        successMsg.style.display = 'block';
-        setTimeout(() => { window.location.href = 'login.html'; }, 2500);
-      }
-    });
-  </script>
+  <script src="js/page-register.js"></script>
+  <script src="js/offline-queue.js"></script>
+  <script src="js/sw-register.js"></script>
 </body>
 </html>

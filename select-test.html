@@ -7,20 +7,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a1628">
   <style>
-    :root {
-      --navy-900: #0a1628;
-      --navy-800: #132039;
-      --navy-700: #1e3a5f;
-      --gold-500: #d4a853;
-      --gold-400: #e8c17a;
-      --gold-300: #f0d69b;
-      --cream-100: #faf8f5;
-      --cream-200: #f2efe8;
-      --white: #ffffff;
-      --text-primary: #0a1628;
-      --text-secondary: #4a5568;
-    }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -116,6 +106,11 @@
       border-color: var(--gold-400);
       transform: translateY(-2px);
       box-shadow: 0 8px 30px rgba(10, 22, 40, 0.1);
+    }
+
+    .test-type-card:focus-visible {
+      outline: 3px solid var(--navy-900);
+      outline-offset: 3px;
     }
 
     .test-type-card.selected {
@@ -416,7 +411,7 @@
 
     <!-- Test Type Selection -->
     <h2 class="section-title">Test Type</h2>
-    <div class="test-type-grid">
+    <div class="test-type-grid" role="radiogroup" aria-label="Test type">
       <div class="test-type-card selected" data-type="quick">
         <div class="test-type-badge">Recommended</div>
         <h3 class="test-type-name">AFQT Practice</h3>
@@ -581,85 +576,16 @@
   </main>
 
   <script src="js/test-config.js"></script>
+  <script src="js/section-config.js"></script>
   <script src="js/quiz-data.js"></script>
-  <script>
-    // Clear any previous test session when visiting this page
-    // This ensures users always get a fresh test
-    sessionStorage.removeItem('quizState');
-    sessionStorage.removeItem('generatedTest');
-    sessionStorage.removeItem('testConfig');
-
-    let selectedType = 'quick';
-    const nameInput = document.getElementById('userName');
-    const startBtn = document.getElementById('startBtn');
-    const quickSections = document.getElementById('quickSections');
-    const fullSections = document.getElementById('fullSections');
-
-    // Load saved name
-    const savedName = localStorage.getItem('asvabUserName');
-    if (savedName) nameInput.value = savedName;
-
-    // Test type selection
-    document.querySelectorAll('.test-type-card').forEach(card => {
-      card.addEventListener('click', () => {
-        document.querySelectorAll('.test-type-card').forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-        selectedType = card.dataset.type;
-
-        // Toggle section display
-        if (selectedType === 'full') {
-          quickSections.style.display = 'none';
-          fullSections.style.display = 'block';
-        } else {
-          quickSections.style.display = 'block';
-          fullSections.style.display = 'none';
-        }
-        updateStartButton();
-      });
-    });
-
-    // Name input
-    nameInput.addEventListener('input', updateStartButton);
-
-    function updateStartButton() {
-      const nameValid = nameInput.value.trim().length >= 2;
-      startBtn.disabled = !nameValid;
-
-      if (selectedType === 'full') {
-        const details = MissionASVABConfig.getTestDetails('full', QuizManager);
-        startBtn.textContent = `${MissionASVABConfig.getTestConfig('full').startButtonText} (${details.totalQuestions} questions)`;
-      } else {
-        const details = MissionASVABConfig.getTestDetails('quick', QuizManager);
-        startBtn.textContent = `${MissionASVABConfig.getTestConfig('quick').startButtonText} (${details.totalQuestions} questions)`;
-      }
-    }
-
-    // Initial update
-    updateStartButton();
-
-    // Start test
-    startBtn.addEventListener('click', () => {
-      if (startBtn.disabled) return;
-
-      localStorage.setItem('asvabUserName', nameInput.value.trim());
-      localStorage.setItem('testType', selectedType);
-
-      // Clear any previous test state and set up new test
-      sessionStorage.removeItem('quizState');
-      sessionStorage.removeItem('generatedTest');
-
-      // Store test configuration
-      const sections = MissionASVABConfig.getSectionsForType(selectedType);
-      sessionStorage.setItem('testConfig', JSON.stringify({ sections: sections }));
-
-      window.location.href = 'test-intro.html';
-    });
-  </script>
+  <script src="js/page-select-test.js"></script>
 
   <footer style="background: #0a1628; color: #f2efe8; padding: 2rem 5%; text-align: center; margin-top: 3rem;">
     <p style="font-size: 0.8rem; line-height: 1.6; max-width: 800px; margin: 0 auto 1rem; opacity: 0.8;">This website is not affiliated with, endorsed by, or sponsored by the U.S. Department of Defense, any branch of the U.S. Armed Forces, or the official ASVAB program. "ASVAB" is a registered trademark of the U.S. Department of Defense. This is an independent practice resource only.</p>
-    <p style="font-size: 0.75rem; opacity: 0.6;">© <script>document.write(new Date().getFullYear())</script> Mission ASVAB. For educational purposes only.</p>
+    <p style="font-size: 0.75rem; opacity: 0.6;">© <span id="year"></span> Mission ASVAB. For educational purposes only.</p>
   </footer>
+  <script src="js/year.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
+  <script src="js/sw-register.js"></script>
 </body>
 </html>

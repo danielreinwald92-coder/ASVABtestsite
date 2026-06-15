@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Log In — Mission ASVAB</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a1628">
   <style>
-    :root {
-      --navy-900: #0a1628; --navy-800: #132039; --navy-700: #1e3a5f;
-      --navy-600: #2d5a87; --gold-500: #d4a853;
-      --cream-100: #faf8f5; --cream-200: #f2efe8;
-      --white: #ffffff; --text-primary: #0a1628; --text-secondary: #4a5568;
-    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream-100); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
     nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: var(--white); border-bottom: 1px solid var(--cream-200); }
@@ -82,82 +79,10 @@
       </div>
     </div>
   </main>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.js" integrity="sha384-EjUdIVmzWliPzdzhxZ9ZoO0etXLKWuUPUftAGxP6qH6Lm4oLwoLaJR0Ba4pIDiDL" crossorigin="anonymous"></script>
   <script src="js/auth.js"></script>
-  <script>
-    // If already logged in, go to dashboard
-    (async () => {
-      const session = await getSession();
-      if (session) window.location.href = 'dashboard.html';
-    })();
-
-    document.getElementById('showForgotBtn').addEventListener('click', () => {
-      const loginEmail = document.getElementById('email').value.trim();
-      if (loginEmail) document.getElementById('resetEmail').value = loginEmail;
-      document.getElementById('loginSection').style.display = 'none';
-      document.getElementById('forgotSection').style.display = 'block';
-    });
-
-    document.getElementById('backToLoginBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('forgotSection').style.display = 'none';
-      document.getElementById('loginSection').style.display = 'block';
-    });
-
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('loginBtn');
-      const errorMsg = document.getElementById('loginError');
-      errorMsg.style.display = 'none';
-      btn.disabled = true;
-      btn.textContent = 'Logging in...';
-
-      const { error } = await getClient().auth.signInWithPassword({
-        email: document.getElementById('email').value.trim(),
-        password: document.getElementById('password').value
-      });
-
-      if (error) {
-        errorMsg.textContent = error.message;
-        errorMsg.style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = 'Log In';
-        return;
-      }
-      window.location.href = 'dashboard.html';
-    });
-
-    document.getElementById('forgotForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('resetBtn');
-      const errorMsg = document.getElementById('resetError');
-      const successMsg = document.getElementById('resetSuccess');
-      errorMsg.style.display = 'none';
-      successMsg.style.display = 'none';
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
-
-      const redirectTo = window.location.origin + '/reset-password.html';
-      const { error } = await getClient().auth.resetPasswordForEmail(
-        document.getElementById('resetEmail').value.trim(),
-        { redirectTo }
-      );
-
-      if (error) {
-        errorMsg.textContent = error.message;
-        errorMsg.style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = 'Send Reset Link';
-        return;
-      }
-      successMsg.textContent = 'Check your email for the reset link.';
-      successMsg.style.display = 'block';
-      btn.textContent = 'Email Sent';
-      setTimeout(() => {
-        btn.disabled = false;
-        btn.textContent = 'Resend Link';
-      }, 30000);
-    });
-  </script>
+  <script src="js/page-login.js"></script>
+  <script src="js/offline-queue.js"></script>
+  <script src="js/sw-register.js"></script>
 </body>
 </html>

@@ -7,25 +7,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a1628">
   <style>
-    :root {
-      --navy-900: #0a1628;
-      --navy-800: #132039;
-      --navy-700: #1e3a5f;
-      --navy-600: #2d5a87;
-      --gold-500: #d4a853;
-      --gold-400: #e8c17a;
-      --gold-300: #f0d69b;
-      --cream-100: #faf8f5;
-      --cream-200: #f2efe8;
-      --white: #ffffff;
-      --text-primary: #0a1628;
-      --text-secondary: #4a5568;
-      --success: #2d8a6e;
-      --success-light: #e8f5f0;
-      --error: #c53030;
-      --error-light: #fef2f2;
-    }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -177,7 +162,7 @@
       gap: 0.5rem;
       font-size: 0.85rem;
       font-weight: 600;
-      color: var(--gold-500);
+      color: var(--gold-text);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 1.25rem;
@@ -222,6 +207,17 @@
     .answer-option:hover {
       background: var(--cream-200);
       border-color: var(--cream-200);
+    }
+
+    .answer-option:focus-visible {
+      outline: 3px solid var(--navy-900);
+      outline-offset: 2px;
+    }
+
+    .answers-hint {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin: 0.75rem 0 0;
     }
 
     .answer-option.selected {
@@ -557,6 +553,7 @@
       <div class="question-number" id="questionNumber">Question 1</div>
       <h2 class="question-text" id="questionText">Loading question...</h2>
       <div class="answers-container" id="answersContainer"></div>
+      <p class="answers-hint">Press A–D or use Tab + Enter to choose an answer.</p>
     </div>
 
     <div class="quiz-nav">
@@ -586,10 +583,13 @@
 
   <script src="js/test-config.js"></script>
   <script src="js/scoring.js"></script>
+  <script src="js/section-config.js"></script>
   <script src="js/quiz-data.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.js" integrity="sha384-EjUdIVmzWliPzdzhxZ9ZoO0etXLKWuUPUftAGxP6qH6Lm4oLwoLaJR0Ba4pIDiDL" crossorigin="anonymous"></script>
   <script src="js/auth.js"></script>
   <script src="js/quiz-engine.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
+  <script src="js/offline-queue.js"></script>
+  <script src="js/sw-register.js"></script>
 </body>
 </html>

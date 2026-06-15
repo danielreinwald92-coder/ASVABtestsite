@@ -24,6 +24,7 @@ vm.createContext(context);
 
 loadScript('js/test-config.js', context);
 loadScript('js/scoring.js', context);
+loadScript('js/section-config.js', context);
 loadScript('js/quiz-data.js', context);
 loadScript('js/courses.js', context, 'this.courses = courses;');
 
