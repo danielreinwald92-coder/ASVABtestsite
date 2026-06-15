@@ -63,6 +63,11 @@
     const pager = e.target.closest && e.target.closest('.history-pagebtn[data-dir]');
     if (pager) {
       changeHistoryPage(Number(pager.dataset.dir));
+      return;
+    }
+    const practice = e.target.closest && e.target.closest('[data-action="practice-weak-areas"]');
+    if (practice) {
+      startWeakAreaPractice(practice.dataset.sections);
     }
   });
 

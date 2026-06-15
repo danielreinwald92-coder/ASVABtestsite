@@ -838,5 +838,14 @@
       }
     });
 
-    initHome();
+    // Deep link: study-guide.html?section=AR jumps straight into that course
+    // (used by the dashboard study plan / "Practice my weak areas" flow).
+    initHome().then(() => {
+      try {
+        const sec = new URLSearchParams(window.location.search).get('section');
+        if (sec && typeof courses !== 'undefined' && courses[sec]) {
+          showCourse(sec);
+        }
+      } catch (_) { /* no-op: fall back to the home view */ }
+    });
 })();

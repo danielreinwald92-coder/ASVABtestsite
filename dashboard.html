@@ -78,6 +78,16 @@
     .focus-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 0.5rem; }
     .focus-text { font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem; }
     .focus-cta { color: var(--gold-400); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    .focus-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin: 0.25rem 0 0.5rem; }
+    .focus-btn { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--gold-500); color: var(--navy-900); border: none; border-radius: 8px; padding: 0.6rem 1rem; font-weight: 700; font-size: 0.9rem; cursor: pointer; font-family: inherit; }
+    .focus-btn:hover { background: var(--gold-400); }
+    .focus-cta.secondary { color: var(--gold-300); }
+    .study-plan { margin-top: 1rem; padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.15); }
+    .study-plan-heading { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 0.6rem; }
+    .study-plan-list { list-style: decimal; padding-left: 1.25rem; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+    .study-plan-section { color: var(--white); font-weight: 600; text-decoration: none; font-size: 0.95rem; }
+    .study-plan-section:hover { color: var(--gold-300); text-decoration: underline; }
+    .study-plan-chapters { font-size: 0.82rem; color: rgba(255,255,255,0.7); margin-top: 0.15rem; }
 
     /* Zone 4: History */
     .history-tbl { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
@@ -272,6 +282,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.js" integrity="sha384-EjUdIVmzWliPzdzhxZ9ZoO0etXLKWuUPUftAGxP6qH6Lm4oLwoLaJR0Ba4pIDiDL" crossorigin="anonymous"></script>
   <script src="js/auth.js"></script>
   <script src="js/focus-trap.js"></script>
+  <script src="js/weak-areas.js"></script>
+  <script src="js/courses.js"></script>
   <script src="js/dashboard.js"></script>
   <script src="js/page-dashboard.js"></script>
 </body>

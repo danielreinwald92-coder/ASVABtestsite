@@ -216,26 +216,38 @@ function renderSectionBreakdown(results) {
 }
 
 function computeFocusSections(results) {
+  if (!results || !results.length) return [];
+
+  const WA = (typeof MissionASVABWeakAreas !== 'undefined') ? MissionASVABWeakAreas : null;
+
+  // Historical aggregation across ALL of the user's tests (prefers per-question
+  // mistake history, falls back to section_scores for older rows). The previous
+  // implementation only looked at the latest test.
+  let weak;
+  if (WA) {
+    weak = WA.weakestSections(results, 2, { sections: AFQT_SECTIONS });
+  } else {
+    // Defensive fallback if js/weak-areas.js is not loaded: latest test only.
+    weak = AFQT_SECTIONS
+      .map(code => {
+        const score = getSectionScore(results[0].section_scores, code);
+        return score === null ? null : { code, accuracy: score };
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.accuracy - b.accuracy)
+      .slice(0, 2);
+  }
+
+  // Keep latest-vs-previous trend for the focus messaging.
   const latest = results[0];
   const previous = results.length > 1 ? results[1] : null;
 
-  const scored = AFQT_SECTIONS
-    .map(code => {
-      const score = getSectionScore(latest.section_scores, code);
-      if (score === null) return null;
-      const prevScore = previous ? getSectionScore(previous.section_scores, code) : null;
-      const trend = prevScore !== null ? score - prevScore : 0;
-      return { code, score, trend };
-    })
-    .filter(Boolean);
-
-  // Sort: lowest score first, then worst trend (most negative) as tiebreaker
-  scored.sort((a, b) => {
-    if (a.score !== b.score) return a.score - b.score;
-    return a.trend - b.trend;
+  return weak.map(w => {
+    const latestScore = getSectionScore(latest.section_scores, w.code);
+    const prevScore = previous ? getSectionScore(previous.section_scores, w.code) : null;
+    const trend = (latestScore !== null && prevScore !== null) ? latestScore - prevScore : 0;
+    return { code: w.code, score: w.accuracy, trend };
   });
-
-  return scored.slice(0, 2);
 }
 
 function renderFocusPanel(results) {
@@ -274,15 +286,88 @@ function renderFocusPanel(results) {
   text.className = 'focus-text';
   text.textContent = suggestionText;
 
+  // Actions: start a targeted quiz over the weakest sections, plus study guide.
+  const actions = document.createElement('div');
+  actions.className = 'focus-actions';
+
+  const codes = focus.map(f => f.code);
+  const practiceBtn = document.createElement('button');
+  practiceBtn.type = 'button';
+  practiceBtn.className = 'focus-btn';
+  practiceBtn.dataset.action = 'practice-weak-areas';
+  practiceBtn.dataset.sections = codes.join(',');
+  practiceBtn.textContent = 'Practice My Weak Areas →';
+
   const cta = document.createElement('a');
   cta.href = 'study-guide.html';
-  cta.className = 'focus-cta';
+  cta.className = 'focus-cta secondary';
   cta.textContent = 'Go to Study Guide →';
+
+  actions.appendChild(practiceBtn);
+  actions.appendChild(cta);
 
   panel.appendChild(label);
   panel.appendChild(text);
-  panel.appendChild(cta);
+  panel.appendChild(actions);
+  panel.appendChild(buildStudyPlan(focus));
   panel.style.display = 'block';
+}
+
+// Map the weakest sections to recommended study content (weakest first).
+// Chapter titles are listed when js/courses.js is loaded; the section link
+// works regardless via the study-guide deep link (?section=CODE).
+function buildStudyPlan(focus) {
+  const wrap = document.createElement('div');
+  wrap.className = 'study-plan';
+
+  const heading = document.createElement('div');
+  heading.className = 'study-plan-heading';
+  heading.textContent = 'Your Study Plan';
+  wrap.appendChild(heading);
+
+  const ol = document.createElement('ol');
+  ol.className = 'study-plan-list';
+
+  focus.forEach(f => {
+    const li = document.createElement('li');
+
+    const link = document.createElement('a');
+    link.href = `study-guide.html?section=${encodeURIComponent(f.code)}`;
+    link.className = 'study-plan-section';
+    link.textContent = SECTION_NAMES[f.code] || f.code;
+    li.appendChild(link);
+
+    const course = (typeof courses !== 'undefined' && courses) ? courses[f.code] : null;
+    if (course && Array.isArray(course.chapters) && course.chapters.length) {
+      const chs = document.createElement('div');
+      chs.className = 'study-plan-chapters';
+      chs.textContent = course.chapters.slice(0, 3).map(ch => ch.title).join(' • ');
+      li.appendChild(chs);
+    }
+
+    ol.appendChild(li);
+  });
+
+  wrap.appendChild(ol);
+  return wrap;
+}
+
+// Start a targeted quiz limited to the given weak sections. Reuses the existing
+// test-start mechanism (sessionStorage testConfig → test-intro.html → quiz.html),
+// the same path select-test.html uses.
+function startWeakAreaPractice(sections) {
+  const codes = Array.isArray(sections)
+    ? sections
+    : String(sections || '').split(',').map(s => s.trim()).filter(Boolean);
+  if (!codes.length) return;
+
+  sessionStorage.removeItem('quizState');
+  sessionStorage.removeItem('generatedTest');
+  localStorage.removeItem('quizResults');
+  localStorage.setItem('testType', 'custom');
+  sessionStorage.setItem('testConfig', JSON.stringify({ sections: codes }));
+
+  window.location.href = 'test-intro.html';
 }
 
 let historyPage = 0;
