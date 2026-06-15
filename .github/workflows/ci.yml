@@ -13,3 +13,4 @@ jobs:
         with:
           node-version: 20
       - run: node scripts/validate-site.js
+      - run: node scripts/check-no-inline-js.js
