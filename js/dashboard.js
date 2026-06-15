@@ -308,7 +308,7 @@ function renderTestHistory(results) {
         <td>${formatDate(r.taken_at)}</td>
         <td>${r.test_type === 'full' ? 'Full Assessment' : 'AFQT'}</td>
         <td>${r.afqt_score !== null ? r.afqt_score + 'th %ile' : '—'}</td>
-        <td><button class="expand-btn" onclick="toggleHistoryDetail(${globalIdx})">▾</button></td>
+        <td><button class="expand-btn" data-idx="${globalIdx}">▾</button></td>
       </tr>
       <tr class="history-detail" id="detail-${globalIdx}" style="display:none;">
         <td colspan="4"><div class="detail-sections">${sectionDetail}</div></td>
@@ -323,9 +323,9 @@ function renderTestHistory(results) {
     </table>
     ${results.length > HISTORY_PAGE_SIZE ? `
       <div class="history-pagination">
-        <button onclick="changeHistoryPage(-1)" ${historyPage === 0 ? 'disabled' : ''}>← Previous</button>
+        <button class="history-pagebtn" data-dir="-1" ${historyPage === 0 ? 'disabled' : ''}>← Previous</button>
         <span>Page ${historyPage + 1} of ${Math.ceil(results.length / HISTORY_PAGE_SIZE)}</span>
-        <button onclick="changeHistoryPage(1)" ${(historyPage + 1) * HISTORY_PAGE_SIZE >= results.length ? 'disabled' : ''}>Next →</button>
+        <button class="history-pagebtn" data-dir="1" ${(historyPage + 1) * HISTORY_PAGE_SIZE >= results.length ? 'disabled' : ''}>Next →</button>
       </div>
     ` : ''}
   `;
