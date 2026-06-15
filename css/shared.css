@@ -17,6 +17,12 @@
   --gold-500: #d4a853;
   --gold-400: #e8c17a;
   --gold-300: #f0d69b;
+  /* Accessible gold for TEXT on light (cream/white) backgrounds.
+     Brand gold (#d4a853) is only ~2.1:1 on cream — fails WCAG AA. This darker
+     token measures 4.76:1 on cream (#faf8f5) and 5.04:1 on white. Use for
+     normal-size gold text; keep brand gold for borders, fills, icons and
+     large display type. */
+  --gold-text: #8a6a22;
   /* Neutrals */
   --cream-100: #faf8f5;
   --cream-200: #f2efe8;
