@@ -898,7 +898,6 @@
 
   <script src="js/section-config.js"></script>
   <script src="js/quiz-data.js"></script>
-  <script src="js/courses.js"></script>
   <script>
     let currentCourse = null, currentChapter = null, currentQuiz = null;
     let currentQuestionIndex = 0, score = 0, selectedOption = null, answered = false;
@@ -1020,7 +1019,34 @@
       return a;
     }
 
-    function initHome() {
+    // Lazy-load the large course data bundle (js/courses.js, ~217KB) on demand
+    // instead of as a render-blocking <script> in the initial page load.
+    // courses.js declares a top-level `const courses` shared across classic
+    // scripts, so once it executes the bare `courses` identifier is available
+    // here. The promise is cached so the script is only ever injected once.
+    let _coursesPromise = null;
+    function loadCourses() {
+      if (typeof courses !== 'undefined') return Promise.resolve();
+      if (_coursesPromise) return _coursesPromise;
+      _coursesPromise = new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'js/courses.js';
+        s.onload = () => {
+          if (typeof courses !== 'undefined') resolve();
+          else reject(new Error('courses.js loaded but `courses` is undefined'));
+        };
+        s.onerror = () => reject(new Error('Failed to load js/courses.js'));
+        document.head.appendChild(s);
+      });
+      return _coursesPromise;
+    }
+
+    async function initHome() {
+      try {
+        await loadCourses();
+      } catch (e) {
+        console.error(e);
+      }
       const grid = document.getElementById('course-grid');
       grid.innerHTML = '';
 
@@ -1032,7 +1058,7 @@
       ];
 
       allCourses.forEach(({code, available}) => {
-        const course = courses[code];
+        const course = (typeof courses !== 'undefined') ? courses[code] : null;
         const card = document.createElement('div');
 
         if (course && available) {
