@@ -603,8 +603,10 @@ class QuizEngine {
         this._queuePendingResult(payload, error.message);
         return { ok: false, error: error.message };
       }
-      // Clear any prior pending result on success
-      localStorage.removeItem('pendingTestResult');
+      // We just confirmed connectivity — drain any previously queued results.
+      if (typeof flushPendingTestResults === 'function') {
+        try { flushPendingTestResults(); } catch (_) {}
+      }
       return { ok: true };
     } catch (err) {
       console.error('Failed to save results to Supabase:', err);
@@ -614,12 +616,27 @@ class QuizEngine {
   }
 
   _queuePendingResult(payload, errorMessage) {
+    // Append to the array queue (supports multiple offline submits). Migrate a
+    // legacy single-result key if present so nothing is lost. js/offline-queue.js
+    // drains this queue on load and when connectivity returns.
     try {
-      localStorage.setItem('pendingTestResult', JSON.stringify({
+      let queue = [];
+      const raw = localStorage.getItem('pendingTestResults');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) queue = parsed;
+      }
+      const legacy = localStorage.getItem('pendingTestResult');
+      if (legacy) {
+        try { queue.push(JSON.parse(legacy)); } catch (_) {}
+        localStorage.removeItem('pendingTestResult');
+      }
+      queue.push({
         payload,
         error: errorMessage,
         queuedAt: new Date().toISOString()
-      }));
+      });
+      localStorage.setItem('pendingTestResults', JSON.stringify(queue));
     } catch (_) {
       // Quota or serialization error — nothing we can do client-side
     }
