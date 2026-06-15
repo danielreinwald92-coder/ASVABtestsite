@@ -112,10 +112,34 @@ function makeLocalStorage(initial = {}) {
  */
 function runPageScript(htmlFile, match, env = {}) {
   const { dom, document } = loadDom(htmlFile);
-  const scripts = [...document.querySelectorAll('script:not([src])')];
-  const scriptEl = scripts.find((s) => s.textContent.includes(match));
-  if (!scriptEl) {
-    throw new Error(`runPageScript: no inline script in ${htmlFile} matching ${JSON.stringify(match)}`);
+
+  // Prefer an inline <script> whose text matches (legacy pages), then fall
+  // back to externalized page logic in local `js/*.js` files referenced via
+  // `<script src>` (CSP hardening moved inline blocks into js/page-*.js).
+  const inlineScripts = [...document.querySelectorAll('script:not([src])')];
+  const inlineEl = inlineScripts.find((s) => s.textContent.includes(match));
+
+  let scriptSource = null;
+  if (inlineEl) {
+    scriptSource = inlineEl.textContent;
+  } else {
+    const externalScripts = [...document.querySelectorAll('script[src]')];
+    for (const s of externalScripts) {
+      const src = s.getAttribute('src');
+      // Only consider local same-origin scripts (skip CDNs / absolute URLs).
+      if (!src || /^(https?:)?\/\//.test(src)) continue;
+      const filePath = path.join(rootDir, src.replace(/^\//, ''));
+      if (!fs.existsSync(filePath)) continue;
+      const source = fs.readFileSync(filePath, 'utf8');
+      if (source.includes(match)) {
+        scriptSource = source;
+        break;
+      }
+    }
+  }
+
+  if (scriptSource === null) {
+    throw new Error(`runPageScript: no inline or external script in ${htmlFile} matching ${JSON.stringify(match)}`);
   }
 
   const win = {
@@ -148,7 +172,7 @@ function runPageScript(htmlFile, match, env = {}) {
   };
   sandbox.globalThis = sandbox;
   vm.createContext(sandbox);
-  vm.runInContext(scriptEl.textContent, sandbox, { filename: htmlFile });
+  vm.runInContext(scriptSource, sandbox, { filename: htmlFile });
 
   return { dom, document, window: win, sandbox };
 }

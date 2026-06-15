@@ -576,100 +576,13 @@
   <script src="js/test-config.js"></script>
   <script src="js/section-config.js"></script>
   <script src="js/quiz-data.js"></script>
-  <script>
-    // Clear any previous test session when visiting this page
-    // This ensures users always get a fresh test
-    sessionStorage.removeItem('quizState');
-    sessionStorage.removeItem('generatedTest');
-    sessionStorage.removeItem('testConfig');
-
-    let selectedType = 'quick';
-    const nameInput = document.getElementById('userName');
-    const startBtn = document.getElementById('startBtn');
-    const quickSections = document.getElementById('quickSections');
-    const fullSections = document.getElementById('fullSections');
-
-    // Load saved name
-    const savedName = localStorage.getItem('asvabUserName');
-    if (savedName) nameInput.value = savedName;
-
-    // Test type selection
-    function selectTestTypeCard(card) {
-      document.querySelectorAll('.test-type-card').forEach(c => {
-        c.classList.remove('selected');
-        c.setAttribute('aria-checked', 'false');
-      });
-      card.classList.add('selected');
-      card.setAttribute('aria-checked', 'true');
-      selectedType = card.dataset.type;
-
-      // Toggle section display
-      if (selectedType === 'full') {
-        quickSections.style.display = 'none';
-        fullSections.style.display = 'block';
-      } else {
-        quickSections.style.display = 'block';
-        fullSections.style.display = 'none';
-      }
-      updateStartButton();
-    }
-
-    document.querySelectorAll('.test-type-card').forEach(card => {
-      // Make the clickable cards keyboard-operable
-      card.setAttribute('role', 'radio');
-      card.setAttribute('tabindex', '0');
-      card.setAttribute('aria-checked', card.classList.contains('selected') ? 'true' : 'false');
-      card.addEventListener('click', () => selectTestTypeCard(card));
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-          e.preventDefault();
-          selectTestTypeCard(card);
-        }
-      });
-    });
-
-    // Name input
-    nameInput.addEventListener('input', updateStartButton);
-
-    function updateStartButton() {
-      const nameValid = nameInput.value.trim().length >= 2;
-      startBtn.disabled = !nameValid;
-
-      if (selectedType === 'full') {
-        const details = MissionASVABConfig.getTestDetails('full', QuizManager);
-        startBtn.textContent = `${MissionASVABConfig.getTestConfig('full').startButtonText} (${details.totalQuestions} questions)`;
-      } else {
-        const details = MissionASVABConfig.getTestDetails('quick', QuizManager);
-        startBtn.textContent = `${MissionASVABConfig.getTestConfig('quick').startButtonText} (${details.totalQuestions} questions)`;
-      }
-    }
-
-    // Initial update
-    updateStartButton();
-
-    // Start test
-    startBtn.addEventListener('click', () => {
-      if (startBtn.disabled) return;
-
-      localStorage.setItem('asvabUserName', nameInput.value.trim());
-      localStorage.setItem('testType', selectedType);
-
-      // Clear any previous test state and set up new test
-      sessionStorage.removeItem('quizState');
-      sessionStorage.removeItem('generatedTest');
-
-      // Store test configuration
-      const sections = MissionASVABConfig.getSectionsForType(selectedType);
-      sessionStorage.setItem('testConfig', JSON.stringify({ sections: sections }));
-
-      window.location.href = 'test-intro.html';
-    });
-  </script>
+  <script src="js/page-select-test.js"></script>
 
   <footer style="background: #0a1628; color: #f2efe8; padding: 2rem 5%; text-align: center; margin-top: 3rem;">
     <p style="font-size: 0.8rem; line-height: 1.6; max-width: 800px; margin: 0 auto 1rem; opacity: 0.8;">This website is not affiliated with, endorsed by, or sponsored by the U.S. Department of Defense, any branch of the U.S. Armed Forces, or the official ASVAB program. "ASVAB" is a registered trademark of the U.S. Department of Defense. This is an independent practice resource only.</p>
-    <p style="font-size: 0.75rem; opacity: 0.6;">© <script>document.write(new Date().getFullYear())</script> Mission ASVAB. For educational purposes only.</p>
+    <p style="font-size: 0.75rem; opacity: 0.6;">© <span id="year"></span> Mission ASVAB. For educational purposes only.</p>
   </footer>
+  <script src="js/year.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
