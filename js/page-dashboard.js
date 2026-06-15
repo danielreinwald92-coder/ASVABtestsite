@@ -42,6 +42,7 @@
   on('.skip-link', 'click', () => skipWelcome());
   on('.acc-close', 'click', () => closeAccountModal());
   on('.del', 'click', () => confirmDeleteAccount());
+  on('[data-action="export-data"]', 'click', () => exportUserData());
   on('#accProfileForm', 'submit', (e) => saveProfile(e));
   on('#accPasswordForm', 'submit', (e) => changePassword(e));
 

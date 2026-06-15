@@ -529,6 +529,54 @@ async function changePassword(e) {
   setAccMsg('pwMsg', 'Password updated.', 'ok');
 }
 
+// 4.5 — user-initiated data export. Fetches the user's profile + all of their
+// test_results and triggers a client-side JSON download (no server round-trip
+// beyond the read). Wired via a delegated/data-action listener in
+// js/page-dashboard.js (no inline on* handlers — CSP/inline-JS gate).
+async function exportUserData() {
+  const session = _currentSession || await getSession();
+  if (!session) return;
+  setAccMsg('exportMsg', 'Preparing your data…');
+
+  const client = getClient();
+  const [profileRes, resultsRes] = await Promise.all([
+    client.from('profiles').select('*').eq('id', session.user.id).single(),
+    client.from('test_results').select('*').eq('user_id', session.user.id)
+  ]);
+
+  if (profileRes.error || resultsRes.error) {
+    const msg = (profileRes.error || resultsRes.error).message;
+    return setAccMsg('exportMsg', 'Could not export your data: ' + msg, 'err');
+  }
+
+  const payload = {
+    exported_at: new Date().toISOString(),
+    account: { id: session.user.id, email: session.user.email },
+    profile: profileRes.data || null,
+    test_results: resultsRes.data || []
+  };
+
+  const date = new Date().toISOString().slice(0, 10);
+  triggerDownload(
+    JSON.stringify(payload, null, 2),
+    `mission-asvab-data-${date}.json`,
+    'application/json'
+  );
+  setAccMsg('exportMsg', 'Download started.', 'ok');
+}
+
+function triggerDownload(contents, filename, mime) {
+  const blob = new Blob([contents], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 async function confirmDeleteAccount() {
   if (!confirm('Permanently delete your account and all test history? This cannot be undone.')) return;
   const typed = prompt('Type DELETE to confirm:');
