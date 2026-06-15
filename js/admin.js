@@ -93,7 +93,7 @@ function bindLiveSearch() {
 function bindRowClicks() {
   document.getElementById('adminTableBody').addEventListener('click', (e) => {
     const row = e.target.closest('tr[data-id]');
-    if (row) openUserModal(row.dataset.id);
+    if (row) openUserModal(row.dataset.id, row);
   });
 }
 
@@ -159,8 +159,11 @@ function renderTable() {
   const tbody = document.getElementById('adminTableBody');
 
   document.querySelectorAll('#adminTableHead .sort-ind').forEach(el => { el.textContent = ''; });
+  document.querySelectorAll('#adminTableHead th.sortable').forEach(th => { th.setAttribute('aria-sort', 'none'); });
   const ind = document.querySelector(`#adminTableHead .sort-ind[data-for="${sortKey}"]`);
   if (ind) ind.textContent = sortDir === 'asc' ? '▲' : '▼';
+  const activeTh = document.querySelector(`#adminTableHead th.sortable[data-sort="${sortKey}"]`);
+  if (activeTh) activeTh.setAttribute('aria-sort', sortDir === 'asc' ? 'ascending' : 'descending');
 
   const sorted = filteredUsers.slice().sort((a, b) => {
     const cmp = compareValues(a, b, sortKey);
@@ -191,9 +194,13 @@ function renderTable() {
   `).join('');
 }
 
-function openUserModal(userId) {
+function openUserModal(userId, triggerEl) {
   const user = allUsers.find(u => u.id === userId);
   if (!user) return;
+
+  // Remember what to restore focus to once the modal closes (the clicked row,
+  // or whatever currently has focus, e.g. an action button on re-open).
+  const trigger = triggerEl || document.activeElement;
 
   const tests = user.tests;
   const latest = tests[0];
@@ -264,11 +271,21 @@ function openUserModal(userId) {
     <div class="action-status" id="actionStatus"></div>
   `;
 
-  document.getElementById('userModal').classList.add('open');
+  const modal = document.getElementById('userModal');
+  modal.classList.add('open');
+  if (typeof FocusTrap !== 'undefined') {
+    FocusTrap.activate(modal, {
+      trigger,
+      initialFocus: modal.querySelector('.modal-close'),
+      onEscape: closeUserModal
+    });
+  }
 }
 
 function closeUserModal() {
-  document.getElementById('userModal').classList.remove('open');
+  const modal = document.getElementById('userModal');
+  modal.classList.remove('open');
+  if (typeof FocusTrap !== 'undefined') FocusTrap.release(modal);
 }
 
 function setActionStatus(msg, cls) {
@@ -428,6 +445,5 @@ function formatRelative(iso) {
   return formatDate(iso);
 }
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeUserModal();
-});
+// Escape-to-close is handled by FocusTrap while the modal is open (see
+// openUserModal), which also restores focus to the triggering element.

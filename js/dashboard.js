@@ -361,11 +361,22 @@ function openAccountModal() {
   setAccMsg('accMsg', '');
   setAccMsg('pwMsg', '');
   setAccMsg('delMsg', '');
-  document.getElementById('accOverlay').classList.add('open');
+  const trigger = document.activeElement;
+  const overlay = document.getElementById('accOverlay');
+  overlay.classList.add('open');
+  if (typeof FocusTrap !== 'undefined') {
+    FocusTrap.activate(overlay, {
+      trigger,
+      initialFocus: overlay.querySelector('.acc-close'),
+      onEscape: closeAccountModal
+    });
+  }
 }
 
 function closeAccountModal() {
-  document.getElementById('accOverlay').classList.remove('open');
+  const overlay = document.getElementById('accOverlay');
+  overlay.classList.remove('open');
+  if (typeof FocusTrap !== 'undefined') FocusTrap.release(overlay);
 }
 
 function setAccMsg(id, msg, cls) {

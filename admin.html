@@ -123,19 +123,19 @@
     <!-- Filters -->
     <div class="filters">
       <div class="filter-group search">
-        <label>Search</label>
+        <label for="filterSearch">Search</label>
         <input type="text" id="filterSearch" placeholder="Name or email">
       </div>
       <div class="filter-group">
-        <label>Joined From</label>
+        <label for="filterFrom">Joined From</label>
         <input type="date" id="filterFrom">
       </div>
       <div class="filter-group">
-        <label>Joined To</label>
+        <label for="filterTo">Joined To</label>
         <input type="date" id="filterTo">
       </div>
       <div class="filter-group">
-        <label>Education</label>
+        <label for="filterEducation">Education</label>
         <select id="filterEducation">
           <option value="">All</option>
           <option>Some High School</option>
@@ -146,11 +146,11 @@
         </select>
       </div>
       <div class="filter-group">
-        <label>ZIP Code</label>
+        <label for="filterZip">ZIP Code</label>
         <input type="text" id="filterZip" placeholder="e.g. 902">
       </div>
       <div class="filter-group">
-        <label>Min Tests</label>
+        <label for="filterMinTests">Min Tests</label>
         <input type="number" id="filterMinTests" placeholder="0" min="0" style="width:90px;">
       </div>
       <div class="filter-actions">
@@ -167,16 +167,16 @@
       <table>
         <thead>
           <tr id="adminTableHead">
-            <th class="sortable" data-sort="name">Name <span class="sort-ind" data-for="name"></span></th>
-            <th class="sortable" data-sort="email">Email <span class="sort-ind" data-for="email"></span></th>
-            <th class="sortable" data-sort="age">Age <span class="sort-ind" data-for="age"></span></th>
+            <th class="sortable" data-sort="name" aria-sort="none">Name <span class="sort-ind" data-for="name" aria-hidden="true"></span></th>
+            <th class="sortable" data-sort="email" aria-sort="none">Email <span class="sort-ind" data-for="email" aria-hidden="true"></span></th>
+            <th class="sortable" data-sort="age" aria-sort="none">Age <span class="sort-ind" data-for="age" aria-hidden="true"></span></th>
             <th>Education</th>
             <th>ZIP</th>
-            <th class="sortable" data-sort="created_at">Joined <span class="sort-ind" data-for="created_at"></span></th>
-            <th class="sortable" data-sort="testCount">Tests <span class="sort-ind" data-for="testCount"></span></th>
-            <th class="sortable" data-sort="bestAfqt">Best AFQT <span class="sort-ind" data-for="bestAfqt"></span></th>
-            <th class="sortable" data-sort="lastTestAt">Last Test <span class="sort-ind" data-for="lastTestAt"></span></th>
-            <th class="sortable" data-sort="lastSignInAt">Last Login <span class="sort-ind" data-for="lastSignInAt"></span></th>
+            <th class="sortable" data-sort="created_at" aria-sort="descending">Joined <span class="sort-ind" data-for="created_at" aria-hidden="true"></span></th>
+            <th class="sortable" data-sort="testCount" aria-sort="none">Tests <span class="sort-ind" data-for="testCount" aria-hidden="true"></span></th>
+            <th class="sortable" data-sort="bestAfqt" aria-sort="none">Best AFQT <span class="sort-ind" data-for="bestAfqt" aria-hidden="true"></span></th>
+            <th class="sortable" data-sort="lastTestAt" aria-sort="none">Last Test <span class="sort-ind" data-for="lastTestAt" aria-hidden="true"></span></th>
+            <th class="sortable" data-sort="lastSignInAt" aria-sort="none">Last Login <span class="sort-ind" data-for="lastSignInAt" aria-hidden="true"></span></th>
           </tr>
         </thead>
         <tbody id="adminTableBody">
@@ -195,6 +195,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.js" integrity="sha384-EjUdIVmzWliPzdzhxZ9ZoO0etXLKWuUPUftAGxP6qH6Lm4oLwoLaJR0Ba4pIDiDL" crossorigin="anonymous"></script>
   <script src="js/auth.js"></script>
+  <script src="js/focus-trap.js"></script>
   <script src="js/admin.js"></script>
   <script>loadAdmin();</script>
 </body>
