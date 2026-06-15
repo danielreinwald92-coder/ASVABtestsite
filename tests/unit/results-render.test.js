@@ -26,7 +26,9 @@ function extractFn(source, name) {
 
 // 2.8 — a section with {correct:0, total:0} must not produce "NaN%".
 test('renderSectionBreakdown guards divide-by-zero (no NaN, width 0%)', () => {
-  const html = fs.readFileSync(path.join(root, 'results.html'), 'utf8');
+  // renderSectionBreakdown was externalized from results.html into
+  // js/page-results.js (CSP script-src hardening); read the shipped source.
+  const html = fs.readFileSync(path.join(root, 'js/page-results.js'), 'utf8');
   const fnSrc = extractFn(html, 'renderSectionBreakdown');
 
   const grid = {
