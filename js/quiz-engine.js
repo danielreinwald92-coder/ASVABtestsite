@@ -613,15 +613,17 @@ class QuizEngine {
     const totalTime = this.quizData.timeLimit - this.timeRemaining;
     const score = Math.round((totalCorrect / totalQuestions) * 100);
 
-    // Calculate AFQT estimate if applicable
-    let afqtEstimate = null;
-    afqtEstimate = MissionASVABScoring.calculateAFQTEstimate(sectionResults);
+    // Tutor sessions are untimed practice: no AFQT (it would overstate readiness).
+    const afqtEstimate = this.mode === 'tutor'
+      ? null
+      : MissionASVABScoring.calculateAFQTEstimate(sectionResults);
 
     // Store results
     const quizResults = {
       testType: MissionASVABConfig.getTestTypeFromSections(this.testSections),
       section: this.quizData.section,
       sectionCode: this.quizData.sectionCode,
+      mode: this.mode,
       sections: this.testSections,
       sectionResults: sectionResults,
       totalQuestions: totalQuestions,
@@ -650,7 +652,9 @@ class QuizEngine {
     const session = await getSession();
     if (!session) return { skipped: true };
 
-    const lineScores = MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
+    const lineScores = quizResults.mode === 'tutor'
+      ? null
+      : MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
     const strippedSections = {};
     // Compact per-question results: id + section + correct only (NO text/options),
     // so the mistake history stays small. Powers weak-area aggregation (see js/weak-areas.js).
@@ -666,6 +670,7 @@ class QuizEngine {
     const payload = {
       user_id: session.user.id,
       test_type: quizResults.testType || 'afqt',
+      mode: quizResults.mode || 'timed',
       afqt_score: quizResults.afqt,
       section_scores: strippedSections,
       line_scores: lineScores,

@@ -87,3 +87,62 @@ test('timed mode still allows changing an answer', () => {
   engine.selectAnswer(3);
   assert.strictEqual(engine.answers[1], 3, 'timed answers remain changeable');
 });
+
+test('tutor submit stores mode=tutor with a null AFQT', () => {
+  const stored = {};
+  const sandbox = loadEngine({
+    document: fakeDoc(),
+    // submitQuiz() ends with window.location.href = 'results.html'; supply the
+    // browser global (matches tests/unit/quiz-engine-submit.test.js). Production
+    // is unchanged. The quizResults are written to localStorage before that line.
+    window: { location: { href: '' } },
+    localStorage: { setItem: (k, v) => { stored[k] = v; }, removeItem() {} },
+    sessionStorage: { removeItem() {}, setItem() {} },
+    MissionASVABConfig: { getTestTypeFromSections: () => 'custom' },
+    MissionASVABScoring: { calculateAFQTEstimate: () => 62, calculateLineScores: () => ({}) },
+  });
+  const engine = new sandbox.QuizEngine();
+  engine.mode = 'tutor';
+  engine.testSections = ['AR'];
+  engine.quizData = {
+    section: 'Arithmetic Reasoning', sectionCode: 'AR', timeLimit: 0,
+    questions: [{ id: 1, originalId: 'AR001', sectionCode: 'AR', sectionName: 'Arithmetic Reasoning', text: 'q', options: ['a','b','c','d'], correct: 1 }],
+  };
+  engine.answers = { 1: 1 };
+  engine.timeRemaining = 0;
+  engine.saveResultsToSupabase = async () => ({ skipped: true });
+  engine.materializeSlot = () => {};
+
+  return engine.submitQuiz().then(() => {
+    const results = JSON.parse(stored.quizResults);
+    assert.strictEqual(results.mode, 'tutor');
+    assert.strictEqual(results.afqt, null, 'tutor sessions carry no AFQT');
+  });
+});
+
+test('timed submit still computes an AFQT', () => {
+  const stored = {};
+  const sandbox = loadEngine({
+    document: fakeDoc(),
+    window: { location: { href: '' } },
+    localStorage: { setItem: (k, v) => { stored[k] = v; }, removeItem() {} },
+    sessionStorage: { removeItem() {}, setItem() {} },
+    MissionASVABConfig: { getTestTypeFromSections: () => 'afqt' },
+    MissionASVABScoring: { calculateAFQTEstimate: () => 62, calculateLineScores: () => ({}) },
+  });
+  const engine = new sandbox.QuizEngine();
+  engine.mode = 'timed';
+  engine.testSections = ['AR'];
+  engine.quizData = { section: 'AR', sectionCode: 'AR', timeLimit: 100,
+    questions: [{ id: 1, originalId: 'AR001', sectionCode: 'AR', sectionName: 'AR', text: 'q', options: ['a','b','c','d'], correct: 1 }] };
+  engine.answers = { 1: 1 };
+  engine.timeRemaining = 40;
+  engine.saveResultsToSupabase = async () => ({ skipped: true });
+  engine.materializeSlot = () => {};
+
+  return engine.submitQuiz().then(() => {
+    const results = JSON.parse(stored.quizResults);
+    assert.strictEqual(results.mode, 'timed');
+    assert.strictEqual(results.afqt, 62);
+  });
+});
