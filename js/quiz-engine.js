@@ -619,8 +619,10 @@ class QuizEngine {
     const totalTime = this.quizData.timeLimit - this.timeRemaining;
     const score = Math.round((totalCorrect / totalQuestions) * 100);
 
-    // Tutor sessions are untimed practice: no AFQT (it would overstate readiness).
-    const afqtEstimate = this.mode === 'tutor'
+    // AFQT is only valid with all four AFQT sections. Tutor sessions never score.
+    const AFQT = (MissionASVABConfig.AFQT_SECTIONS) || ['AR', 'WK', 'PC', 'MK'];
+    const includesAllAFQT = AFQT.every((s) => this.testSections.includes(s));
+    const afqtEstimate = (this.mode === 'tutor' || !includesAllAFQT)
       ? null
       : MissionASVABScoring.calculateAFQTEstimate(sectionResults);
 

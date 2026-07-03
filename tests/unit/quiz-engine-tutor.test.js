@@ -132,7 +132,7 @@ test('timed submit still computes an AFQT', () => {
   });
   const engine = new sandbox.QuizEngine();
   engine.mode = 'timed';
-  engine.testSections = ['AR'];
+  engine.testSections = ['AR', 'WK', 'PC', 'MK'];
   engine.quizData = { section: 'AR', sectionCode: 'AR', timeLimit: 100,
     questions: [{ id: 1, originalId: 'AR001', sectionCode: 'AR', sectionName: 'AR', text: 'q', options: ['a','b','c','d'], correct: 1 }] };
   engine.answers = { 1: 1 };
