@@ -137,3 +137,59 @@ test('early manual advance drops the unused section time from the total', () => 
   engine.advanceSection();
   assert.strictEqual(engine.timeRemaining, 65, '90 - 25 unused');
 });
+
+test('nextQuestion advances to the next section at a section boundary', () => {
+  const { engine } = sectionedEngine();
+  engine.buildSectionRanges();
+  engine.activeSectionIndex = 0;
+  engine.currentQuestion = 1; // last AR slot (range [0,2))
+  engine.answers = { 2: 0 };
+  let advanced = false;
+  engine.advanceSection = () => { advanced = true; };
+  engine.nextQuestion();
+  assert.strictEqual(advanced, true, 'boundary triggers advanceSection');
+});
+
+test('nextQuestion within a section just moves forward', () => {
+  const { engine } = sectionedEngine();
+  engine.buildSectionRanges();
+  engine.activeSectionIndex = 0;
+  engine.currentQuestion = 0;
+  engine.answers = { 1: 0 };
+  engine.renderQuestion = () => {};
+  engine.nextQuestion();
+  assert.strictEqual(engine.currentQuestion, 1);
+});
+
+test('nextQuestion on the final section shows submit confirm', () => {
+  const { engine } = sectionedEngine();
+  engine.buildSectionRanges();
+  engine.activeSectionIndex = 1; // last, range [2,4)
+  engine.currentQuestion = 3;
+  engine.answers = { 4: 0 };
+  let confirmed = false;
+  engine.showSubmitConfirm = () => { confirmed = true; };
+  engine.nextQuestion();
+  assert.strictEqual(confirmed, true);
+});
+
+test('prevQuestion cannot cross below the active section start', () => {
+  const { engine } = sectionedEngine();
+  engine.buildSectionRanges();
+  engine.activeSectionIndex = 1; // range [2,4)
+  engine.currentQuestion = 2;
+  engine.renderQuestion = () => {};
+  engine.prevQuestion();
+  assert.strictEqual(engine.currentQuestion, 2, 'stays at section start');
+});
+
+test('goToQuestion ignores targets outside the active section', () => {
+  const { engine } = sectionedEngine();
+  engine.buildSectionRanges();
+  engine.activeSectionIndex = 1; // range [2,4)
+  engine.currentQuestion = 2;
+  engine.answers = { 1: 0 };
+  engine.renderQuestion = () => {};
+  engine.goToQuestion(0); // slot 0 is in section AR (completed)
+  assert.strictEqual(engine.currentQuestion, 2, 'no cross-section jump');
+});

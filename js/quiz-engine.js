@@ -622,7 +622,13 @@ class QuizEngine {
   goToQuestion(index) {
     if (index < 0 || index >= this.quizData.questions.length) return;
 
-    // Can only go to answered questions or current question
+    // Sectioned tests: can only move within the active section.
+    if (this.isSectioned()) {
+      const range = this.getActiveRange();
+      if (index < range.start || index >= range.end) return;
+    }
+
+    // Can only go to answered questions or the current question.
     const targetQuestion = this.quizData.questions[index];
     if (index > this.currentQuestion && this.answers[targetQuestion.id] === undefined) {
       return;
@@ -640,13 +646,26 @@ class QuizEngine {
       return;
     }
 
+    if (this.isSectioned()) {
+      const range = this.getActiveRange();
+      if (this.currentQuestion < range.end - 1) {
+        this.currentQuestion++;
+        this.saveState();
+        this.renderQuestion();
+      } else if (this.activeSectionIndex >= this.sectionRanges.length - 1) {
+        this.showSubmitConfirm(); // last question of the last section
+      } else {
+        this.advanceSection(); // finished this section early
+      }
+      return;
+    }
+
+    // Tutor / non-sectioned: free navigation across the whole test.
     if (this.currentQuestion < this.quizData.questions.length - 1) {
       this.currentQuestion++;
       this.saveState();
       this.renderQuestion();
     } else {
-      // Last question: route through the review/confirm step rather than
-      // submitting immediately.
       this.showSubmitConfirm();
     }
   }
@@ -658,7 +677,8 @@ class QuizEngine {
   }
 
   prevQuestion() {
-    if (this.currentQuestion > 0) {
+    const min = this.isSectioned() ? this.getActiveRange().start : 0;
+    if (this.currentQuestion > min) {
       this.currentQuestion--;
       this.saveState();
       this.renderQuestion();
