@@ -49,7 +49,16 @@ class QuizEngine {
     this.maybeStartTimer();
     this.bindEvents();
     this.updateSectionHeader();
-    if (this.mode === 'tutor') this.applyTutorChrome();
+    if (this.mode === 'tutor') {
+      this.applyTutorChrome();
+      this.explanations = {};
+      if (typeof loadExplanations === 'function') {
+        loadExplanations().then((map) => {
+          this.explanations = map || {};
+          this.renderQuestion(); // refresh if the user is already on a revealed slot
+        });
+      }
+    }
   }
 
   loadTestConfig() {
@@ -331,16 +340,40 @@ class QuizEngine {
 
     container.setAttribute('role', 'radiogroup');
     container.setAttribute('aria-label', `Answer options for question ${questionNum}`);
+    const revealed = this.mode === 'tutor' && this.tutorRevealed.has(question.id);
     container.innerHTML = question.options.map((option, idx) => {
       const isSelected = this.answers[question.id] === idx;
+      let revealClass = '';
+      if (revealed) {
+        if (idx === question.correct) revealClass = ' reveal-correct';
+        else if (isSelected) revealClass = ' reveal-incorrect';
+      }
       return `
-        <div class="answer-option ${isSelected ? 'selected' : ''}" data-index="${idx}" role="radio" tabindex="0" aria-checked="${isSelected}" aria-label="Option ${letters[idx]}: ${option}. Press ${letters[idx]} to select.">
+        <div class="answer-option ${isSelected ? 'selected' : ''}${revealClass}" data-index="${idx}" role="radio" tabindex="0" aria-checked="${isSelected}" aria-label="Option ${letters[idx]}: ${option}. Press ${letters[idx]} to select.">
           <span class="answer-letter" aria-hidden="true">${letters[idx]}</span>
           <span class="answer-text">${option}</span>
           <span class="keyboard-hint" aria-hidden="true">Press ${letters[idx]}</span>
         </div>
       `;
     }).join('');
+
+    // Tutor feedback panel (present only on quiz.html; guarded for tests).
+    const feedback = document.getElementById('tutorFeedback');
+    if (feedback) {
+      if (revealed) {
+        const correct = this.answers[question.id] === question.correct;
+        const explanation = (this.explanations && this.explanations[question.originalId]) || '';
+        feedback.className = 'tutor-feedback ' + (correct ? 'is-correct' : 'is-incorrect');
+        feedback.innerHTML = `
+          <div class="tutor-verdict">${correct ? '✓ Correct' : '✗ Not quite'}</div>
+          ${explanation ? `<p class="tutor-explanation">${explanation}</p>` : ''}
+        `;
+        feedback.hidden = false;
+      } else {
+        feedback.hidden = true;
+        feedback.innerHTML = '';
+      }
+    }
 
     // Update flag button
     const flagBtn = document.getElementById('flagBtn');
@@ -403,6 +436,12 @@ class QuizEngine {
   }
 
   selectAnswer(index) {
+    // Tutor mode: once feedback is revealed the answer is final (changing it
+    // would be meaningless after seeing the key).
+    if (this.mode === 'tutor') {
+      const cur = this.quizData.questions[this.currentQuestion];
+      if (cur && this.tutorRevealed.has(cur.id)) return;
+    }
     const question = this.quizData.questions[this.currentQuestion];
     const previousAnswer = this.answers[question.id];
     this.answers[question.id] = index;
@@ -424,6 +463,9 @@ class QuizEngine {
     }
 
     this.saveState();
+    if (this.mode === 'tutor') {
+      this.tutorRevealed.add(question.id);
+    }
     this.renderQuestion();
   }
 

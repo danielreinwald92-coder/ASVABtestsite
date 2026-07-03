@@ -50,3 +50,40 @@ test('startTimer runs in timed mode', () => {
   engine.maybeStartTimer();
   assert.strictEqual(started, true);
 });
+
+test('selecting an answer in tutor mode reveals it and locks re-answers', () => {
+  const sandbox = loadEngine({
+    document: fakeDoc(),
+    sessionStorage: { getItem: () => null, setItem() {}, removeItem() {} },
+  });
+  const engine = new sandbox.QuizEngine();
+  engine.mode = 'tutor';
+  engine.quizData = { questions: [{ id: 1, originalId: 'AR001', sectionCode: 'AR', correct: 2, difficulty: 3 }] };
+  engine.answers = {};
+  engine.currentQuestion = 0;
+  let renders = 0;
+  engine.renderQuestion = () => { renders++; };
+
+  engine.selectAnswer(0); // wrong
+  assert.strictEqual(engine.answers[1], 0, 'answer recorded');
+  assert.ok(engine.tutorRevealed.has(1), 'slot marked revealed');
+
+  engine.selectAnswer(2); // attempt to change after reveal — must be ignored
+  assert.strictEqual(engine.answers[1], 0, 'answer stays locked after reveal');
+});
+
+test('timed mode still allows changing an answer', () => {
+  const sandbox = loadEngine({
+    document: fakeDoc(),
+    sessionStorage: { getItem: () => null, setItem() {}, removeItem() {} },
+  });
+  const engine = new sandbox.QuizEngine();
+  engine.mode = 'timed';
+  engine.quizData = { questions: [{ id: 1, originalId: 'AR001', sectionCode: 'AR', correct: 2, difficulty: 3 }] };
+  engine.answers = {};
+  engine.currentQuestion = 0;
+  engine.renderQuestion = () => {};
+  engine.selectAnswer(0);
+  engine.selectAnswer(3);
+  assert.strictEqual(engine.answers[1], 3, 'timed answers remain changeable');
+});
