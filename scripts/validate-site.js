@@ -28,18 +28,23 @@ loadScript('js/section-config.js', context);
 loadScript('js/quiz-data.js', context);
 loadScript('js/explanations.js', context);
 loadScript('js/courses.js', context, 'this.courses = courses;');
+loadScript('js/courses-tech.js', context, 'this.coursesTech = coursesTech;');
 
 const config = context.window.MissionASVABConfig;
 const scoring = context.window.MissionASVABScoring;
 const quizManager = context.window.QuizManager;
 const asvabData = context.window.asvabData;
 const courses = context.courses;
+const coursesTech = context.coursesTech;
 
 assert(config, 'MissionASVABConfig failed to load');
 assert(scoring, 'MissionASVABScoring failed to load');
 assert(quizManager, 'QuizManager failed to load');
 assert(asvabData, 'asvabData failed to load');
 assert(courses, 'courses failed to load');
+assert(coursesTech, 'coursesTech failed to load');
+// Mirror the study-guide merge so the course-shape checks below cover both bundles.
+Object.assign(courses, coursesTech);
 
 assert(
   JSON.stringify(config.getSectionsForType('quick')) === JSON.stringify(['AR', 'WK', 'PC', 'MK']),
@@ -50,9 +55,14 @@ assert(
   'Full ASVAB section contract changed'
 );
 
+// Pool-size ratchet (SP4): pools may only grow. Raise a section's floor in the
+// same branch that ships its content expansion.
+const POOL_MINIMUMS = { WK: 148, PC: 85, AR: 122, MK: 132, GS: 30, EI: 30, AS: 100, MC: 35 };
+
 for (const [code, section] of Object.entries(asvabData.sections)) {
   const questions = asvabData.questions[code] || [];
   assert(questions.length >= section.questionsPerTest, `${code} does not have enough questions`);
+  assert(questions.length >= POOL_MINIMUMS[code], `${code} pool shrank below its ratchet (${questions.length} < ${POOL_MINIMUMS[code]})`);
 
   const ids = new Set();
   for (const question of questions) {
