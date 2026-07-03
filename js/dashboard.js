@@ -1,6 +1,12 @@
 let _currentProfile = null;
 let _currentSession = null;
 
+// Score/AFQT views are truthful timed-test predictors, so they exclude untimed
+// tutor sessions. Legacy rows (no mode) predate tutor mode → treat as timed.
+function timedOnly(results) {
+  return (results || []).filter((r) => (r && r.mode ? r.mode : 'timed') === 'timed');
+}
+
 async function loadDashboard() {
   const session = await requireAuth();
   if (!session) return;
@@ -41,9 +47,12 @@ async function loadDashboard() {
   }
 
   hideWelcomeState();
-  renderScoreSummary(results);
-  renderProgressChart(results);
-  renderSectionBreakdown(results);
+  const timed = timedOnly(results);
+  // Timed-only: AFQT score card, trend chart, section cards.
+  renderScoreSummary(timed);
+  renderProgressChart(timed);
+  renderSectionBreakdown(timed);
+  // All results (incl. tutor practice): weak-area focus + full history.
   renderFocusPanel(results);
   renderTestHistory(results);
 }
@@ -91,6 +100,11 @@ async function skipWelcome() {
 }
 
 function renderScoreSummary(results) {
+  if (!results.length) {
+    document.getElementById('latestAfqt').textContent = '—';
+    document.getElementById('latestDate').textContent = 'Take a timed test for your AFQT';
+    return;
+  }
   const latest = results[0];
   const previous = results[1];
 
@@ -177,6 +191,12 @@ function getSectionScore(sectionResults, code) {
 }
 
 function renderSectionBreakdown(results) {
+  if (!results.length) {
+    const c = document.getElementById('sectionCards');
+    const w = c && c.closest('.section-card-container');
+    if (w) w.style.display = 'none';
+    return;
+  }
   const container = document.getElementById('sectionCards');
   const wrapper = container.closest('.section-card-container');
   const latest = results[0];
@@ -391,7 +411,7 @@ function renderTestHistory(results) {
     return `
       <tr class="history-row" data-idx="${globalIdx}">
         <td>${formatDate(r.taken_at)}</td>
-        <td>${r.test_type === 'full' ? 'Full Assessment' : 'AFQT'}</td>
+        <td>${(r.mode === 'tutor') ? 'Practice' : (r.test_type === 'full' ? 'Full Assessment' : 'AFQT')}</td>
         <td>${r.afqt_score !== null ? r.afqt_score + 'th %ile' : '—'}</td>
         <td><button class="expand-btn" data-idx="${globalIdx}">▾</button></td>
       </tr>
