@@ -28,6 +28,10 @@ class QuizEngine {
     this._visHandler = null;
     // Guard against double submission (double-click / timer-expiry race)
     this._isSubmitting = false;
+
+    // Tutor mode: untimed, instant feedback + explanation. Set in loadTestConfig().
+    this.mode = 'timed';
+    this.tutorRevealed = new Set(); // slot ids whose feedback has been shown
   }
 
   init() {
@@ -42,9 +46,10 @@ class QuizEngine {
     this.startTime = Date.now();
     this.renderQuestion();
     this.renderNavigator();
-    this.startTimer();
+    this.maybeStartTimer();
     this.bindEvents();
     this.updateSectionHeader();
+    if (this.mode === 'tutor') this.applyTutorChrome();
   }
 
   loadTestConfig() {
@@ -52,6 +57,7 @@ class QuizEngine {
     const urlParams = new URLSearchParams(window.location.search);
     const sectionParam = urlParams.get('section');
     const typeParam = urlParams.get('type');
+    const modeParam = urlParams.get('mode');
 
     // Load saved test config from session storage
     const savedConfig = sessionStorage.getItem('testConfig');
@@ -68,6 +74,11 @@ class QuizEngine {
     } else {
       this.testSections = ['AR']; // Default to AR
     }
+
+    // Tutor mode comes from the URL param, falling back to the saved config.
+    let cfgMode = null;
+    if (savedConfig) { try { cfgMode = (JSON.parse(savedConfig) || {}).mode || null; } catch (_) {} }
+    this.mode = (modeParam === 'tutor' || cfgMode === 'tutor') ? 'tutor' : 'timed';
   }
 
   generateNewTest() {
@@ -217,6 +228,21 @@ class QuizEngine {
     // becomes visible again, so re-binding here would accumulate listeners
     // (and could multi-fire submit on timer expiry).
     this.bindVisibilityHandler();
+  }
+
+  // Timed tests run the clock; tutor mode never does (no time pressure, no auto-submit).
+  maybeStartTimer() {
+    if (this.mode === 'tutor') return;
+    this.startTimer();
+  }
+
+  // Hide timer UI and relabel for tutor mode. Uses optional chaining because
+  // these elements may be absent in tests.
+  applyTutorChrome() {
+    const timer = document.querySelector && document.querySelector('.quiz-timer');
+    if (timer) timer.style.display = 'none';
+    const title = document.querySelector && document.querySelector('.quiz-title');
+    if (title) title.textContent = 'Tutor Mode — Untimed Practice';
   }
 
   bindVisibilityHandler() {
