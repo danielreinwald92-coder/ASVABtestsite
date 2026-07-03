@@ -23,13 +23,24 @@
       return currentDetails;
     }, { totalQuestions: 0, totalTimeSeconds: 0 });
 
-    const activeConfig = MissionASVABConfig.getTestConfig(testType);
     const totalTimeMinutes = Math.ceil(details.totalTimeSeconds / 60);
+    const isPreset = testType === 'quick' || testType === 'full';
 
-    document.getElementById('testBadge').textContent = activeConfig.label;
-    document.getElementById('sectionTitle').textContent = activeConfig.title;
-    document.getElementById('sectionDesc').textContent = activeConfig.description;
-    document.getElementById('sectionCode').textContent = activeConfig.sectionCode;
+    if (isPreset) {
+      const activeConfig = MissionASVABConfig.getTestConfig(testType);
+      document.getElementById('testBadge').textContent = activeConfig.label;
+      document.getElementById('sectionTitle').textContent = activeConfig.title;
+      document.getElementById('sectionDesc').textContent = activeConfig.description;
+      document.getElementById('sectionCode').textContent = activeConfig.sectionCode;
+    } else {
+      // Custom section practice — label from the actual selection.
+      document.getElementById('testBadge').textContent = 'Custom Practice';
+      document.getElementById('sectionTitle').textContent = sections.length === 1
+        ? (QuizManager.getSectionInfo(sections[0]) || {}).name || 'Section Practice'
+        : 'Custom Practice';
+      document.getElementById('sectionDesc').textContent = 'Practice the sections you selected.';
+      document.getElementById('sectionCode').textContent = sections.join(', ');
+    }
 
     document.getElementById('questionCount').textContent = details.totalQuestions;
     document.getElementById('timeLimit').textContent = totalTimeMinutes;

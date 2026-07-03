@@ -32,6 +32,12 @@ class QuizEngine {
     // Tutor mode: untimed, instant feedback + explanation. Set in loadTestConfig().
     this.mode = 'timed';
     this.tutorRevealed = new Set(); // slot ids whose feedback has been shown
+
+    // SP2 per-section timing (timed mode only). Ranges are [{code,name,start,end,timeLimit}].
+    this.sectionRanges = [];
+    this.activeSectionIndex = 0;
+    this.sectionTimeRemaining = 0;
+    this.completedSections = new Set();
   }
 
   init() {
@@ -130,7 +136,83 @@ class QuizEngine {
     };
 
     this.timeRemaining = this.quizData.timeLimit;
+
+    // SP2: set up the per-section timer/navigation model.
+    this.buildSectionRanges();
+    this.activeSectionIndex = 0;
+    this.completedSections = new Set();
+    this.currentQuestion = 0;
+    this.sectionTimeRemaining = (this.isSectioned() && this.sectionRanges.length)
+      ? this.sectionRanges[0].timeLimit
+      : this.timeRemaining;
+
     this.saveGeneratedTest();
+  }
+
+  // Timed tests are sectioned; tutor mode is a single free-navigation span.
+  isSectioned() {
+    return this.mode !== 'tutor';
+  }
+
+  // Derive contiguous per-section slot ranges from the generated questions.
+  buildSectionRanges() {
+    const ranges = [];
+    const qs = (this.quizData && this.quizData.questions) || [];
+    let i = 0;
+    while (i < qs.length) {
+      const code = qs[i].sectionCode;
+      const start = i;
+      while (i < qs.length && qs[i].sectionCode === code) i++;
+      // QuizManager is always present on the quiz page; guard so a resume path
+      // never hard-crashes if it is unavailable (same idiom as materializeSlot).
+      const info = (typeof QuizManager !== 'undefined') ? QuizManager.getSectionInfo(code) : null;
+      ranges.push({
+        code,
+        name: (info && info.name) || (qs[start] && qs[start].sectionName) || code,
+        start,
+        end: i,
+        timeLimit: (info && info.timeLimit) || 0,
+      });
+    }
+    this.sectionRanges = ranges;
+  }
+
+  // The active slot range: the current section when sectioned, else the whole test.
+  getActiveRange() {
+    if (this.isSectioned() && this.sectionRanges.length) {
+      return this.sectionRanges[this.activeSectionIndex];
+    }
+    return { start: 0, end: (this.quizData && this.quizData.questions.length) || 0 };
+  }
+
+  // Move to the next section (by finishing early or by timer expiry). On the
+  // final section, submit. Unused time on an early advance is removed from the
+  // total budget so timeUsed reflects real elapsed time.
+  advanceSection() {
+    clearInterval(this.timerInterval);
+    this.timerInterval = null;
+    this.completedSections.add(this.activeSectionIndex);
+
+    if (this.activeSectionIndex >= this.sectionRanges.length - 1) {
+      this.submitQuiz();
+      return;
+    }
+
+    if (this.sectionTimeRemaining > 0) {
+      this.timeRemaining -= this.sectionTimeRemaining;
+    }
+    this.activeSectionIndex++;
+    const range = this.sectionRanges[this.activeSectionIndex];
+    this.sectionTimeRemaining = range.timeLimit;
+    this.currentQuestion = range.start;
+    this._warned10 = false;
+    this._warned5 = false;
+
+    this.saveState();
+    this.renderQuestion();
+    this.renderNavigator();
+    this.updateSectionHeader();
+    this.startTimer();
   }
 
   // Resolve an empty slot into a concrete question using the current ability
@@ -148,11 +230,21 @@ class QuizEngine {
     }
 
     const ability = Math.max(1, Math.min(5, Math.round(this.abilityLevels[slot.sectionCode])));
-    const question = QuizManager.selectNextAdaptiveQuestion(
-      this.questionPools[slot.sectionCode],
-      ability,
-      this.usedQuestionIds
-    );
+    // SP2: also avoid questions the user saw in recent tests (on-device). If the
+    // filtered pool can't supply one, relax to the session-used set so a test
+    // always fills (thin non-AFQT pools).
+    const excluded = new Set(this.usedQuestionIds);
+    const RS = (typeof MissionASVABRecentSeen !== 'undefined') ? MissionASVABRecentSeen
+      : (typeof window !== 'undefined' ? window.MissionASVABRecentSeen : null);
+    if (RS && typeof RS.getRecent === 'function') {
+      RS.getRecent(slot.sectionCode).forEach((id) => excluded.add(id));
+    }
+    let question = QuizManager.selectNextAdaptiveQuestion(
+      this.questionPools[slot.sectionCode], ability, excluded);
+    if (!question) {
+      question = QuizManager.selectNextAdaptiveQuestion(
+        this.questionPools[slot.sectionCode], ability, this.usedQuestionIds);
+    }
     if (!question) return; // pool exhausted (shouldn't happen for production pools)
 
     this.usedQuestionIds.add(question.id);
@@ -177,8 +269,15 @@ class QuizEngine {
     const savedState = sessionStorage.getItem('quizState');
 
     if (savedTest && savedState) {
-      this.quizData = JSON.parse(savedTest);
       const state = JSON.parse(savedState);
+      // SP2: the timer/navigation model changed. Discard any pre-SP2 in-progress
+      // state (no schemaV) and regenerate a fresh test rather than migrate it.
+      if (state.schemaV !== 2) {
+        sessionStorage.removeItem('generatedTest');
+        sessionStorage.removeItem('quizState');
+        return false;
+      }
+      this.quizData = JSON.parse(savedTest);
       this.answers = state.answers || {};
       this.flagged = new Set(state.flagged || []);
       this.currentQuestion = state.currentQuestion || 0;
@@ -188,6 +287,14 @@ class QuizEngine {
       // Tutor reveal/lock state must survive a refresh or resume, or previously
       // answered questions would lose their feedback and become re-answerable.
       this.tutorRevealed = new Set(state.tutorRevealed || []);
+
+      // SP2 section state.
+      this.buildSectionRanges();
+      this.activeSectionIndex = state.activeSectionIndex || 0;
+      this.sectionTimeRemaining = (typeof state.sectionTimeRemaining === 'number')
+        ? state.sectionTimeRemaining
+        : ((this.sectionRanges[this.activeSectionIndex] && this.sectionRanges[this.activeSectionIndex].timeLimit) || this.timeRemaining);
+      this.completedSections = new Set(state.completedSections || []);
 
       // Rebuild question pools (not persisted — large; selectNextAdaptiveQuestion
       // filters by usedQuestionIds so reshuffled pool order is harmless).
@@ -206,13 +313,17 @@ class QuizEngine {
 
   saveState() {
     const state = {
+      schemaV: 2, // SP2: bump so pre-SP2 in-progress states are discarded on resume
       answers: this.answers,
       flagged: Array.from(this.flagged),
       currentQuestion: this.currentQuestion,
       timeRemaining: this.timeRemaining,
       abilityLevels: this.abilityLevels,
       usedQuestionIds: Array.from(this.usedQuestionIds),
-      tutorRevealed: Array.from(this.tutorRevealed)
+      tutorRevealed: Array.from(this.tutorRevealed),
+      activeSectionIndex: this.activeSectionIndex,
+      sectionTimeRemaining: this.sectionTimeRemaining,
+      completedSections: Array.from(this.completedSections),
     };
     sessionStorage.setItem('quizState', JSON.stringify(state));
     this._lastSaveAt = Date.now();
@@ -221,6 +332,9 @@ class QuizEngine {
   startTimer() {
     this.updateTimerDisplay();
     this.timerInterval = setInterval(() => {
+      // Sectioned (timed) tests run a per-section clock; both the section clock
+      // and the total budget tick down together.
+      if (this.isSectioned()) this.sectionTimeRemaining--;
       this.timeRemaining--;
       this.updateTimerDisplay();
 
@@ -230,6 +344,13 @@ class QuizEngine {
         this.saveState();
       }
 
+      if (this.isSectioned() && this.sectionTimeRemaining <= 0) {
+        // Section time up → lock it and advance (advanceSection submits if last).
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+        this.advanceSection();
+        return;
+      }
       if (this.timeRemaining <= 0) {
         clearInterval(this.timerInterval);
         this.submitQuiz();
@@ -275,8 +396,9 @@ class QuizEngine {
   }
 
   updateTimerDisplay() {
-    const minutes = Math.floor(this.timeRemaining / 60);
-    const seconds = this.timeRemaining % 60;
+    const remaining = this.isSectioned() ? this.sectionTimeRemaining : this.timeRemaining;
+    const minutes = Math.floor(remaining / 60);
+    const seconds = remaining % 60;
     const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
     const timerDisplayEl = document.getElementById('timerDisplay');
     if (timerDisplayEl) timerDisplayEl.textContent = display;
@@ -285,33 +407,40 @@ class QuizEngine {
     const timerEl = document.querySelector('.quiz-timer');
     const liveEl = document.getElementById('timerLive');
     if (timerEl) {
-      if (this.timeRemaining <= 300) { // 5 minutes
+      // Per-section warnings (sections range from 6–55 min; warn near the end).
+      if (remaining <= 30) {
         timerEl.style.background = '#c53030';
         if (!this._warned5 && liveEl) {
-          liveEl.textContent = '5 minutes remaining';
+          liveEl.textContent = '30 seconds left in this section';
           this._warned5 = true;
         }
-      } else if (this.timeRemaining <= 600) { // 10 minutes
+      } else if (remaining <= 60) {
         timerEl.style.background = '#b45309';
         if (!this._warned10 && liveEl) {
-          liveEl.textContent = '10 minutes remaining';
+          liveEl.textContent = '1 minute left in this section';
           this._warned10 = true;
         }
+      } else {
+        timerEl.style.background = '';
       }
     }
   }
 
   updateSectionHeader() {
-    // Update header to show current section info
     const header = document.querySelector('.quiz-section');
-    if (header) {
-      const question = this.quizData.questions[this.currentQuestion];
-      if (question && question.sectionName && this.testSections.length > 1) {
-        header.textContent = `${question.sectionName} (${question.sectionCode})`;
-      } else {
-        header.textContent = this.quizData.section;
-      }
+    if (!header) return;
+
+    if (this.isSectioned() && this.sectionRanges.length) {
+      const range = this.sectionRanges[this.activeSectionIndex];
+      header.textContent = this.sectionRanges.length > 1
+        ? `Section ${this.activeSectionIndex + 1} of ${this.sectionRanges.length}: ${range.name}`
+        : range.name;
+      return;
     }
+
+    // Tutor / fallback: the current question's section name, else the test name.
+    const question = this.quizData.questions[this.currentQuestion];
+    header.textContent = (question && question.sectionName) || this.quizData.section;
   }
 
   renderQuestion() {
@@ -391,10 +520,15 @@ class QuizEngine {
       }
     }
 
-    // Update nav buttons
+    // Update nav buttons. In sectioned (timed) mode Prev cannot cross into a
+    // completed section, so hide it at the section floor — not just at slot 0 —
+    // to avoid a visible-but-inert button on the first question of each section.
     const prevBtn = document.getElementById('prevBtn');
     if (prevBtn) {
-      prevBtn.style.visibility = this.currentQuestion === 0 ? 'hidden' : 'visible';
+      const atFloor = this.isSectioned()
+        ? this.currentQuestion === this.getActiveRange().start
+        : this.currentQuestion === 0;
+      prevBtn.style.visibility = atFloor ? 'hidden' : 'visible';
     }
 
     const nextBtn = document.getElementById('nextBtn');
@@ -416,7 +550,14 @@ class QuizEngine {
     const grid = document.getElementById('navigatorGrid');
     if (!grid) return;
 
-    grid.innerHTML = this.quizData.questions.map((q, idx) => {
+    // Sectioned tests show only the active section; tutor shows the whole test.
+    const range = this.isSectioned()
+      ? this.getActiveRange()
+      : { start: 0, end: this.quizData.questions.length };
+
+    let html = '';
+    for (let idx = range.start; idx < range.end; idx++) {
+      const q = this.quizData.questions[idx];
       const classes = ['nav-dot'];
       if (idx === this.currentQuestion) classes.push('current');
       if (this.mode === 'tutor' && this.tutorRevealed.has(q.id)) {
@@ -425,26 +566,14 @@ class QuizEngine {
         classes.push('answered');
       }
       if (this.flagged.has(q.id)) classes.push('flagged');
-
-      // Add section indicator for multi-section tests
       const sectionAttr = q.sectionCode ? `data-section="${q.sectionCode}"` : '';
-      return `<div class="${classes.join(' ')}" data-index="${idx}" ${sectionAttr}>${idx + 1}</div>`;
-    }).join('');
+      html += `<div class="${classes.join(' ')}" data-index="${idx}" ${sectionAttr}>${idx - range.start + 1}</div>`;
+    }
+    grid.innerHTML = html;
   }
 
   updateNavigator() {
-    const dots = document.querySelectorAll('.nav-dot');
-    dots.forEach((dot, idx) => {
-      const question = this.quizData.questions[idx];
-      dot.classList.remove('current', 'answered', 'flagged', 'nav-correct', 'nav-incorrect');
-      if (idx === this.currentQuestion) dot.classList.add('current');
-      if (this.mode === 'tutor' && this.tutorRevealed.has(question.id)) {
-        dot.classList.add(this.answers[question.id] === question.correct ? 'nav-correct' : 'nav-incorrect');
-      } else if (this.answers[question.id] !== undefined) {
-        dot.classList.add('answered');
-      }
-      if (this.flagged.has(question.id)) dot.classList.add('flagged');
-    });
+    this.renderNavigator();
   }
 
   selectAnswer(index) {
@@ -497,7 +626,13 @@ class QuizEngine {
   goToQuestion(index) {
     if (index < 0 || index >= this.quizData.questions.length) return;
 
-    // Can only go to answered questions or current question
+    // Sectioned tests: can only move within the active section.
+    if (this.isSectioned()) {
+      const range = this.getActiveRange();
+      if (index < range.start || index >= range.end) return;
+    }
+
+    // Can only go to answered questions or the current question.
     const targetQuestion = this.quizData.questions[index];
     if (index > this.currentQuestion && this.answers[targetQuestion.id] === undefined) {
       return;
@@ -515,13 +650,26 @@ class QuizEngine {
       return;
     }
 
+    if (this.isSectioned()) {
+      const range = this.getActiveRange();
+      if (this.currentQuestion < range.end - 1) {
+        this.currentQuestion++;
+        this.saveState();
+        this.renderQuestion();
+      } else if (this.activeSectionIndex >= this.sectionRanges.length - 1) {
+        this.showSubmitConfirm(); // last question of the last section
+      } else {
+        this.advanceSection(); // finished this section early
+      }
+      return;
+    }
+
+    // Tutor / non-sectioned: free navigation across the whole test.
     if (this.currentQuestion < this.quizData.questions.length - 1) {
       this.currentQuestion++;
       this.saveState();
       this.renderQuestion();
     } else {
-      // Last question: route through the review/confirm step rather than
-      // submitting immediately.
       this.showSubmitConfirm();
     }
   }
@@ -533,7 +681,8 @@ class QuizEngine {
   }
 
   prevQuestion() {
-    if (this.currentQuestion > 0) {
+    const min = this.isSectioned() ? this.getActiveRange().start : 0;
+    if (this.currentQuestion > min) {
       this.currentQuestion--;
       this.saveState();
       this.renderQuestion();
@@ -619,8 +768,10 @@ class QuizEngine {
     const totalTime = this.quizData.timeLimit - this.timeRemaining;
     const score = Math.round((totalCorrect / totalQuestions) * 100);
 
-    // Tutor sessions are untimed practice: no AFQT (it would overstate readiness).
-    const afqtEstimate = this.mode === 'tutor'
+    // AFQT is only valid with all four AFQT sections. Tutor sessions never score.
+    const AFQT = (MissionASVABConfig.AFQT_SECTIONS) || ['AR', 'WK', 'PC', 'MK'];
+    const includesAllAFQT = AFQT.every((s) => this.testSections.includes(s));
+    const afqtEstimate = (this.mode === 'tutor' || !includesAllAFQT)
       ? null
       : MissionASVABScoring.calculateAFQTEstimate(sectionResults);
 
@@ -643,6 +794,21 @@ class QuizEngine {
     };
 
     localStorage.setItem('quizResults', JSON.stringify(quizResults));
+
+    // SP2: remember the bank questions shown this test so retakes avoid them.
+    const RS = (typeof MissionASVABRecentSeen !== 'undefined') ? MissionASVABRecentSeen
+      : (typeof window !== 'undefined' ? window.MissionASVABRecentSeen : null);
+    if (RS && typeof RS.record === 'function') {
+      const bySection = {};
+      this.quizData.questions.forEach((q) => {
+        if (q.originalId && q.sectionCode) {
+          (bySection[q.sectionCode] = bySection[q.sectionCode] || []).push(q.originalId);
+        }
+      });
+      Object.keys(bySection).forEach((code) => {
+        try { RS.record(code, bySection[code]); } catch (_) {}
+      });
+    }
 
     sessionStorage.removeItem('quizState');
     sessionStorage.removeItem('generatedTest');
