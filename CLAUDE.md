@@ -113,6 +113,24 @@ CDF fit to the 1997 (PAY97) reference. Anchor points (sanity checks, ±8):
 
 Army line scores are **sums of standard scores** (no percentage multipliers).
 
+## Recent Updates Feed (homepage trust signal)
+
+`index.html` has a **"Recent Updates"** section (static `<ul class="updates-list">`, no JS —
+CSP-safe) that shows the site is actively maintained. **Whenever we ship a user-facing change,
+add an entry:**
+
+- Add a new `<li class="update-item">` at the **top** of the list; remove the oldest so **only the
+  4 most recent** remain.
+- Format: `<span class="update-date">Mon D, YYYY</span>` + `<span class="update-text">…</span>`.
+- **Plain language, benefit-focused, non-technical.** Write for a military applicant, not a
+  developer. "Added step-by-step answer explanations" ✅ — not "refactored the explanation renderer" ❌.
+- Skip purely internal changes (refactors, CI, security-header tweaks) unless the user notices them.
+  Group security/perf work as user benefits ("Made login faster and more secure").
+- One short sentence per entry. Use the **real ship date** — read the system clock (`date`),
+  don't guess.
+- **One entry per day, max.** If several updates ship the same day, condense them into a single
+  `<li>` (combine benefits into one sentence, or a brief "and more") rather than repeating the date.
+
 ## Self-Correction Protocol
 
 When corrected, propose: `[LEARN] Category: Rule`
