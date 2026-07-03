@@ -32,11 +32,15 @@ function loadResults() {
 
   // Handle null AFQT (single section tests): show practice score, not a percentile
   const hasAFQT = typeof results.afqt === 'number';
+  const isTutor = results.mode === 'tutor';
   const displayScore = hasAFQT ? results.afqt : (results.score || 0);
   document.getElementById('afqtScore').textContent = displayScore;
   if (hasAFQT) {
     document.getElementById('afqtLabel').textContent = 'Estimated AFQT Score';
     document.getElementById('afqtPercentile').textContent = `${results.afqt}${getOrdinalSuffix(results.afqt)} Percentile`;
+  } else if (isTutor) {
+    document.getElementById('afqtLabel').textContent = 'Tutor Practice';
+    document.getElementById('afqtPercentile').textContent = `${results.score}% correct — untimed practice with explanations`;
   } else {
     document.getElementById('afqtLabel').textContent = 'Practice Score';
     document.getElementById('afqtPercentile').textContent = `${results.score}% Correct — single-section practice, not an AFQT estimate`;
@@ -53,7 +57,10 @@ function loadResults() {
   const afqt = hasAFQT ? results.afqt : results.score;
   let message, description;
 
-  if (!hasAFQT) {
+  if (isTutor) {
+    message = 'Practice Complete';
+    description = 'Review each question below with its explanation. Weak areas from this session feed your study plan. Take a timed test when you want an AFQT estimate.';
+  } else if (!hasAFQT) {
     if (afqt >= 80) {
       message = "Strong Section Practice";
       description = "Great work on this section. Take a full AFQT practice test to see your estimated enlistment score.";
