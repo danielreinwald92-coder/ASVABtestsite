@@ -28,6 +28,10 @@ class QuizEngine {
     this._visHandler = null;
     // Guard against double submission (double-click / timer-expiry race)
     this._isSubmitting = false;
+
+    // Tutor mode: untimed, instant feedback + explanation. Set in loadTestConfig().
+    this.mode = 'timed';
+    this.tutorRevealed = new Set(); // slot ids whose feedback has been shown
   }
 
   init() {
@@ -42,9 +46,19 @@ class QuizEngine {
     this.startTime = Date.now();
     this.renderQuestion();
     this.renderNavigator();
-    this.startTimer();
+    this.maybeStartTimer();
     this.bindEvents();
     this.updateSectionHeader();
+    if (this.mode === 'tutor') {
+      this.applyTutorChrome();
+      this.explanations = {};
+      if (typeof loadExplanations === 'function') {
+        loadExplanations().then((map) => {
+          this.explanations = map || {};
+          this.renderQuestion(); // refresh if the user is already on a revealed slot
+        });
+      }
+    }
   }
 
   loadTestConfig() {
@@ -52,6 +66,7 @@ class QuizEngine {
     const urlParams = new URLSearchParams(window.location.search);
     const sectionParam = urlParams.get('section');
     const typeParam = urlParams.get('type');
+    const modeParam = urlParams.get('mode');
 
     // Load saved test config from session storage
     const savedConfig = sessionStorage.getItem('testConfig');
@@ -68,6 +83,11 @@ class QuizEngine {
     } else {
       this.testSections = ['AR']; // Default to AR
     }
+
+    // Tutor mode comes from the URL param, falling back to the saved config.
+    let cfgMode = null;
+    if (savedConfig) { try { cfgMode = (JSON.parse(savedConfig) || {}).mode || null; } catch (_) {} }
+    this.mode = (modeParam === 'tutor' || cfgMode === 'tutor') ? 'tutor' : 'timed';
   }
 
   generateNewTest() {
@@ -165,6 +185,9 @@ class QuizEngine {
       this.timeRemaining = state.timeRemaining || this.quizData.timeLimit;
       this.abilityLevels = state.abilityLevels || {};
       this.usedQuestionIds = new Set(state.usedQuestionIds || []);
+      // Tutor reveal/lock state must survive a refresh or resume, or previously
+      // answered questions would lose their feedback and become re-answerable.
+      this.tutorRevealed = new Set(state.tutorRevealed || []);
 
       // Rebuild question pools (not persisted — large; selectNextAdaptiveQuestion
       // filters by usedQuestionIds so reshuffled pool order is harmless).
@@ -188,7 +211,8 @@ class QuizEngine {
       currentQuestion: this.currentQuestion,
       timeRemaining: this.timeRemaining,
       abilityLevels: this.abilityLevels,
-      usedQuestionIds: Array.from(this.usedQuestionIds)
+      usedQuestionIds: Array.from(this.usedQuestionIds),
+      tutorRevealed: Array.from(this.tutorRevealed)
     };
     sessionStorage.setItem('quizState', JSON.stringify(state));
     this._lastSaveAt = Date.now();
@@ -217,6 +241,21 @@ class QuizEngine {
     // becomes visible again, so re-binding here would accumulate listeners
     // (and could multi-fire submit on timer expiry).
     this.bindVisibilityHandler();
+  }
+
+  // Timed tests run the clock; tutor mode never does (no time pressure, no auto-submit).
+  maybeStartTimer() {
+    if (this.mode === 'tutor') return;
+    this.startTimer();
+  }
+
+  // Hide timer UI and relabel for tutor mode. Uses optional chaining because
+  // these elements may be absent in tests.
+  applyTutorChrome() {
+    const timer = document.querySelector && document.querySelector('.quiz-timer');
+    if (timer) timer.style.display = 'none';
+    const title = document.querySelector && document.querySelector('.quiz-title');
+    if (title) title.textContent = 'Tutor Mode — Untimed Practice';
   }
 
   bindVisibilityHandler() {
@@ -305,16 +344,40 @@ class QuizEngine {
 
     container.setAttribute('role', 'radiogroup');
     container.setAttribute('aria-label', `Answer options for question ${questionNum}`);
+    const revealed = this.mode === 'tutor' && this.tutorRevealed.has(question.id);
     container.innerHTML = question.options.map((option, idx) => {
       const isSelected = this.answers[question.id] === idx;
+      let revealClass = '';
+      if (revealed) {
+        if (idx === question.correct) revealClass = ' reveal-correct';
+        else if (isSelected) revealClass = ' reveal-incorrect';
+      }
       return `
-        <div class="answer-option ${isSelected ? 'selected' : ''}" data-index="${idx}" role="radio" tabindex="0" aria-checked="${isSelected}" aria-label="Option ${letters[idx]}: ${option}. Press ${letters[idx]} to select.">
+        <div class="answer-option ${isSelected ? 'selected' : ''}${revealClass}" data-index="${idx}" role="radio" tabindex="0" aria-checked="${isSelected}" aria-label="Option ${letters[idx]}: ${option}. Press ${letters[idx]} to select.">
           <span class="answer-letter" aria-hidden="true">${letters[idx]}</span>
           <span class="answer-text">${option}</span>
           <span class="keyboard-hint" aria-hidden="true">Press ${letters[idx]}</span>
         </div>
       `;
     }).join('');
+
+    // Tutor feedback panel (present only on quiz.html; guarded for tests).
+    const feedback = document.getElementById('tutorFeedback');
+    if (feedback) {
+      if (revealed) {
+        const correct = this.answers[question.id] === question.correct;
+        const explanation = (this.explanations && this.explanations[question.originalId]) || '';
+        feedback.className = 'tutor-feedback ' + (correct ? 'is-correct' : 'is-incorrect');
+        feedback.innerHTML = `
+          <div class="tutor-verdict">${correct ? '✓ Correct' : '✗ Not quite'}</div>
+          ${explanation ? `<p class="tutor-explanation">${explanation}</p>` : ''}
+        `;
+        feedback.hidden = false;
+      } else {
+        feedback.hidden = true;
+        feedback.innerHTML = '';
+      }
+    }
 
     // Update flag button
     const flagBtn = document.getElementById('flagBtn');
@@ -356,7 +419,11 @@ class QuizEngine {
     grid.innerHTML = this.quizData.questions.map((q, idx) => {
       const classes = ['nav-dot'];
       if (idx === this.currentQuestion) classes.push('current');
-      if (this.answers[q.id] !== undefined) classes.push('answered');
+      if (this.mode === 'tutor' && this.tutorRevealed.has(q.id)) {
+        classes.push(this.answers[q.id] === q.correct ? 'nav-correct' : 'nav-incorrect');
+      } else if (this.answers[q.id] !== undefined) {
+        classes.push('answered');
+      }
       if (this.flagged.has(q.id)) classes.push('flagged');
 
       // Add section indicator for multi-section tests
@@ -369,14 +436,24 @@ class QuizEngine {
     const dots = document.querySelectorAll('.nav-dot');
     dots.forEach((dot, idx) => {
       const question = this.quizData.questions[idx];
-      dot.classList.remove('current', 'answered', 'flagged');
+      dot.classList.remove('current', 'answered', 'flagged', 'nav-correct', 'nav-incorrect');
       if (idx === this.currentQuestion) dot.classList.add('current');
-      if (this.answers[question.id] !== undefined) dot.classList.add('answered');
+      if (this.mode === 'tutor' && this.tutorRevealed.has(question.id)) {
+        dot.classList.add(this.answers[question.id] === question.correct ? 'nav-correct' : 'nav-incorrect');
+      } else if (this.answers[question.id] !== undefined) {
+        dot.classList.add('answered');
+      }
       if (this.flagged.has(question.id)) dot.classList.add('flagged');
     });
   }
 
   selectAnswer(index) {
+    // Tutor mode: once feedback is revealed the answer is final (changing it
+    // would be meaningless after seeing the key).
+    if (this.mode === 'tutor') {
+      const cur = this.quizData.questions[this.currentQuestion];
+      if (cur && this.tutorRevealed.has(cur.id)) return;
+    }
     const question = this.quizData.questions[this.currentQuestion];
     const previousAnswer = this.answers[question.id];
     this.answers[question.id] = index;
@@ -397,6 +474,11 @@ class QuizEngine {
       }
     }
 
+    // Mark revealed BEFORE persisting so a refresh right after answering keeps
+    // the reveal/lock for this question (saveState serializes tutorRevealed).
+    if (this.mode === 'tutor') {
+      this.tutorRevealed.add(question.id);
+    }
     this.saveState();
     this.renderQuestion();
   }
@@ -537,15 +619,17 @@ class QuizEngine {
     const totalTime = this.quizData.timeLimit - this.timeRemaining;
     const score = Math.round((totalCorrect / totalQuestions) * 100);
 
-    // Calculate AFQT estimate if applicable
-    let afqtEstimate = null;
-    afqtEstimate = MissionASVABScoring.calculateAFQTEstimate(sectionResults);
+    // Tutor sessions are untimed practice: no AFQT (it would overstate readiness).
+    const afqtEstimate = this.mode === 'tutor'
+      ? null
+      : MissionASVABScoring.calculateAFQTEstimate(sectionResults);
 
     // Store results
     const quizResults = {
       testType: MissionASVABConfig.getTestTypeFromSections(this.testSections),
       section: this.quizData.section,
       sectionCode: this.quizData.sectionCode,
+      mode: this.mode,
       sections: this.testSections,
       sectionResults: sectionResults,
       totalQuestions: totalQuestions,
@@ -574,7 +658,9 @@ class QuizEngine {
     const session = await getSession();
     if (!session) return { skipped: true };
 
-    const lineScores = MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
+    const lineScores = quizResults.mode === 'tutor'
+      ? null
+      : MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
     const strippedSections = {};
     // Compact per-question results: id + section + correct only (NO text/options),
     // so the mistake history stays small. Powers weak-area aggregation (see js/weak-areas.js).
@@ -590,6 +676,7 @@ class QuizEngine {
     const payload = {
       user_id: session.user.id,
       test_type: quizResults.testType || 'afqt',
+      mode: quizResults.mode || 'timed',
       afqt_score: quizResults.afqt,
       section_scores: strippedSections,
       line_scores: lineScores,

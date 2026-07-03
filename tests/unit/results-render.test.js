@@ -59,3 +59,34 @@ test('renderSectionBreakdown guards divide-by-zero (no NaN, width 0%)', () => {
   assert.ok(!/NaN/.test(grid._html), 'rendered HTML must not contain NaN');
   assert.ok(/width:\s*0%/.test(grid._html), 'zero-total section should render width 0%');
 });
+
+// SP1 — the review renders a 💡 explanation block for questions that have one.
+test('renderFilteredQuestions injects an explanation block when available', () => {
+  const src = fs.readFileSync(path.join(root, 'js/page-results.js'), 'utf8');
+  // Pull the two functions we need out of the shipped source.
+  const fnSrc = extractFn(src, 'renderFilteredQuestions');
+
+  let listHTML = '';
+  const listEl = {
+    set innerHTML(v) { listHTML = v; },
+    get innerHTML() { return listHTML; },
+  };
+  const sandbox = {
+    console,
+    document: { getElementById: (id) => (id === 'reviewQuestionsList' ? listEl : null) },
+    allReviewQuestions: [{
+      num: 1, section: 'AR', sectionName: 'Arithmetic Reasoning',
+      id: 5, originalId: 'AR001',
+      text: 'Q?', options: ['a', 'b', 'c', 'd'],
+      userAnswer: 0, correctAnswer: 1, isCorrect: false,
+    }],
+    questionExplanations: { AR001: 'Divide total by count to get the average.' },
+    reportedQuestionIds: new Set(),
+  };
+  vm.createContext(sandbox);
+  vm.runInContext(fnSrc + '\nthis.__fn = renderFilteredQuestions;', sandbox);
+  sandbox.__fn('all');
+
+  assert.ok(listHTML.includes('review-explanation'), 'expected an explanation block');
+  assert.ok(listHTML.includes('Divide total by count'), 'expected explanation text');
+});

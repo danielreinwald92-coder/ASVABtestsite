@@ -26,6 +26,7 @@ loadScript('js/test-config.js', context);
 loadScript('js/scoring.js', context);
 loadScript('js/section-config.js', context);
 loadScript('js/quiz-data.js', context);
+loadScript('js/explanations.js', context);
 loadScript('js/courses.js', context, 'this.courses = courses;');
 
 const config = context.window.MissionASVABConfig;
@@ -61,6 +62,29 @@ for (const [code, section] of Object.entries(asvabData.sections)) {
     assert(Array.isArray(question.options) && question.options.length === 4, `${question.id} must have 4 options`);
     assert(Number.isInteger(question.correct) && question.correct >= 0 && question.correct < 4, `${question.id} has invalid correct index`);
   }
+}
+
+// --- Explanation contract (SP1) ---------------------------------------------
+// Full-bank enforcement (all Phase C batches landed): every question has a
+// non-empty explanation; no orphans; length bounds; and the values are
+// HTML-safe (rendered via innerHTML in the review/tutor panels without escaping,
+// so a literal <, > or & would break rendering).
+const explanations = context.window.QUIZ_EXPLANATIONS || {};
+
+const allQuestionIds = new Set();
+for (const list of Object.values(asvabData.questions)) {
+  list.forEach((q) => allQuestionIds.add(q.id));
+}
+for (const [key, text] of Object.entries(explanations)) {
+  assert(allQuestionIds.has(key), `explanation for unknown question id ${key}`);
+  assert(typeof text === 'string' && text.length >= 40 && text.length <= 600,
+    `explanation ${key} must be a 40–600 char string`);
+  assert(!/[<>&]/.test(text), `explanation ${key} must not contain <, > or & (HTML-unsafe)`);
+  assert(!/[\n\r]/.test(text), `explanation ${key} must be a single line`);
+}
+for (const id of allQuestionIds) {
+  assert(explanations[id] && explanations[id].length > 0,
+    `${id} is missing an explanation`);
 }
 
 for (const [courseCode, course] of Object.entries(courses)) {

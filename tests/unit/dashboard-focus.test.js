@@ -92,7 +92,7 @@ test('startWeakAreaPractice seeds testConfig and navigates like select-test', ()
 
   sandbox.startWeakAreaPractice('AR,MK');
 
-  assert.deepEqual(JSON.parse(store.testConfig), { sections: ['AR', 'MK'] });
+  assert.deepEqual(JSON.parse(store.testConfig), { sections: ['AR', 'MK'], mode: 'tutor' });
   assert.strictEqual(store.testType, 'custom');
   assert.strictEqual(sandbox.window.location.href, 'test-intro.html');
 });

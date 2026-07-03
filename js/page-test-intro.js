@@ -10,6 +10,7 @@
   const testConfig = JSON.parse(sessionStorage.getItem('testConfig') || '{}');
   const testType = localStorage.getItem('testType') || 'quick';
   const sections = testConfig.sections || MissionASVABConfig.getSectionsForType(testType);
+  const mode = testConfig.mode === 'tutor' ? 'tutor' : 'timed';
 
   // Calculate actual test details from quiz data
   function loadTestInfo() {
@@ -32,6 +33,13 @@
 
     document.getElementById('questionCount').textContent = details.totalQuestions;
     document.getElementById('timeLimit').textContent = totalTimeMinutes;
+
+    if (mode === 'tutor') {
+      const timeEl = document.getElementById('timeLimit');
+      if (timeEl && timeEl.parentElement) timeEl.parentElement.style.display = 'none';
+      const badge = document.getElementById('testBadge');
+      if (badge) badge.textContent = 'Tutor Mode — Untimed';
+    }
   }
 
   loadTestInfo();
@@ -44,7 +52,7 @@
 
   startBtn.addEventListener('click', () => {
     if (!startBtn.disabled) {
-      window.location.href = 'quiz.html';
+      window.location.href = mode === 'tutor' ? 'quiz.html?mode=tutor' : 'quiz.html';
     }
   });
 

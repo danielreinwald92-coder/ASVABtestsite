@@ -15,7 +15,7 @@
 'use strict';
 
 // Bump this string to invalidate the whole offline cache on the next visit.
-const CACHE_VERSION = 'mission-asvab-v1';
+const CACHE_VERSION = 'mission-asvab-v2';
 
 // Small, maintainable core of STATIC same-origin assets that make up the app
 // shell. Admin assets are intentionally excluded.
@@ -30,6 +30,8 @@ const PRECACHE_URLS = [
   '/manifest.json',
   '/css/shared.css',
   // Core JS
+  '/js/load-explanations.js',
+  '/js/explanations.js',
   '/js/auth.js',
   '/js/sw-register.js',
   '/js/offline-queue.js',
