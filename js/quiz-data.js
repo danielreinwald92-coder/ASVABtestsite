@@ -4560,6 +4560,426 @@ const asvabData = {
         text: "Pneumatic systems use what medium to transmit force?",
         options: ["Oil", "Electricity", "Compressed air", "Water"],
         correct: 2, difficulty: 2
+      },
+      {
+        id: "MC036",
+        text: "A toolbox sits on the bed of a pickup truck. When the driver brakes hard, the toolbox slides toward the front of the truck. What best explains this?",
+        options: ["The brakes push the toolbox forward", "Gravity pulls the toolbox toward the cab", "The toolbox tends to keep moving forward due to inertia", "Air pressure builds up behind the toolbox"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "MC037",
+        text: "Two movers push on a crate. One pushes with 300 N to the right and the other pushes with 200 N to the left. What is the net force on the crate?",
+        options: ["100 N to the right", "500 N to the right", "100 N to the left", "0 N"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "MC038",
+        text: "An astronaut travels from Earth to the Moon, where gravity is weaker. Compared to on Earth, on the Moon the astronaut has:",
+        options: ["less mass and less weight", "the same mass but less weight", "the same mass and the same weight", "less mass but the same weight"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "MC039",
+        text: "A swimmer pushes backward against the pool wall with her feet and glides forward. According to Newton's third law, what force propels her forward?",
+        options: ["The buoyant force of the water", "Her own muscular force acting on her body", "Friction between her feet and the wall", "The wall pushing forward on her feet"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "MC040",
+        text: "A soldier finds it takes a hard shove to get a heavy footlocker sliding across the floor, but once it is moving, a smaller push keeps it going. Why?",
+        options: ["Static friction is greater than kinetic friction", "Kinetic friction is greater than static friction", "The footlocker loses weight once it starts moving", "The normal force decreases while the footlocker moves"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "MC041",
+        text: "A 40 N toolbox rests on a level workbench. What is the normal force the bench exerts on the toolbox?",
+        options: ["0 N", "20 N upward", "40 N upward", "40 N downward"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "MC042",
+        text: "A 20 N lantern hangs motionless from a single rope attached to the ceiling. What is the tension in the rope?",
+        options: ["10 N", "20 N", "40 N", "0 N"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "MC043",
+        text: "A cargo truck travels down a straight, level highway at a constant 55 miles per hour. What can you conclude about the net force acting on the truck?",
+        options: ["It points forward, in the direction of motion", "It points backward, opposing the motion", "It equals the truck's weight", "It is zero"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "MC044",
+        text: "A mechanic pushes a 10 kg cart with a net force of 20 N. What is the cart's acceleration?",
+        options: ["2 meters per second squared", "200 meters per second squared", "0.5 meters per second squared", "30 meters per second squared"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "MC045",
+        text: "Two tow cables pull on a stuck vehicle at right angles to each other, one with 30 N and the other with 40 N. What is the magnitude of the combined force on the vehicle?",
+        options: ["70 N", "50 N", "35 N", "10 N"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "MC046",
+        text: "Two convoy trucks each travel at a steady 45 miles per hour, but one heads north and the other heads east. Which statement is correct?",
+        options: ["They have the same velocity but different speeds", "They have the same speed and the same velocity", "They have different speeds and different velocities", "They have the same speed but different velocities"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "MC047",
+        text: "A motorcycle speeds up from 20 meters per second to 30 meters per second in 5 seconds. What is its average acceleration?",
+        options: ["10 meters per second squared", "6 meters per second squared", "2 meters per second squared", "50 meters per second squared"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "MC048",
+        text: "A roller coaster car is released from the top of the first hill and rolls to the bottom. Ignoring friction, where is its kinetic energy greatest and its potential energy least?",
+        options: ["At the bottom of the hill", "At the top of the hill", "Exactly halfway down the hill", "Kinetic and potential energy stay constant the whole way"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "MC049",
+        text: "A wrecking ball swings back and forth on a cable like a pendulum. Ignoring air resistance, at what point in the swing is the ball moving fastest?",
+        options: ["At the highest point of the swing", "At the lowest point of the swing", "Halfway between the highest and lowest points", "Its speed is the same everywhere in the swing"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "MC050",
+        text: "A supply clerk lifts a 60 N ammo can straight up 2 m onto a shelf, then carries it 10 m down a level hallway at constant height. How much work does the clerk do against gravity?",
+        options: ["600 J", "720 J", "120 J", "620 J"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "MC051",
+        text: "In the scientific sense, which of these people is doing mechanical work on the object mentioned?",
+        options: ["A guard standing still while holding a rifle", "A student leaning against a wall that does not move", "A clerk holding a box steady at waist height", "A soldier dragging a duffel bag across the floor"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "MC052",
+        text: "A hoist does 300 J of work raising an engine block in 6 seconds. What is the power output of the hoist?",
+        options: ["1800 W", "50 W", "300 W", "6 W"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "MC053",
+        text: "A 1000 kg truck moves at 5 meters per second, and a 500 kg car moves at 12 meters per second. Which vehicle has more momentum?",
+        options: ["The car, because its momentum is 6000 kg x m/s versus 5000 kg x m/s", "The truck, because it has twice the mass", "They have equal momentum", "Neither has momentum unless it is accelerating"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "MC054",
+        text: "Two soldiers each carry an identical 200 N pack up the same flight of stairs. One takes 10 seconds and the other takes 20 seconds. Which statement is true?",
+        options: ["The faster soldier does twice the work", "The slower soldier develops more power", "They do the same work, but the faster soldier develops more power", "They develop the same power, but the faster soldier does less work"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "MC055",
+        text: "Identical crates slide from the same height to the floor down two frictionless ramps, one steep and one shallow. How do their speeds compare at the bottom?",
+        options: ["The crate on the steep ramp arrives moving faster", "The crate on the shallow ramp arrives moving faster", "Neither crate gains any speed without friction", "Both crates arrive at the same speed"],
+        correct: 3, difficulty: 5
+      },
+      {
+        id: "MC056",
+        text: "A soldier uses a crowbar to pry the lid off a supply crate. The distance from the pivot point to his hands is 60 inches, and the distance from the pivot to the lid is 5 inches. What is the mechanical advantage of the crowbar?",
+        options: ["5", "55", "12", "65"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "MC057",
+        text: "A 120-pound child sits 6 feet from the center pivot of a seesaw. How far from the pivot must an 80-pound child sit on the other side to balance it?",
+        options: ["6 feet", "9 feet", "4 feet", "8 feet"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "MC058",
+        text: "When sweeping with a broom, your top hand stays fixed as a pivot while your lower hand pushes the handle, and the broom head moves along the floor. Because the effort is applied between the fulcrum and the load, a broom used this way is a:",
+        options: ["First-class lever", "Second-class lever", "Wheel and axle", "Third-class lever"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "MC059",
+        text: "A mechanic uses a pry bar to lift a 200-pound engine block. The load sits 1 foot from the fulcrum and the mechanic pushes 4 feet from the fulcrum. Ignoring the bar's weight, how much force must the mechanic apply?",
+        options: ["50 pounds", "200 pounds", "100 pounds", "800 pounds"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "MC060",
+        text: "A loading ramp is 12 feet long and rises 3 feet to the bed of a truck. Ignoring friction, how much force is needed to push a 400-pound barrel up the ramp?",
+        options: ["400 pounds", "33 pounds", "100 pounds", "133 pounds"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "MC061",
+        text: "A carpenter has two steel wedges of the same width for splitting logs. Compared to a short, blunt wedge, a longer and thinner wedge will:",
+        options: ["Require more driving force", "Require less driving force", "Split the log with fewer hammer blows regardless of force", "Provide no mechanical advantage"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "MC062",
+        text: "A well uses a windlass: a crank handle turns in a circle with a 10-inch radius, winding rope around an axle with a 2-inch radius. What force on the handle is needed to raise a 150-pound bucket of water?",
+        options: ["30 pounds", "75 pounds", "150 pounds", "15 pounds"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "MC063",
+        text: "A fishing rod has a mechanical advantage of less than 1, meaning the angler must apply more force than the weight of the fish. Why is this design still useful?",
+        options: ["It reduces the total work needed to land the fish", "It changes the direction of the applied force", "It multiplies the angler's force at the tip", "It moves the rod tip faster and farther than the angler's hand moves"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "MC064",
+        text: "A single fixed pulley is mounted at the top of a flagpole to raise the flag. What advantage does this pulley provide?",
+        options: ["It doubles the lifting force", "It changes the direction of the pull, letting you pull down to lift the flag up", "It cuts the rope distance pulled in half", "It reduces the work required to raise the flag"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "MC065",
+        text: "A rigger attaches a single movable pulley to a 100-pound crate, runs the rope up over an anchor point, and pulls. Ignoring friction, how much force must the rigger apply to lift the crate?",
+        options: ["100 pounds", "25 pounds", "50 pounds", "200 pounds"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "MC066",
+        text: "A mechanic hoists a 500-pound engine using a block and tackle in which 5 rope strands support the movable block. Ignoring friction, how much force must the mechanic pull with?",
+        options: ["100 pounds", "500 pounds", "125 pounds", "250 pounds"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "MC067",
+        text: "A pulley system has a mechanical advantage of 4. To raise a pallet of gear 3 feet, how much rope must be pulled through the system?",
+        options: ["3 feet", "4 feet", "7 feet", "12 feet"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "MC068",
+        text: "A mechanic wants to lift an engine with half the force of its weight while pulling the rope downward toward the shop floor. Which setup accomplishes both goals?",
+        options: ["A single fixed pulley on the ceiling", "A single movable pulley on the engine with the rope pulled straight up", "A movable pulley on the engine plus a fixed pulley on the ceiling", "Two fixed pulleys on the ceiling"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "MC069",
+        text: "A block and tackle has an ideal mechanical advantage of 4, but because of friction a rigger must pull with 125 pounds to lift a 400-pound load. What is the efficiency of the system?",
+        options: ["100 percent", "80 percent", "75 percent", "31 percent"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "MC070",
+        text: "A rigger is counting rope strands to find the mechanical advantage of a block and tackle. Which strand should NOT be counted?",
+        options: ["The free end pulled downward off the fixed upper block", "Any strand attached to the movable block", "Any strand passing under a sheave in the movable block", "The strand tied off to the movable block's hook"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "MC071",
+        text: "A block and tackle with 4 supporting strands is only 75 percent efficient because of friction. How much force is actually needed to lift a 600-pound engine?",
+        options: ["150 pounds", "450 pounds", "112 pounds", "200 pounds"],
+        correct: 3, difficulty: 5
+      },
+      {
+        id: "MC072",
+        text: "A sailor lifts a 240-pound crate by pulling with only 40 pounds of force on a frictionless block and tackle. How many rope strands must be supporting the movable block?",
+        options: ["4", "6", "8", "5"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "MC073",
+        text: "A 12-tooth gear on a motor shaft meshes directly with a 36-tooth gear on an output shaft. Compared to the motor shaft, the output shaft turns:",
+        options: ["Three times as fast, with one-third the torque", "At the same speed, with three times the torque", "One-third as fast, with three times the torque", "One-third as fast, with one-third the torque"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "MC074",
+        text: "Three gears are meshed in a row: Gear A drives Gear B, and Gear B drives Gear C. If Gear A rotates clockwise, Gear C rotates:",
+        options: ["Clockwise", "Counterclockwise", "In alternating directions", "It depends on the tooth counts of the gears"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "MC075",
+        text: "A 20-tooth gear turning at 120 RPM drives a 60-tooth gear. How fast does the 60-tooth gear turn?",
+        options: ["360 RPM", "40 RPM", "60 RPM", "20 RPM"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "MC076",
+        text: "A belt connects a 4-inch diameter pulley on a motor to an 8-inch diameter pulley on a fan. If the motor pulley spins at 400 RPM, the fan pulley spins at:",
+        options: ["800 RPM", "400 RPM", "100 RPM", "200 RPM"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "MC077",
+        text: "On a bicycle, a 48-tooth chainring at the pedals is connected by a chain to a 16-tooth sprocket on the rear wheel. For each full turn of the pedals, the rear wheel makes:",
+        options: ["3 turns", "One-third of a turn", "16 turns", "1 turn"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "MC078",
+        text: "In an engine, a rotating cam pushes against a follower that opens a valve. What determines how far and when the follower rises?",
+        options: ["The weight of the follower", "The speed of the camshaft only", "The shape of the cam lobe", "The strength of the valve spring"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "MC079",
+        text: "A mechanic applies a 25-pound force at the end of a wrench handle 2 feet from the center of a bolt, pulling at a right angle to the handle. How much torque is applied to the bolt?",
+        options: ["12.5 pound-feet", "50 pound-feet", "27 pound-feet", "25 pound-feet"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "MC080",
+        text: "In a two-stage gear train, a 12-tooth gear drives a 36-tooth gear. On the same shaft as the 36-tooth gear is a 15-tooth gear, which drives a 45-tooth output gear. If the input shaft turns at 900 RPM, the output gear turns at:",
+        options: ["300 RPM", "450 RPM", "225 RPM", "100 RPM"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "MC081",
+        text: "A mechanic cannot loosen a rusted bolt with a wrench, so he slips a length of pipe over the wrench handle to extend it and pulls with the same force at the end of the pipe. This works because the pipe:",
+        options: ["Increases the lever arm, so the same force produces more torque", "Increases the force he applies to the handle", "Reduces the friction between the bolt and its threads", "Changes the direction of the applied force"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "MC082",
+        text: "A spring stretches 1 inch when a 5-pound weight is hung from it. According to Hooke's law, if a 10-pound weight is hung instead, the spring will stretch about:",
+        options: ["1 inch", "2 inches", "4 inches", "Half an inch"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "MC083",
+        text: "Two identical springs are connected end to end (in series), and a weight is hung from the bottom spring. Compared to hanging the same weight from just one of the springs, the total stretch is:",
+        options: ["Half as much, because the springs share the load", "The same, because the weight has not changed", "Four times as much", "Twice as much, because each spring feels the full weight and stretches fully"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "MC084",
+        text: "Two steel plates are bolted together, and the plates are pulled in opposite directions so they try to slide past each other across the bolt. The bolt is primarily loaded in:",
+        options: ["Tension", "Compression", "Shear", "Torsion"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "MC085",
+        text: "A wooden beam rests on supports at both ends, and a heavy load sits at the center. As the beam sags under the load, the bottom surface of the beam is in:",
+        options: ["Tension, because it is being stretched", "Compression, because it is being squeezed", "Shear, because the layers slide apart", "No stress, because the supports carry the load"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "MC086",
+        text: "A cast iron bracket snaps suddenly under an overload without visibly bending first, while a steel bracket of the same size bends noticeably before it fails. The cast iron behaves this way because it is:",
+        options: ["Ductile", "Brittle", "Elastic", "Corrosion resistant"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "MC087",
+        text: "Builders add diagonal braces to a rectangular gate frame, dividing it into triangles. Why are triangles used to stiffen structures?",
+        options: ["Triangles weigh less than other shapes", "Triangles look more finished", "A triangle cannot change shape without changing the length of a side", "Triangles hold more material than rectangles"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "MC088",
+        text: "A 12-foot plank rests on a support at each end. A worker places a 300-pound crate 3 feet from the left support (9 feet from the right support). Which support carries more of the crate's weight?",
+        options: ["The right support, because the plank tips toward it", "Both supports carry 150 pounds each", "Neither, because the plank carries the weight", "The left support, because the crate is closer to it"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "MC089",
+        text: "A single spring stretches 2 inches under a 10-pound load. Two of these identical springs are hung side by side (in parallel) and together support a 30-pound load shared equally. How far does each spring stretch?",
+        options: ["6 inches", "3 inches", "2 inches", "1.5 inches"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "MC090",
+        text: "A mechanic presses down on the small piston of a closed hydraulic system. According to Pascal's principle, the pressure created is:",
+        options: ["Felt only at the small piston", "Strongest at the bottom of the fluid and zero at the top", "Transmitted equally in all directions throughout the fluid", "Converted into heat before reaching the large piston"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "MC091",
+        text: "A hydraulic jack has an input piston with an area of 2 square inches and an output piston with an area of 20 square inches. If a worker pushes on the input piston with 50 pounds of force, how much force does the output piston deliver?",
+        options: ["50 pounds", "500 pounds", "1,000 pounds", "5 pounds"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "MC092",
+        text: "A 120-pound toolbox rests on a bench, and its base contacts the bench over an area of 4 square inches. What pressure does the toolbox exert on the bench?",
+        options: ["30 psi", "480 psi", "124 psi", "116 psi"],
+        correct: 0, difficulty: 1
+      },
+      {
+        id: "MC093",
+        text: "Two open water tanks sit side by side. Tank A is narrow and 10 feet deep; Tank B is very wide but only 5 feet deep. Compared with the bottom of Tank B, the water pressure at the bottom of Tank A is:",
+        options: ["Lower, because Tank A holds less total water", "The same, because both tanks are open to the air", "Lower, because pressure depends on tank width", "Higher, because pressure depends on the depth of the water"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "MC094",
+        text: "A solid steel bar sinks, yet a steel ship weighing thousands of tons floats. The ship floats because:",
+        options: ["The paint and coatings on the hull are lighter than water", "Its hollow hull shape displaces a weight of water equal to the ship's weight", "Salt water pushes up harder on large objects than on small ones", "Moving through the water generates lift under the hull"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "MC095",
+        text: "A soldier uses a siphon hose to move fuel from a drum into a can sitting on the ground below it. Partway through, someone lifts the can up onto a table and the flow stops. Why?",
+        options: ["The hose was not wide enough to keep the fuel moving", "Lifting the can heated the fuel and blocked the hose with vapor", "The outlet end was raised so it was no longer below the fuel level in the drum", "The fuel ran out of momentum after flowing for several minutes"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "MC096",
+        text: "Which type of pump moves fluid by trapping a fixed volume of liquid and then forcing that volume out with each cycle?",
+        options: ["A positive displacement pump", "A centrifugal pump", "A venturi eductor", "A cooling fan"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "MC097",
+        text: "A machine designer must lift very heavy loads with precise, steady motion. She chooses a hydraulic system instead of a pneumatic one mainly because:",
+        options: ["Compressed air is far more expensive than hydraulic oil", "Air transmits pressure in only one direction", "Hydraulic systems never leak", "Liquids are nearly incompressible, so the motion is firm and precise"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "MC098",
+        text: "In a hydraulic press, the input piston has an area of 2 square inches and the output piston has an area of 10 square inches. If the input piston is pushed down 10 inches, how far does the output piston rise?",
+        options: ["10 inches", "2 inches", "50 inches", "5 inches"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "MC099",
+        text: "An empty raft weighs 200 pounds. To float while carrying a 300-pound load of gear, the raft must displace water weighing at least:",
+        options: ["500 pounds", "300 pounds", "200 pounds", "100 pounds"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "MC100",
+        text: "A forklift is stable while its load sits near the ground. As the operator raises the same load high on the mast, the forklift becomes easier to tip over because:",
+        options: ["The load gets heavier as it rises", "The tires lose air pressure under the shifting load", "The combined center of gravity rises, so a smaller lean moves it outside the wheelbase", "The hydraulic lift removes weight from the rear wheels only"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "MC101",
+        text: "During hard braking, a car with antilock brakes stops shorter on dry pavement than the same car with its wheels locked and skidding. The main reason is that:",
+        options: ["Locked wheels make the car lighter on its tires", "Skidding tires melt and become perfectly smooth", "The antilock pump pushes the car backward", "Static friction between a rolling tire and the road is greater than the kinetic friction of a skidding tire"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "MC102",
+        text: "A technician packs grease into the wheel bearings of a trailer before a long haul. The main job of the grease is to:",
+        options: ["Glue the bearing rollers firmly to the axle", "Keep a thin film between the moving metal surfaces, cutting friction, wear, and heat", "Add weight to the hub so the wheel spins more smoothly", "Soften the metal so the rollers can reshape themselves"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "MC103",
+        text: "A basement sump pump has a check valve installed in its vertical discharge pipe. What does this one-way valve accomplish?",
+        options: ["It keeps the water in the pipe from draining back into the sump pit each time the pump shuts off", "It lets the operator adjust the pump's flow rate by hand", "It filters sand and grit out of the water before it leaves the pit", "It increases the water pressure produced by the pump"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "MC104",
+        text: "A machinist must install a metal collar so tightly on a shaft that it will not slip, without using bolts or welds. A common method is to heat the collar before sliding it onto the shaft because:",
+        options: ["Heat softens the shaft so the collar can bite into it", "Hot metal becomes magnetic and clings to the shaft", "The heat burns off oil so glue will stick better", "The heated collar expands, slips over the shaft easily, then shrinks tight as it cools"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "MC105",
+        text: "A crane lifts a 2,000-pound load hanging 30 feet from its pivot point. A counterweight is mounted 10 feet from the pivot on the opposite side. Ignoring the crane's own weight, what is the minimum counterweight needed to keep the crane from tipping toward the load?",
+        options: ["2,000 pounds", "667 pounds", "6,000 pounds", "60,000 pounds"],
+        correct: 2, difficulty: 5
       }
     ],
   }
