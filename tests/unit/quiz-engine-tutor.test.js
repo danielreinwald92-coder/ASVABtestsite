@@ -146,3 +146,45 @@ test('timed submit still computes an AFQT', () => {
     assert.strictEqual(results.afqt, 62);
   });
 });
+
+// Regression: tutorRevealed must survive a save/resume cycle, or a refresh mid-
+// session drops the answer-lock and feedback for already-answered questions.
+test('tutorRevealed persists through saveState -> loadSavedState', () => {
+  const store = {};
+  const sessionStorage = {
+    getItem: (k) => (k in store ? store[k] : null),
+    setItem: (k, v) => { store[k] = String(v); },
+    removeItem: (k) => { delete store[k]; },
+  };
+  const quizData = {
+    section: 'AR', sectionCode: 'AR', timeLimit: 0,
+    questions: [{ id: 1, originalId: 'AR001', sectionCode: 'AR', correct: 2 }],
+  };
+
+  // First engine: reveal a slot in tutor mode, then persist.
+  const s1 = loadEngine({ document: fakeDoc(), sessionStorage });
+  const e1 = new s1.QuizEngine();
+  e1.mode = 'tutor';
+  e1.quizData = quizData;
+  e1.answers = { 1: 0 };
+  e1.currentQuestion = 0;
+  e1.renderQuestion = () => {};
+  e1.selectAnswer(0); // reveals slot 1
+  assert.ok(e1.tutorRevealed.has(1), 'slot revealed before save');
+  store.generatedTest = JSON.stringify(quizData); // loadSavedState needs both keys
+
+  // Second engine (simulated refresh): restore and confirm the lock is back.
+  const s2 = loadEngine({ document: fakeDoc(), sessionStorage });
+  const e2 = new s2.QuizEngine();
+  e2.mode = 'tutor';
+  e2.testSections = ['AR'];
+  e2.questionPools = { AR: [] };
+  const restored = e2.loadSavedState();
+  assert.strictEqual(restored, true, 'saved state should load');
+  assert.ok(e2.tutorRevealed.has(1), 'tutorRevealed restored after resume');
+
+  // And the answer stays locked.
+  e2.renderQuestion = () => {};
+  e2.selectAnswer(1);
+  assert.strictEqual(e2.answers[1], 0, 'restored reveal keeps the answer locked');
+});

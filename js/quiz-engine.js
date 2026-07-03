@@ -185,6 +185,9 @@ class QuizEngine {
       this.timeRemaining = state.timeRemaining || this.quizData.timeLimit;
       this.abilityLevels = state.abilityLevels || {};
       this.usedQuestionIds = new Set(state.usedQuestionIds || []);
+      // Tutor reveal/lock state must survive a refresh or resume, or previously
+      // answered questions would lose their feedback and become re-answerable.
+      this.tutorRevealed = new Set(state.tutorRevealed || []);
 
       // Rebuild question pools (not persisted — large; selectNextAdaptiveQuestion
       // filters by usedQuestionIds so reshuffled pool order is harmless).
@@ -208,7 +211,8 @@ class QuizEngine {
       currentQuestion: this.currentQuestion,
       timeRemaining: this.timeRemaining,
       abilityLevels: this.abilityLevels,
-      usedQuestionIds: Array.from(this.usedQuestionIds)
+      usedQuestionIds: Array.from(this.usedQuestionIds),
+      tutorRevealed: Array.from(this.tutorRevealed)
     };
     sessionStorage.setItem('quizState', JSON.stringify(state));
     this._lastSaveAt = Date.now();
@@ -470,10 +474,12 @@ class QuizEngine {
       }
     }
 
-    this.saveState();
+    // Mark revealed BEFORE persisting so a refresh right after answering keeps
+    // the reveal/lock for this question (saveState serializes tutorRevealed).
     if (this.mode === 'tutor') {
       this.tutorRevealed.add(question.id);
     }
+    this.saveState();
     this.renderQuestion();
   }
 
