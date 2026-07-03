@@ -802,6 +802,87 @@
       }
     }
 
+    /* Recent Updates */
+    .updates-section {
+      padding: 4rem 5%;
+      background: var(--white);
+      border-top: 1px solid var(--cream-200);
+    }
+
+    .updates-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .updates-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .updates-subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .updates-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .update-item {
+      display: flex;
+      gap: 1.25rem;
+      align-items: baseline;
+      background: var(--cream-100);
+      border-left: 3px solid var(--gold-500);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+    }
+
+    .update-date {
+      flex-shrink: 0;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gold-text);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      min-width: 92px;
+    }
+
+    .update-text {
+      color: var(--text-primary);
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .updates-section {
+        padding: 3rem 4%;
+      }
+
+      .updates-title {
+        font-size: 1.75rem;
+      }
+
+      .update-item {
+        flex-direction: column;
+        gap: 0.3rem;
+        padding: 0.9rem 1rem;
+      }
+
+      .update-date {
+        min-width: 0;
+      }
+    }
+
     /* Footer */
     .site-footer {
       background: var(--navy-900);
@@ -959,6 +1040,27 @@
         <button type="submit" class="form-submit">Submit Request</button>
         <p class="form-disclaimer">Your contact details — and, if you have taken a practice test, your estimated practice AFQT score — are shared only with authorized military recruiters. This is a practice estimate, not an official ASVAB result. You may opt out at any time by contacting us.</p>
       </form>
+    </div>
+  </section>
+
+  <section class="updates-section">
+    <div class="updates-inner">
+      <h2 class="updates-title">Recent Updates</h2>
+      <p class="updates-subtitle">We're always improving Mission ASVAB. Here's what's new lately.</p>
+      <ul class="updates-list">
+        <li class="update-item">
+          <span class="update-date">Jul 2, 2026</span>
+          <span class="update-text">Added step-by-step answer explanations and a built-in tutor to every practice question.</span>
+        </li>
+        <li class="update-item">
+          <span class="update-date">Jun 14, 2026</span>
+          <span class="update-text">Made accounts and login faster and more secure.</span>
+        </li>
+        <li class="update-item">
+          <span class="update-date">Apr 23, 2026</span>
+          <span class="update-text">Added visual diagrams to the math study guides.</span>
+        </li>
+      </ul>
     </div>
   </section>
 
