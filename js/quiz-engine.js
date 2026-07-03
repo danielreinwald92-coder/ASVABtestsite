@@ -427,16 +427,20 @@ class QuizEngine {
   }
 
   updateSectionHeader() {
-    // Update header to show current section info
     const header = document.querySelector('.quiz-section');
-    if (header) {
-      const question = this.quizData.questions[this.currentQuestion];
-      if (question && question.sectionName && this.testSections.length > 1) {
-        header.textContent = `${question.sectionName} (${question.sectionCode})`;
-      } else {
-        header.textContent = this.quizData.section;
-      }
+    if (!header) return;
+
+    if (this.isSectioned() && this.sectionRanges.length) {
+      const range = this.sectionRanges[this.activeSectionIndex];
+      header.textContent = this.sectionRanges.length > 1
+        ? `Section ${this.activeSectionIndex + 1} of ${this.sectionRanges.length}: ${range.name}`
+        : range.name;
+      return;
     }
+
+    // Tutor / fallback: the current question's section name, else the test name.
+    const question = this.quizData.questions[this.currentQuestion];
+    header.textContent = (question && question.sectionName) || this.quizData.section;
   }
 
   renderQuestion() {
@@ -541,7 +545,14 @@ class QuizEngine {
     const grid = document.getElementById('navigatorGrid');
     if (!grid) return;
 
-    grid.innerHTML = this.quizData.questions.map((q, idx) => {
+    // Sectioned tests show only the active section; tutor shows the whole test.
+    const range = this.isSectioned()
+      ? this.getActiveRange()
+      : { start: 0, end: this.quizData.questions.length };
+
+    let html = '';
+    for (let idx = range.start; idx < range.end; idx++) {
+      const q = this.quizData.questions[idx];
       const classes = ['nav-dot'];
       if (idx === this.currentQuestion) classes.push('current');
       if (this.mode === 'tutor' && this.tutorRevealed.has(q.id)) {
@@ -550,26 +561,14 @@ class QuizEngine {
         classes.push('answered');
       }
       if (this.flagged.has(q.id)) classes.push('flagged');
-
-      // Add section indicator for multi-section tests
       const sectionAttr = q.sectionCode ? `data-section="${q.sectionCode}"` : '';
-      return `<div class="${classes.join(' ')}" data-index="${idx}" ${sectionAttr}>${idx + 1}</div>`;
-    }).join('');
+      html += `<div class="${classes.join(' ')}" data-index="${idx}" ${sectionAttr}>${idx - range.start + 1}</div>`;
+    }
+    grid.innerHTML = html;
   }
 
   updateNavigator() {
-    const dots = document.querySelectorAll('.nav-dot');
-    dots.forEach((dot, idx) => {
-      const question = this.quizData.questions[idx];
-      dot.classList.remove('current', 'answered', 'flagged', 'nav-correct', 'nav-incorrect');
-      if (idx === this.currentQuestion) dot.classList.add('current');
-      if (this.mode === 'tutor' && this.tutorRevealed.has(question.id)) {
-        dot.classList.add(this.answers[question.id] === question.correct ? 'nav-correct' : 'nav-incorrect');
-      } else if (this.answers[question.id] !== undefined) {
-        dot.classList.add('answered');
-      }
-      if (this.flagged.has(question.id)) dot.classList.add('flagged');
-    });
+    this.renderNavigator();
   }
 
   selectAnswer(index) {
