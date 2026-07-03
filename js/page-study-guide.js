@@ -124,25 +124,38 @@
       return a;
     }
 
-    // Lazy-load the large course data bundle (js/courses.js, ~217KB) on demand
-    // instead of as a render-blocking <script> in the initial page load.
-    // courses.js declares a top-level `const courses` shared across classic
-    // scripts, so once it executes the bare `courses` identifier is available
-    // here. The promise is cached so the script is only ever injected once.
-    let _coursesPromise = null;
-    function loadCourses() {
-      if (typeof courses !== 'undefined') return Promise.resolve();
-      if (_coursesPromise) return _coursesPromise;
-      _coursesPromise = new Promise((resolve, reject) => {
+    // Lazy-load the large course data bundles on demand instead of as
+    // render-blocking <script>s in the initial page load. courses.js declares
+    // a top-level `const courses` shared across classic scripts; once it
+    // executes the bare `courses` identifier is available here.
+    // courses-tech.js (GS/AS/MC/EI) declares `coursesTech`, merged into
+    // `courses` after both load. A courses-tech.js load failure is tolerated:
+    // the base AR/MK/WK/PC courses must keep working without it.
+    // The promise is cached so each script is only ever injected once.
+    function injectScript(src) {
+      return new Promise((resolve, reject) => {
         const s = document.createElement('script');
-        s.src = 'js/courses.js';
-        s.onload = () => {
-          if (typeof courses !== 'undefined') resolve();
-          else reject(new Error('courses.js loaded but `courses` is undefined'));
-        };
-        s.onerror = () => reject(new Error('Failed to load js/courses.js'));
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = () => reject(new Error('Failed to load ' + src));
         document.head.appendChild(s);
       });
+    }
+    let _coursesPromise = null;
+    function loadCourses() {
+      if (_coursesPromise) return _coursesPromise;
+      const base = (typeof courses !== 'undefined')
+        ? Promise.resolve()
+        : injectScript('js/courses.js').then(() => {
+            if (typeof courses === 'undefined') {
+              throw new Error('courses.js loaded but `courses` is undefined');
+            }
+          });
+      _coursesPromise = base
+        .then(() => injectScript('js/courses-tech.js').catch((e) => console.warn(e)))
+        .then(() => {
+          if (typeof coursesTech !== 'undefined') Object.assign(courses, coursesTech);
+        });
       return _coursesPromise;
     }
 
@@ -155,12 +168,10 @@
       const grid = document.getElementById('course-grid');
       grid.innerHTML = '';
 
-      const allCourses = [
-        { code: 'AR', available: true },
-        { code: 'MK', available: true },
-        { code: 'WK', available: true },
-        { code: 'PC', available: true }
-      ];
+      const allCourses = ['AR', 'MK', 'WK', 'PC', 'GS', 'AS', 'MC', 'EI'].map((code) => ({
+        code,
+        available: typeof courses !== 'undefined' && !!courses[code]
+      }));
 
       allCourses.forEach(({code, available}) => {
         const course = (typeof courses !== 'undefined') ? courses[code] : null;
@@ -177,8 +188,11 @@
             <div class="meta">${course.chapters.length} chapters • ${done}/${course.chapters.length} completed</div>
           `;
         } else {
-          const names = { MK: 'Math Knowledge', WK: 'Word Knowledge', PC: 'Paragraph Comprehension' };
-          const icons = { MK: '🔢', WK: '📖', PC: '📄' };
+          const names = {
+            MK: 'Math Knowledge', WK: 'Word Knowledge', PC: 'Paragraph Comprehension',
+            GS: 'General Science', AS: 'Auto & Shop', MC: 'Mechanical Comprehension', EI: 'Electronics Information'
+          };
+          const icons = { MK: '🔢', WK: '📖', PC: '📄', GS: '🔬', AS: '🔧', MC: '⚙️', EI: '⚡' };
           card.className = 'course-card coming-soon';
           card.innerHTML = `
             <div class="icon">${icons[code]}</div>

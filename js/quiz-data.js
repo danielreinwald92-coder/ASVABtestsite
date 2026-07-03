@@ -3894,6 +3894,456 @@ const asvabData = {
         text: "When soldering, what removes oxidation from the metal surface?",
         options: ["Solder", "Flux", "Heat", "Wire brush"],
         correct: 1, difficulty: 2
+      },
+      {
+        id: "AS026",
+        text: "What is the correct order of strokes in a four-stroke engine cycle?",
+        options: ["Compression, intake, exhaust, power", "Intake, power, compression, exhaust", "Intake, compression, power, exhaust", "Power, intake, compression, exhaust"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "AS027",
+        text: "During which stroke does combustion force the piston down and produce usable work?",
+        options: ["Power stroke", "Intake stroke", "Exhaust stroke", "Compression stroke"],
+        correct: 0, difficulty: 1
+      },
+      {
+        id: "AS028",
+        text: "Which engine component converts the up-and-down motion of the pistons into rotary motion?",
+        options: ["Camshaft", "Crankshaft", "Cylinder head", "Rocker arm"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "AS029",
+        text: "What is the primary function of the camshaft in a four-stroke engine?",
+        options: ["Store rotational energy between power strokes", "Transfer combustion force to the crankshaft", "Seal the combustion chamber", "Open and close the intake and exhaust valves at the proper times"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "AS030",
+        text: "What is the main purpose of the piston rings?",
+        options: ["Seal combustion pressure in the cylinder and control oil on the cylinder wall", "Connect the piston to the connecting rod", "Reduce the compression ratio of the engine", "Time the opening of the valves"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "AS031",
+        text: "Engine displacement is best defined as the",
+        options: ["volume of the combustion chamber with the piston at top dead center", "distance the crankshaft throw travels in one revolution", "total volume swept by all pistons moving from bottom dead center to top dead center", "amount of fuel the engine burns per cycle"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "AS032",
+        text: "The compression ratio of an engine compares the cylinder volume with the piston at bottom dead center to the",
+        options: ["engine's total displacement", "volume remaining with the piston at top dead center", "volume of the intake manifold", "stroke length of the piston"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "AS033",
+        text: "In a four-stroke engine, how many complete crankshaft revolutions are required to produce one power stroke in a cylinder?",
+        options: ["One-half", "One", "Four", "Two"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "AS034",
+        text: "How is the fuel ignited in a diesel engine?",
+        options: ["By the heat of highly compressed air when fuel is injected", "By a spark plug firing near top dead center", "By a glow plug firing on every power stroke", "By a magneto-driven ignition coil"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "AS035",
+        text: "The flywheel on the end of the crankshaft serves mainly to",
+        options: ["increase the engine's compression ratio", "cool the crankshaft during operation", "store rotational energy and smooth out the pulses between power strokes", "adjust valve clearance automatically"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "AS036",
+        text: "Compared with a four-stroke engine, a two-stroke engine of the same size and speed",
+        options: ["produces a power stroke only every fourth crankshaft revolution", "produces a power stroke on every crankshaft revolution", "requires twice as many valves per cylinder", "cannot run without a camshaft"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "AS037",
+        text: "In a four-stroke engine, the camshaft is driven by the crankshaft at what speed?",
+        options: ["The same speed as the crankshaft", "Twice crankshaft speed", "One-quarter crankshaft speed", "One-half crankshaft speed"],
+        correct: 3, difficulty: 5
+      },
+      {
+        id: "AS038",
+        text: "What is the main advantage of electronic fuel injection over a carburetor?",
+        options: ["It eliminates the need for a fuel pump", "It meters fuel more precisely for better efficiency and emissions", "It allows the engine to run without a battery", "It requires no air filter"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "AS039",
+        text: "What is the purpose of the fuel filter?",
+        options: ["To cool the fuel before it reaches the engine", "To increase fuel pressure to the injectors", "To remove dirt and contaminants from the fuel", "To measure how much fuel enters the engine"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "AS040",
+        text: "In most modern fuel-injected vehicles, where is the electric fuel pump located?",
+        options: ["Inside the fuel tank", "On the side of the engine block", "Inside the intake manifold", "Next to the radiator"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "AS041",
+        text: "What does the ignition coil do?",
+        options: ["It stores extra fuel for cold starts", "It regulates the charging system voltage", "It turns the engine over during starting", "It steps up battery voltage to the high voltage needed to fire the spark plugs"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "AS042",
+        text: "In an older engine with a distributor, what is the distributor's job?",
+        options: ["To distribute fuel evenly to each cylinder", "To route high-voltage current to each spark plug in the correct firing order", "To distribute oil to the valve train", "To split battery power between the lights and the starter"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "AS043",
+        text: "If a spark plug gap is set too wide, what is the most likely result?",
+        options: ["Misfiring, because a higher voltage is needed to jump the gap", "The engine will run too cool", "The battery will overcharge", "Fuel pressure will drop"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "AS044",
+        text: "A standard automotive battery is rated at 12 volts. How is this voltage produced?",
+        options: ["By one large 12-volt cell", "By twelve 1-volt cells connected in series", "By six 2-volt cells connected in series", "By two 6-volt cells connected in parallel"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "AS045",
+        text: "When you turn the key to start the engine, what does the starter solenoid do?",
+        options: ["It sprays extra fuel into the cylinders", "It advances the ignition timing", "It disconnects the alternator from the battery", "It closes a high-current circuit and pushes the starter pinion into the flywheel ring gear"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "AS046",
+        text: "What is the key difference between an alternator and an older DC generator?",
+        options: ["An alternator produces alternating current that is converted to DC by diodes", "An alternator runs only when the engine is off", "A generator produces higher voltage than an alternator", "An alternator charges the battery with alternating current directly"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "AS047",
+        text: "A fuse in a circuit blows repeatedly. What does this most likely indicate?",
+        options: ["The battery is undercharged", "The fuse rating is too high for the circuit", "The circuit is drawing too much current, often due to a short", "The alternator belt is loose"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "AS048",
+        text: "In American Wire Gauge (AWG) sizing for automotive wiring, a lower gauge number means the wire is:",
+        options: ["Longer", "Thicker and able to carry more current", "Thinner and used for high-current loads", "Insulated with a higher temperature rating"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "AS049",
+        text: "What is the main job of the radiator?",
+        options: ["To pressurize the engine oil", "To store extra coolant for the heater", "To filter dirt out of the coolant", "To transfer heat from the coolant to the outside air"],
+        correct: 3, difficulty: 1
+      },
+      {
+        id: "AS050",
+        text: "If the thermostat sticks closed, what will most likely happen?",
+        options: ["The engine will overheat because coolant cannot circulate through the radiator", "The engine will run too cold and never reach operating temperature", "The heater will blow hot air constantly", "Oil pressure will rise sharply"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "AS051",
+        text: "How is the water pump in most engines driven?",
+        options: ["By its own electric motor in all vehicles", "By exhaust gas pressure", "By a belt turned by the engine's crankshaft", "By vacuum from the intake manifold"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "AS052",
+        text: "Why is engine coolant normally mixed as roughly 50 percent antifreeze and 50 percent water instead of using pure antifreeze?",
+        options: ["Pure antifreeze would corrode the radiator instantly", "The mixture transfers heat better than pure antifreeze and still gives freeze and boil protection", "Water is needed to lubricate the water pump seals", "Pure antifreeze evaporates too quickly"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "AS053",
+        text: "What is the primary function of engine oil?",
+        options: ["To seal the combustion chamber against coolant leaks", "To increase compression in the cylinders", "To keep the fuel system clean", "To reduce friction between moving metal parts"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "AS054",
+        text: "In a motor oil rated 10W-30, what does the number before the W indicate?",
+        options: ["The oil's viscosity, or flow resistance, at cold winter temperatures", "The oil's weight in ounces per quart", "The maximum engine horsepower the oil supports", "The number of miles between oil changes, in thousands"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "AS055",
+        text: "Where does the oil pump draw its oil from, and how is maximum oil pressure limited?",
+        options: ["From the radiator, limited by the thermostat", "From the valve cover, limited by the PCV valve", "From a pickup tube in the oil pan, limited by a pressure relief valve", "From the oil filter, limited by the dipstick tube"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "AS056",
+        text: "What happens if the oil filter becomes completely clogged while the engine is running?",
+        options: ["The engine immediately loses all oil pressure and seizes", "A bypass valve opens so unfiltered oil continues to reach the engine", "The oil pump shuts off automatically to protect the filter", "Oil is rerouted through the coolant passages"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "AS057",
+        text: "Which type of brake uses a caliper to squeeze friction pads against a rotating rotor?",
+        options: ["Disc brake", "Drum brake", "Parking brake", "Band brake"],
+        correct: 0, difficulty: 1
+      },
+      {
+        id: "AS058",
+        text: "In the tire size marking P215/60R16, the letter R indicates that the tire is:",
+        options: ["Reinforced", "Rated for rain", "Radial construction", "A racing tire"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "AS059",
+        text: "The main job of the brake master cylinder is to:",
+        options: ["Store extra brake pads", "Convert pedal force into hydraulic pressure", "Cool the brake fluid", "Adjust the parking brake cable"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "AS060",
+        text: "The primary purpose of an anti-lock braking system (ABS) is to:",
+        options: ["Shorten the life of the brake pads", "Increase engine braking on hills", "Apply the brakes automatically in traffic", "Prevent wheel lockup so the driver keeps steering control"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "AS061",
+        text: "The main function of a shock absorber is to:",
+        options: ["Dampen the bouncing motion of the springs", "Support the weight of the vehicle", "Keep the wheels aligned", "Limit the steering angle"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "AS062",
+        text: "Camber is the alignment angle that describes:",
+        options: ["The difference in distance between the fronts and rears of the tires", "The rearward tilt of the steering axis", "The inward or outward tilt of the top of the wheel, viewed from the front", "How far the steering wheel can turn"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "AS063",
+        text: "Tie rods in the steering system connect the:",
+        options: ["Brake caliper to the rotor", "Steering linkage to the steering knuckles at the wheels", "Transmission to the driveshaft", "Coil springs to the frame"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "AS064",
+        text: "In a vehicle with a manual transmission, the clutch is used to:",
+        options: ["Lock the rear wheels when parking", "Multiply engine torque at high speed", "Pump transmission fluid to the gears", "Connect and disconnect the engine from the transmission"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "AS065",
+        text: "Constant velocity (CV) joints are most commonly found on the axle shafts of:",
+        options: ["Front-wheel-drive cars", "Rear-wheel-drive trucks with solid axles", "Trailer axles", "Motorcycles"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "AS066",
+        text: "In a four-wheel-drive vehicle, the transfer case is the component that:",
+        options: ["Stores the spare tire", "Changes the engine firing order", "Splits engine power between the front and rear axles", "Holds the transmission fluid filter"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "AS067",
+        text: "A brake pedal that feels soft or spongy when pressed is most often caused by:",
+        options: ["New brake pads that are too thick", "Air trapped in the hydraulic brake lines", "A parking brake that is adjusted too tight", "Tires that are overinflated"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "AS068",
+        text: "In an automatic transmission, the torque converter performs which function that a clutch performs in a manual transmission?",
+        options: ["It selects the correct gear ratio", "It cools the transmission fluid", "It engages the reverse band", "It couples and uncouples the engine and transmission"],
+        correct: 3, difficulty: 5
+      },
+      {
+        id: "AS069",
+        text: "Compared to an open-end wrench, a box-end wrench is less likely to slip because it:",
+        options: ["has longer handles for more leverage", "completely surrounds the head of the fastener", "grips only two flats of the fastener", "is made of softer steel that molds to the bolt"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "AS070",
+        text: "The main advantage of a socket wrench with a ratchet handle is that it:",
+        options: ["can turn a fastener without being lifted off and repositioned", "fits both metric and SAE fasteners with one socket", "automatically limits torque to prevent overtightening", "works on damaged or rounded fastener heads"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "AS071",
+        text: "An Allen wrench is designed to turn fasteners that have:",
+        options: ["a slotted head", "a square recess in the head", "a hexagonal recess in the head", "a cross-shaped recess in the head"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "AS072",
+        text: "Needle-nose pliers are best suited for:",
+        options: ["gripping large pipes and round stock", "cutting heavy-gauge bolts", "clamping parts together while glue dries", "gripping and bending small wires in confined spaces"],
+        correct: 3, difficulty: 1
+      },
+      {
+        id: "AS073",
+        text: "Channel-lock (tongue-and-groove) pliers are useful because their jaws:",
+        options: ["lock closed and stay clamped by themselves", "adjust to several widths to grip different-sized objects", "are insulated for electrical work", "cut through hardened steel wire"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "AS074",
+        text: "What feature distinguishes vise-grip (locking) pliers from ordinary pliers?",
+        options: ["They clamp onto the work and stay locked without hand pressure", "They have replaceable cutting blades", "Their jaws are made of plastic to prevent marring", "They can measure the diameter of the object gripped"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "AS075",
+        text: "A rip saw is designed to cut wood:",
+        options: ["across the grain", "at a 45-degree miter angle", "along the direction of the grain", "in tight curves and circles"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "AS076",
+        text: "Which saw is best for cutting intricate curves and shapes in thin wood, such as molding?",
+        options: ["Rip saw", "Coping saw", "Hacksaw", "Crosscut saw"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "AS077",
+        text: "A miter box is used with a saw to:",
+        options: ["hold round stock while it is cut lengthwise", "keep the blade cool during long cuts", "sharpen the saw teeth at the correct angle", "guide the blade for accurate angle cuts, such as 45 degrees"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "AS078",
+        text: "A hand plane is used primarily to:",
+        options: ["shave thin layers from a wood surface to smooth or flatten it", "bore clean holes through hardwood", "drive chisels with controlled blows", "scrape rust and paint from metal"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "AS079",
+        text: "A countersink bit is used to:",
+        options: ["enlarge a hole to its final diameter", "cut internal threads in a drilled hole", "cut a cone-shaped recess so a screw head sits flush with the surface", "drill pilot holes in masonry"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "AS080",
+        text: "A cold chisel is designed to cut or shear:",
+        options: ["wood joints and mortises", "unheated metal, such as rivet heads and rusted bolts", "brick and concrete block", "plastic pipe and tubing"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "AS081",
+        text: "The main difference between a bolt and a screw is that a bolt is normally:",
+        options: ["threaded along its entire length", "made of harder steel than any screw", "turned into a hole it cuts itself", "inserted through parts and tightened with a nut"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "AS082",
+        text: "A stud differs from a common bolt in that a stud:",
+        options: ["has threads on both ends but no head", "is always shorter than one inch", "cannot accept a nut", "has left-hand threads on both ends"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "AS083",
+        text: "Compared to a flat washer, the main purpose of a lock washer is to:",
+        options: ["spread the clamping load over a wider area", "prevent the nut or bolt from loosening under vibration", "seal the joint against water and oil", "insulate the fastener electrically"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "AS084",
+        text: "The thread pitch of a metric fastener is the:",
+        options: ["diameter of the bolt shank", "depth of each thread groove", "distance from one thread to the next", "total number of threads on the bolt"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "AS085",
+        text: "Rivets are best described as fasteners that:",
+        options: ["permanently join parts and must be drilled out to remove", "can be unscrewed and reused many times", "hold parts by spring tension only", "melt to form a bond between two metals"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "AS086",
+        text: "What is the key difference between welding and brazing?",
+        options: ["Brazing produces a stronger joint than welding in all cases", "Welding works only on aluminum, while brazing works only on steel", "Welding requires no heat, while brazing does", "Welding melts and fuses the base metals, while brazing melts only a filler metal"],
+        correct: 3, difficulty: 5
+      },
+      {
+        id: "AS087",
+        text: "A castellated (castle) nut is designed to be secured with a:",
+        options: ["second jam nut tightened against it", "cotter pin passed through slots in the nut and a hole in the bolt", "drop of thread-locking adhesive", "lock washer placed under the nut"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "AS088",
+        text: "Screws generally hold better than nails in wood because screws:",
+        options: ["grip the wood fibers with their threads", "are always longer than nails", "are driven in faster than nails", "compress the wood less when installed"],
+        correct: 0, difficulty: 1
+      },
+      {
+        id: "AS089",
+        text: "Which tool is used to measure the small clearance between two parts, such as a spark plug gap?",
+        options: ["Dial caliper", "Feeler gauge", "Depth micrometer", "Steel rule"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "AS090",
+        text: "On a standard tape measure, the smallest markings on the inch scale usually divide each inch into 16 parts. Each of these smallest divisions equals:",
+        options: ["1/8 inch", "1/32 inch", "1/16 inch", "1/10 inch"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "AS091",
+        text: "A vernier caliper can typically take which measurements?",
+        options: ["Outside, inside, and depth measurements", "Outside measurements only", "Angles and tapers", "Surface flatness"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "AS092",
+        text: "Which of the following metals is ferrous?",
+        options: ["Aluminum", "Brass", "Copper", "Steel"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "AS093",
+        text: "What is the main purpose of drilling a pilot hole before driving a wood screw?",
+        options: ["To keep the wood from splitting and guide the screw", "To make the screw hold more tightly", "To countersink the screw head", "To harden the surrounding wood fibers"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "AS094",
+        text: "Annealing is a heat-treatment process used to:",
+        options: ["Increase the hardness of steel", "Add a rust-resistant coating", "Soften metal and relieve internal stresses", "Bond two metals together"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "AS095",
+        text: "After steel has been hardened by quenching, it is usually tempered in order to:",
+        options: ["Make it even harder", "Reduce brittleness while keeping most of the hardness", "Restore it to its fully soft condition", "Increase its electrical conductivity"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "AS096",
+        text: "Which tool is used to cut external threads on the outside of a metal rod?",
+        options: ["Tap", "Reamer", "Broach", "Die"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "AS097",
+        text: "A machinist checking a rotating shaft for runout would most likely use a:",
+        options: ["Dial indicator", "Feeler gauge", "Combination square", "Torque wrench"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "AS098",
+        text: "Brass is an alloy made primarily of:",
+        options: ["Copper and tin", "Iron and carbon", "Copper and zinc", "Aluminum and magnesium"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "AS099",
+        text: "Before mounting a new wheel on a bench grinder, you should tap it lightly and listen for a clear ring. This ring test is done to:",
+        options: ["Check that the wheel is properly balanced", "Detect cracks that could make the wheel shatter at speed", "Confirm the abrasive grit size is correct", "Measure the hardness of the bonding material"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "AS100",
+        text: "A shop attempts to harden a piece of low-carbon steel by heating it red hot and quenching it in water, but the part remains relatively soft. The most likely reason is that:",
+        options: ["The water was too cold to quench properly", "Quenching only works on non-ferrous metals", "The part was heated for too short a time", "The steel does not contain enough carbon to harden significantly"],
+        correct: 3, difficulty: 5
       }
     ],
 
