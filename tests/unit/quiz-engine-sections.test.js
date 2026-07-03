@@ -37,3 +37,67 @@ test('materializeSlot excludes recent-seen ids, then relaxes when exhausted', ()
   engine.materializeSlot(1); // AR3 used; recent AR1/AR2 excluded → null → relax to AR1
   assert.strictEqual(engine.quizData.questions[1].originalId, 'AR1');
 });
+
+function sectionedEngine() {
+  const sandbox = loadEngine({
+    document: fakeDoc(),
+    sessionStorage: { _d: {}, getItem(k) { return this._d[k] || null; }, setItem(k, v) { this._d[k] = v; }, removeItem(k) { delete this._d[k]; } },
+    QuizManager: {
+      getSectionInfo: (code) => ({ AR: { name: 'AR', timeLimit: 60, questionsPerTest: 2 }, WK: { name: 'WK', timeLimit: 30, questionsPerTest: 2 } }[code]),
+      getAdaptiveQuestionPool: () => ({ ids: [] }),
+    },
+  });
+  const engine = new sandbox.QuizEngine();
+  engine.mode = 'timed';
+  engine.testSections = ['AR', 'WK'];
+  engine.quizData = { section: 'x', sectionCode: 'AR,WK', timeLimit: 90, questions: [
+    { id: 1, sectionCode: 'AR', sectionName: 'AR' }, { id: 2, sectionCode: 'AR', sectionName: 'AR' },
+    { id: 3, sectionCode: 'WK', sectionName: 'WK' }, { id: 4, sectionCode: 'WK', sectionName: 'WK' },
+  ] };
+  return { sandbox, engine };
+}
+
+test('buildSectionRanges groups contiguous slots by section', () => {
+  const { engine } = sectionedEngine();
+  engine.buildSectionRanges();
+  // JSON round-trip normalizes the vm-sandbox realm so deepStrictEqual compares
+  // structure rather than the (cross-realm) Array prototype identity.
+  const actual = JSON.parse(JSON.stringify(engine.sectionRanges.map((r) => [r.code, r.start, r.end, r.timeLimit])));
+  assert.deepStrictEqual(actual, [['AR', 0, 2, 60], ['WK', 2, 4, 30]]);
+});
+
+test('isSectioned is false in tutor mode, true in timed mode', () => {
+  const { engine } = sectionedEngine();
+  assert.strictEqual(engine.isSectioned(), true);
+  engine.mode = 'tutor';
+  assert.strictEqual(engine.isSectioned(), false);
+});
+
+test('saveState/loadSavedState round-trips section state (schemaV 2)', () => {
+  const { sandbox, engine } = sectionedEngine();
+  engine.buildSectionRanges();
+  engine.activeSectionIndex = 1;
+  engine.sectionTimeRemaining = 17;
+  engine.completedSections = new Set([0]);
+  engine.currentQuestion = 2;
+  engine.saveState();
+  engine.quizData && sandbox.sessionStorage.setItem('generatedTest', JSON.stringify(engine.quizData));
+
+  const e2 = new sandbox.QuizEngine();
+  e2.mode = 'timed';
+  e2.testSections = ['AR', 'WK'];
+  const ok = e2.loadSavedState();
+  assert.strictEqual(ok, true);
+  assert.strictEqual(e2.activeSectionIndex, 1);
+  assert.strictEqual(e2.sectionTimeRemaining, 17);
+  assert.ok(e2.completedSections.has(0));
+});
+
+test('loadSavedState discards pre-SP2 state without schemaV', () => {
+  const { sandbox, engine } = sectionedEngine();
+  sandbox.sessionStorage.setItem('generatedTest', JSON.stringify(engine.quizData));
+  sandbox.sessionStorage.setItem('quizState', JSON.stringify({ answers: {}, currentQuestion: 0 })); // no schemaV
+  const e2 = new sandbox.QuizEngine();
+  e2.testSections = ['AR', 'WK'];
+  assert.strictEqual(e2.loadSavedState(), false);
+});

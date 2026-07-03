@@ -32,6 +32,12 @@ class QuizEngine {
     // Tutor mode: untimed, instant feedback + explanation. Set in loadTestConfig().
     this.mode = 'timed';
     this.tutorRevealed = new Set(); // slot ids whose feedback has been shown
+
+    // SP2 per-section timing (timed mode only). Ranges are [{code,name,start,end,timeLimit}].
+    this.sectionRanges = [];
+    this.activeSectionIndex = 0;
+    this.sectionTimeRemaining = 0;
+    this.completedSections = new Set();
   }
 
   init() {
@@ -130,7 +136,53 @@ class QuizEngine {
     };
 
     this.timeRemaining = this.quizData.timeLimit;
+
+    // SP2: set up the per-section timer/navigation model.
+    this.buildSectionRanges();
+    this.activeSectionIndex = 0;
+    this.completedSections = new Set();
+    this.currentQuestion = 0;
+    this.sectionTimeRemaining = (this.isSectioned() && this.sectionRanges.length)
+      ? this.sectionRanges[0].timeLimit
+      : this.timeRemaining;
+
     this.saveGeneratedTest();
+  }
+
+  // Timed tests are sectioned; tutor mode is a single free-navigation span.
+  isSectioned() {
+    return this.mode !== 'tutor';
+  }
+
+  // Derive contiguous per-section slot ranges from the generated questions.
+  buildSectionRanges() {
+    const ranges = [];
+    const qs = (this.quizData && this.quizData.questions) || [];
+    let i = 0;
+    while (i < qs.length) {
+      const code = qs[i].sectionCode;
+      const start = i;
+      while (i < qs.length && qs[i].sectionCode === code) i++;
+      // QuizManager is always present on the quiz page; guard so a resume path
+      // never hard-crashes if it is unavailable (same idiom as materializeSlot).
+      const info = (typeof QuizManager !== 'undefined') ? QuizManager.getSectionInfo(code) : null;
+      ranges.push({
+        code,
+        name: (info && info.name) || (qs[start] && qs[start].sectionName) || code,
+        start,
+        end: i,
+        timeLimit: (info && info.timeLimit) || 0,
+      });
+    }
+    this.sectionRanges = ranges;
+  }
+
+  // The active slot range: the current section when sectioned, else the whole test.
+  getActiveRange() {
+    if (this.isSectioned() && this.sectionRanges.length) {
+      return this.sectionRanges[this.activeSectionIndex];
+    }
+    return { start: 0, end: (this.quizData && this.quizData.questions.length) || 0 };
   }
 
   // Resolve an empty slot into a concrete question using the current ability
@@ -187,8 +239,15 @@ class QuizEngine {
     const savedState = sessionStorage.getItem('quizState');
 
     if (savedTest && savedState) {
-      this.quizData = JSON.parse(savedTest);
       const state = JSON.parse(savedState);
+      // SP2: the timer/navigation model changed. Discard any pre-SP2 in-progress
+      // state (no schemaV) and regenerate a fresh test rather than migrate it.
+      if (state.schemaV !== 2) {
+        sessionStorage.removeItem('generatedTest');
+        sessionStorage.removeItem('quizState');
+        return false;
+      }
+      this.quizData = JSON.parse(savedTest);
       this.answers = state.answers || {};
       this.flagged = new Set(state.flagged || []);
       this.currentQuestion = state.currentQuestion || 0;
@@ -198,6 +257,14 @@ class QuizEngine {
       // Tutor reveal/lock state must survive a refresh or resume, or previously
       // answered questions would lose their feedback and become re-answerable.
       this.tutorRevealed = new Set(state.tutorRevealed || []);
+
+      // SP2 section state.
+      this.buildSectionRanges();
+      this.activeSectionIndex = state.activeSectionIndex || 0;
+      this.sectionTimeRemaining = (typeof state.sectionTimeRemaining === 'number')
+        ? state.sectionTimeRemaining
+        : ((this.sectionRanges[this.activeSectionIndex] && this.sectionRanges[this.activeSectionIndex].timeLimit) || this.timeRemaining);
+      this.completedSections = new Set(state.completedSections || []);
 
       // Rebuild question pools (not persisted — large; selectNextAdaptiveQuestion
       // filters by usedQuestionIds so reshuffled pool order is harmless).
@@ -216,13 +283,17 @@ class QuizEngine {
 
   saveState() {
     const state = {
+      schemaV: 2, // SP2: bump so pre-SP2 in-progress states are discarded on resume
       answers: this.answers,
       flagged: Array.from(this.flagged),
       currentQuestion: this.currentQuestion,
       timeRemaining: this.timeRemaining,
       abilityLevels: this.abilityLevels,
       usedQuestionIds: Array.from(this.usedQuestionIds),
-      tutorRevealed: Array.from(this.tutorRevealed)
+      tutorRevealed: Array.from(this.tutorRevealed),
+      activeSectionIndex: this.activeSectionIndex,
+      sectionTimeRemaining: this.sectionTimeRemaining,
+      completedSections: Array.from(this.completedSections),
     };
     sessionStorage.setItem('quizState', JSON.stringify(state));
     this._lastSaveAt = Date.now();
