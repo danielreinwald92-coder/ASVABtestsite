@@ -65,12 +65,10 @@ for (const [code, section] of Object.entries(asvabData.sections)) {
 }
 
 // --- Explanation contract (SP1) ---------------------------------------------
-// Staged rollout: full per-section coverage is enforced only for sections whose
-// explanation batch has landed (Phase C adds codes here). Orphan + length checks
-// always apply. Remove the allowlist and enforce all 8 once content is complete.
-const SECTIONS_WITH_EXPLANATIONS = [
-  // 'WK', 'PC', 'AR', 'MK', 'GS', 'AS', 'MC', 'EI'  ← uncomment per batch
-];
+// Full-bank enforcement (all Phase C batches landed): every question has a
+// non-empty explanation; no orphans; length bounds; and the values are
+// HTML-safe (rendered via innerHTML in the review/tutor panels without escaping,
+// so a literal <, > or & would break rendering).
 const explanations = context.window.QUIZ_EXPLANATIONS || {};
 
 const allQuestionIds = new Set();
@@ -81,12 +79,12 @@ for (const [key, text] of Object.entries(explanations)) {
   assert(allQuestionIds.has(key), `explanation for unknown question id ${key}`);
   assert(typeof text === 'string' && text.length >= 40 && text.length <= 600,
     `explanation ${key} must be a 40–600 char string`);
+  assert(!/[<>&]/.test(text), `explanation ${key} must not contain <, > or & (HTML-unsafe)`);
+  assert(!/[\n\r]/.test(text), `explanation ${key} must be a single line`);
 }
-for (const code of SECTIONS_WITH_EXPLANATIONS) {
-  for (const q of (asvabData.questions[code] || [])) {
-    assert(explanations[q.id] && explanations[q.id].length > 0,
-      `${q.id} (${code}) is missing an explanation`);
-  }
+for (const id of allQuestionIds) {
+  assert(explanations[id] && explanations[id].length > 0,
+    `${id} is missing an explanation`);
 }
 
 for (const [courseCode, course] of Object.entries(courses)) {

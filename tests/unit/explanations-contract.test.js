@@ -36,3 +36,21 @@ test('every explanation is within the length bounds (40–600 chars)', () => {
     assert.ok(text.length <= 600, `${id} explanation too long (${text.length} chars)`);
   }
 });
+
+test('every question in the bank has an explanation (full coverage)', () => {
+  const { questions, explanations } = loadData();
+  for (const list of Object.values(questions)) {
+    for (const q of list) {
+      assert.ok(explanations[q.id] && explanations[q.id].length > 0,
+        `${q.id} is missing an explanation`);
+    }
+  }
+});
+
+test('explanations are HTML-safe single lines (rendered via innerHTML unescaped)', () => {
+  const { explanations } = loadData();
+  for (const [id, text] of Object.entries(explanations)) {
+    assert.ok(!/[<>&]/.test(text), `${id} must not contain <, > or &`);
+    assert.ok(!/[\n\r]/.test(text), `${id} must be a single line`);
+  }
+});
