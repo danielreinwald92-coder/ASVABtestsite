@@ -415,7 +415,11 @@ class QuizEngine {
     grid.innerHTML = this.quizData.questions.map((q, idx) => {
       const classes = ['nav-dot'];
       if (idx === this.currentQuestion) classes.push('current');
-      if (this.answers[q.id] !== undefined) classes.push('answered');
+      if (this.mode === 'tutor' && this.tutorRevealed.has(q.id)) {
+        classes.push(this.answers[q.id] === q.correct ? 'nav-correct' : 'nav-incorrect');
+      } else if (this.answers[q.id] !== undefined) {
+        classes.push('answered');
+      }
       if (this.flagged.has(q.id)) classes.push('flagged');
 
       // Add section indicator for multi-section tests
@@ -428,9 +432,13 @@ class QuizEngine {
     const dots = document.querySelectorAll('.nav-dot');
     dots.forEach((dot, idx) => {
       const question = this.quizData.questions[idx];
-      dot.classList.remove('current', 'answered', 'flagged');
+      dot.classList.remove('current', 'answered', 'flagged', 'nav-correct', 'nav-incorrect');
       if (idx === this.currentQuestion) dot.classList.add('current');
-      if (this.answers[question.id] !== undefined) dot.classList.add('answered');
+      if (this.mode === 'tutor' && this.tutorRevealed.has(question.id)) {
+        dot.classList.add(this.answers[question.id] === question.correct ? 'nav-correct' : 'nav-incorrect');
+      } else if (this.answers[question.id] !== undefined) {
+        dot.classList.add('answered');
+      }
       if (this.flagged.has(question.id)) dot.classList.add('flagged');
     });
   }
