@@ -185,6 +185,36 @@ class QuizEngine {
     return { start: 0, end: (this.quizData && this.quizData.questions.length) || 0 };
   }
 
+  // Move to the next section (by finishing early or by timer expiry). On the
+  // final section, submit. Unused time on an early advance is removed from the
+  // total budget so timeUsed reflects real elapsed time.
+  advanceSection() {
+    clearInterval(this.timerInterval);
+    this.timerInterval = null;
+    this.completedSections.add(this.activeSectionIndex);
+
+    if (this.activeSectionIndex >= this.sectionRanges.length - 1) {
+      this.submitQuiz();
+      return;
+    }
+
+    if (this.sectionTimeRemaining > 0) {
+      this.timeRemaining -= this.sectionTimeRemaining;
+    }
+    this.activeSectionIndex++;
+    const range = this.sectionRanges[this.activeSectionIndex];
+    this.sectionTimeRemaining = range.timeLimit;
+    this.currentQuestion = range.start;
+    this._warned10 = false;
+    this._warned5 = false;
+
+    this.saveState();
+    this.renderQuestion();
+    this.renderNavigator();
+    this.updateSectionHeader();
+    this.startTimer();
+  }
+
   // Resolve an empty slot into a concrete question using the current ability
   // level for that section. Called lazily on first render of each slot.
   materializeSlot(index) {
@@ -302,6 +332,9 @@ class QuizEngine {
   startTimer() {
     this.updateTimerDisplay();
     this.timerInterval = setInterval(() => {
+      // Sectioned (timed) tests run a per-section clock; both the section clock
+      // and the total budget tick down together.
+      if (this.isSectioned()) this.sectionTimeRemaining--;
       this.timeRemaining--;
       this.updateTimerDisplay();
 
@@ -311,6 +344,13 @@ class QuizEngine {
         this.saveState();
       }
 
+      if (this.isSectioned() && this.sectionTimeRemaining <= 0) {
+        // Section time up → lock it and advance (advanceSection submits if last).
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+        this.advanceSection();
+        return;
+      }
       if (this.timeRemaining <= 0) {
         clearInterval(this.timerInterval);
         this.submitQuiz();
@@ -356,8 +396,9 @@ class QuizEngine {
   }
 
   updateTimerDisplay() {
-    const minutes = Math.floor(this.timeRemaining / 60);
-    const seconds = this.timeRemaining % 60;
+    const remaining = this.isSectioned() ? this.sectionTimeRemaining : this.timeRemaining;
+    const minutes = Math.floor(remaining / 60);
+    const seconds = remaining % 60;
     const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
     const timerDisplayEl = document.getElementById('timerDisplay');
     if (timerDisplayEl) timerDisplayEl.textContent = display;
@@ -366,18 +407,21 @@ class QuizEngine {
     const timerEl = document.querySelector('.quiz-timer');
     const liveEl = document.getElementById('timerLive');
     if (timerEl) {
-      if (this.timeRemaining <= 300) { // 5 minutes
+      // Per-section warnings (sections range from 6–55 min; warn near the end).
+      if (remaining <= 30) {
         timerEl.style.background = '#c53030';
         if (!this._warned5 && liveEl) {
-          liveEl.textContent = '5 minutes remaining';
+          liveEl.textContent = '30 seconds left in this section';
           this._warned5 = true;
         }
-      } else if (this.timeRemaining <= 600) { // 10 minutes
+      } else if (remaining <= 60) {
         timerEl.style.background = '#b45309';
         if (!this._warned10 && liveEl) {
-          liveEl.textContent = '10 minutes remaining';
+          liveEl.textContent = '1 minute left in this section';
           this._warned10 = true;
         }
+      } else {
+        timerEl.style.background = '';
       }
     }
   }

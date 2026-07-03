@@ -101,3 +101,39 @@ test('loadSavedState discards pre-SP2 state without schemaV', () => {
   e2.testSections = ['AR', 'WK'];
   assert.strictEqual(e2.loadSavedState(), false);
 });
+
+test('advanceSection moves to the next section and resets its timer', () => {
+  const { engine } = sectionedEngine();
+  engine.buildSectionRanges();
+  engine.activeSectionIndex = 0;
+  engine.sectionTimeRemaining = 0;
+  engine.currentQuestion = 1;
+  engine.timeRemaining = 90;
+  engine.renderQuestion = () => {}; engine.renderNavigator = () => {}; engine.updateSectionHeader = () => {}; engine.startTimer = () => {};
+  engine.advanceSection();
+  assert.strictEqual(engine.activeSectionIndex, 1);
+  assert.strictEqual(engine.sectionTimeRemaining, 30, 'WK timeLimit');
+  assert.strictEqual(engine.currentQuestion, 2, 'first WK slot');
+  assert.ok(engine.completedSections.has(0));
+});
+
+test('advanceSection on the final section submits', () => {
+  const { engine } = sectionedEngine();
+  engine.buildSectionRanges();
+  engine.activeSectionIndex = 1; // last
+  let submitted = false;
+  engine.submitQuiz = () => { submitted = true; };
+  engine.advanceSection();
+  assert.strictEqual(submitted, true);
+});
+
+test('early manual advance drops the unused section time from the total', () => {
+  const { engine } = sectionedEngine();
+  engine.buildSectionRanges();
+  engine.activeSectionIndex = 0;
+  engine.sectionTimeRemaining = 25; // finished AR early with 25s left
+  engine.timeRemaining = 90;
+  engine.renderQuestion = () => {}; engine.renderNavigator = () => {}; engine.updateSectionHeader = () => {}; engine.startTimer = () => {};
+  engine.advanceSection();
+  assert.strictEqual(engine.timeRemaining, 65, '90 - 25 unused');
+});
