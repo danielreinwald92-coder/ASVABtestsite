@@ -395,6 +395,17 @@
       .detail-value { font-size: 1rem; }
       .detail-label { font-size: 0.7rem; }
     }
+
+    .tutor-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin: 0 0 1.25rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .tutor-toggle input { width: 18px; height: 18px; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -572,6 +583,10 @@
     </div>
 
     <!-- Start Button -->
+        <label class="tutor-toggle">
+          <input type="checkbox" id="tutorToggle">
+          <span>Untimed tutor mode — instant feedback &amp; explanations after each question</span>
+        </label>
     <button class="start-btn" id="startBtn" disabled>Start Practice Test</button>
   </main>
 

@@ -85,7 +85,9 @@
 
     // Store test configuration
     const sections = MissionASVABConfig.getSectionsForType(selectedType);
-    sessionStorage.setItem('testConfig', JSON.stringify({ sections: sections }));
+    const tutorEl = document.getElementById('tutorToggle');
+    const mode = tutorEl && tutorEl.checked ? 'tutor' : 'timed';
+    sessionStorage.setItem('testConfig', JSON.stringify({ sections: sections, mode: mode }));
 
     window.location.href = 'test-intro.html';
   });

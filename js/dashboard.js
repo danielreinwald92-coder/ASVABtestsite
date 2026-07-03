@@ -385,7 +385,7 @@ function startWeakAreaPractice(sections) {
   sessionStorage.removeItem('generatedTest');
   localStorage.removeItem('quizResults');
   localStorage.setItem('testType', 'custom');
-  sessionStorage.setItem('testConfig', JSON.stringify({ sections: codes }));
+  sessionStorage.setItem('testConfig', JSON.stringify({ sections: codes, mode: 'tutor' }));
 
   window.location.href = 'test-intro.html';
 }
