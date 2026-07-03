@@ -26,6 +26,7 @@ loadScript('js/test-config.js', context);
 loadScript('js/scoring.js', context);
 loadScript('js/section-config.js', context);
 loadScript('js/quiz-data.js', context);
+loadScript('js/explanations.js', context);
 loadScript('js/courses.js', context, 'this.courses = courses;');
 
 const config = context.window.MissionASVABConfig;
@@ -60,6 +61,31 @@ for (const [code, section] of Object.entries(asvabData.sections)) {
     assert(question.text, `${question.id} missing text`);
     assert(Array.isArray(question.options) && question.options.length === 4, `${question.id} must have 4 options`);
     assert(Number.isInteger(question.correct) && question.correct >= 0 && question.correct < 4, `${question.id} has invalid correct index`);
+  }
+}
+
+// --- Explanation contract (SP1) ---------------------------------------------
+// Staged rollout: full per-section coverage is enforced only for sections whose
+// explanation batch has landed (Phase C adds codes here). Orphan + length checks
+// always apply. Remove the allowlist and enforce all 8 once content is complete.
+const SECTIONS_WITH_EXPLANATIONS = [
+  // 'WK', 'PC', 'AR', 'MK', 'GS', 'AS', 'MC', 'EI'  ← uncomment per batch
+];
+const explanations = context.window.QUIZ_EXPLANATIONS || {};
+
+const allQuestionIds = new Set();
+for (const list of Object.values(asvabData.questions)) {
+  list.forEach((q) => allQuestionIds.add(q.id));
+}
+for (const [key, text] of Object.entries(explanations)) {
+  assert(allQuestionIds.has(key), `explanation for unknown question id ${key}`);
+  assert(typeof text === 'string' && text.length >= 40 && text.length <= 600,
+    `explanation ${key} must be a 40–600 char string`);
+}
+for (const code of SECTIONS_WITH_EXPLANATIONS) {
+  for (const q of (asvabData.questions[code] || [])) {
+    assert(explanations[q.id] && explanations[q.id].length > 0,
+      `${q.id} (${code}) is missing an explanation`);
   }
 }
 
