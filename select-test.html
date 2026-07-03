@@ -406,6 +406,28 @@
       cursor: pointer;
     }
     .tutor-toggle input { width: 18px; height: 18px; cursor: pointer; }
+
+    .section-picker {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 0.6rem;
+      margin: 0.5rem 0 1rem;
+    }
+    .picker-row {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.7rem 0.9rem;
+      background: var(--white);
+      border: 2px solid var(--cream-200);
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .picker-row.checked { border-color: var(--navy-900); }
+    .picker-row input { width: 18px; height: 18px; cursor: pointer; }
+    .picker-name { font-weight: 600; color: var(--navy-900); }
+    .picker-meta { margin-left: auto; font-size: 0.8rem; color: var(--text-secondary); white-space: nowrap; }
+    .picker-summary { font-weight: 600; color: var(--navy-700); margin-bottom: 1rem; min-height: 1.2em; }
   </style>
 </head>
 <body>
@@ -465,116 +487,11 @@
     </div>
 
     <!-- Section Info -->
-    <h2 class="section-title">Sections Included</h2>
-    <div class="section-info-box" id="quickSections">
-      <p class="section-info-text">The AFQT score is calculated from these 4 sections (CAT-ASVAB format):</p>
-      <div class="section-grid">
-        <div class="section-card included">
-          <div class="section-checkbox"></div>
-          <div class="section-info">
-            <div class="section-name">Arithmetic Reasoning</div>
-            <div class="section-code">AR</div>
-          </div>
-          <div class="section-questions">15 questions</div>
-        </div>
-        <div class="section-card included">
-          <div class="section-checkbox"></div>
-          <div class="section-info">
-            <div class="section-name">Word Knowledge</div>
-            <div class="section-code">WK</div>
-          </div>
-          <div class="section-questions">15 questions</div>
-        </div>
-        <div class="section-card included">
-          <div class="section-checkbox"></div>
-          <div class="section-info">
-            <div class="section-name">Paragraph Comprehension</div>
-            <div class="section-code">PC</div>
-          </div>
-          <div class="section-questions">10 questions</div>
-        </div>
-        <div class="section-card included">
-          <div class="section-checkbox"></div>
-          <div class="section-info">
-            <div class="section-name">Mathematics Knowledge</div>
-            <div class="section-code">MK</div>
-          </div>
-          <div class="section-questions">15 questions</div>
-        </div>
-      </div>
+    <h2 class="section-title">Or practice by section</h2>
+    <div class="section-picker" id="sectionPicker" role="group" aria-label="Choose sections to practice">
+      <!-- rows injected by js/page-select-test.js from SECTION_CONFIG -->
     </div>
-    <div class="section-info-box" id="fullSections" style="display: none;">
-      <p class="section-info-text">This practice test covers 8 CAT-ASVAB sections (110 questions total):</p>
-      <div class="section-grid">
-        <div class="section-card included">
-          <div class="section-checkbox"></div>
-          <div class="section-info">
-            <div class="section-name">General Science</div>
-            <div class="section-code">GS</div>
-          </div>
-          <div class="section-questions">15 questions</div>
-        </div>
-        <div class="section-card included">
-          <div class="section-checkbox"></div>
-          <div class="section-info">
-            <div class="section-name">Arithmetic Reasoning</div>
-            <div class="section-code">AR</div>
-          </div>
-          <div class="section-questions">15 questions</div>
-        </div>
-        <div class="section-card included">
-          <div class="section-checkbox"></div>
-          <div class="section-info">
-            <div class="section-name">Word Knowledge</div>
-            <div class="section-code">WK</div>
-          </div>
-          <div class="section-questions">15 questions</div>
-        </div>
-        <div class="section-card included">
-          <div class="section-checkbox"></div>
-          <div class="section-info">
-            <div class="section-name">Paragraph Comprehension</div>
-            <div class="section-code">PC</div>
-          </div>
-          <div class="section-questions">10 questions</div>
-        </div>
-        <div class="section-card included">
-          <div class="section-checkbox"></div>
-          <div class="section-info">
-            <div class="section-name">Mathematics Knowledge</div>
-            <div class="section-code">MK</div>
-          </div>
-          <div class="section-questions">15 questions</div>
-        </div>
-        <div class="section-card included">
-          <div class="section-checkbox"></div>
-          <div class="section-info">
-            <div class="section-name">Electronics Information</div>
-            <div class="section-code">EI</div>
-          </div>
-          <div class="section-questions">15 questions</div>
-        </div>
-        <div class="section-card included">
-          <div class="section-checkbox"></div>
-          <div class="section-info">
-            <div class="section-name">Auto & Shop Information</div>
-            <div class="section-code">AS</div>
-          </div>
-          <div class="section-questions">10 questions</div>
-        </div>
-        <div class="section-card included">
-          <div class="section-checkbox"></div>
-          <div class="section-info">
-            <div class="section-name">Mechanical Comprehension</div>
-            <div class="section-code">MC</div>
-          </div>
-          <div class="section-questions">15 questions</div>
-        </div>
-      </div>
-      <p class="ao-notice" style="margin-top: 1rem; padding: 0.75rem 1rem; background: var(--cream-100, #fef3c7); border-left: 4px solid #b45309; border-radius: 6px; font-size: 0.9rem; color: var(--text-700, #374151);">
-        <strong>Note:</strong> Assembling Objects (AO) is not included in these practice tests. It is not used in AFQT scoring or current Army line score calculations, so omitting it does not affect your readiness for Army qualification.
-      </p>
-    </div>
+    <div class="picker-summary" id="pickerSummary" aria-live="polite"></div>
 
     <!-- Name Input -->
     <div class="name-section">
