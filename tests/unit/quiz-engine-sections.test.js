@@ -193,3 +193,30 @@ test('goToQuestion ignores targets outside the active section', () => {
   engine.goToQuestion(0); // slot 0 is in section AR (completed)
   assert.strictEqual(engine.currentQuestion, 2, 'no cross-section jump');
 });
+
+test('Prev button hides at a section floor, shows mid-section (timed)', () => {
+  const { sandbox, engine } = sectionedEngine();
+  engine.buildSectionRanges();
+  // Materialize slot content so renderQuestion has options to map.
+  engine.quizData.questions.forEach((q) => { q.text = 'q'; q.options = ['a', 'b', 'c', 'd']; q.correct = 0; });
+
+  // Populate the fakeDoc with just the elements renderQuestion touches.
+  const prevBtn = { style: { visibility: '' }, classList: { add() {}, remove() {} } };
+  const mk = () => ({ textContent: '', innerHTML: '', style: {}, setAttribute() {}, classList: { add() {}, remove() {} } });
+  Object.assign(sandbox.document._els, {
+    questionNumber: mk(), questionText: mk(), progressFill: mk(), progressCount: mk(),
+    answersContainer: mk(), flagBtn: mk(), prevBtn, nextBtn: mk(),
+  });
+  engine.materializeSlot = () => {};
+  engine.updateSectionHeader = () => {};
+  engine.updateNavigator = () => {};
+
+  engine.activeSectionIndex = 1;   // WK range [2,4)
+  engine.currentQuestion = 2;      // section floor
+  engine.renderQuestion();
+  assert.strictEqual(prevBtn.style.visibility, 'hidden', 'hidden at section floor');
+
+  engine.currentQuestion = 3;      // past the floor
+  engine.renderQuestion();
+  assert.strictEqual(prevBtn.style.visibility, 'visible', 'visible mid-section');
+});

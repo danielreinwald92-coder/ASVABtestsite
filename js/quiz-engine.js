@@ -520,10 +520,15 @@ class QuizEngine {
       }
     }
 
-    // Update nav buttons
+    // Update nav buttons. In sectioned (timed) mode Prev cannot cross into a
+    // completed section, so hide it at the section floor — not just at slot 0 —
+    // to avoid a visible-but-inert button on the first question of each section.
     const prevBtn = document.getElementById('prevBtn');
     if (prevBtn) {
-      prevBtn.style.visibility = this.currentQuestion === 0 ? 'hidden' : 'visible';
+      const atFloor = this.isSectioned()
+        ? this.currentQuestion === this.getActiveRange().start
+        : this.currentQuestion === 0;
+      prevBtn.style.visibility = atFloor ? 'hidden' : 'visible';
     }
 
     const nextBtn = document.getElementById('nextBtn');
