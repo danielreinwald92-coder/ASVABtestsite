@@ -8,17 +8,26 @@ const { loadEngine } = require('../helpers/engine.js');
 
 // 3.3(a) — select-test.html test-type cards are keyboard operable.
 test('select-test: test-type cards get role/tabindex and respond to Enter', () => {
+  // SP2: the page moved from radio-card-only selection to the practice hub
+  // (section checklist + preset cards). The cards remain keyboard-operable radios;
+  // this test still verifies that. Anchor on a function in the rewritten file and
+  // give the mocks what the hub wiring reads.
+  const AFQT = ['AR', 'WK', 'PC', 'MK'];
+  const FULL = ['GS', 'AR', 'WK', 'PC', 'MK', 'EI', 'AS', 'MC'];
   const config = {
-    getTestDetails: () => ({ totalQuestions: 50 }),
-    getTestConfig: () => ({ startButtonText: 'Start Practice Test' }),
-    getSectionsForType: () => ['AR', 'WK', 'PC', 'MK'],
+    getSectionsForType: (t) => (t === 'full' ? FULL.slice() : AFQT.slice()),
+    getTestTypeFromSections: (s) => {
+      if (s.length === AFQT.length && AFQT.every((c, i) => s[i] === c)) return 'afqt';
+      if (s.length === FULL.length && FULL.every((c, i) => s[i] === c)) return 'full';
+      return s.length === 1 ? 'single' : 'custom';
+    },
   };
-  const { dom, document } = runPageScript('select-test.html', 'selectTestTypeCard', {
+  const { dom, document } = runPageScript('select-test.html', 'syncPickerUI', {
     localStorage: makeLocalStorage(),
     globals: {
       sessionStorage: makeLocalStorage(),
       MissionASVABConfig: config,
-      QuizManager: {},
+      QuizManager: { getSectionInfo: (c) => ({ name: c, questionsPerTest: 10, timeLimit: 600 }) },
     },
   });
 
