@@ -15,7 +15,7 @@
 'use strict';
 
 // Bump this string to invalidate the whole offline cache on the next visit.
-const CACHE_VERSION = 'mission-asvab-v2';
+const CACHE_VERSION = 'mission-asvab-v3';
 
 // Small, maintainable core of STATIC same-origin assets that make up the app
 // shell. Admin assets are intentionally excluded.
@@ -36,6 +36,7 @@ const PRECACHE_URLS = [
   '/js/sw-register.js',
   '/js/offline-queue.js',
   '/js/quiz-engine.js',
+  '/js/recent-seen.js',
   '/js/scoring.js',
   '/js/quiz-data.js',
   '/js/section-config.js',

@@ -148,11 +148,21 @@ class QuizEngine {
     }
 
     const ability = Math.max(1, Math.min(5, Math.round(this.abilityLevels[slot.sectionCode])));
-    const question = QuizManager.selectNextAdaptiveQuestion(
-      this.questionPools[slot.sectionCode],
-      ability,
-      this.usedQuestionIds
-    );
+    // SP2: also avoid questions the user saw in recent tests (on-device). If the
+    // filtered pool can't supply one, relax to the session-used set so a test
+    // always fills (thin non-AFQT pools).
+    const excluded = new Set(this.usedQuestionIds);
+    const RS = (typeof MissionASVABRecentSeen !== 'undefined') ? MissionASVABRecentSeen
+      : (typeof window !== 'undefined' ? window.MissionASVABRecentSeen : null);
+    if (RS && typeof RS.getRecent === 'function') {
+      RS.getRecent(slot.sectionCode).forEach((id) => excluded.add(id));
+    }
+    let question = QuizManager.selectNextAdaptiveQuestion(
+      this.questionPools[slot.sectionCode], ability, excluded);
+    if (!question) {
+      question = QuizManager.selectNextAdaptiveQuestion(
+        this.questionPools[slot.sectionCode], ability, this.usedQuestionIds);
+    }
     if (!question) return; // pool exhausted (shouldn't happen for production pools)
 
     this.usedQuestionIds.add(question.id);
@@ -645,6 +655,21 @@ class QuizEngine {
     };
 
     localStorage.setItem('quizResults', JSON.stringify(quizResults));
+
+    // SP2: remember the bank questions shown this test so retakes avoid them.
+    const RS = (typeof MissionASVABRecentSeen !== 'undefined') ? MissionASVABRecentSeen
+      : (typeof window !== 'undefined' ? window.MissionASVABRecentSeen : null);
+    if (RS && typeof RS.record === 'function') {
+      const bySection = {};
+      this.quizData.questions.forEach((q) => {
+        if (q.originalId && q.sectionCode) {
+          (bySection[q.sectionCode] = bySection[q.sectionCode] || []).push(q.originalId);
+        }
+      });
+      Object.keys(bySection).forEach((code) => {
+        try { RS.record(code, bySection[code]); } catch (_) {}
+      });
+    }
 
     sessionStorage.removeItem('quizState');
     sessionStorage.removeItem('generatedTest');
