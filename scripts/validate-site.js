@@ -57,7 +57,7 @@ assert(
 
 // Pool-size ratchet (SP4): pools may only grow. Raise a section's floor in the
 // same branch that ships its content expansion.
-const POOL_MINIMUMS = { WK: 148, PC: 85, AR: 122, MK: 132, GS: 30, EI: 30, AS: 100, MC: 105 };
+const POOL_MINIMUMS = { WK: 148, PC: 85, AR: 122, MK: 132, GS: 105, EI: 30, AS: 100, MC: 105 };
 
 for (const [code, section] of Object.entries(asvabData.sections)) {
   const questions = asvabData.questions[code] || [];
