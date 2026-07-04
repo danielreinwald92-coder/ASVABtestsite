@@ -635,6 +635,28 @@
       justify-content: center;
       gap: 1rem;
     }
+    .flashcard-sr-toggle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .flashcard-sr-btn {
+      padding: 0.5rem 1.1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--gold-500, #d4a853);
+      background: transparent;
+      color: var(--gold-text, #a9812f);
+    }
+    .flashcard-sr-btn:hover { background: rgba(212, 168, 83, 0.12); }
+    .flashcard-sr-btn.active { background: var(--gold-500, #d4a853); color: #0a1628; }
+    .flashcard-sr-due { font-size: 0.85rem; color: var(--text-secondary, #5b6b7d); font-weight: 600; }
+    .flashcard-action-btn.sr-again { background: #f3d5d5; color: #7a2020; }
+    .flashcard-action-btn.sr-good { background: #d8ecd8; color: #1f5a1f; }
+    .flashcard-action-btn.sr-easy { background: var(--gold-500, #d4a853); color: #0a1628; }
     .flashcard-action-btn {
       padding: 0.75rem 1.5rem;
       border-radius: 8px;
@@ -881,6 +903,10 @@
         <h1>Formula Flashcards</h1>
         <p class="flashcard-progress" id="flashcard-progress">Card 1 of 20</p>
       </div>
+      <div class="flashcard-sr-toggle" id="flashcardSrToggle">
+        <button class="flashcard-sr-btn" id="srReviewBtn" type="button" data-action="start-sr">Review due cards</button>
+        <span class="flashcard-sr-due" id="srDueBadge" hidden></span>
+      </div>
       <div class="flashcard-container">
         <div class="flashcard" id="flashcard" data-action="flip-card">
           <div class="flashcard-face flashcard-front" id="flashcard-front"></div>
@@ -891,15 +917,21 @@
         <button class="flashcard-nav-btn" id="prevCardBtn" data-action="prev-card">←</button>
         <button class="flashcard-nav-btn" id="nextCardBtn" data-action="next-card">→</button>
       </div>
-      <div class="flashcard-actions">
+      <div class="flashcard-actions" id="flashcardActions">
         <button class="flashcard-action-btn study-more" data-action="mark-card" data-status="study">Study More</button>
         <button class="flashcard-action-btn knew-it" data-action="mark-card" data-status="knew">Got It!</button>
+      </div>
+      <div class="flashcard-actions" id="flashcardSrActions" hidden>
+        <button class="flashcard-action-btn sr-again" data-action="grade-card" data-grade="again">Again</button>
+        <button class="flashcard-action-btn sr-good" data-action="grade-card" data-grade="good">Good</button>
+        <button class="flashcard-action-btn sr-easy" data-action="grade-card" data-grade="easy">Easy</button>
       </div>
     </div>
   </div>
 
   <script src="js/section-config.js"></script>
   <script src="js/quiz-data.js"></script>
+  <script src="js/spaced-repetition.js"></script>
   <script src="js/page-study-guide.js"></script>
   <script src="js/mobile-menu.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
