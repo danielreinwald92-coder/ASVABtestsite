@@ -111,6 +111,9 @@ function loadResults() {
   // Render answer review
   renderAnswerReview(results.sectionResults);
 
+  // Prepare the shareable result card (locally generated; no PII, no upload).
+  setupShareResult(results, hasAFQT, isTutor);
+
   } catch (error) {
     console.error('Error loading results:', error);
     document.getElementById('scoreMessage').textContent = 'Error loading results';
@@ -591,6 +594,36 @@ async function submitReport(reasonBtn) {
     if (msgEl) msgEl.textContent = 'Could not submit report: ' + (err.message || 'Network error');
     wrap.querySelectorAll('[data-action="report-reason"]').forEach((b) => { b.disabled = false; });
   }
+}
+
+// Build the share payload from already-computed scores and reveal the button.
+// Uses only score data — never the user's name — matching share-card.js.
+function setupShareResult(results, hasAFQT, isTutor) {
+  const btn = document.getElementById('shareResultBtn');
+  if (!btn || typeof MissionASVABShareCard === 'undefined') return;
+
+  let lineScores = [];
+  if (results.testType === 'full' && typeof MissionASVABScoring !== 'undefined') {
+    const ls = MissionASVABScoring.calculateLineScores(results.sectionResults);
+    if (ls) {
+      lineScores = Object.entries(ls)
+        .filter(([, d]) => d && d.score > 0)
+        .map(([code, d]) => ({ code, score: d.score }));
+    }
+  }
+
+  let dateStr = '';
+  try { dateStr = new Date().toLocaleDateString(); } catch (e) { dateStr = ''; }
+
+  const payload = {
+    mode: hasAFQT ? 'timed' : (isTutor ? 'tutor' : 'practice'),
+    afqtPercentile: hasAFQT ? results.afqt : undefined,
+    lineScores: lineScores,
+    dateStr: dateStr
+  };
+
+  btn.hidden = false;
+  btn.addEventListener('click', () => MissionASVABShareCard.renderAndShare(payload));
 }
 
 // Wire up controls that previously used inline on* attributes.

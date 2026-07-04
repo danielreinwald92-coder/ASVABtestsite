@@ -689,42 +689,53 @@
 
     let flashcardState = {
       cards: [],
+      allCards: [],
       currentIndex: 0,
       flipped: false,
       known: [],
-      studying: []
+      studying: [],
+      srMode: false
     };
 
-    function showFlashcards(type) {
-      flashcardState.cards = [];
-      flashcardState.type = type;
+    // Local calendar day for spaced-repetition scheduling.
+    function srToday() {
+      try { return new Date().toLocaleDateString('en-CA'); } catch (e) { return '1970-01-01'; }
+    }
+    function srStoreFor(type) {
+      if (typeof MissionASVABSR === 'undefined') return null;
+      return new MissionASVABSR.SRStore(type);
+    }
 
+    function buildFlashcards(type) {
+      const cards = [];
       if (type === 'vocab') {
-        // Build vocabulary cards
         vocabFlashcards.forEach(v => {
-          flashcardState.cards.push({
-            category: 'Vocabulary',
-            question: v.word,
-            answer: v.definition,
-            explanation: v.example
-          });
+          cards.push({ id: 'vocab:' + v.word, category: 'Vocabulary', question: v.word, answer: v.definition, explanation: v.example });
         });
       } else {
-        // Build formula cards
         Object.entries(formulaData).forEach(([category, formulas]) => {
           formulas.forEach(f => {
-            flashcardState.cards.push({
-              category,
-              question: f.name,
-              answer: f.formula,
-              explanation: f.description + '. Example: ' + f.example
-            });
+            cards.push({ id: 'formulas:' + f.name, category, question: f.name, answer: f.formula, explanation: f.description + '. Example: ' + f.example });
           });
         });
       }
+      return cards;
+    }
 
-      // Shuffle cards
-      flashcardState.cards = shuffleArray(flashcardState.cards);
+    function showFlashcards(type, opts) {
+      opts = opts || {};
+      flashcardState.type = type;
+      flashcardState.srMode = !!opts.sr;
+      flashcardState.allCards = buildFlashcards(type);
+
+      let cards = flashcardState.allCards;
+      if (flashcardState.srMode) {
+        const store = srStoreFor(type);
+        const states = store ? store.load() : {};
+        const today = srToday();
+        cards = cards.filter(c => MissionASVABSR.isDue(states[c.id], today));
+      }
+      flashcardState.cards = shuffleArray(cards.slice());
       flashcardState.currentIndex = 0;
       flashcardState.flipped = false;
       flashcardState.known = [];
@@ -732,11 +743,9 @@
 
       showView('flashcards');
 
-      // Update header based on type
       const header = document.querySelector('#flashcards-view .flashcard-header h1');
       header.textContent = type === 'vocab' ? 'Vocabulary Flashcards' : 'Formula Flashcards';
 
-      // Set back button to return to current course
       const backBtn = document.getElementById('flashcards-back-btn');
       if (currentCourse && currentCourse.code) {
         backBtn.onclick = () => showCourse(currentCourse.code);
@@ -744,7 +753,73 @@
         backBtn.onclick = () => showView('home');
       }
 
+      updateFlashcardModeUI();
+
+      if (flashcardState.srMode && flashcardState.cards.length === 0) {
+        showFlashcardsComplete('All caught up! No cards are due for review right now.');
+        return;
+      }
       renderFlashcard();
+    }
+
+    // Toggle which action buttons + badge show based on SR vs classic mode.
+    function updateFlashcardModeUI() {
+      const classic = document.getElementById('flashcardActions');
+      const sr = document.getElementById('flashcardSrActions');
+      const nav = document.querySelector('#flashcards-view .flashcard-nav');
+      const srBtn = document.getElementById('srReviewBtn');
+      const badge = document.getElementById('srDueBadge');
+      if (classic) classic.hidden = flashcardState.srMode;
+      if (sr) sr.hidden = !flashcardState.srMode;
+      if (nav) nav.style.display = flashcardState.srMode ? 'none' : '';
+      if (srBtn) srBtn.classList.toggle('active', flashcardState.srMode);
+
+      // Due-count badge reflects the whole deck, not just this session.
+      if (badge) {
+        const store = srStoreFor(flashcardState.type);
+        if (store && flashcardState.allCards.length) {
+          const states = store.load();
+          const today = srToday();
+          const map = {};
+          flashcardState.allCards.forEach(c => { map[c.id] = states[c.id]; });
+          const due = MissionASVABSR.dueCount(map, today);
+          badge.textContent = due + ' due today';
+          badge.hidden = false;
+        } else {
+          badge.hidden = true;
+        }
+      }
+    }
+
+    function showFlashcardsComplete(message) {
+      document.getElementById('flashcard-progress').textContent = '';
+      document.getElementById('flashcard-front').innerHTML = `
+        <div class="category">Done</div>
+        <div class="question">${message}</div>
+      `;
+      document.getElementById('flashcard-back').innerHTML = '';
+      document.getElementById('flashcard').classList.remove('flipped');
+    }
+
+    // Grade the current card in SR mode, persist its schedule, advance the queue.
+    function gradeCard(grade) {
+      if (!flashcardState.srMode || typeof MissionASVABSR === 'undefined') return;
+      const card = flashcardState.cards[flashcardState.currentIndex];
+      if (!card) return;
+      const store = srStoreFor(flashcardState.type);
+      if (store) {
+        const states = store.load();
+        states[card.id] = MissionASVABSR.review(states[card.id] || null, grade, srToday());
+        store.save(states);
+      }
+      if (flashcardState.currentIndex < flashcardState.cards.length - 1) {
+        flashcardState.currentIndex++;
+        renderFlashcard();
+        updateFlashcardModeUI();
+      } else {
+        updateFlashcardModeUI();
+        showFlashcardsComplete('Review complete — nice work. Come back tomorrow for the next batch.');
+      }
     }
 
     function renderFlashcard() {
@@ -836,6 +911,8 @@
         case 'next-card': nextCard(); break;
         case 'mark-card': markCard(el.dataset.status); break;
         case 'show-flashcards': showFlashcards(el.dataset.type); break;
+        case 'start-sr': showFlashcards(flashcardState.type, { sr: !flashcardState.srMode }); break;
+        case 'grade-card': gradeCard(el.dataset.grade); break;
         case 'show-formulas': showFormulas(); break;
         case 'start-section-practice': startSectionPractice(el.dataset.code); break;
         case 'start-quiz': startQuiz(); break;

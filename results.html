@@ -159,6 +159,18 @@
       font-weight: 600;
       margin-top: 0.5rem;
     }
+    .share-result-btn {
+      margin-top: 1.5rem;
+      background: var(--gold-500);
+      color: var(--navy-900);
+      border: none;
+      padding: 0.7rem 1.6rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    .share-result-btn:hover { background: var(--gold-400); }
 
     .score-message {
       font-family: 'Cormorant Garamond', serif;
@@ -1013,6 +1025,8 @@
 
       <h2 class="score-message" id="scoreMessage">Calculating...</h2>
       <p class="score-description" id="scoreDescription">Loading your results...</p>
+
+      <button type="button" id="shareResultBtn" class="share-result-btn" hidden>Share my result</button>
     </section>
 
     <div id="saveStatusBanner" role="alert" style="display:none; margin: 1rem 0; padding: 0.875rem 1rem; background: #fff7ed; border: 1px solid #fdba74; border-radius: 8px; color: #9a3412; font-size: 0.95rem;">
@@ -1119,6 +1133,7 @@
   <script src="js/auth.js"></script>
   <script src="js/test-config.js"></script>
   <script src="js/scoring.js"></script>
+  <script src="js/share-card.js"></script>
   <script src="js/load-explanations.js"></script>
   <script src="js/page-results.js"></script>
 
