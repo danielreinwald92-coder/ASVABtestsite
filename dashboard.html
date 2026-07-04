@@ -62,6 +62,21 @@
     .take-test-btn { background: var(--gold-500); color: var(--navy-900); padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; white-space: nowrap; }
     .take-test-btn:hover { background: var(--gold-400); }
 
+    /* PWA install banner */
+    .install-banner { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; background: var(--navy-900); color: var(--white); border-radius: 12px; padding: 0.9rem 1.25rem; margin-bottom: 1.5rem; }
+    .install-banner-text { flex: 1; font-size: 0.95rem; min-width: 12rem; }
+    .install-banner-btn { background: var(--gold-500); color: var(--navy-900); border: none; padding: 0.5rem 1.1rem; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .install-banner-btn:hover { background: var(--gold-400); }
+    .install-banner-dismiss { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.35); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+    .install-banner-dismiss:hover { border-color: rgba(255,255,255,0.7); }
+
+    /* Zone 0: Motivation */
+    .motivation-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .motivation-card { flex: 1; min-width: 14rem; background: var(--white); border-radius: 16px; padding: 1.1rem 1.4rem; font-weight: 600; font-size: 1.05rem; display: flex; align-items: center; }
+    .study-plan-list { list-style: none; padding: 0; margin: 0; }
+    .study-plan-list li { position: relative; padding: 0.4rem 0 0.4rem 1.6rem; color: var(--text-secondary); }
+    .study-plan-list li::before { content: '→'; position: absolute; left: 0; color: var(--gold-text); font-weight: 700; }
+
     /* Zone 2: Chart */
     .section-card-container { background: var(--white); border-radius: 16px; padding: 1.75rem; margin-bottom: 1.5rem; }
     .section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 1.25rem; }
@@ -189,6 +204,19 @@
 
     <!-- Main dashboard content -->
     <div id="dashboardContent">
+      <!-- PWA install prompt (revealed by js/pwa-install.js when available) -->
+      <div id="install-banner" class="install-banner" hidden></div>
+
+      <!-- Zone 0: Motivation (countdown + streak + paced plan) -->
+      <div class="motivation-row" id="motivationRow" hidden>
+        <div class="motivation-card" id="countdownCard" hidden></div>
+        <div class="motivation-card" id="streakCard" hidden></div>
+      </div>
+      <div class="section-card-container" id="studyPlanContainer" hidden>
+        <div class="section-title" id="studyPlanHeadline">Your study plan</div>
+        <ul class="study-plan-list" id="studyPlanList"></ul>
+      </div>
+
       <!-- Zone 1: Score Summary -->
       <div class="score-summary">
         <div>
@@ -290,6 +318,9 @@
   <script src="js/auth.js"></script>
   <script src="js/focus-trap.js"></script>
   <script src="js/weak-areas.js"></script>
+  <script src="js/streak.js"></script>
+  <script src="js/study-plan.js"></script>
+  <script src="js/pwa-install.js"></script>
   <script src="js/courses.js"></script>
   <script src="js/dashboard.js"></script>
   <script src="js/page-dashboard.js"></script>

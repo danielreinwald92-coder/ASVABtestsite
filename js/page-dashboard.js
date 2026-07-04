@@ -72,5 +72,11 @@
     }
   });
 
+  // PWA install prompt (dismissible; iOS gets a manual hint). No-op if the
+  // module or banner element is absent.
+  if (typeof MissionASVABInstall !== 'undefined') {
+    MissionASVABInstall.init(document.getElementById('install-banner'));
+  }
+
   loadDashboard();
 })();

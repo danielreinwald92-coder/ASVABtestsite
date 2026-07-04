@@ -48,6 +48,8 @@ async function loadDashboard() {
 
   hideWelcomeState();
   const timed = timedOnly(results);
+  // Zone 0: motivation (countdown + streak + paced plan), from all results.
+  renderMotivation(results, profile);
   // Timed-only: AFQT score card, trend chart, section cards.
   renderScoreSummary(timed);
   renderProgressChart(timed);
@@ -55,6 +57,91 @@ async function loadDashboard() {
   // All results (incl. tutor practice): weak-area focus + full history.
   renderFocusPanel(results);
   renderTestHistory(results);
+}
+
+// Local calendar day 'YYYY-MM-DD' for a Date (en-CA renders ISO-style).
+function localDayString(date) {
+  try { return date.toLocaleDateString('en-CA'); } catch (e) { return null; }
+}
+
+// Whole days from today (local) until a 'YYYY-MM-DD' test date; null if unset.
+function daysUntil(testDate) {
+  if (!testDate) return null;
+  const parts = String(testDate).slice(0, 10).split('-');
+  if (parts.length !== 3) return null;
+  const target = Math.floor(Date.UTC(+parts[0], +parts[1] - 1, +parts[2]) / 86400000);
+  const now = new Date();
+  const today = Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 86400000);
+  return target - today;
+}
+
+// Zone 0: countdown, derived streak, and a paced study plan. All client-side.
+function renderMotivation(results, profile) {
+  const row = document.getElementById('motivationRow');
+
+  // --- Streak (derived from test dates) ---
+  const streakCard = document.getElementById('streakCard');
+  if (streakCard && typeof MissionASVABStreak !== 'undefined') {
+    const dayStrings = (results || [])
+      .map((r) => {
+        const raw = r.taken_at || r.created_at;
+        const d = raw ? new Date(raw) : null;
+        return d && !isNaN(d) ? localDayString(d) : null;
+      })
+      .filter(Boolean);
+    const today = localDayString(new Date());
+    const s = MissionASVABStreak.computeStreak(dayStrings, today);
+    if (s.current > 0) {
+      streakCard.textContent = '🔥 ' + s.current + '-day streak' +
+        (s.longest > s.current ? ' · best ' + s.longest : '');
+      streakCard.hidden = false;
+    }
+  }
+
+  // --- Countdown ---
+  const days = daysUntil(profile && profile.test_date);
+  const countdownCard = document.getElementById('countdownCard');
+  if (countdownCard) {
+    if (days === null) {
+      countdownCard.textContent = '📅 Add your test date in Account to see a countdown';
+      countdownCard.hidden = false;
+    } else if (days > 0) {
+      countdownCard.textContent = '📅 ' + days + (days === 1 ? ' day' : ' days') + ' until your ASVAB';
+      countdownCard.hidden = false;
+    } else if (days === 0) {
+      countdownCard.textContent = '📅 Your ASVAB is today — you’ve got this';
+      countdownCard.hidden = false;
+    } else {
+      countdownCard.textContent = '📅 Update your test date in Account';
+      countdownCard.hidden = false;
+    }
+  }
+
+  if (row && (!countdownCard.hidden || !document.getElementById('streakCard').hidden)) {
+    row.hidden = false;
+  }
+
+  // --- Paced study plan ---
+  if (typeof MissionASVABStudyPlan !== 'undefined') {
+    let weakCodes = [];
+    if (typeof MissionASVABWeakAreas !== 'undefined') {
+      weakCodes = MissionASVABWeakAreas.weakestSections(results, 2).map((w) => w.code);
+    }
+    const plan = MissionASVABStudyPlan.buildStudyPlan({ daysRemaining: days, weakSections: weakCodes });
+    const container = document.getElementById('studyPlanContainer');
+    const headline = document.getElementById('studyPlanHeadline');
+    const list = document.getElementById('studyPlanList');
+    if (container && headline && list) {
+      headline.textContent = plan.headline;
+      list.innerHTML = '';
+      plan.items.forEach((item) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        list.appendChild(li);
+      });
+      container.hidden = false;
+    }
+  }
 }
 
 function getDisplayName(profile, email) {
