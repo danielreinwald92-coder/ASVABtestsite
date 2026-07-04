@@ -224,6 +224,456 @@ const asvabData = {
         options: ["H2O", "CO2", "NaCl", "O2"],
         correct: 0,
         difficulty: 1
+      },
+      {
+        id: "GS031",
+        text: "Which chamber of the heart pumps oxygenated blood out to the body?",
+        options: ["Right atrium", "Right ventricle", "Left ventricle", "Left atrium"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "GS032",
+        text: "In which structure does most oxygen and carbon dioxide exchange occur in the respiratory system?",
+        options: ["Alveoli of the lungs", "Trachea", "Bronchi", "Diaphragm"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "GS033",
+        text: "Which organ produces bile to help digest fats?",
+        options: ["Stomach", "Pancreas", "Small intestine", "Liver"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "GS034",
+        text: "What is the basic structural and functional unit of the nervous system?",
+        options: ["Nephron", "Neuron", "Alveolus", "Villus"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "GS035",
+        text: "Which mineral is the main component that gives bones their hardness?",
+        options: ["Calcium", "Iron", "Potassium", "Sodium"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "GS036",
+        text: "Which type of muscle tissue makes up the walls of the heart?",
+        options: ["Skeletal muscle", "Smooth muscle", "Cardiac muscle", "Voluntary muscle"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "GS037",
+        text: "Which gland is often called the master gland because it controls other glands?",
+        options: ["Thyroid gland", "Adrenal gland", "Thymus gland", "Pituitary gland"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "GS038",
+        text: "Which cells in the immune system produce antibodies to fight infection?",
+        options: ["Red blood cells", "White blood cells", "Platelets", "Nerve cells"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "GS039",
+        text: "A deficiency of vitamin C in the diet can cause which disease?",
+        options: ["Scurvy", "Rickets", "Goiter", "Anemia"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "GS040",
+        text: "Which nutrient class is the body's primary and fastest source of energy?",
+        options: ["Proteins", "Fats", "Carbohydrates", "Vitamins"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "GS041",
+        text: "Which cell organelle is known as the powerhouse of the cell?",
+        options: ["Ribosome", "Golgi apparatus", "Vacuole", "Mitochondrion"],
+        correct: 3, difficulty: 1
+      },
+      {
+        id: "GS042",
+        text: "During which process does a body cell divide to form two identical daughter cells?",
+        options: ["Meiosis", "Mitosis", "Fertilization", "Respiration"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "GS043",
+        text: "In genetics, a trait that is masked when paired with a dominant allele is called:",
+        options: ["Recessive", "Dominant", "Hybrid", "Mutant"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "GS044",
+        text: "What do the letters DNA stand for?",
+        options: ["Diribonucleic acid", "Deoxyribonuclear acid", "Deoxyribonucleic acid", "Dioxyribonucleic acid"],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "GS045",
+        text: "In a food chain, organisms that break down dead plants and animals are called:",
+        options: ["Producers", "Herbivores", "Predators", "Decomposers"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "GS046",
+        text: "A relationship in which both species benefit is an example of:",
+        options: ["Parasitism", "Mutualism", "Predation", "Competition"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "GS047",
+        text: "In the classification of living things, which is the broadest and largest grouping?",
+        options: ["Kingdom", "Species", "Genus", "Family"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "GS048",
+        text: "In plants, which structure absorbs water and minerals from the soil?",
+        options: ["Leaves", "Flowers", "Roots", "Stem"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "GS049",
+        text: "The green pigment in plants that captures light energy for photosynthesis is called:",
+        options: ["Hemoglobin", "Melanin", "Keratin", "Chlorophyll"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "GS050",
+        text: "Which organ system is responsible for filtering waste from the blood and producing urine?",
+        options: ["Respiratory system", "Excretory system", "Circulatory system", "Endocrine system"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "GS051",
+        text: "What is the outermost solid layer of the Earth called?",
+        options: ["The mantle", "The outer core", "The crust", "The inner core"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "GS052",
+        text: "Most earthquakes and volcanic activity on Earth occur:",
+        options: ["Along the boundaries of tectonic plates", "At the centers of large continents", "Evenly across the ocean floor", "Only near the equator"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "GS053",
+        text: "Rock that forms from layers of sand, mud, and mineral particles that are compacted and cemented together over time is called:",
+        options: ["Igneous rock", "Sedimentary rock", "Metamorphic rock", "Volcanic rock"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "GS054",
+        text: "Metamorphic rock forms when existing rock is changed primarily by:",
+        options: ["Freezing and thawing", "Rapid cooling of lava", "Dissolving in water", "Heat and pressure"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "GS055",
+        text: "Erosion differs from weathering in that erosion involves:",
+        options: ["Breaking rock into smaller pieces in place", "Transporting broken rock and soil to a new location", "Chemically dissolving minerals in rock", "Melting rock beneath the surface"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "GS056",
+        text: "When a fast-moving cold front pushes into a region of warm, moist air, the weather that typically results is:",
+        options: ["Brief, intense thunderstorms followed by cooler, clearer air", "Several days of light, steady drizzle", "A prolonged heat wave", "Completely calm, cloudless conditions"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "GS057",
+        text: "When the relative humidity of the air reaches 100 percent, the air is said to be:",
+        options: ["Compressed", "Unstable", "Saturated", "Ionized"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "GS058",
+        text: "A barometer reading that is falling rapidly usually indicates:",
+        options: ["Continued fair weather", "Colder but dry conditions", "A drop in humidity", "An approaching storm"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "GS059",
+        text: "Thin, wispy clouds made of ice crystals that form at very high altitudes are called:",
+        options: ["Stratus clouds", "Cirrus clouds", "Cumulus clouds", "Nimbostratus clouds"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "GS060",
+        text: "In the water cycle, the process by which water vapor in the air changes into liquid droplets is called:",
+        options: ["Condensation", "Evaporation", "Precipitation", "Transpiration"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "GS061",
+        text: "Nearly all of Earth's weather occurs in which layer of the atmosphere?",
+        options: ["The stratosphere", "The thermosphere", "The troposphere", "The exosphere"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "GS062",
+        text: "Most meteors burn up in which layer of Earth's atmosphere?",
+        options: ["The troposphere", "The mesosphere", "The exosphere", "The ozone layer"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "GS063",
+        text: "Unlike an asteroid, a comet is composed largely of ice and dust and will:",
+        options: ["Remain permanently inside the asteroid belt", "Glow with its own nuclear energy", "Always crash into a planet", "Develop a glowing tail when it passes near the Sun"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "GS064",
+        text: "Which planet is the largest in our solar system?",
+        options: ["Jupiter", "Saturn", "Neptune", "Earth"],
+        correct: 0, difficulty: 1
+      },
+      {
+        id: "GS065",
+        text: "The Sun produces its energy through:",
+        options: ["The burning of coal and gas", "Chemical reactions in its core", "Nuclear fusion of hydrogen into helium", "Friction between rotating layers"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "GS066",
+        text: "Earth experiences seasons primarily because:",
+        options: ["Earth is much closer to the Sun in summer than in winter", "Earth's axis is tilted as it revolves around the Sun", "The Sun's energy output rises and falls during the year", "Earth spins faster during the summer months"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "GS067",
+        text: "A lunar eclipse can occur only during a full moon because it requires:",
+        options: ["The Moon to pass directly between the Sun and Earth", "The Sun to be at its highest point in the sky", "The Moon to be at its farthest distance from Earth", "The Earth to pass directly between the Sun and the Moon"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "GS068",
+        text: "The highest high tides, called spring tides, occur when:",
+        options: ["The Sun, Moon, and Earth are aligned, at new or full moon", "The Moon is at a right angle to the Sun as seen from Earth", "The Moon is in its first or third quarter phase", "Earth is at its closest point to the Sun in spring"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "GS069",
+        text: "A car travels 120 miles in 3 hours. What is its average speed?",
+        options: ["30 miles per hour", "40 miles per hour", "60 miles per hour", "360 miles per hour"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "GS070",
+        text: "A metal spoon left in a pot of hot soup becomes hot to the touch. Heat travels through the spoon by:",
+        options: ["radiation", "convection", "conduction", "evaporation"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "GS071",
+        text: "Which of the following materials is the best conductor of electricity?",
+        options: ["copper", "rubber", "glass", "dry wood"],
+        correct: 0, difficulty: 1
+      },
+      {
+        id: "GS072",
+        text: "Acceleration is defined as the rate of change of an object's:",
+        options: ["position", "mass", "temperature", "velocity"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "GS073",
+        text: "According to Newton's third law of motion, when one object exerts a force on a second object, the second object:",
+        options: ["exerts an equal force back in the same direction", "exerts an equal and opposite force back on the first", "exerts no force unless it is moving", "accelerates at the same rate as the first object"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "GS074",
+        text: "The energy an object has because it is moving is called:",
+        options: ["potential energy", "chemical energy", "kinetic energy", "nuclear energy"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "GS075",
+        text: "Heat from the Sun reaches Earth mainly by:",
+        options: ["radiation", "conduction", "convection", "condensation"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "GS076",
+        text: "In the SI system, energy and work are measured in:",
+        options: ["watts", "newtons", "pascals", "joules"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "GS077",
+        text: "The momentum of a moving object is calculated by multiplying its mass by its:",
+        options: ["acceleration", "velocity", "weight", "volume"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "GS078",
+        text: "An object placed in water will float if:",
+        options: ["its density is less than the density of water", "its density is greater than the density of water", "its mass is less than one kilogram", "its surface is smooth"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "GS079",
+        text: "The pitch of a sound is determined by the sound wave's:",
+        options: ["amplitude", "speed", "frequency", "loudness"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "GS080",
+        text: "A straw in a glass of water appears bent at the water's surface. This is caused by:",
+        options: ["reflection", "refraction", "diffusion", "absorption"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "GS081",
+        text: "When water vapor in the air turns into liquid droplets on a cold glass, the change of state is called:",
+        options: ["evaporation", "melting", "sublimation", "condensation"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "GS082",
+        text: "A hockey puck sliding on frictionless ice will continue moving at constant speed in a straight line. This is best explained by:",
+        options: ["Newton's first law", "Newton's second law", "the law of universal gravitation", "the law of conservation of energy"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "GS083",
+        text: "Which type of electromagnetic wave has the longest wavelength?",
+        options: ["X-rays", "visible light", "radio waves", "ultraviolet rays"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "GS084",
+        text: "Rubbing a balloon against dry hair gives the balloon a static electric charge because the rubbing:",
+        options: ["creates new electrons in the balloon", "transfers electrons from the hair to the balloon", "transfers protons from the hair to the balloon", "destroys protons in the hair"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "GS085",
+        text: "A vehicle accelerates from rest to 20 meters per second in 5 seconds. What is its average acceleration?",
+        options: ["100 meters per second squared", "25 meters per second squared", "15 meters per second squared", "4 meters per second squared"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "GS086",
+        text: "A block has a mass of 200 grams and a volume of 50 cubic centimeters. What is its density?",
+        options: ["4 grams per cubic centimeter", "0.25 grams per cubic centimeter", "250 grams per cubic centimeter", "150 grams per cubic centimeter"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "GS087",
+        text: "As an ambulance approaches, its siren sounds higher in pitch than when it moves away. The best explanation is that:",
+        options: ["the siren gets louder as the ambulance gets closer", "sound travels faster from a moving source", "the sound waves ahead of the ambulance are compressed, raising their frequency", "the driver raises the siren's frequency while approaching"],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "GS088",
+        text: "Which particles are found in the nucleus of an atom?",
+        options: ["Electrons and protons", "Electrons only", "Protons and neutrons", "Neutrons and electrons"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "GS089",
+        text: "Blue litmus paper turns red when dipped into a solution that is:",
+        options: ["Acidic", "Basic", "Neutral", "Saturated"],
+        correct: 0, difficulty: 1
+      },
+      {
+        id: "GS090",
+        text: "The atomic number of an element is equal to the number of:",
+        options: ["Neutrons in the nucleus", "Protons in the nucleus", "Protons plus neutrons", "Energy levels in the atom"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "GS091",
+        text: "Which of the following is a compound?",
+        options: ["Oxygen gas", "Air", "Brass", "Table salt (NaCl)"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "GS092",
+        text: "The chemical symbol Fe represents which element?",
+        options: ["Iron", "Fluorine", "Lead", "Tin"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "GS093",
+        text: "Which of the following is a physical change?",
+        options: ["Rusting of iron", "Burning of wood", "Melting of ice", "Souring of milk"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "GS094",
+        text: "A solution with a pH of 2 is best described as:",
+        options: ["A strong base", "A strong acid", "Nearly neutral", "A weak base"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "GS095",
+        text: "The mass number of an atom is the total number of its:",
+        options: ["Protons only", "Electrons only", "Neutrons only", "Protons and neutrons"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "GS096",
+        text: "The noble gases, such as helium and neon, rarely react with other elements because they:",
+        options: ["Have full outer electron shells", "Have no electrons", "Are too heavy to react", "Contain no protons"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "GS097",
+        text: "Chemical equations must be balanced because of the law of conservation of:",
+        options: ["Energy", "Momentum", "Mass", "Charge only"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "GS098",
+        text: "Dry ice (solid CO2) changing directly into a gas without becoming a liquid is an example of:",
+        options: ["Condensation", "Sublimation", "Evaporation", "Deposition"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "GS099",
+        text: "In a saltwater solution, the water is called the:",
+        options: ["Solute", "Precipitate", "Suspension", "Solvent"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "GS100",
+        text: "Carbon dioxide is useful in fire extinguishers mainly because it:",
+        options: ["Is denser than air and does not support combustion", "Burns rapidly to consume the fuel", "Reacts with flames to form water", "Is lighter than air and lifts heat away"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "GS101",
+        text: "Isotopes of the same element have the same number of protons but different numbers of:",
+        options: ["Electrons", "Energy levels", "Neutrons", "Nuclei"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "GS102",
+        text: "When a hydrocarbon fuel such as methane burns completely in oxygen, the products are:",
+        options: ["Carbon monoxide and hydrogen", "Carbon dioxide and water", "Carbon and oxygen", "Hydrogen and water"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "GS103",
+        text: "An atom that has gained an extra electron becomes:",
+        options: ["A positively charged ion", "A neutral isotope", "A different element", "A negatively charged ion"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "GS104",
+        text: "Which group of elements reacts most violently with water?",
+        options: ["Alkali metals such as sodium and potassium", "Noble gases such as neon and argon", "Halogens such as chlorine and iodine", "Transition metals such as iron and copper"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "GS105",
+        text: "In the balanced equation CH4 + 2 O2 yields CO2 + 2 H2O, the coefficient 2 in front of O2 ensures that:",
+        options: ["Energy is released by the reaction", "Methane is completely liquefied", "The number of oxygen atoms is equal on both sides", "The reaction proceeds at a faster rate"],
+        correct: 2, difficulty: 5
       }
     ],
 

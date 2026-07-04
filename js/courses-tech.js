@@ -5,6 +5,1562 @@
 // tests/unit/courses-tech.test.js.
 
 const coursesTech = {
+  GS: {
+    "name": "General Science",
+    "description": "Life, earth, space, physical science, and chemistry",
+    "icon": "🔬",
+    "chapters": [
+      {
+        "id": "GS-1",
+        "title": "Life Science: The Human Body",
+        "description": "A tour of the body's major organ systems, blood basics, and nutrition so you can answer General Science questions about how the human body works.",
+        "lesson": {
+          "intro": "Your body is a team of organ systems working together every second, whether you are running a two-mile or catching your breath afterward. The ASVAB General Science section expects you to know what each system does and how they connect. Learn the big jobs first, and the details fall into place.",
+          "concepts": [
+            {
+              "title": "The Circulatory and Respiratory Systems",
+              "content": "The circulatory system moves blood through the body using the heart as a pump and blood vessels as the roadways. Arteries carry blood away from the heart, veins carry it back, and tiny capillaries are where oxygen and nutrients pass into your cells. The respiratory system brings in oxygen and removes carbon dioxide, with the lungs doing the actual gas exchange in tiny air sacs called alveoli. These two systems work as partners: the lungs load oxygen into the blood, and the heart pushes that oxygen-rich blood out to the muscles and organs. When you exercise, both speed up together to keep your cells supplied."
+            },
+            {
+              "title": "The Digestive System",
+              "content": "The digestive system breaks food down into nutrients your body can absorb and use for energy. It starts in the mouth, where chewing and saliva begin the process, then travels down the esophagus to the stomach, where acid and enzymes continue breaking food apart. The small intestine does most of the nutrient absorption, passing those nutrients into the bloodstream. The large intestine absorbs water and packages the leftover waste. Organs like the liver and pancreas help by producing bile and enzymes that make digestion possible."
+            },
+            {
+              "title": "The Nervous and Endocrine Systems",
+              "content": "The nervous system is the body's fast communication network, using the brain, spinal cord, and nerves to send electrical signals in fractions of a second. It controls everything from your reflexes to your thoughts and lets you react instantly to your surroundings. The endocrine system is the slower chemical messenger system, using glands to release hormones into the blood. Glands like the thyroid, pancreas, and adrenal glands control long-term processes such as growth, metabolism, and stress response. Together, fast nerves and slow hormones keep the whole body coordinated and balanced."
+            },
+            {
+              "title": "The Skeletal and Muscular Systems",
+              "content": "The skeletal system is the body's frame, made of 206 bones in the adult body that provide structure, protect organs, and give muscles something to pull against. Bones also store minerals like calcium and produce blood cells inside their marrow. The muscular system creates movement, and it comes in three types: skeletal muscle that you control voluntarily, smooth muscle that lines your organs and works automatically, and cardiac muscle found only in the heart. Muscles attach to bones by tough cords called tendons and work by pulling, never pushing. This is why muscles often work in pairs, with one contracting while its partner relaxes."
+            },
+            {
+              "title": "The Immune System",
+              "content": "The immune system is the body's defense force against germs like bacteria and viruses. Its first line of defense is physical barriers such as your skin and the mucus in your nose and throat. If germs get past those barriers, white blood cells hunt down and destroy the invaders. The body can also build antibodies, which are special proteins that recognize a specific germ and help fight it off faster the next time. This memory is the reason vaccines work and why you usually only get certain illnesses, like chickenpox, once."
+            },
+            {
+              "title": "Blood Basics and Nutrition",
+              "content": "Blood is made of red blood cells that carry oxygen using a protein called hemoglobin, white blood cells that fight infection, platelets that help blood clot, and plasma, the liquid that carries everything. Blood comes in types A, B, AB, and O, and type O negative is the universal donor because it can be given to almost anyone in an emergency. Good nutrition fuels all of this: carbohydrates give quick energy, proteins build and repair tissue, and fats store energy and protect organs. Vitamins and minerals are needed in small amounts but matter a lot, since shortages cause specific problems such as scurvy from too little vitamin C or anemia from too little iron."
+            }
+          ],
+          "examples": [
+            {
+              "problem": "Which organ system is responsible for exchanging oxygen and carbon dioxide with the outside air?",
+              "steps": [
+                "The question asks about gas exchange with the air, so focus on which system deals with air moving in and out of the body.",
+                "The circulatory system moves blood, and the digestive system handles food, so rule those out.",
+                "The lungs take in oxygen and release carbon dioxide, and the lungs belong to the respiratory system.",
+                "The correct answer is the respiratory system."
+              ],
+              "tip": "Link the key word to the system: air and breathing means respiratory, blood and heart means circulatory."
+            },
+            {
+              "problem": "A person's diet is very low in vitamin C. Which condition are they most likely to develop?",
+              "steps": [
+                "Recall that each vitamin deficiency causes a specific problem.",
+                "Vitamin C is needed to keep gums, skin, and connective tissue healthy.",
+                "A long-term lack of vitamin C causes scurvy, which shows up as bleeding gums and slow-healing wounds.",
+                "The correct answer is scurvy."
+              ],
+              "tip": "Memorize a few classic deficiency pairs: vitamin C and scurvy, vitamin D and rickets, iron and anemia."
+            },
+            {
+              "problem": "Which type of blood cell is mainly responsible for carrying oxygen to the body's tissues?",
+              "steps": [
+                "Break the blood down into its parts: red cells, white cells, platelets, and plasma.",
+                "White blood cells fight infection and platelets help clotting, so neither carries oxygen.",
+                "Red blood cells contain hemoglobin, the protein that binds oxygen.",
+                "The correct answer is red blood cells."
+              ],
+              "tip": "Remember red for oxygen, white for defense, and platelets for plugging leaks."
+            }
+          ],
+          "summary": "Each organ system has one big job, and knowing those jobs, plus how blood and nutrition support them, covers most General Science body questions. Focus on the pairs that work together, such as the heart and lungs or nerves and hormones, and memorize a handful of classic vitamin and mineral deficiencies. Match the key word in the question to the right system and the answer usually stands out."
+        },
+        "questions": [
+          {
+            "id": "GS1-001",
+            "text": "Which organ system uses the heart to pump blood through arteries, veins, and capillaries?",
+            "options": [
+              {
+                "text": "Respiratory system",
+                "explanation": "The respiratory system handles breathing and gas exchange in the lungs, not pumping blood through vessels."
+              },
+              {
+                "text": "Circulatory system",
+                "explanation": "Correct! The circulatory system uses the heart as a pump to move blood through arteries, veins, and capillaries.",
+                "correct": true
+              },
+              {
+                "text": "Digestive system",
+                "explanation": "The digestive system breaks down food and absorbs nutrients; it does not pump blood."
+              },
+              {
+                "text": "Skeletal system",
+                "explanation": "The skeletal system provides the body's frame and protects organs, but it does not pump blood."
+              }
+            ]
+          },
+          {
+            "id": "GS1-002",
+            "text": "Where does most nutrient absorption take place in the digestive system?",
+            "options": [
+              {
+                "text": "The stomach",
+                "explanation": "The stomach uses acid and enzymes to break food apart, but it is not where most nutrients are absorbed."
+              },
+              {
+                "text": "The large intestine",
+                "explanation": "The large intestine mainly absorbs water and packages waste, not most nutrients."
+              },
+              {
+                "text": "The small intestine",
+                "explanation": "Correct! The small intestine absorbs most nutrients and passes them into the bloodstream.",
+                "correct": true
+              },
+              {
+                "text": "The esophagus",
+                "explanation": "The esophagus is just a tube that carries food from the mouth to the stomach; no absorption happens there."
+              }
+            ]
+          },
+          {
+            "id": "GS1-003",
+            "text": "Which blood component contains hemoglobin and carries oxygen to body tissues?",
+            "options": [
+              {
+                "text": "White blood cells",
+                "explanation": "White blood cells fight infection; they do not carry oxygen."
+              },
+              {
+                "text": "Platelets",
+                "explanation": "Platelets help blood clot and stop bleeding, but they do not carry oxygen."
+              },
+              {
+                "text": "Plasma",
+                "explanation": "Plasma is the liquid part of blood that carries cells and nutrients, but hemoglobin is inside red cells, not plasma."
+              },
+              {
+                "text": "Red blood cells",
+                "explanation": "Correct! Red blood cells contain hemoglobin, the protein that binds and carries oxygen.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "GS1-004",
+            "text": "A long-term shortage of vitamin C most commonly leads to which condition?",
+            "options": [
+              {
+                "text": "Scurvy",
+                "explanation": "Correct! Vitamin C keeps gums and connective tissue healthy, and a lasting shortage causes scurvy.",
+                "correct": true
+              },
+              {
+                "text": "Rickets",
+                "explanation": "Rickets is caused by a lack of vitamin D, which affects bone strength, not vitamin C."
+              },
+              {
+                "text": "Anemia",
+                "explanation": "Anemia is most often linked to low iron, which affects red blood cells, not vitamin C."
+              },
+              {
+                "text": "Goiter",
+                "explanation": "A goiter is linked to an iodine shortage affecting the thyroid, not vitamin C."
+              }
+            ]
+          },
+          {
+            "id": "GS1-005",
+            "text": "Which system uses glands to release hormones that control processes like growth and metabolism?",
+            "options": [
+              {
+                "text": "Nervous system",
+                "explanation": "The nervous system sends fast electrical signals through nerves; it does not release hormones from glands."
+              },
+              {
+                "text": "Muscular system",
+                "explanation": "The muscular system creates movement by contracting; it does not produce hormones."
+              },
+              {
+                "text": "Endocrine system",
+                "explanation": "Correct! The endocrine system uses glands to release hormones that control growth, metabolism, and other slow processes.",
+                "correct": true
+              },
+              {
+                "text": "Immune system",
+                "explanation": "The immune system defends against germs; it does not control growth and metabolism through hormones."
+              }
+            ]
+          },
+          {
+            "id": "GS1-006",
+            "text": "Which macronutrient is the body's main source of quick energy?",
+            "options": [
+              {
+                "text": "Proteins",
+                "explanation": "Proteins are mainly used to build and repair tissue, not as the body's first choice for quick energy."
+              },
+              {
+                "text": "Carbohydrates",
+                "explanation": "Correct! Carbohydrates are the body's main source of quick, readily available energy.",
+                "correct": true
+              },
+              {
+                "text": "Fats",
+                "explanation": "Fats store energy long term and protect organs, but they are not the fastest energy source."
+              },
+              {
+                "text": "Water",
+                "explanation": "Water is essential for life but is not a macronutrient that provides energy."
+              }
+            ]
+          },
+          {
+            "id": "GS1-007",
+            "text": "What is the main job of platelets in the blood?",
+            "options": [
+              {
+                "text": "Carrying oxygen to tissues",
+                "explanation": "Carrying oxygen is the job of red blood cells, not platelets."
+              },
+              {
+                "text": "Fighting off infections",
+                "explanation": "Fighting infection is the job of white blood cells, not platelets."
+              },
+              {
+                "text": "Helping the blood clot",
+                "explanation": "Correct! Platelets help the blood clot so that bleeding stops after an injury.",
+                "correct": true
+              },
+              {
+                "text": "Producing antibodies",
+                "explanation": "Antibodies are proteins made as part of the immune response, not the main function of platelets."
+              }
+            ]
+          },
+          {
+            "id": "GS1-008",
+            "text": "Which type of muscle is found only in the heart?",
+            "options": [
+              {
+                "text": "Skeletal muscle",
+                "explanation": "Skeletal muscle attaches to bones and is under voluntary control; it is not the heart's muscle type."
+              },
+              {
+                "text": "Smooth muscle",
+                "explanation": "Smooth muscle lines organs like the stomach and intestines and works automatically, but it is not found in the heart."
+              },
+              {
+                "text": "Cardiac muscle",
+                "explanation": "Correct! Cardiac muscle is the special muscle type found only in the heart.",
+                "correct": true
+              },
+              {
+                "text": "Tendon tissue",
+                "explanation": "Tendons are tough cords that connect muscle to bone; they are not a type of muscle."
+              }
+            ]
+          }
+        ],
+        "quizConfig": {
+          "questionsPerQuiz": 6
+        }
+      },
+      {
+        "id": "GS-2",
+        "title": "Life Science: Cells, Genetics, and Ecology",
+        "description": "The building blocks of living things, from the tiny cell up to whole ecosystems. Learn cell parts, how energy flows through photosynthesis and respiration, how traits pass from parents to offspring, how scientists classify life, and how organisms interact in food chains and habitats.",
+        "lesson": {
+          "intro": "Life science, also called biology, is the study of living things. On the ASVAB General Science section you will see questions about the smallest units of life (cells), how living things get energy, how traits are inherited, how organisms are grouped, and how they depend on one another. Do not worry if biology felt overwhelming in school. This chapter breaks it into plain, memorable pieces. If you learn a handful of key terms and a few simple rules, you can answer most life science questions with confidence.",
+          "concepts": [
+            {
+              "title": "The Cell and Its Parts",
+              "content": "The cell is the basic unit of life. Every living thing is made of one or more cells. Three parts show up on tests again and again. The cell membrane is the thin outer layer that surrounds the cell and controls what goes in and out, like a security gate. The nucleus is the control center that holds the cell's DNA and directs its activities, like the brain of the cell. The mitochondria are the powerhouses that break down food to release energy the cell can use. A handy phrase to remember is that the mitochondria are the powerhouse of the cell. Other parts include cytoplasm, the jelly-like fluid that fills the cell, and ribosomes, which build proteins."
+            },
+            {
+              "title": "Plant Cells vs Animal Cells",
+              "content": "Plant and animal cells share the basics: both have a membrane, a nucleus, and mitochondria. But plant cells have three extra features that animal cells do not have. First, a cell wall, a stiff outer layer outside the membrane that gives the plant structure and support. Second, chloroplasts, the green structures that capture sunlight to make food through photosynthesis. Third, a large central vacuole that stores water and helps the plant stay firm. Remember it this way: only plants make their own food, so only plant cells have chloroplasts and a rigid cell wall."
+            },
+            {
+              "title": "Photosynthesis and Respiration",
+              "content": "These two processes are opposites, and together they power life on Earth. Photosynthesis happens in plants (in the chloroplasts). Plants take in carbon dioxide and water, use energy from sunlight, and produce sugar (food) and oxygen. In short: sunlight plus carbon dioxide plus water yields sugar plus oxygen. Cellular respiration happens in nearly all living cells (mainly in the mitochondria). It does the reverse: it takes in sugar and oxygen and releases energy, carbon dioxide, and water. Plants do both, while animals only do respiration. This is why plants give off the oxygen we breathe, and why animals and plants both need to break down food for energy."
+            },
+            {
+              "title": "DNA, Genes, and Inherited Traits",
+              "content": "DNA is the molecule inside the nucleus that carries the instructions for building and running a living thing. DNA is shaped like a twisted ladder called a double helix. A gene is a segment of DNA that codes for one specific trait, such as eye color. Chromosomes are the tightly packed structures that hold the DNA; humans have 46 (23 pairs). Offspring inherit one copy of each gene from each parent. Traits can be dominant or recessive. A dominant trait shows up whenever at least one dominant gene is present. A recessive trait shows up only when both copies are the recessive version. Uppercase letters stand for dominant genes and lowercase for recessive, so a person with Bb shows the dominant trait, while only bb shows the recessive trait."
+            },
+            {
+              "title": "Classifying Living Things",
+              "content": "Scientists organize life into groups from broadest to most specific. The order, from largest group to smallest, is: kingdom, phylum, class, order, family, genus, species. A species is the most specific group, meaning organisms that can breed and produce fertile offspring. Every organism gets a two-part scientific name from its genus and species (for example, humans are Homo sapiens). One common test split is between vertebrates, animals with a backbone (such as fish, amphibians, reptiles, birds, and mammals), and invertebrates, animals without a backbone (such as insects, worms, spiders, and jellyfish). Most animals on Earth are actually invertebrates."
+            },
+            {
+              "title": "Ecology: Energy and Relationships in Nature",
+              "content": "Ecology is the study of how living things interact with each other and their environment. A habitat is the place where an organism lives. Energy flows through an ecosystem in a food chain. Producers, usually plants, make their own food using sunlight and form the base. Consumers eat other organisms: herbivores eat plants, carnivores eat animals, and omnivores eat both. Decomposers, such as bacteria and fungi, break down dead material and return nutrients to the soil. A food web is many food chains linked together, showing that most animals eat more than one thing. Symbiosis means two species living closely together. There are three types: mutualism, where both benefit; commensalism, where one benefits and the other is unaffected; and parasitism, where one benefits and the other is harmed."
+            }
+          ],
+          "examples": [
+            {
+              "problem": "Which cell structure is responsible for producing energy for the cell?",
+              "steps": [
+                "The question asks which part supplies energy.",
+                "Recall the roles: the nucleus is the control center, the membrane controls what enters and exits, and the mitochondria break down food to release energy.",
+                "The key phrase is that the mitochondria are the powerhouse of the cell.",
+                "So the mitochondria are the energy producer."
+              ],
+              "tip": "Match each part to a one-word job: nucleus equals control, membrane equals gate, mitochondria equals power. Then pick the one about energy."
+            },
+            {
+              "problem": "A plant takes in carbon dioxide and water and, using sunlight, produces sugar and oxygen. What is this process called?",
+              "steps": [
+                "Notice the clues: sunlight is used, and oxygen is given off.",
+                "Respiration does the opposite (it uses oxygen and releases carbon dioxide), so it does not fit.",
+                "Making food from sunlight, carbon dioxide, and water is the definition of photosynthesis.",
+                "The answer is photosynthesis."
+              ],
+              "tip": "If you see sunlight and oxygen being produced, think photosynthesis. If you see oxygen being used up and energy released, think respiration."
+            },
+            {
+              "problem": "Brown eye color (B) is dominant over blue eye color (b). A person has the gene pair Bb. What eye color will this person have?",
+              "steps": [
+                "A dominant trait appears whenever at least one dominant gene (the uppercase letter) is present.",
+                "The person has one B (brown, dominant) and one b (blue, recessive).",
+                "Because a dominant gene is present, the dominant trait shows.",
+                "So the person will have brown eyes. Only a bb pair would give blue eyes."
+              ],
+              "tip": "One uppercase letter is enough to show the dominant trait. The recessive trait needs two lowercase letters."
+            }
+          ],
+          "summary": "Cells are the basic unit of life: the nucleus controls the cell, the membrane guards it, and the mitochondria power it. Plant cells add a cell wall, chloroplasts, and a large vacuole. Photosynthesis makes food using sunlight and releases oxygen, while respiration breaks food down to release energy. DNA holds the instructions, genes code for traits, and dominant traits show with just one dominant gene while recessive traits need two. Life is classified from kingdom down to species, and animals split into vertebrates (with a backbone) and invertebrates (without). In ecosystems, energy flows from producers to consumers to decomposers, and symbiosis describes close relationships that may help both, help one, or harm one. Learn these key terms and you can reason your way through most life science questions."
+        },
+        "questions": [
+          {
+            "id": "GS2-001",
+            "text": "Which part of the cell contains the DNA and directs the cell's activities?",
+            "options": [
+              {
+                "text": "Cell membrane",
+                "explanation": "The cell membrane is the outer layer that controls what enters and leaves the cell, not the part that holds DNA."
+              },
+              {
+                "text": "Nucleus",
+                "explanation": "Correct! The nucleus is the control center of the cell and holds its DNA, directing the cell's activities.",
+                "correct": true
+              },
+              {
+                "text": "Mitochondria",
+                "explanation": "Mitochondria release energy from food; they are the powerhouse, not the control center that stores DNA."
+              },
+              {
+                "text": "Cytoplasm",
+                "explanation": "Cytoplasm is the jelly-like fluid that fills the cell; it does not store the DNA or direct the cell."
+              }
+            ]
+          },
+          {
+            "id": "GS2-002",
+            "text": "Which structure is found in plant cells but NOT in animal cells?",
+            "options": [
+              {
+                "text": "Nucleus",
+                "explanation": "Both plant and animal cells have a nucleus, so it is not unique to plants."
+              },
+              {
+                "text": "Cell membrane",
+                "explanation": "Both plant and animal cells are surrounded by a cell membrane, so it is not unique to plants."
+              },
+              {
+                "text": "Cell wall",
+                "explanation": "Correct! The rigid cell wall is found in plant cells but not animal cells, giving plants their structure and support.",
+                "correct": true
+              },
+              {
+                "text": "Mitochondria",
+                "explanation": "Both plant and animal cells contain mitochondria for producing energy, so it is not unique to plants."
+              }
+            ]
+          },
+          {
+            "id": "GS2-003",
+            "text": "During photosynthesis, what gas do plants release into the air?",
+            "options": [
+              {
+                "text": "Oxygen",
+                "explanation": "Correct! Photosynthesis uses carbon dioxide and water with sunlight to make sugar and releases oxygen, the gas animals breathe.",
+                "correct": true
+              },
+              {
+                "text": "Carbon dioxide",
+                "explanation": "Plants take carbon dioxide in during photosynthesis; they release it during respiration, not photosynthesis."
+              },
+              {
+                "text": "Nitrogen",
+                "explanation": "Nitrogen makes up most of the air but is not the gas produced by photosynthesis."
+              },
+              {
+                "text": "Hydrogen",
+                "explanation": "Hydrogen is not the gas released during photosynthesis; the released gas is oxygen."
+              }
+            ]
+          },
+          {
+            "id": "GS2-004",
+            "text": "Cellular respiration mainly takes place in which cell structure?",
+            "options": [
+              {
+                "text": "Nucleus",
+                "explanation": "The nucleus stores DNA and controls the cell; it is not where respiration takes place."
+              },
+              {
+                "text": "Chloroplast",
+                "explanation": "Chloroplasts carry out photosynthesis in plants, not respiration."
+              },
+              {
+                "text": "Mitochondria",
+                "explanation": "Correct! Mitochondria break down sugar with oxygen to release energy, which is the process of cellular respiration.",
+                "correct": true
+              },
+              {
+                "text": "Cell wall",
+                "explanation": "The cell wall provides support in plant cells and has no role in releasing energy."
+              }
+            ]
+          },
+          {
+            "id": "GS2-005",
+            "text": "A segment of DNA that codes for a specific trait, such as hair color, is called a:",
+            "options": [
+              {
+                "text": "Cell",
+                "explanation": "A cell is the whole basic unit of life, not a segment of DNA that codes for one trait."
+              },
+              {
+                "text": "Gene",
+                "explanation": "Correct! A gene is a segment of DNA that carries the instructions for a specific trait.",
+                "correct": true
+              },
+              {
+                "text": "Tissue",
+                "explanation": "A tissue is a group of similar cells working together, not a piece of DNA."
+              },
+              {
+                "text": "Ribosome",
+                "explanation": "A ribosome is the structure that builds proteins; it is not a segment of DNA coding for a trait."
+              }
+            ]
+          },
+          {
+            "id": "GS2-006",
+            "text": "Tall (T) is dominant over short (t) in a pea plant. Which gene pairing would produce a SHORT plant?",
+            "options": [
+              {
+                "text": "TT",
+                "explanation": "Two dominant genes produce a tall plant, not a short one."
+              },
+              {
+                "text": "Tt",
+                "explanation": "With one dominant T present, the dominant trait shows, so this plant would be tall."
+              },
+              {
+                "text": "tt",
+                "explanation": "Correct! A recessive trait like short only appears when both genes are recessive, so tt produces a short plant.",
+                "correct": true
+              },
+              {
+                "text": "Tt or TT",
+                "explanation": "Both of these pairings include a dominant T, so both would produce tall plants, not short ones."
+              }
+            ]
+          },
+          {
+            "id": "GS2-007",
+            "text": "Which of the following is an invertebrate (an animal without a backbone)?",
+            "options": [
+              {
+                "text": "Frog",
+                "explanation": "A frog is an amphibian and has a backbone, making it a vertebrate."
+              },
+              {
+                "text": "Snake",
+                "explanation": "A snake is a reptile with a backbone, so it is a vertebrate."
+              },
+              {
+                "text": "Spider",
+                "explanation": "Correct! A spider has no backbone, which makes it an invertebrate.",
+                "correct": true
+              },
+              {
+                "text": "Eagle",
+                "explanation": "An eagle is a bird with a backbone, so it is a vertebrate."
+              }
+            ]
+          },
+          {
+            "id": "GS2-008",
+            "text": "In an ecosystem, organisms such as bacteria and fungi that break down dead material and return nutrients to the soil are called:",
+            "options": [
+              {
+                "text": "Producers",
+                "explanation": "Producers, such as plants, make their own food using sunlight; they do not break down dead material."
+              },
+              {
+                "text": "Consumers",
+                "explanation": "Consumers eat other organisms for energy; they are not the organisms that break down dead matter."
+              },
+              {
+                "text": "Decomposers",
+                "explanation": "Correct! Decomposers such as bacteria and fungi break down dead organisms and recycle nutrients back into the soil.",
+                "correct": true
+              },
+              {
+                "text": "Predators",
+                "explanation": "Predators are consumers that hunt and eat other animals; they do not break down and recycle dead material."
+              }
+            ]
+          }
+        ],
+        "quizConfig": {
+          "questionsPerQuiz": 6
+        }
+      },
+      {
+        "id": "GS-3",
+        "title": "Earth Science",
+        "description": "Learn the structure of the Earth, plate tectonics, the rock cycle, weathering and erosion, the water cycle, weather basics, and the layers of the atmosphere - all high-frequency General Science topics on the ASVAB.",
+        "lesson": {
+          "intro": "Earth Science is one of the most predictable topics on the ASVAB General Science section, which is great news for you. The test loves to ask about Earth's layers, the three rock types, the water cycle, and weather fronts - and these facts do not change. Master the vocabulary in this chapter and you will pick up easy points on test day. Take it one concept at a time, and use the memory tricks along the way.",
+          "concepts": [
+            {
+              "title": "Earth's Layers",
+              "content": "The Earth is built like an egg with four main layers. The crust is the thin, rocky outer shell where we live - it is thinnest under the oceans (about 5 to 10 km) and thickest under continents (up to about 70 km). Below the crust is the mantle, the thickest layer, made of hot, slowly flowing solid rock. Movement in the mantle drives the motion of the plates above it. Next comes the outer core, a layer of liquid iron and nickel - its motion generates Earth's magnetic field. At the center is the inner core, a solid ball of iron and nickel. Even though the inner core is the hottest layer, it stays solid because of the crushing pressure at the center of the planet. Memory trick: from outside in, think Crust, Mantle, Outer core, Inner core - and remember outer is liquid, inner is solid."
+            },
+            {
+              "title": "Plate Tectonics: Earthquakes, Volcanoes, and Mountains",
+              "content": "Earth's crust is broken into large slabs called tectonic plates that ride on the slowly moving mantle. Where plates meet, big things happen. At convergent boundaries, plates push together - this builds mountains (the Himalayas formed this way) and can force one plate under another in a process called subduction, which fuels volcanoes. At divergent boundaries, plates pull apart and new crust forms, as at the Mid-Atlantic Ridge. At transform boundaries, plates slide past each other, like the San Andreas Fault in California - this grinding motion causes earthquakes. Earthquake strength is measured with the Richter scale (or the modern moment magnitude scale), and each whole number step means about 10 times more ground shaking. The Ring of Fire around the Pacific Ocean is famous for earthquakes and volcanoes because so many plate boundaries meet there."
+            },
+            {
+              "title": "The Rock Cycle: Igneous, Sedimentary, Metamorphic",
+              "content": "All rocks fall into three families, and the ASVAB expects you to know how each forms. Igneous rock forms when melted rock cools and hardens - think of the word ignite, meaning fire. Granite forms from magma cooling slowly underground; basalt and obsidian form from lava cooling quickly at the surface. Sedimentary rock forms when layers of sediment (sand, mud, shells, pebbles) are pressed and cemented together over time - sandstone, limestone, and shale are examples, and this is the only rock type where you find fossils. Metamorphic rock forms when existing rock is changed by intense heat and pressure without fully melting - the word means changed form. Limestone becomes marble, and shale becomes slate. The rock cycle connects all three: any rock can melt into magma, break down into sediment, or be squeezed and heated into metamorphic rock."
+            },
+            {
+              "title": "Weathering vs. Erosion",
+              "content": "These two terms are easy to confuse, and the ASVAB knows it. Weathering is the breaking down of rock in place - the rock crumbles but does not go anywhere. Erosion is the carrying away of those broken pieces by wind, water, ice, or gravity. Memory trick: weathering breaks, erosion takes. Weathering comes in two types. Physical (mechanical) weathering breaks rock without changing its chemistry - for example, water freezes in a crack, expands, and splits the rock (frost wedging). Chemical weathering changes the rock's actual makeup - acid rain dissolving limestone, or iron in rock rusting. After erosion moves the material, deposition drops it in a new place, which is how deltas form at river mouths and how sedimentary rock gets its raw material."
+            },
+            {
+              "title": "The Water Cycle",
+              "content": "The water cycle moves water endlessly between the oceans, the air, and the land, powered by the sun. Evaporation: the sun heats liquid water and turns it into water vapor that rises into the air. (Plants also release vapor through their leaves - that is called transpiration.) Condensation: as the vapor rises and cools, it turns back into tiny liquid droplets, forming clouds. Precipitation: when the droplets grow heavy enough, they fall as rain, snow, sleet, or hail. The water then collects in rivers, lakes, oceans, and underground (as groundwater), and runoff carries surface water back to the sea to start the cycle again. Quick check: evaporation is liquid to gas, condensation is gas to liquid, precipitation is water falling from clouds."
+            },
+            {
+              "title": "Weather: Air Pressure, Fronts, Humidity, and Clouds",
+              "content": "Weather is driven by air pressure, moisture, and moving air masses. Air pressure is the weight of the atmosphere pressing down, measured with a barometer. High pressure usually brings clear, calm weather; low pressure brings clouds and storms. Falling barometer readings signal a storm is coming. Humidity is the amount of water vapor in the air; relative humidity compares the vapor present to the maximum the air could hold at that temperature - warm air can hold more moisture than cold air. A front is the boundary where two air masses meet. A cold front pushes under warm air and forces it up quickly, causing brief heavy storms followed by cooler, clearer weather. A warm front slides gently over cold air, bringing steady, lighter rain and warmer temperatures. Know the main cloud types: cirrus are thin, wispy, high-altitude ice clouds that often signal changing weather; cumulus are puffy, cotton-ball clouds of fair weather; stratus are flat gray layers that bring drizzle; and any cloud with nimbus in its name (nimbostratus, cumulonimbus) is a rain cloud - cumulonimbus is the towering thunderstorm cloud."
+            },
+            {
+              "title": "Layers of the Atmosphere",
+              "content": "The atmosphere has layers stacked from the ground up: troposphere, stratosphere, mesosphere, thermosphere, and exosphere. The troposphere is the lowest layer, where we live and where essentially all weather happens; temperature drops as you go up. The stratosphere sits above it and contains the ozone layer, which absorbs harmful ultraviolet radiation from the sun - jet airliners often cruise near the bottom of this calm layer. The mesosphere is where most meteors burn up, and it is the coldest layer. The thermosphere is extremely thin but very hot, and it is where auroras occur and where many satellites and the space station orbit. The exosphere is the outermost fringe fading into space. Memory trick for the order going up: The Smart Marine Trains Everyday - Troposphere, Stratosphere, Mesosphere, Thermosphere, Exosphere. Bonus fact the test likes: air is about 78 percent nitrogen and 21 percent oxygen."
+            }
+          ],
+          "examples": [
+            {
+              "problem": "ASVAB-style question: Which layer of the Earth is liquid? (A) crust (B) mantle (C) outer core (D) inner core",
+              "steps": [
+                "Recall the four layers from outside in: crust, mantle, outer core, inner core.",
+                "The crust is solid rock - that is the ground under your feet, so rule out A.",
+                "The mantle is hot rock that flows very slowly, but it is considered solid, so rule out B.",
+                "The inner core is solid because extreme pressure keeps the iron and nickel from melting, so rule out D.",
+                "The outer core is molten (liquid) iron and nickel, and its motion creates Earth's magnetic field. The answer is C."
+              ],
+              "tip": "Remember the pair: OUTer core is liquid (think of liquid pouring OUT), inner core is solid. This exact fact shows up often."
+            },
+            {
+              "problem": "ASVAB-style question: A rock formed from layers of compressed sand and shell fragments, containing fossils, is most likely which type? (A) igneous (B) sedimentary (C) metamorphic (D) volcanic",
+              "steps": [
+                "Break down the clues: layers, compressed sediment, and fossils.",
+                "Igneous rock forms from cooled melted rock - fossils would be destroyed by that heat, so rule out A (and D, since volcanic rock is a kind of igneous rock).",
+                "Metamorphic rock forms under intense heat and pressure that usually destroys fossils and erases layering, so rule out C.",
+                "Sedimentary rock forms exactly this way: sediments pile up in layers and get cemented together, trapping fossils. The answer is B."
+              ],
+              "tip": "Fossils are found only in sedimentary rock. If a question mentions fossils or layers, sedimentary is almost always the answer."
+            },
+            {
+              "problem": "ASVAB-style question: The barometer has been falling steadily all afternoon. What weather should you expect? (A) clear, calm skies (B) an approaching storm (C) lower humidity (D) no change",
+              "steps": [
+                "A barometer measures air pressure.",
+                "Falling pressure means a low-pressure system is moving in.",
+                "Low pressure lets air rise; rising air cools, water vapor condenses, and clouds and precipitation form.",
+                "So falling pressure signals clouds and storms, while rising or high pressure signals fair weather. The answer is B."
+              ],
+              "tip": "Link them as opposites: high pressure = happy weather, low pressure = lousy weather. A falling barometer means trouble is on the way."
+            }
+          ],
+          "summary": "You now have the core Earth Science facts the ASVAB tests most. Earth has four layers - crust, mantle, liquid outer core, solid inner core. Tectonic plates collide (mountains, volcanoes), separate (new crust), and slide (earthquakes). The three rock types are igneous (cooled melt), sedimentary (compressed layers, home of fossils), and metamorphic (changed by heat and pressure). Weathering breaks rock in place; erosion carries it away. The water cycle runs evaporation, condensation, precipitation. Falling pressure and cold fronts mean storms; cumulonimbus clouds mean thunder. And the atmosphere stacks up as troposphere, stratosphere, mesosphere, thermosphere, exosphere. Drill the quiz below until these feel automatic - these are some of the easiest points you can bank on test day."
+        },
+        "questions": [
+          {
+            "id": "GS3-001",
+            "options": [
+              {
+                "text": "Crust",
+                "explanation": "The crust is actually the thinnest layer - only about 5 to 70 km, a thin shell compared to the rest of the planet."
+              },
+              {
+                "text": "Mantle",
+                "correct": true,
+                "explanation": "Correct! The mantle is the thickest layer, extending roughly 2,900 km below the crust and making up most of Earth's volume."
+              },
+              {
+                "text": "Outer core",
+                "explanation": "The outer core is a substantial layer of liquid iron and nickel, but it is not as thick as the mantle."
+              },
+              {
+                "text": "Inner core",
+                "explanation": "The inner core is a relatively small solid ball at the center - far from the thickest layer."
+              }
+            ],
+            "text": "Which layer of the Earth is the thickest?"
+          },
+          {
+            "id": "GS3-002",
+            "options": [
+              {
+                "text": "Sliding past each other",
+                "correct": true,
+                "explanation": "Correct! The San Andreas Fault is a transform boundary, where plates grind sideways past each other, and that sudden slipping causes earthquakes."
+              },
+              {
+                "text": "Pulling apart from each other",
+                "explanation": "Plates pulling apart is a divergent boundary, like the Mid-Atlantic Ridge, where new crust forms - not the San Andreas situation."
+              },
+              {
+                "text": "Colliding head-on to build mountains",
+                "explanation": "Head-on collision is a convergent boundary, which built ranges like the Himalayas. The San Andreas plates slide sideways instead."
+              },
+              {
+                "text": "Melting into the mantle together",
+                "explanation": "Plates do not melt together at a fault. Sinking of one plate under another (subduction) happens at convergent boundaries, not transform faults."
+              }
+            ],
+            "text": "Earthquakes along the San Andreas Fault occur mainly because two plates are doing what?"
+          },
+          {
+            "id": "GS3-003",
+            "options": [
+              {
+                "text": "Sedimentary",
+                "explanation": "Sedimentary rock forms from compressed layers of sediment like sand and shells, not from cooling melted rock."
+              },
+              {
+                "text": "Metamorphic",
+                "explanation": "Metamorphic rock forms when existing rock is changed by heat and pressure without fully melting."
+              },
+              {
+                "text": "Igneous",
+                "correct": true,
+                "explanation": "Correct! Igneous rock forms when melted rock cools and solidifies - granite from slow-cooling magma underground, basalt and obsidian from fast-cooling lava at the surface."
+              },
+              {
+                "text": "Fossilized",
+                "explanation": "Fossilized is not one of the three rock families. Fossils are found in sedimentary rock, but the rock formed from cooled melt is igneous."
+              }
+            ],
+            "text": "Which type of rock forms when magma or lava cools and hardens?"
+          },
+          {
+            "id": "GS3-004",
+            "options": [
+              {
+                "text": "Erosion",
+                "explanation": "Erosion means the pieces are carried away by wind, water, ice, or gravity. Here the pieces stayed in place, so nothing was transported."
+              },
+              {
+                "text": "Deposition",
+                "explanation": "Deposition is when transported material gets dropped in a new location, like sediment at a river delta. Nothing was moved and dropped here."
+              },
+              {
+                "text": "Chemical weathering",
+                "explanation": "Chemical weathering changes the rock's actual chemistry, like acid rain dissolving limestone. Freezing water splitting rock is a physical process."
+              },
+              {
+                "text": "Physical weathering",
+                "correct": true,
+                "explanation": "Correct! This is frost wedging, a classic form of physical (mechanical) weathering - the rock breaks apart in place without any chemical change."
+              }
+            ],
+            "text": "Water freezes in a crack in a boulder, expands, and splits the rock apart. The broken pieces stay right where they fell. This is an example of what?"
+          },
+          {
+            "id": "GS3-005",
+            "options": [
+              {
+                "text": "Rises into the air as a gas",
+                "explanation": "Liquid water turning into rising vapor is evaporation, the step that comes before condensation."
+              },
+              {
+                "text": "Cools and turns into liquid droplets, forming clouds",
+                "correct": true,
+                "explanation": "Correct! Condensation is water vapor cooling and changing from gas back to liquid - those tiny droplets are what clouds are made of."
+              },
+              {
+                "text": "Falls to the ground as rain or snow",
+                "explanation": "Water falling from clouds is precipitation, the step that follows condensation."
+              },
+              {
+                "text": "Soaks into the ground as groundwater",
+                "explanation": "Water soaking into the soil is infiltration, which happens after precipitation reaches the ground - not condensation."
+              }
+            ],
+            "text": "In the water cycle, condensation is the process by which water vapor does what?"
+          },
+          {
+            "id": "GS3-006",
+            "options": [
+              {
+                "text": "Days of steady, light rain and rising temperatures",
+                "explanation": "Long, gentle, steady rain with warming temperatures is the signature of a warm front, not a cold front."
+              },
+              {
+                "text": "No change in weather at all",
+                "explanation": "Fronts are boundaries between different air masses, so some weather change almost always occurs when one passes."
+              },
+              {
+                "text": "Brief heavy storms, then cooler, clearer air",
+                "correct": true,
+                "explanation": "Correct! A cold front shoves warm air upward fast, triggering short but intense storms, and then cooler, drier, clearer air moves in behind it."
+              },
+              {
+                "text": "A week of thick fog and high humidity",
+                "explanation": "Fog forms when moist air cools near the ground, often in calm high-pressure conditions - it is not the typical result of a passing cold front."
+              }
+            ],
+            "text": "A cold front passes through your area. What weather typically follows it?"
+          },
+          {
+            "id": "GS3-007",
+            "options": [
+              {
+                "text": "Cirrus",
+                "explanation": "Cirrus clouds are thin, wispy ice clouds found at high altitude. They may hint at changing weather but do not produce storms."
+              },
+              {
+                "text": "Stratus",
+                "explanation": "Stratus clouds are flat, gray layers that can bring drizzle, but they are low and calm - not towering storm clouds."
+              },
+              {
+                "text": "Cumulus",
+                "explanation": "Plain cumulus clouds are the puffy, cotton-ball clouds of fair weather. Only when they grow into cumulonimbus do they mean storms."
+              },
+              {
+                "text": "Cumulonimbus",
+                "correct": true,
+                "explanation": "Correct! Cumulonimbus clouds tower high into the sky and bring thunderstorms, heavy rain, lightning, and sometimes hail. The nimbus part of the name signals rain."
+              }
+            ],
+            "text": "Which cloud type is the towering cloud most associated with thunderstorms?"
+          },
+          {
+            "id": "GS3-008",
+            "options": [
+              {
+                "text": "Troposphere",
+                "correct": true,
+                "explanation": "Correct! The troposphere is the lowest layer, where we live and where essentially all clouds, rain, and storms form."
+              },
+              {
+                "text": "Stratosphere",
+                "explanation": "The stratosphere is the calm layer above the weather - it holds the ozone layer, and jets cruise there to avoid turbulence."
+              },
+              {
+                "text": "Mesosphere",
+                "explanation": "The mesosphere is the coldest layer and is best known as the place where most meteors burn up, not where weather happens."
+              },
+              {
+                "text": "Thermosphere",
+                "explanation": "The thermosphere is extremely thin, very hot air where auroras occur and satellites orbit - far above any weather."
+              }
+            ],
+            "text": "In which layer of the atmosphere does nearly all weather occur?"
+          }
+        ],
+        "quizConfig": {
+          "questionsPerQuiz": 6
+        }
+      },
+      {
+        "id": "GS-4",
+        "title": "Space Science",
+        "description": "Learn the solar system, the Sun and stars, moons and space rocks, why we have days, years, and seasons, plus moon phases, eclipses, tides, and galaxies.",
+        "lesson": {
+          "intro": "Space science questions show up regularly on the General Science section, and the good news is that most of them test a small set of facts you can lock down fast: the order of the planets, why Earth has seasons, what causes moon phases and eclipses, and the difference between things like asteroids and comets. In this chapter we will tour the solar system from the Sun outward, then zoom in on Earth to understand day and night, the year, seasons, and tides, and finish by zooming way out to stars and galaxies. Think of it as a map of the neighborhood, then the whole city.",
+          "concepts": [
+            {
+              "title": "The Solar System: Planet Order and the Two Planet Families",
+              "content": "Our solar system has eight planets orbiting the Sun. In order from the Sun outward they are: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune. A classic memory trick: My Very Educated Mother Just Served Us Noodles. The planets split into two families. The four inner planets (Mercury, Venus, Earth, Mars) are the terrestrial or rocky planets: small, dense, with solid rocky surfaces. The four outer planets (Jupiter, Saturn, Uranus, Neptune) are the gas giants (Uranus and Neptune are often called ice giants): huge, made mostly of gas like hydrogen and helium, with no solid surface to stand on, and all four have ring systems (Saturn's are just the most visible). Between Mars and Jupiter lies the asteroid belt. A few traits worth memorizing: Mercury is the smallest planet and closest to the Sun; Venus is the hottest planet because its thick carbon dioxide atmosphere traps heat (a runaway greenhouse effect); Mars is the red planet, colored by iron oxide (rust) in its soil; Jupiter is the largest planet; Saturn is famous for its bright rings. Pluto was reclassified as a dwarf planet in 2006."
+            },
+            {
+              "title": "The Sun Is a Star",
+              "content": "The Sun is an ordinary star, and it looks huge and bright only because it is so close to us, about 93 million miles away. It contains more than 99 percent of all the mass in the solar system, and its gravity is what holds the planets in their orbits. The Sun is a giant ball of hot gas, mostly hydrogen and some helium. Its energy comes from nuclear fusion in its core: hydrogen atoms are fused together into helium, releasing enormous amounts of energy that travels to Earth as light and heat. The Sun is not burning like a fire, fusion is a nuclear process, not a chemical one. Sunlight takes a little over 8 minutes to reach Earth. Compared to other stars, the Sun is average in size and temperature, a middle-aged yellow star about 4.6 billion years old."
+            },
+            {
+              "title": "Moons, Asteroids, Comets, Meteors, and Meteorites",
+              "content": "A moon (or natural satellite) is a body that orbits a planet. Earth has one moon; Mars has two small ones; Jupiter and Saturn each have dozens. Now the space rocks, which the test loves to ask about. Asteroids are rocky, metallic objects, most of which orbit the Sun in the asteroid belt between Mars and Jupiter. Comets are chunks of ice, dust, and rock, often described as dirty snowballs, that travel in long, stretched-out orbits; when a comet gets close to the Sun, some of its ice turns to gas and forms a glowing tail that always points away from the Sun because of the solar wind. Meteoroid, meteor, and meteorite describe the same object at three stages: a meteoroid is a small piece of rock or metal traveling through space; when it enters Earth's atmosphere and burns up from friction, the streak of light is called a meteor (a shooting star); if a piece survives the trip and lands on the ground, that surviving rock is a meteorite. Memory hook: it is only a meteorITE once it hITs the ground."
+            },
+            {
+              "title": "Rotation vs. Revolution: Day, Night, and the Year",
+              "content": "Two different motions of Earth explain two different cycles, and the ASVAB expects you to keep them straight. Rotation is Earth spinning on its own axis, like a top. One complete rotation takes about 24 hours, and this is what causes day and night: the side of Earth facing the Sun has daytime while the side facing away has night. Because Earth rotates from west to east, the Sun appears to rise in the east and set in the west. Revolution is Earth traveling in its orbit around the Sun. One complete revolution takes about 365.25 days, which is one year. That extra quarter day is why we add a leap day (February 29) every four years. Quick check: rotation = spin = day; revolution = orbit = year."
+            },
+            {
+              "title": "Seasons, Moon Phases, and Eclipses",
+              "content": "Seasons happen because Earth's axis is tilted about 23.5 degrees, not because Earth gets closer to or farther from the Sun. As Earth revolves around the Sun, the tilt stays pointed the same direction, so different hemispheres lean toward the Sun at different times of year. When the Northern Hemisphere is tilted toward the Sun, it gets more direct sunlight and longer days, that is northern summer, and at the same time the Southern Hemisphere has winter. Six months later the situation reverses. Moon phases happen because the Moon orbits Earth about once a month, and we see different amounts of its sunlit half. The cycle runs new moon (Moon between Earth and Sun, dark to us), waxing crescent, first quarter, waxing gibbous, full moon (Earth between Moon and Sun, fully lit face), then waning gibbous, last quarter, waning crescent, and back to new. Waxing means growing brighter, waning means shrinking. Eclipses are about shadows. A solar eclipse happens when the Moon passes between the Sun and Earth and the Moon's shadow falls on Earth, blocking the Sun; it can only occur at a new moon. A lunar eclipse happens when Earth passes between the Sun and the Moon, and Earth's shadow falls on the Moon; it can only occur at a full moon, and the Moon often turns a reddish color."
+            },
+            {
+              "title": "Tides, Stars, and Galaxies",
+              "content": "Tides are the regular rise and fall of ocean water, caused mainly by the gravitational pull of the Moon (the Sun helps, but the Moon is the bigger factor because it is so much closer). Most coastlines see about two high tides and two low tides each day. When the Sun, Moon, and Earth line up (at new moon and full moon), their pulls combine and we get extra-large spring tides; when they form a right angle (at the quarter moons), we get weaker neap tides. Zooming out: a star is a giant ball of hot gas producing energy by nuclear fusion. Stars come in different colors that indicate temperature, blue-white stars are the hottest and red stars are the coolest, with yellow stars like our Sun in the middle. The distances between stars are so vast that we measure them in light-years, the distance light travels in one year (about 6 trillion miles). A light-year measures distance, not time. Stars group together by gravity into galaxies, enormous collections of billions of stars plus gas and dust. Our galaxy is the Milky Way, a spiral galaxy, and our Sun is just one of its hundreds of billions of stars. The universe contains billions of galaxies."
+            }
+          ],
+          "examples": [
+            {
+              "problem": "ASVAB-style question: Which of the following causes Earth to experience seasons? (A) Earth's changing distance from the Sun (B) The tilt of Earth's axis (C) Earth's rotation on its axis (D) The phases of the Moon",
+              "steps": [
+                "Eliminate the common trap first. Choice A sounds logical, but Earth's distance from the Sun barely changes, and in fact Earth is slightly CLOSER to the Sun during Northern Hemisphere winter, so distance cannot be the cause.",
+                "Check choice C. Rotation is Earth spinning once every 24 hours, that explains day and night, not seasons.",
+                "Check choice D. Moon phases come from the Moon's orbit around Earth and have nothing to do with Earth's temperature or seasons.",
+                "That leaves choice B. Earth's axis is tilted about 23.5 degrees, so as Earth revolves around the Sun, each hemisphere leans toward the Sun for part of the year (summer, more direct light, longer days) and away for part of the year (winter).",
+                "The answer is B."
+              ],
+              "tip": "Distance from the Sun is the number one wrong answer the test hopes you will pick. Seasons = tilt, every time."
+            },
+            {
+              "problem": "ASVAB-style question: A rock from space streaks through Earth's atmosphere, and a fragment of it is later found on the ground. The fragment found on the ground is called a: (A) meteor (B) meteoroid (C) meteorite (D) comet",
+              "steps": [
+                "Recall the three-stage naming rule for the same object.",
+                "In space, the small rock is a meteoroid, so B describes it before it arrives, not on the ground.",
+                "While burning through the atmosphere, the streak of light is a meteor, so A describes the flash, not the rock you can pick up.",
+                "A comet is a completely different object, an icy body with a tail that orbits the Sun, so D is out.",
+                "Once a surviving piece lands on Earth, it is a meteorite. Memory hook: it is a meteorITE once it hITs the ground. The answer is C."
+              ],
+              "tip": "Meteoroid in space, meteor in the air, meteorite on the ground. Say it three times and this question becomes a free point."
+            },
+            {
+              "problem": "ASVAB-style question: During a lunar eclipse, which body is in the middle of the lineup? (A) The Moon (B) The Sun (C) Earth (D) None, they do not line up",
+              "steps": [
+                "An eclipse is a shadow event, so first ask: whose shadow is falling on what?",
+                "LUNAR eclipse means the Moon is the thing being eclipsed, something is shading the Moon.",
+                "The only body big enough and positioned to cast a shadow on the Moon is Earth, so the order must be Sun, then Earth, then Moon, with Earth in the middle.",
+                "Double-check with the moon phase rule: a lunar eclipse can only happen at a full moon, when the Moon is on the opposite side of Earth from the Sun, which matches Earth being in the middle.",
+                "The answer is C."
+              ],
+              "tip": "Name the eclipse after the victim: in a LUNAR eclipse the Moon goes dark (Earth in the middle); in a SOLAR eclipse the Sun is blocked (Moon in the middle)."
+            }
+          ],
+          "summary": "The eight planets in order are Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune: four small rocky inner planets, then the asteroid belt, then four gas giants. The Sun is an average star powered by nuclear fusion of hydrogen into helium. Asteroids are rocky, comets are icy with tails that point away from the Sun, and the same space rock is a meteoroid in space, a meteor burning in the atmosphere, and a meteorite on the ground. Earth's rotation (24 hours) causes day and night; its revolution around the Sun (365.25 days) defines the year; the 23.5 degree axial tilt, not distance, causes the seasons. Moon phases come from seeing different amounts of the Moon's sunlit side; a solar eclipse needs a new moon with the Moon in the middle, and a lunar eclipse needs a full moon with Earth in the middle. Tides are driven mainly by the Moon's gravity. Star color indicates temperature (blue hottest, red coolest), distances are measured in light-years, and our Sun is one of hundreds of billions of stars in the Milky Way galaxy. Nail these facts and space science becomes some of the easiest points on the test."
+        },
+        "questions": [
+          {
+            "id": "GS4-001",
+            "options": [
+              {
+                "text": "Venus",
+                "explanation": "Venus is the second planet from the Sun. It is the hottest planet, but not the closest."
+              },
+              {
+                "text": "Mercury",
+                "correct": true,
+                "explanation": "Correct! Mercury is the first and closest planet to the Sun, and also the smallest planet in the solar system."
+              },
+              {
+                "text": "Mars",
+                "explanation": "Mars is the fourth planet from the Sun, the last of the inner rocky planets before the asteroid belt."
+              },
+              {
+                "text": "Earth",
+                "explanation": "Earth is the third planet from the Sun, after Mercury and Venus."
+              }
+            ],
+            "text": "Which planet is closest to the Sun?"
+          },
+          {
+            "id": "GS4-002",
+            "options": [
+              {
+                "text": "Earth's revolution around the Sun",
+                "explanation": "Revolution is Earth's yearly orbit around the Sun. It defines the year, not the day-night cycle."
+              },
+              {
+                "text": "The tilt of Earth's axis",
+                "explanation": "The 23.5 degree axial tilt causes the seasons, not day and night."
+              },
+              {
+                "text": "The Moon blocking sunlight",
+                "explanation": "The Moon blocking sunlight is a solar eclipse, a rare event, not the everyday cause of night."
+              },
+              {
+                "text": "Earth's rotation on its axis",
+                "correct": true,
+                "explanation": "Correct! Earth spins once on its axis about every 24 hours. The side facing the Sun has day while the side facing away has night."
+              }
+            ],
+            "text": "What causes day and night on Earth?"
+          },
+          {
+            "id": "GS4-003",
+            "options": [
+              {
+                "text": "small, dense planets with rocky surfaces",
+                "explanation": "That describes the four inner terrestrial planets: Mercury, Venus, Earth, and Mars."
+              },
+              {
+                "text": "dwarf planets like Pluto",
+                "explanation": "Dwarf planets are much smaller bodies. Pluto is a dwarf planet, but the four outer planets are full-sized giants."
+              },
+              {
+                "text": "large planets made mostly of gases such as hydrogen and helium",
+                "correct": true,
+                "explanation": "Correct! The outer planets are gas giants: huge, low-density worlds composed mostly of hydrogen and helium with no solid surface to stand on."
+              },
+              {
+                "text": "moons that orbit the inner planets",
+                "explanation": "Moons orbit planets, but Jupiter, Saturn, Uranus, and Neptune are planets themselves, each orbiting the Sun."
+              }
+            ],
+            "text": "The four outer planets (Jupiter, Saturn, Uranus, and Neptune) are best described as:"
+          },
+          {
+            "id": "GS4-004",
+            "options": [
+              {
+                "text": "nuclear fusion of hydrogen into helium",
+                "correct": true,
+                "explanation": "Correct! In the Sun's core, hydrogen atoms fuse together to form helium, releasing enormous energy that reaches Earth as light and heat."
+              },
+              {
+                "text": "burning coal and other fuels",
+                "explanation": "Ordinary burning is a chemical reaction that could never power a star. The Sun's energy is nuclear, not chemical."
+              },
+              {
+                "text": "reflecting light from other stars",
+                "explanation": "The Sun produces its own light. It is the Moon and planets that shine by reflecting sunlight."
+              },
+              {
+                "text": "splitting uranium atoms apart",
+                "explanation": "Splitting heavy atoms is fission, the process used in nuclear power plants. Stars run on fusion, which joins light atoms together."
+              }
+            ],
+            "text": "The Sun produces its energy by:"
+          },
+          {
+            "id": "GS4-005",
+            "options": [
+              {
+                "text": "comet",
+                "explanation": "A comet is a large icy body orbiting the Sun that grows a glowing tail near the Sun. It is not a rock burning in our atmosphere."
+              },
+              {
+                "text": "meteorite",
+                "explanation": "A meteorite is the piece that survives the trip and is found on the ground. The streak of light in the sky has a different name."
+              },
+              {
+                "text": "asteroid",
+                "explanation": "Asteroids are rocky objects orbiting the Sun, mostly in the belt between Mars and Jupiter, not flashes of light in our atmosphere."
+              },
+              {
+                "text": "meteor",
+                "correct": true,
+                "explanation": "Correct! The streak of light from a space rock burning in the atmosphere is a meteor, often called a shooting star. In space it was a meteoroid, and any piece that lands is a meteorite."
+              }
+            ],
+            "text": "A small space rock burns up as it passes through Earth's atmosphere, creating a streak of light. That streak of light is called a:"
+          },
+          {
+            "id": "GS4-006",
+            "options": [
+              {
+                "text": "Earth moves much closer to the Sun in summer",
+                "explanation": "This is the classic trap. Earth's distance from the Sun changes very little, and Earth is actually slightly closer to the Sun during Northern Hemisphere winter."
+              },
+              {
+                "text": "Earth's axis is tilted about 23.5 degrees",
+                "correct": true,
+                "explanation": "Correct! As Earth orbits the Sun, the tilted axis makes each hemisphere lean toward the Sun for part of the year (summer) and away for part of the year (winter)."
+              },
+              {
+                "text": "the Sun gives off more heat at certain times of year",
+                "explanation": "The Sun's energy output stays essentially steady through the year. The change is in how directly that energy hits each hemisphere."
+              },
+              {
+                "text": "the Moon's gravity heats and cools the oceans",
+                "explanation": "The Moon's gravity causes tides, the rise and fall of ocean water. It does not heat the oceans or drive the seasons."
+              }
+            ],
+            "text": "Earth has seasons mainly because:"
+          },
+          {
+            "id": "GS4-007",
+            "options": [
+              {
+                "text": "Earth passes between the Sun and the Moon",
+                "explanation": "When Earth is in the middle, Earth's shadow falls on the Moon. That is a lunar eclipse, not a solar eclipse."
+              },
+              {
+                "text": "the Sun passes between Earth and the Moon",
+                "explanation": "The Sun is at the center of the solar system and does not move between Earth and the Moon. This arrangement never happens."
+              },
+              {
+                "text": "the Moon passes between the Sun and Earth",
+                "correct": true,
+                "explanation": "Correct! In a solar eclipse the Moon moves between the Sun and Earth, casting its shadow on Earth and blocking the Sun. It can only happen at a new moon."
+              },
+              {
+                "text": "Earth's shadow falls on the Moon",
+                "explanation": "Earth's shadow falling on the Moon describes a lunar eclipse, which happens at a full moon and often turns the Moon reddish."
+              }
+            ],
+            "text": "A solar eclipse occurs when:"
+          },
+          {
+            "id": "GS4-008",
+            "options": [
+              {
+                "text": "strong winds blowing across the ocean surface",
+                "explanation": "Winds create waves and can push water around in storms, but the steady, predictable rise and fall of the tides comes from gravity, not wind."
+              },
+              {
+                "text": "heat from the Sun expanding the seawater",
+                "explanation": "Warming can expand water slightly, but that effect is far too small and slow to produce the twice-daily rise and fall of the tides."
+              },
+              {
+                "text": "underwater earthquakes and volcanoes",
+                "explanation": "Underwater earthquakes can trigger tsunamis, which are rare, single events. Regular daily tides have a different cause."
+              },
+              {
+                "text": "the gravitational pull of the Moon",
+                "correct": true,
+                "explanation": "Correct! The Moon's gravity pulls on Earth's oceans, creating bulges of water that produce roughly two high tides and two low tides each day. The Sun contributes too, but the Moon is the main driver because it is much closer."
+              }
+            ],
+            "text": "Ocean tides on Earth are caused mainly by:"
+          }
+        ],
+        "quizConfig": {
+          "questionsPerQuiz": 6
+        }
+      },
+      {
+        "id": "GS-5",
+        "title": "Physical Science: Motion, Energy, and Waves",
+        "description": "Master the physics questions on the General Science section: motion and Newton's laws, energy and heat, temperature scales, states of matter, waves, sound, light, and density. These concepts show up often, and every one of them can be learned with plain language and a little practice.",
+        "lesson": {
+          "intro": "Physics is not about memorizing scary formulas. It is about describing how the everyday world works: why a truck is harder to stop than a bicycle, why a metal bench feels colder than a wooden one, and why you see lightning before you hear thunder. The ASVAB tests these ideas at a basic level. If you can picture the situation, you can usually reason your way to the answer. In this chapter we cover motion, forces, energy, heat, waves, sound, light, and density. Take it one section at a time. You have got this.",
+          "concepts": [
+            {
+              "title": "Motion Basics: Speed, Velocity, and Acceleration",
+              "content": "Speed tells you how fast something moves: speed equals distance divided by time. A car that covers 120 miles in 2 hours has a speed of 60 miles per hour. Velocity is speed plus a direction, such as 60 miles per hour heading north. Because velocity includes direction, it is called a vector; plain speed is not. Acceleration is any change in velocity over time. That means speeding up, slowing down, or even turning at a constant speed all count as acceleration, because in each case the velocity is changing. On the ASVAB, remember these three definitions and the formula speed equals distance divided by time. If you know any two of distance, time, and speed, you can find the third."
+            },
+            {
+              "title": "Newton's Three Laws of Motion",
+              "content": "First law (inertia): an object at rest stays at rest, and an object in motion keeps moving in a straight line at constant speed, unless an outside force acts on it. This is why you lurch forward when a vehicle brakes suddenly. Second law: force equals mass times acceleration, written F equals m x a. The bigger the mass, the more force it takes to accelerate it, which is why a loaded truck needs more braking force than an empty one. Force is measured in newtons; one newton accelerates a 1 kilogram mass at 1 meter per second squared. Third law: for every action there is an equal and opposite reaction. When a rifle fires, the bullet goes forward and the rifle kicks back against your shoulder with equal force. Rockets work the same way: hot gas pushes down and out, and the rocket is pushed up."
+            },
+            {
+              "title": "Energy Forms and Conservation",
+              "content": "Energy is the ability to do work, and it comes in forms: kinetic energy (energy of motion), potential energy (stored energy, such as a rock held above the ground or a stretched spring), chemical energy (in fuel and food), thermal energy (heat), electrical energy, and nuclear energy. The law of conservation of energy says energy cannot be created or destroyed, only changed from one form to another. A swinging pendulum is the classic example: at the top of its swing it has maximum potential energy and zero kinetic energy; at the bottom it has maximum kinetic energy and minimum potential energy. The energy trades back and forth, but the total stays the same (some is slowly lost to air friction as heat, which is still energy, just a different form). Kinetic energy grows quickly with speed: doubling an object's speed makes its kinetic energy four times as large."
+            },
+            {
+              "title": "Heat, Temperature Scales, and States of Matter",
+              "content": "Heat moves in three ways. Conduction is heat transfer by direct contact, as when a metal spoon left in hot soup gets hot along its whole length; metals are good conductors. Convection is heat carried by moving fluids (liquids or gases): warm air rises and cool air sinks, creating circulating currents, which is how a room heater warms the whole room. Radiation is heat transfer by electromagnetic waves and needs no matter at all; this is how the sun warms the Earth across empty space. Temperature is measured on three scales. On Fahrenheit, water freezes at 32 degrees and boils at 212 degrees. On Celsius, water freezes at 0 degrees and boils at 100 degrees. Kelvin is the SI scale used in science: 0 kelvin is absolute zero, the coldest possible temperature, and water freezes at about 273 kelvin. Matter commonly exists as solid, liquid, or gas. Melting (solid to liquid), evaporation or boiling (liquid to gas), condensation (gas to liquid), and freezing (liquid to solid) are phase changes. Sublimation is a solid turning directly into a gas, as dry ice does. During a phase change, the temperature of the substance stays constant while heat is absorbed or released."
+            },
+            {
+              "title": "Waves, Sound, and Light",
+              "content": "A wave carries energy from place to place. Wavelength is the distance from one crest to the next. Frequency is how many waves pass a point each second, measured in hertz. Amplitude is the height of the wave, which relates to its energy: for sound, bigger amplitude means louder; for light, brighter. For a given wave speed, frequency and wavelength trade off: higher frequency means shorter wavelength, because wave speed equals frequency x wavelength. Sound is a mechanical wave, which means it needs a medium (matter) to travel through; sound cannot travel through the vacuum of space. Sound travels fastest in solids, slower in liquids, and slowest in gases, because particles that are packed closer together pass the vibration along faster. In air, sound moves at roughly 343 meters per second, far slower than light, which is why you see lightning before you hear the thunder. Light is an electromagnetic wave and needs no medium; it travels through space at about 300,000 kilometers per second. Reflection is light bouncing off a surface, as in a mirror. Refraction is light bending as it passes from one material into another, which is why a straw in a glass of water looks bent at the surface. Visible light is one small slice of the electromagnetic spectrum, which runs from low-frequency radio waves through microwaves, infrared, visible light, ultraviolet, X-rays, and gamma rays at the highest frequencies."
+            },
+            {
+              "title": "Density, Buoyancy, and SI Units",
+              "content": "Density is mass divided by volume, often given in grams per cubic centimeter. Water has a density of 1 gram per cubic centimeter, and that number is your yardstick: an object less dense than the fluid it is placed in floats, and an object more dense sinks. This is buoyancy. Archimedes' principle says the upward buoyant force on an object equals the weight of the fluid the object displaces (pushes aside). A steel ship floats even though steel is denser than water because the ship's hull encloses a lot of air, making the ship's overall density less than water's. Finally, know the basic SI (metric) units, because science questions use them: length is measured in meters, mass in kilograms, time in seconds, temperature in kelvin, force in newtons, energy in joules, power in watts, and frequency in hertz. Note that mass and weight are different: mass is the amount of matter in an object and never changes, while weight is the force of gravity on that mass, so an astronaut weighs less on the moon but has the same mass."
+            }
+          ],
+          "examples": [
+            {
+              "problem": "A convoy travels 180 miles in 4 hours. What is its average speed?",
+              "steps": [
+                "Recall the formula: speed equals distance divided by time.",
+                "Plug in the numbers: 180 miles divided by 4 hours.",
+                "Divide: 180 divided by 4 equals 45.",
+                "The average speed is 45 miles per hour."
+              ],
+              "tip": "The same triangle of relationships works in every direction: distance equals speed x time, and time equals distance divided by speed. Learn one formula and you own all three."
+            },
+            {
+              "problem": "What force is needed to accelerate a 12 kilogram ammunition crate at 3 meters per second squared across a frictionless surface?",
+              "steps": [
+                "Use Newton's second law: force equals mass x acceleration.",
+                "Plug in the values: 12 kilograms x 3 meters per second squared.",
+                "Multiply: 12 x 3 equals 36.",
+                "The required force is 36 newtons."
+              ],
+              "tip": "Units are your friend. Kilograms x meters per second squared gives newtons automatically, so if your units come out right, your setup is probably right too."
+            },
+            {
+              "problem": "A metal block has a mass of 54 grams and a volume of 20 cubic centimeters. Will it float or sink in water?",
+              "steps": [
+                "Density equals mass divided by volume.",
+                "Plug in: 54 grams divided by 20 cubic centimeters.",
+                "Divide: 54 divided by 20 equals 2.7, so the density is 2.7 grams per cubic centimeter.",
+                "Compare with water, which has a density of 1 gram per cubic centimeter.",
+                "Since 2.7 is greater than 1, the block is denser than water, so it sinks."
+              ],
+              "tip": "For float-or-sink questions, you rarely need the exact number. Just compare the object's density to the fluid's density: less dense floats, more dense sinks."
+            }
+          ],
+          "summary": "You now have the core physics toolkit for the ASVAB. Speed is distance divided by time, velocity adds direction, and acceleration is any change in velocity. Newton's laws explain inertia, force equals mass x acceleration, and action-reaction pairs. Energy changes form but is never created or destroyed. Heat moves by conduction (contact), convection (moving fluids), and radiation (waves through space). Water freezes at 32 Fahrenheit, 0 Celsius, and about 273 kelvin, and boils at 212 Fahrenheit and 100 Celsius. Waves are described by frequency, wavelength, and amplitude; sound needs a medium and travels fastest in solids, while light needs no medium and travels far faster. Reflection bounces light, refraction bends it. Density is mass divided by volume, and objects float when they are less dense than the fluid around them. Review the SI units, work the practice questions below, and trust the process: every one of these ideas gets easier each time you see it."
+        },
+        "questions": [
+          {
+            "id": "GS5-001",
+            "options": [
+              {
+                "text": "Speed",
+                "explanation": "Speed tells you only how fast something is moving, with no direction attached, so it is a scalar, not a vector."
+              },
+              {
+                "text": "Velocity",
+                "correct": true,
+                "explanation": "Correct! Velocity is speed together with a direction, such as 50 miles per hour heading east, which makes it a vector quantity."
+              },
+              {
+                "text": "Mass",
+                "explanation": "Mass is just the amount of matter in an object. It has size but no direction, so it is a scalar."
+              },
+              {
+                "text": "Temperature",
+                "explanation": "Temperature is a single number with no direction, so it is a scalar quantity, not a vector."
+              }
+            ],
+            "text": "Which of the following quantities includes both a magnitude and a direction?"
+          },
+          {
+            "id": "GS5-002",
+            "options": [
+              {
+                "text": "The first law, because the rifle resists changes in motion",
+                "explanation": "The first law describes inertia, an object's resistance to changes in motion. It does not explain why firing forward produces a backward kick."
+              },
+              {
+                "text": "The second law, because force equals mass times acceleration",
+                "explanation": "The second law relates force, mass, and acceleration for a single object. It can describe how hard the kick is, but the reason a kick exists at all is a different law."
+              },
+              {
+                "text": "The law of conservation of energy",
+                "explanation": "Conservation of energy is about energy changing forms, not about paired forces. It is not one of Newton's laws of motion."
+              },
+              {
+                "text": "The third law, because every action has an equal and opposite reaction",
+                "correct": true,
+                "explanation": "Correct! The rifle pushes the bullet forward, and the bullet pushes back on the rifle with an equal and opposite force. That reaction force is the recoil you feel."
+              }
+            ],
+            "text": "A rifle kicks backward against the shooter's shoulder when it fires. Which of Newton's laws best explains this recoil?"
+          },
+          {
+            "id": "GS5-003",
+            "options": [
+              {
+                "text": "Potential energy",
+                "correct": true,
+                "explanation": "Correct! At the top of the swing the pendulum is at its highest point and not moving, so its energy is stored as gravitational potential energy. As it swings down, that energy converts to kinetic energy."
+              },
+              {
+                "text": "Kinetic energy",
+                "explanation": "Kinetic energy is the energy of motion, and at the top of the swing the pendulum is momentarily not moving, so its kinetic energy is zero there."
+              },
+              {
+                "text": "Chemical energy",
+                "explanation": "Chemical energy is stored in the bonds of substances like fuel or food. A swinging pendulum does not involve chemical energy changes."
+              },
+              {
+                "text": "Electrical energy",
+                "explanation": "Nothing in a simple swinging pendulum generates or stores electrical energy. The trade is between potential and kinetic energy."
+              }
+            ],
+            "text": "A pendulum is momentarily at rest at the very top of its swing. At that instant, its energy is mostly in what form?"
+          },
+          {
+            "id": "GS5-004",
+            "options": [
+              {
+                "text": "Radiation",
+                "explanation": "Radiation transfers heat by electromagnetic waves and needs no contact, like sunlight warming your skin. The spoon is heated by direct contact instead."
+              },
+              {
+                "text": "Convection",
+                "explanation": "Convection is heat carried by circulating liquids or gases. Heat traveling up through the solid metal of the spoon is a different process."
+              },
+              {
+                "text": "Conduction",
+                "correct": true,
+                "explanation": "Correct! Conduction is heat transfer by direct contact through a material. Metals conduct heat well, so the heat travels from the soup up through the spoon to the handle."
+              },
+              {
+                "text": "Sublimation",
+                "explanation": "Sublimation is a phase change in which a solid turns directly into a gas, like dry ice. It is not a form of heat transfer."
+              }
+            ],
+            "text": "A metal spoon left standing in a pot of hot soup soon becomes hot all the way up the handle. This is an example of which type of heat transfer?"
+          },
+          {
+            "id": "GS5-005",
+            "options": [
+              {
+                "text": "212 degrees Celsius",
+                "explanation": "212 is the boiling point of water on the Fahrenheit scale, not the Celsius scale. Be careful not to mix up the two scales."
+              },
+              {
+                "text": "100 degrees Celsius",
+                "correct": true,
+                "explanation": "Correct! On the Celsius scale, water freezes at 0 degrees and boils at 100 degrees at standard atmospheric pressure. The scale was designed around these two points."
+              },
+              {
+                "text": "0 degrees Celsius",
+                "explanation": "0 degrees Celsius is the freezing point of water, the temperature at which it turns to ice, not the boiling point."
+              },
+              {
+                "text": "32 degrees Celsius",
+                "explanation": "32 degrees is the freezing point of water on the Fahrenheit scale. It is not a special temperature on the Celsius scale."
+              }
+            ],
+            "text": "At standard atmospheric pressure, water boils at what temperature on the Celsius scale?"
+          },
+          {
+            "id": "GS5-006",
+            "options": [
+              {
+                "text": "Sound waves move too fast in space to be detected",
+                "explanation": "Speed is not the issue. In a vacuum there is no matter for sound to travel through at any speed."
+              },
+              {
+                "text": "The human ear cannot function in low gravity",
+                "explanation": "The ear works fine in low gravity; astronauts talk to each other normally inside their spacecraft where there is air."
+              },
+              {
+                "text": "Explosions in space do not release any energy",
+                "explanation": "Explosions in space do release energy, including light and heat. What is missing is a medium to carry sound waves."
+              },
+              {
+                "text": "Sound is a mechanical wave and needs a medium such as air to travel",
+                "correct": true,
+                "explanation": "Correct! Sound travels as vibrations passed from particle to particle, so it requires matter such as air, water, or metal. Space is a near-perfect vacuum with almost no particles, so sound cannot travel through it."
+              }
+            ],
+            "text": "Why can astronauts in the vacuum of space not hear an explosion happening nearby?"
+          },
+          {
+            "id": "GS5-007",
+            "options": [
+              {
+                "text": "Longer wavelength",
+                "explanation": "This is backwards. When speed is constant, raising the frequency squeezes the waves closer together, which shortens the wavelength."
+              },
+              {
+                "text": "Larger amplitude",
+                "explanation": "Amplitude is the height of the wave and is independent of frequency. A high-frequency wave can be tall or short."
+              },
+              {
+                "text": "Shorter wavelength",
+                "correct": true,
+                "explanation": "Correct! Wave speed equals frequency x wavelength. If the speed is the same and the frequency is higher, the wavelength must be shorter to keep the product equal."
+              },
+              {
+                "text": "Slower speed",
+                "explanation": "The problem states that both waves travel at the same speed, so wave A is not slower. The difference shows up in the wavelength instead."
+              }
+            ],
+            "text": "Two waves travel at the same speed. Wave A has a higher frequency than wave B. Compared to wave B, wave A must have a:"
+          },
+          {
+            "id": "GS5-008",
+            "options": [
+              {
+                "text": "It will float, because its density is less than the density of water",
+                "correct": true,
+                "explanation": "Correct! Density equals mass divided by volume: 6 divided by 10 equals 0.6 grams per cubic centimeter. Water's density is 1 gram per cubic centimeter, and since 0.6 is less than 1, the object floats."
+              },
+              {
+                "text": "It will sink, because its density is greater than the density of water",
+                "explanation": "Its density is 6 divided by 10, which is 0.6 grams per cubic centimeter. That is less than water's density of 1, so the object floats rather than sinks."
+              },
+              {
+                "text": "It will sink, because any object heavier than 5 grams sinks in water",
+                "explanation": "Floating and sinking depend on density, not on mass alone. A massive steel ship floats because its overall density, including the air inside, is less than water's."
+              },
+              {
+                "text": "It will float, because its volume is greater than its mass",
+                "explanation": "Comparing a volume number to a mass number directly is not meaningful because they have different units. The right test is to compute density and compare it with the density of water."
+              }
+            ],
+            "text": "An object with a volume of 10 cubic centimeters and a mass of 6 grams is placed in water. What will happen?"
+          }
+        ],
+        "quizConfig": {
+          "questionsPerQuiz": 6
+        }
+      },
+      {
+        "id": "GS-6",
+        "title": "Chemistry Basics",
+        "description": "Learn the chemistry fundamentals the ASVAB loves to test: atoms and their parts, elements vs compounds vs mixtures, how to read the periodic table, chemical vs physical changes, acids and bases on the pH scale, everyday reactions like combustion and rusting, solutions and solubility, and the common gases you breathe every day.",
+        "lesson": {
+          "intro": "Chemistry can sound intimidating, but the General Science section only expects the basics - and you already know more chemistry than you think. Every time you watch iron rust, dissolve sugar in coffee, or light a campfire, you are watching chemistry in action. In this chapter we will break matter down to its smallest pieces (atoms), learn how those pieces combine into elements, compounds, and mixtures, get comfortable reading the periodic table, and cover the reactions, acids, bases, and gases that show up again and again on the test. Take it one concept at a time - these ideas build on each other, and by the end they will feel like common sense.",
+          "concepts": [
+            {
+              "title": "Atoms: Protons, Neutrons, and Electrons",
+              "content": "The atom is the basic building block of all matter. Every atom has a tiny, dense center called the nucleus, which contains protons (positive charge) and neutrons (no charge). Whizzing around the nucleus are electrons (negative charge), which are far lighter than protons and neutrons. Two numbers describe every atom. The atomic number is the number of protons - it is the atom's identity card. Change the number of protons and you have a different element entirely. The mass number is protons plus neutrons (electrons are so light they barely count toward mass). So carbon, with atomic number 6 and mass number 12, has 6 protons and 12 - 6 = 6 neutrons. In a neutral atom, the number of electrons equals the number of protons, so the charges cancel out. Atoms of the same element with different numbers of neutrons are called isotopes - same atomic number, different mass number."
+            },
+            {
+              "title": "Elements, Compounds, and Mixtures",
+              "content": "An element is a pure substance made of only one kind of atom - gold (Au), oxygen (O), and iron (Fe) are elements. You cannot break an element into anything simpler by ordinary chemical means. A compound forms when two or more different elements chemically bond in a fixed ratio - water (H2O), table salt (NaCl), and carbon dioxide (CO2) are compounds. A compound's properties are usually completely different from its ingredients: sodium is a metal that reacts violently with water, and chlorine is a poisonous gas, yet together they make ordinary table salt. A mixture is different - it is two or more substances physically combined, not chemically bonded, and the parts keep their own properties. Salt water, air, and trail mix are mixtures, and you can separate them by physical means like evaporation or filtering. Quick test: if separating it requires a chemical reaction, it is a compound; if you can separate it physically, it is a mixture."
+            },
+            {
+              "title": "Reading the Periodic Table",
+              "content": "The periodic table organizes all known elements by increasing atomic number. Vertical columns are called groups (or families) - elements in the same group have similar chemical behavior. For example, Group 1 holds the very reactive alkali metals like sodium (Na) and potassium (K), and Group 18 on the far right holds the noble gases like helium (He) and neon (Ne), which almost never react at all. Horizontal rows are called periods. Metals sit on the left and center of the table - they are typically shiny, solid at room temperature (mercury is the famous liquid exception), and good conductors of heat and electricity. Nonmetals sit in the upper right - they are poor conductors and are often gases or brittle solids. A staircase line separates the two, with a few in-between elements called metalloids (like silicon) along it. Memorize the common symbols: H hydrogen, He helium, C carbon, N nitrogen, O oxygen, Na sodium, K potassium, Fe iron, Cu copper, Au gold, Ag silver, Pb lead, Ca calcium, Cl chlorine. Watch out for the tricky ones that come from Latin names: Fe (iron), Au (gold), Ag (silver), Na (sodium), K (potassium), Pb (lead)."
+            },
+            {
+              "title": "Chemical vs Physical Changes",
+              "content": "A physical change alters the form or state of a substance without creating anything new. Melting ice, boiling water, dissolving sugar, tearing paper, and bending metal are all physical changes - the substance is still the same stuff, and many physical changes are easy to reverse. A chemical change (chemical reaction) produces one or more brand-new substances with different properties. Burning wood, rusting iron, digesting food, and baking a cake are chemical changes. Clues that a chemical change happened include: a gas is produced (bubbles), light or heat is given off, a permanent color change, or a solid (precipitate) forms out of a liquid. Chemical changes are usually hard or impossible to reverse - you cannot un-burn a log. On the test, ask yourself one question: did a new substance form? If yes, it is chemical. If it just changed shape, size, or state, it is physical."
+            },
+            {
+              "title": "Acids, Bases, and the pH Scale",
+              "content": "Acids and bases are measured on the pH scale, which runs from 0 to 14. A pH below 7 is acidic, exactly 7 is neutral, and above 7 is basic (also called alkaline). The farther from 7, the stronger the acid or base. Pure water is neutral at pH 7. Everyday acids include lemon juice and vinegar (around pH 2 to 3), stomach acid (hydrochloric acid, around pH 1 to 2), and soda. Everyday bases include baking soda (around pH 9), soap, ammonia, and drain cleaner (very basic, pH 13 to 14). Litmus paper is the classic test: acids turn blue litmus red, and bases turn red litmus blue. A memory trick - acids taste sour (think citrus), while bases feel slippery (think soap). When an acid and a base react with each other, they neutralize, producing water and a salt. That is why an antacid tablet (a base) calms excess stomach acid."
+            },
+            {
+              "title": "Everyday Reactions: Combustion, Oxidation, and Rusting",
+              "content": "Two reactions show up constantly on the ASVAB. Combustion is rapid burning: a fuel combines with oxygen and releases heat and light. Burning a fuel like wood, gasoline, or propane with plenty of oxygen produces carbon dioxide (CO2) and water (H2O). Fire needs three things - fuel, oxygen, and heat (the fire triangle) - and removing any one of them puts the fire out. Oxidation is the broader family of reactions where a substance combines with oxygen (more precisely, loses electrons). Combustion is fast oxidation; rusting is slow oxidation. Rust forms when iron reacts with oxygen in the presence of water or moisture, producing iron oxide - the flaky reddish-brown coating on old steel. Both water and oxygen are needed, which is why painting, oiling, or galvanizing (coating with zinc) protects metal: the coating keeps oxygen and moisture away from the iron."
+            },
+            {
+              "title": "Solutions, Solubility, and Common Gases",
+              "content": "A solution is a mixture where one substance dissolves evenly into another. The solute is what gets dissolved (like salt), and the solvent does the dissolving (like water). Water dissolves so many things it is called the universal solvent. Solubility is how much solute can dissolve in a given amount of solvent. For most solids, solubility increases as temperature rises - hot tea dissolves sugar faster and holds more of it than iced tea. Gases behave the opposite way: gases dissolve better in cold liquids, which is why a warm soda goes flat faster than a cold one. A solution holding all the solute it can is saturated. Now the common gases. Nitrogen (N2) makes up about 78 percent of the air, oxygen (O2) about 21 percent. Oxygen supports combustion and is what our bodies need from every breath. Carbon dioxide (CO2) is produced by respiration and combustion, is used by plants for photosynthesis, and is heavier than air, which makes it useful in fire extinguishers - it smothers flames by displacing oxygen. Hydrogen (H) is the lightest and most abundant element in the universe and is highly flammable, which is why blimps switched to non-flammable helium."
+            }
+          ],
+          "examples": [
+            {
+              "problem": "An atom has an atomic number of 11 and a mass number of 23. How many protons, neutrons, and electrons does the neutral atom have?",
+              "steps": [
+                "The atomic number equals the number of protons, so the atom has 11 protons.",
+                "The mass number is protons plus neutrons. Subtract to find neutrons: 23 - 11 = 12 neutrons.",
+                "In a neutral atom, electrons equal protons, so there are 11 electrons.",
+                "Answer: 11 protons, 12 neutrons, 11 electrons. Bonus: atomic number 11 is sodium (Na)."
+              ],
+              "tip": "Protons = atomic number. Neutrons = mass number minus atomic number. Electrons = protons (when the atom is neutral). Master this three-step pattern and every atom question becomes simple subtraction."
+            },
+            {
+              "problem": "A liquid turns blue litmus paper red. Which of these could it be: ammonia, pure water, vinegar, or soap solution?",
+              "steps": [
+                "Recall the litmus rule: acids turn blue litmus red; bases turn red litmus blue.",
+                "The liquid turned blue litmus red, so it must be an acid with a pH below 7.",
+                "Check each option: ammonia and soap are bases (pH above 7), pure water is neutral (pH 7), and vinegar is an acid (about pH 2 to 3).",
+                "Answer: vinegar."
+              ],
+              "tip": "Memory hook: Blue to Red means aciD is ahead. Acids are sour things like vinegar and citrus; bases are slippery things like soap and ammonia."
+            },
+            {
+              "problem": "A steel fence left outside develops a reddish-brown, flaky coating over several months. Is this a chemical or physical change, and what caused it?",
+              "steps": [
+                "Ask the key question: did a new substance form? The reddish-brown flaky coating is rust (iron oxide), which is a new substance with different properties than steel.",
+                "Because a new substance formed, this is a chemical change.",
+                "Identify the cause: iron in the steel slowly combined with oxygen from the air in the presence of moisture - a slow oxidation reaction.",
+                "Answer: it is a chemical change caused by iron reacting with oxygen and water to form iron oxide (rust)."
+              ],
+              "tip": "Rusting, burning, and digesting are always chemical changes. Melting, freezing, dissolving, and bending are physical. When in doubt, ask: could I get the original substance back easily? If not, it is probably chemical."
+            }
+          ],
+          "summary": "You now have the chemistry toolkit the ASVAB expects. Atoms are built from protons and neutrons in the nucleus with electrons around them; the atomic number counts protons and the mass number counts protons plus neutrons. Elements are one kind of atom, compounds are elements chemically bonded in fixed ratios, and mixtures are physical combinations you can separate physically. On the periodic table, columns are groups with similar behavior, rows are periods, metals sit left, and nonmetals sit upper right - and remember the Latin-based symbols like Fe, Au, Ag, Na, K, and Pb. Physical changes keep the same substance; chemical changes make new ones. The pH scale runs 0 to 14 with 7 neutral - acids turn blue litmus red, bases turn red litmus blue. Combustion is fast oxidation and rusting is slow oxidation, both needing oxygen. In solutions, the solute dissolves in the solvent, solids dissolve better hot while gases dissolve better cold. And in the air around you: about 78 percent nitrogen, 21 percent oxygen, with CO2 feeding plants and smothering fires, and hydrogen as the lightest, most flammable element. Review the tricky symbols and the pH landmarks one more time, then test yourself with the practice questions - you are ready for this."
+        },
+        "questions": [
+          {
+            "id": "GS6-001",
+            "options": [
+              {
+                "text": "Electron",
+                "explanation": "Electrons carry a negative charge and orbit outside the nucleus."
+              },
+              {
+                "text": "Neutron",
+                "explanation": "Neutrons are in the nucleus but carry no charge at all - that is why they are called neutrons."
+              },
+              {
+                "text": "Proton",
+                "correct": true,
+                "explanation": "Correct! Protons are positively charged particles in the nucleus, and the number of protons (the atomic number) determines which element the atom is."
+              },
+              {
+                "text": "Photon",
+                "explanation": "A photon is a particle of light, not a building block of the atom."
+              }
+            ],
+            "text": "Which particle in an atom carries a positive charge?"
+          },
+          {
+            "id": "GS6-002",
+            "options": [
+              {
+                "text": "8",
+                "correct": true,
+                "explanation": "Correct! Neutrons = mass number minus protons, so 16 - 8 = 8 neutrons. This atom is oxygen."
+              },
+              {
+                "text": "16",
+                "explanation": "16 is the mass number (protons plus neutrons together), not the neutron count by itself."
+              },
+              {
+                "text": "24",
+                "explanation": "This adds the mass number and the proton count. Instead, subtract protons from the mass number: 16 - 8 = 8."
+              },
+              {
+                "text": "2",
+                "explanation": "Subtracting incorrectly gives this. The rule is mass number minus atomic number: 16 - 8 = 8 neutrons."
+              }
+            ],
+            "text": "An atom has 8 protons and a mass number of 16. How many neutrons does it have?"
+          },
+          {
+            "id": "GS6-003",
+            "options": [
+              {
+                "text": "An element",
+                "explanation": "An element contains only one kind of atom, like pure gold or pure oxygen. Salt water contains several substances."
+              },
+              {
+                "text": "A compound",
+                "explanation": "A compound has elements chemically bonded in a fixed ratio. The salt and the water in salt water are not bonded to each other and can be separated by evaporation."
+              },
+              {
+                "text": "A pure substance",
+                "explanation": "A pure substance is a single element or compound. Salt water is a combination of two substances, so it is not pure."
+              },
+              {
+                "text": "A mixture",
+                "correct": true,
+                "explanation": "Correct! Salt water is a mixture (specifically a solution) - the salt and water are physically combined, keep their own properties, and can be separated by evaporating the water."
+              }
+            ],
+            "text": "Salt water is best described as which of the following?"
+          },
+          {
+            "id": "GS6-004",
+            "options": [
+              {
+                "text": "Ir",
+                "explanation": "Ir is the symbol for iridium, a different metal."
+              },
+              {
+                "text": "Fe",
+                "correct": true,
+                "explanation": "Correct! Iron's symbol is Fe, from its Latin name ferrum. Other Latin-based symbols include Au (gold), Ag (silver), Na (sodium), and Pb (lead)."
+              },
+              {
+                "text": "In",
+                "explanation": "In is the symbol for indium, not iron."
+              },
+              {
+                "text": "I",
+                "explanation": "I is the symbol for iodine, a nonmetal."
+              }
+            ],
+            "text": "On the periodic table, what is the correct chemical symbol for iron?"
+          },
+          {
+            "id": "GS6-005",
+            "options": [
+              {
+                "text": "Ice melting into water",
+                "explanation": "Melting is a change of state - the substance is still H2O - so it is a physical change."
+              },
+              {
+                "text": "Sugar dissolving in tea",
+                "explanation": "Dissolving is a physical change. The sugar is still sugar, and you could recover it by evaporating the water."
+              },
+              {
+                "text": "Iron rusting on a fence",
+                "correct": true,
+                "explanation": "Correct! Rusting creates a new substance, iron oxide, with different properties than iron, so it is a chemical change (slow oxidation)."
+              },
+              {
+                "text": "Tearing a sheet of paper",
+                "explanation": "Tearing only changes the paper's size and shape - no new substance forms, so it is a physical change."
+              }
+            ],
+            "text": "Which of the following is a chemical change?"
+          },
+          {
+            "id": "GS6-006",
+            "options": [
+              {
+                "text": "It is a base and will feel slippery",
+                "explanation": "Bases have a pH above 7. A pH of 3 is well below 7, so this solution is not a base."
+              },
+              {
+                "text": "It is neutral, like pure water",
+                "explanation": "Neutral means exactly pH 7, which is where pure water sits. A pH of 3 is far from neutral."
+              },
+              {
+                "text": "It is an acid and will turn blue litmus paper red",
+                "correct": true,
+                "explanation": "Correct! Any pH below 7 is acidic, and acids turn blue litmus paper red. A pH of 3 is about as acidic as vinegar or lemon juice."
+              },
+              {
+                "text": "It is an acid and will turn red litmus paper blue",
+                "explanation": "This has the litmus rule backwards. Acids turn blue litmus red; it is bases that turn red litmus blue."
+              }
+            ],
+            "text": "A solution has a pH of 3. Which statement about it is true?"
+          },
+          {
+            "id": "GS6-007",
+            "options": [
+              {
+                "text": "Oxygen and moisture",
+                "correct": true,
+                "explanation": "Correct! Rust forms when iron reacts with oxygen in the presence of water or moisture, producing iron oxide. Remove either one - for example with paint or an oil coating - and rusting stops."
+              },
+              {
+                "text": "Nitrogen and sunlight",
+                "explanation": "Nitrogen is very unreactive and sunlight is not required - rust forms in the dark just fine. The key ingredients are oxygen and moisture."
+              },
+              {
+                "text": "Carbon dioxide and heat",
+                "explanation": "Rusting does not require CO2 or added heat. It is a slow reaction between iron, oxygen, and water at ordinary temperatures."
+              },
+              {
+                "text": "Hydrogen and salt",
+                "explanation": "Salt can speed rusting up (which is why cars rust faster near the ocean), but the two essential ingredients are oxygen and moisture, not hydrogen and salt."
+              }
+            ],
+            "text": "Which two things must both be present for iron to rust?"
+          },
+          {
+            "id": "GS6-008",
+            "options": [
+              {
+                "text": "Oxygen",
+                "explanation": "Oxygen is vital, but it is only about 21 percent of the air - the second largest share, not the largest."
+              },
+              {
+                "text": "Carbon dioxide",
+                "explanation": "Carbon dioxide is less than 1 percent of the atmosphere, even though it is important for plants and climate."
+              },
+              {
+                "text": "Hydrogen",
+                "explanation": "Hydrogen is the most abundant element in the universe, but it makes up only a tiny trace of Earth's atmosphere."
+              },
+              {
+                "text": "Nitrogen",
+                "correct": true,
+                "explanation": "Correct! Nitrogen (N2) makes up about 78 percent of the air we breathe, with oxygen at about 21 percent and all other gases sharing the last 1 percent."
+              }
+            ],
+            "text": "Which gas makes up the largest portion of Earth's atmosphere?"
+          }
+        ],
+        "quizConfig": {
+          "questionsPerQuiz": 6
+        }
+      }
+    ]
+  },
   MC: {
     "name": "Mechanical Comprehension",
     "description": "Forces, machines, and how mechanical things work",
