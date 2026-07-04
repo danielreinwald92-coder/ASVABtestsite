@@ -5,6 +5,1571 @@
 // tests/unit/courses-tech.test.js.
 
 const coursesTech = {
+  EI: {
+    "name": "Electronics Information",
+    "description": "Circuits, components, power, and electrical safety",
+    "icon": "⚡",
+    "chapters": [
+      {
+        "id": "EI-1",
+        "title": "Electricity Fundamentals",
+        "description": "Learn what current, voltage, and resistance really are, master Ohm's law, and understand why some materials carry electricity while others block it.",
+        "lesson": {
+          "intro": "Every piece of military equipment, from a radio to a Humvee's starter motor, runs on the same three electrical ideas: current, voltage, and resistance. If you understand how these three work together, you can answer a huge share of the Electronics Information questions on the ASVAB. This chapter builds that foundation step by step, using a simple water-pipe picture you can fall back on any time a question feels confusing.",
+          "concepts": [
+            {
+              "title": "The Water-Pipe Analogy: Picture Electricity as Water",
+              "content": "Electricity in a wire behaves a lot like water in a pipe, and that picture makes the whole subject easier. Voltage is like water pressure: it is the push that makes things move. Current is like the flow of water: how much actually moves past a point each second. Resistance is like a narrow or clogged section of pipe: it fights the flow and limits how much gets through. More pressure means more flow, and a narrower pipe means less flow. Keep this picture in mind, because almost every basic electricity question can be translated into pressure, flow, and pipe size."
+            },
+            {
+              "title": "Current: The Flow of Electric Charge (Amps)",
+              "content": "Current is the movement of electric charge, carried by tiny particles called electrons, through a conductor such as a copper wire. It is measured in amperes, usually shortened to amps, and the symbol used in formulas is I. One amp means a specific, large number of electrons passing a point every second, just like gallons per minute measures water flow. A small flashlight might draw a fraction of an amp, while a vehicle starter motor can draw well over 100 amps. When a question asks how much electricity is flowing, it is asking about current in amps."
+            },
+            {
+              "title": "Voltage: The Electrical Push (Volts)",
+              "content": "Voltage is the electrical pressure that pushes current through a circuit, and it is measured in volts, with the symbol V (you may also see E for electromotive force). A battery or generator creates a difference in electrical pressure between its two terminals, and that difference is what drives electrons through the wires. A standard car battery supplies about 12 volts, a common household outlet in the United States supplies about 120 volts, and a single AA battery supplies 1.5 volts. Without voltage there is no push, and without a push there is no current, no matter how good the wire is."
+            },
+            {
+              "title": "Resistance: Opposition to Flow (Ohms)",
+              "content": "Resistance is how strongly a material or component fights the flow of current, and it is measured in ohms, with the symbol R. In the water picture, resistance is the narrow pipe or partial clog that slows the flow. Every real wire has at least a little resistance, and devices called resistors are built on purpose to add a precise amount of it to control current. Higher resistance means less current flows for the same voltage. Resistance is not always bad: the heating element in a toaster and the filament in an old-style light bulb do their jobs precisely because they resist current and turn that fight into heat and light."
+            },
+            {
+              "title": "Ohm's Law: The One Formula to Memorize",
+              "content": "Ohm's law ties the three quantities together: voltage equals current times resistance, written V = I x R. From that one equation you can solve for any of the three values if you know the other two. To find current, divide voltage by resistance: I = V / R. To find resistance, divide voltage by current: R = V / I. A handy memory tool is the Ohm's law triangle: put V on top, with I and R side by side on the bottom; cover the letter you want, and the positions of the remaining two tell you whether to multiply or divide. The ASVAB loves this formula, so practice it until the three arrangements feel automatic."
+            },
+            {
+              "title": "Conductors, Insulators, and Semiconductors",
+              "content": "Materials differ in how easily they let current flow. Conductors, such as copper, silver, gold, and aluminum, have electrons that move freely, so they carry current with very little resistance; that is why wires are made of copper. Insulators, such as rubber, glass, plastic, and dry wood, hold their electrons tightly and block current, which is why wires are wrapped in rubber or plastic coatings for safety. Semiconductors, such as silicon and germanium, sit in between: they conduct under some conditions and resist under others, and that controllable behavior is what makes transistors, diodes, and computer chips possible. Remember one caution the test likes: pure water is a poor conductor, but ordinary water with dissolved minerals conducts electricity, which is why water and electricity are a dangerous mix."
+            },
+            {
+              "title": "What Changes a Wire's Resistance",
+              "content": "Four things determine how much resistance a wire has. First, length: a longer wire has more resistance, just as a longer pipe is harder to push water through. Second, thickness: a thicker wire has less resistance because it gives electrons a wider path, like a bigger pipe. Third, material: copper resists less than iron, and silver resists even less than copper, so the choice of metal matters. Fourth, temperature: for most metals, resistance goes up as the wire gets hotter, because the vibrating atoms get in the way of the moving electrons. So the lowest-resistance wire is short, thick, made of a good conductor, and kept cool."
+            }
+          ],
+          "examples": [
+            {
+              "problem": "A 12-volt battery is connected to a circuit with a total resistance of 4 ohms. How much current flows?",
+              "steps": [
+                "Identify what you know: voltage V = 12 volts, resistance R = 4 ohms. You need current, I.",
+                "Pick the right form of Ohm's law. Solving for current: I = V / R.",
+                "Plug in the numbers: I = 12 / 4.",
+                "Do the division: 12 divided by 4 equals 3.",
+                "State the answer with its unit: the current is 3 amps."
+              ],
+              "tip": "When the question gives you volts and ohms and asks for amps, it is always divide: volts divided by ohms."
+            },
+            {
+              "problem": "A radio circuit draws 2 amps of current through a resistance of 6 ohms. What voltage is pushing that current?",
+              "steps": [
+                "Identify what you know: current I = 2 amps, resistance R = 6 ohms. You need voltage, V.",
+                "Use the basic form of Ohm's law: V = I x R.",
+                "Plug in the numbers: V = 2 x 6.",
+                "Multiply: 2 times 6 equals 12.",
+                "State the answer with its unit: the voltage is 12 volts."
+              ],
+              "tip": "Voltage is the only one of the three you find by multiplying. If the answer needs volts, multiply amps by ohms."
+            },
+            {
+              "problem": "A heater connected to a 120-volt outlet draws 10 amps. What is the resistance of the heater?",
+              "steps": [
+                "Identify what you know: voltage V = 120 volts, current I = 10 amps. You need resistance, R.",
+                "Rearrange Ohm's law to solve for resistance: R = V / I.",
+                "Plug in the numbers: R = 120 / 10.",
+                "Divide: 120 divided by 10 equals 12.",
+                "State the answer with its unit: the resistance is 12 ohms."
+              ],
+              "tip": "Check your answer by running it back through V = I x R: 10 amps x 12 ohms = 120 volts, which matches the outlet voltage. If it does not match, recheck your division."
+            }
+          ],
+          "summary": "Current (amps) is the flow of charge, voltage (volts) is the push behind it, and resistance (ohms) is the opposition to it, all linked by Ohm's law: V = I x R. Conductors like copper carry current easily, insulators like rubber block it, and semiconductors like silicon can do either, which makes modern electronics possible. A wire's resistance rises with more length and higher temperature, and falls with more thickness and better conductor material."
+        },
+        "questions": [
+          {
+            "id": "EI1-001",
+            "text": "In the water-pipe analogy for electricity, voltage is best compared to what?",
+            "options": [
+              {
+                "text": "The amount of water flowing through the pipe",
+                "explanation": "The amount of water flowing corresponds to current, not voltage. Current measures how much charge moves past a point each second."
+              },
+              {
+                "text": "The water pressure pushing the flow",
+                "explanation": "Correct! Voltage is the electrical pressure, or push, that drives current through a circuit, just as water pressure drives flow through a pipe.",
+                "correct": true
+              },
+              {
+                "text": "A narrow or clogged section of pipe",
+                "explanation": "A narrow or clogged pipe represents resistance, the opposition to flow, not the push behind it."
+              },
+              {
+                "text": "The length of the pipe",
+                "explanation": "Pipe length relates to resistance: a longer path opposes flow more. It does not represent the electrical push."
+              }
+            ]
+          },
+          {
+            "id": "EI1-002",
+            "text": "Electric current is measured in which unit?",
+            "options": [
+              {
+                "text": "Volts",
+                "explanation": "Volts measure voltage, the electrical pressure that pushes current, not the current itself."
+              },
+              {
+                "text": "Ohms",
+                "explanation": "Ohms measure resistance, the opposition to current flow, not the flow itself."
+              },
+              {
+                "text": "Watts",
+                "explanation": "Watts measure electrical power, the rate at which energy is used, not the flow of charge."
+              },
+              {
+                "text": "Amperes",
+                "explanation": "Correct! Current, the flow of electric charge through a conductor, is measured in amperes, usually shortened to amps.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "EI1-003",
+            "text": "A 24-volt power supply is connected across a resistance of 8 ohms. Using Ohm's law, how much current flows in the circuit?",
+            "options": [
+              {
+                "text": "3 amps",
+                "explanation": "Correct! Current I = V / R = 24 / 8 = 3 amps. When you know volts and ohms, divide to get amps.",
+                "correct": true
+              },
+              {
+                "text": "192 amps",
+                "explanation": "This comes from multiplying 24 x 8 instead of dividing. Multiplying current by resistance gives voltage; to find current you divide voltage by resistance."
+              },
+              {
+                "text": "16 amps",
+                "explanation": "This comes from subtracting 8 from 24, but Ohm's law never uses subtraction. Current equals voltage divided by resistance: 24 / 8 = 3 amps."
+              },
+              {
+                "text": "0.33 amps",
+                "explanation": "This comes from dividing the wrong way, 8 / 24. Ohm's law says I = V / R, so it is 24 divided by 8, which equals 3 amps."
+              }
+            ]
+          },
+          {
+            "id": "EI1-004",
+            "text": "A circuit carries 5 amps of current through a 10-ohm resistor. What is the voltage across the resistor?",
+            "options": [
+              {
+                "text": "2 volts",
+                "explanation": "This comes from dividing 10 by 5, but voltage is found by multiplying, not dividing: V = I x R = 5 x 10 = 50 volts."
+              },
+              {
+                "text": "15 volts",
+                "explanation": "This comes from adding 5 and 10, but Ohm's law uses multiplication for voltage: V = I x R = 5 x 10 = 50 volts."
+              },
+              {
+                "text": "50 volts",
+                "explanation": "Correct! Voltage V = I x R = 5 amps x 10 ohms = 50 volts. Voltage is the one quantity in Ohm's law you find by multiplying.",
+                "correct": true
+              },
+              {
+                "text": "0.5 volts",
+                "explanation": "This comes from dividing 5 by 10. To find voltage you multiply current by resistance: 5 x 10 = 50 volts."
+              }
+            ]
+          },
+          {
+            "id": "EI1-005",
+            "text": "Which of the following materials is the best conductor of electricity?",
+            "options": [
+              {
+                "text": "Rubber",
+                "explanation": "Rubber is an insulator. It holds its electrons tightly and blocks current, which is why it is used to coat wires for safety."
+              },
+              {
+                "text": "Copper",
+                "explanation": "Correct! Copper is an excellent conductor because its electrons move freely, which is why most electrical wiring is made of copper.",
+                "correct": true
+              },
+              {
+                "text": "Glass",
+                "explanation": "Glass is an insulator, not a conductor. It strongly resists the flow of current."
+              },
+              {
+                "text": "Dry wood",
+                "explanation": "Dry wood is an insulator and does not carry current well. Of the choices listed, copper is the material that conducts electricity best."
+              }
+            ]
+          },
+          {
+            "id": "EI1-006",
+            "text": "Silicon is commonly used in transistors and computer chips because it is which type of material?",
+            "options": [
+              {
+                "text": "A semiconductor",
+                "explanation": "Correct! Silicon is a semiconductor: it conducts under some conditions and resists under others, and that controllable behavior is what makes transistors, diodes, and chips work.",
+                "correct": true
+              },
+              {
+                "text": "A conductor",
+                "explanation": "Conductors like copper always carry current easily. Silicon is useful precisely because its conduction can be turned on and off, which is semiconductor behavior."
+              },
+              {
+                "text": "An insulator",
+                "explanation": "Insulators like rubber and glass block current all the time. Silicon can conduct under the right conditions, so it is not an insulator."
+              },
+              {
+                "text": "A resistor",
+                "explanation": "A resistor is a circuit component, not a category of material. Silicon belongs to the in-between class of materials called semiconductors."
+              }
+            ]
+          },
+          {
+            "id": "EI1-007",
+            "text": "An electric heater plugged into a 120-volt outlet draws 6 amps. What is the resistance of the heater?",
+            "options": [
+              {
+                "text": "720 ohms",
+                "explanation": "This comes from multiplying 120 x 6, which would give power-related numbers, not resistance. Resistance R = V / I = 120 / 6 = 20 ohms."
+              },
+              {
+                "text": "126 ohms",
+                "explanation": "This comes from adding 120 and 6, but Ohm's law never adds. Divide voltage by current: 120 / 6 = 20 ohms."
+              },
+              {
+                "text": "0.05 ohms",
+                "explanation": "This comes from dividing the wrong way, 6 / 120. Resistance equals voltage divided by current: 120 / 6 = 20 ohms."
+              },
+              {
+                "text": "20 ohms",
+                "explanation": "Correct! Resistance R = V / I = 120 volts / 6 amps = 20 ohms. You can check it: 6 amps x 20 ohms = 120 volts.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "EI1-008",
+            "text": "Which change would DECREASE the resistance of a wire?",
+            "options": [
+              {
+                "text": "Making the wire longer",
+                "explanation": "A longer wire has more resistance, not less, because the electrons must fight their way through more material, like water pushed through a longer pipe."
+              },
+              {
+                "text": "Raising the wire's temperature",
+                "explanation": "For most metals, heating the wire increases resistance, because the vibrating atoms interfere more with the moving electrons."
+              },
+              {
+                "text": "Making the wire thicker",
+                "explanation": "Correct! A thicker wire gives electrons a wider path, so resistance goes down, just as a wider pipe lets more water flow.",
+                "correct": true
+              },
+              {
+                "text": "Replacing copper wire with iron wire of the same size",
+                "explanation": "Iron has more resistance than copper, so this swap would increase resistance. Copper and silver are among the lowest-resistance metals."
+              }
+            ]
+          }
+        ],
+        "quizConfig": {
+          "questionsPerQuiz": 6
+        }
+      },
+      {
+        "id": "EI-2",
+        "title": "Series and Parallel Circuits",
+        "description": "Learn how circuits are wired: series circuits with one path, parallel circuits with many paths, how to compute total resistance, and how fuses and breakers keep circuits safe.",
+        "lesson": {
+          "intro": "In Chapter 1 you learned about voltage, current, and resistance. Now let's see how components are actually connected together. There are only two basic ways to wire a circuit: series (one path) and parallel (multiple paths). The ASVAB loves this topic because a few simple rules let you answer a lot of questions. Master these rules and you will pick up easy points on test day.",
+          "concepts": [
+            {
+              "title": "What Makes a Circuit: The Complete Loop",
+              "content": "A circuit only works when current has a complete, unbroken loop to travel: from the power source, through the components, and back to the source. A CLOSED circuit is a complete loop, and current flows. An OPEN circuit has a break somewhere, like a switch turned off or a broken wire, so no current flows at all. A SHORT circuit is different and dangerous: current finds an accidental shortcut around the load, taking a path with almost no resistance. With almost no resistance holding it back, current surges to very high levels, which creates heat and can start fires. Remember the three states: closed means working, open means stopped, short means trouble."
+            },
+            {
+              "title": "Series Circuits: One Path for Everything",
+              "content": "In a series circuit, components are connected end to end in a single line, like beads on a string. Current has exactly one path, so the SAME current flows through every component. There is no other way for it to go. Total resistance is easy: just ADD up each resistance. Three resistors of 10 ohms, 20 ohms, and 30 ohms in series give a total of 60 ohms. The catch with series wiring: if any single component fails or the path breaks anywhere, the whole circuit goes dead. Think of old-style holiday lights where one burned-out bulb killed the entire string."
+            },
+            {
+              "title": "Parallel Circuits: Many Paths, Same Voltage",
+              "content": "In a parallel circuit, components are connected side by side, each on its own branch, like rungs on a ladder. Every branch connects directly across the power source, so every branch gets the SAME full voltage. Current, on the other hand, splits up: each branch draws its own current based on its own resistance, and the branch currents add up to the total. The best part is independence: if one branch fails or is switched off, the other branches keep working, because each one has its own complete path back to the source."
+            },
+            {
+              "title": "Total Resistance in Parallel: It Goes Down",
+              "content": "Here is the rule that surprises people: adding more resistors in PARALLEL makes the total resistance go DOWN, not up. Why? Each new branch is another lane for current to use, and more lanes means less overall opposition. Two handy shortcuts for the ASVAB: First, if two EQUAL resistors are in parallel, the total is half of one of them. Two 10-ohm resistors in parallel equal 5 ohms. Second, the total resistance of a parallel group is always LESS than the smallest resistor in the group. If you compute a parallel total and it comes out bigger than the smallest branch, you made a mistake. For two unequal resistors, use product over sum: multiply the two values, then divide by their sum."
+            },
+            {
+              "title": "Why Your House Is Wired in Parallel",
+              "content": "Every home is wired in parallel, and now you can see why. First, every outlet and light gets the same full voltage, which in American homes is about 120 volts, so every appliance gets the power it was designed for. Second, everything works independently: you can turn off the kitchen light without killing the TV, and a burned-out lamp does not black out the house. If homes were wired in series, turning off one switch would shut down everything, and every device you plugged in would steal voltage from all the others."
+            },
+            {
+              "title": "Fuses and Circuit Breakers: The Safety Crew",
+              "content": "Because a short circuit or an overloaded circuit lets current climb dangerously high, every circuit needs protection. A FUSE contains a thin metal strip that melts when too much current flows through it, breaking the circuit. It works once and then must be replaced. A CIRCUIT BREAKER does the same job with a switch mechanism that trips open on excess current, and it can simply be reset and reused. Both devices do the same thing: they deliberately OPEN the circuit to stop dangerous current before wires overheat and start a fire. Key point for the test: fuses and breakers protect the wiring and prevent fires; they respond to too much current."
+            }
+          ],
+          "examples": [
+            {
+              "problem": "Three resistors of 10 ohms, 20 ohms, and 30 ohms are connected in series with a 12-volt battery. What is the total resistance, and how much current flows?",
+              "steps": [
+                "In series, resistances simply add: 10 + 20 + 30 = 60 ohms total.",
+                "Use Ohm's law to find current: I = V / R.",
+                "I = 12 volts / 60 ohms = 0.2 amps.",
+                "Because this is a series circuit, that same 0.2 amps flows through all three resistors."
+              ],
+              "tip": "Series math is the easy one: just add everything up. And remember, the current you calculate is the current everywhere in the loop."
+            },
+            {
+              "problem": "Two 10-ohm resistors are connected in parallel. What is the total resistance?",
+              "steps": [
+                "Equal resistors in parallel: divide one resistor's value by the number of branches.",
+                "10 ohms / 2 branches = 5 ohms total.",
+                "Check with product over sum: (10 x 10) / (10 + 10) = 100 / 20 = 5 ohms. Same answer.",
+                "Sanity check: 5 ohms is less than 10 ohms, and parallel totals must be smaller than the smallest branch. It checks out."
+              ],
+              "tip": "Two equal resistors in parallel always equal half of one. Three equal resistors equal one third, and so on."
+            },
+            {
+              "problem": "A 6-ohm resistor and a 3-ohm resistor are connected in parallel. What is the total resistance?",
+              "steps": [
+                "The resistors are not equal, so use product over sum.",
+                "Multiply the values: 6 x 3 = 18.",
+                "Add the values: 6 + 3 = 9.",
+                "Divide: 18 / 9 = 2 ohms total.",
+                "Sanity check: 2 ohms is less than 3 ohms, the smallest branch, so the answer makes sense."
+              ],
+              "tip": "Product over sum only works for exactly two resistors at a time. If a question gives you three, combine two of them first, then combine that result with the third."
+            }
+          ],
+          "summary": "A circuit needs a complete closed loop to work; an open circuit stops current, and a short circuit lets dangerous current surge through an accidental low-resistance path. Series circuits have one path: current is the same everywhere, resistances add, and one failure kills the whole circuit. Parallel circuits have multiple paths: every branch gets the full source voltage, total resistance drops as branches are added, and each branch works independently. Homes use parallel wiring so every device gets full voltage and works on its own. Fuses melt and breakers trip to open the circuit when current gets too high, protecting wiring and preventing fires. Nail these rules and you own this part of the EI section."
+        },
+        "questions": [
+          {
+            "id": "EI2-001",
+            "text": "Three resistors of 5 ohms, 10 ohms, and 15 ohms are connected in series. What is the total resistance?",
+            "options": [
+              {
+                "text": "10 ohms",
+                "explanation": "This is just the middle resistor's value. In a series circuit you must add all three resistances together."
+              },
+              {
+                "text": "30 ohms",
+                "correct": true,
+                "explanation": "Correct! In series, resistances simply add: 5 + 10 + 15 = 30 ohms."
+              },
+              {
+                "text": "3.3 ohms",
+                "explanation": "A total smaller than the smallest resistor could only happen in a parallel circuit. These resistors are in series, so you add them: 5 + 10 + 15 = 30 ohms."
+              },
+              {
+                "text": "750 ohms",
+                "explanation": "This comes from multiplying the values (5 x 10 x 15). Series resistances are added, not multiplied: 5 + 10 + 15 = 30 ohms."
+              }
+            ]
+          },
+          {
+            "id": "EI2-002",
+            "text": "In a series circuit, which quantity is the same at every point in the circuit?",
+            "options": [
+              {
+                "text": "Current",
+                "correct": true,
+                "explanation": "Correct! A series circuit has only one path, so the same current must flow through every component in the loop."
+              },
+              {
+                "text": "Voltage across each component",
+                "explanation": "In series, the source voltage is divided among the components, so each one can have a different voltage across it. It is parallel circuits where every branch sees the same voltage."
+              },
+              {
+                "text": "Resistance of each component",
+                "explanation": "The individual resistors in a series circuit can all have different values. What stays the same everywhere is the current flowing through them."
+              },
+              {
+                "text": "Power used by each component",
+                "explanation": "Components with different resistances use different amounts of power even in series. The quantity that is identical everywhere in a series loop is the current."
+              }
+            ]
+          },
+          {
+            "id": "EI2-003",
+            "text": "Two 10-ohm resistors are connected in parallel. What is the total resistance?",
+            "options": [
+              {
+                "text": "20 ohms",
+                "explanation": "Adding the values gives the SERIES total. In parallel, the total drops: two equal 10-ohm resistors give half of one, which is 5 ohms."
+              },
+              {
+                "text": "10 ohms",
+                "explanation": "Adding a second parallel branch changes the total; it does not stay at one resistor's value. Two equal resistors in parallel give half of one: 5 ohms."
+              },
+              {
+                "text": "5 ohms",
+                "correct": true,
+                "explanation": "Correct! Two equal resistors in parallel equal half of one: 10 / 2 = 5 ohms. Product over sum confirms it: (10 x 10) / (10 + 10) = 100 / 20 = 5 ohms."
+              },
+              {
+                "text": "100 ohms",
+                "explanation": "This is the product of the two values, but you still have to divide by their sum: 100 / 20 = 5 ohms. Parallel totals are always smaller than the smallest branch."
+              }
+            ]
+          },
+          {
+            "id": "EI2-004",
+            "text": "Five light bulbs are wired in series. If one bulb burns out, what happens to the other four?",
+            "options": [
+              {
+                "text": "They keep glowing at the same brightness",
+                "explanation": "That would be true in a parallel circuit, where each bulb has its own path. In series there is only one path, and a burned-out bulb breaks it."
+              },
+              {
+                "text": "They glow brighter to make up for the lost bulb",
+                "explanation": "The bulbs cannot get brighter, because a burned-out bulb in series breaks the only current path. With no complete loop, no current flows at all."
+              },
+              {
+                "text": "Only the bulbs after the broken one go out",
+                "explanation": "Current needs a complete loop, not just a path up to the break. A break anywhere in a series circuit stops current everywhere in the circuit."
+              },
+              {
+                "text": "All of them go out",
+                "correct": true,
+                "explanation": "Correct! A series circuit has only one path. When one bulb burns out, the loop is broken, current stops everywhere, and every bulb goes dark, like old-style holiday light strings."
+              }
+            ]
+          },
+          {
+            "id": "EI2-005",
+            "text": "In a parallel circuit, which quantity is the same across every branch?",
+            "options": [
+              {
+                "text": "Current through each branch",
+                "explanation": "Branch currents differ: a branch with less resistance draws more current. What every parallel branch shares is the full source voltage."
+              },
+              {
+                "text": "Voltage",
+                "correct": true,
+                "explanation": "Correct! Every parallel branch connects directly across the power source, so each branch receives the same full voltage."
+              },
+              {
+                "text": "Resistance of each branch",
+                "explanation": "The branches can have completely different resistances. The thing they all share is the voltage across them, since each connects directly to the source."
+              },
+              {
+                "text": "Nothing is the same between branches",
+                "explanation": "There is one quantity all parallel branches share: voltage. Each branch is connected directly across the source, so each sees the full source voltage."
+              }
+            ]
+          },
+          {
+            "id": "EI2-006",
+            "text": "Why are the outlets and lights in a house wired in parallel instead of in series?",
+            "options": [
+              {
+                "text": "Parallel wiring uses less copper wire",
+                "explanation": "Parallel wiring generally uses more wire, not less, because each branch needs its own path. Homes use parallel wiring for full voltage and independent operation."
+              },
+              {
+                "text": "Series wiring would deliver too much voltage to each device",
+                "explanation": "It is the opposite: in series, devices would split the voltage and each would get LESS than it needs. Parallel wiring gives every device the full voltage."
+              },
+              {
+                "text": "Each device gets full voltage and works independently of the others",
+                "correct": true,
+                "explanation": "Correct! In parallel, every outlet and light gets the same full source voltage, and turning off or losing one device does not affect the others."
+              },
+              {
+                "text": "Parallel wiring prevents short circuits from ever happening",
+                "explanation": "Short circuits can happen in any wiring arrangement; that is why homes have fuses or breakers. Parallel wiring is used for full voltage at every device and independent operation."
+              }
+            ]
+          },
+          {
+            "id": "EI2-007",
+            "text": "What is the main purpose of a fuse or circuit breaker?",
+            "options": [
+              {
+                "text": "To open the circuit when current gets dangerously high",
+                "correct": true,
+                "explanation": "Correct! Both devices break the circuit when current exceeds a safe level, protecting the wiring from overheating and preventing fires. A fuse melts once; a breaker trips and can be reset."
+              },
+              {
+                "text": "To increase the voltage supplied to appliances",
+                "explanation": "Fuses and breakers do not change voltage; that is the job of a transformer. Their purpose is to open the circuit when current climbs to a dangerous level."
+              },
+              {
+                "text": "To store extra electricity for power outages",
+                "explanation": "Storing energy is what a battery does. A fuse or breaker is a safety device that opens the circuit when too much current flows."
+              },
+              {
+                "text": "To keep current flowing during a short circuit",
+                "explanation": "This is backwards: during a short circuit, current surges dangerously high, and the fuse or breaker STOPS it by opening the circuit."
+              }
+            ]
+          },
+          {
+            "id": "EI2-008",
+            "text": "A 12-ohm resistor and a 6-ohm resistor are connected in parallel. What is the total resistance?",
+            "options": [
+              {
+                "text": "18 ohms",
+                "explanation": "Adding the values gives the series total. For two parallel resistors use product over sum: (12 x 6) / (12 + 6) = 72 / 18 = 4 ohms."
+              },
+              {
+                "text": "9 ohms",
+                "explanation": "This is the average of the two values, which is not how parallel resistance works. Use product over sum: (12 x 6) / (12 + 6) = 72 / 18 = 4 ohms."
+              },
+              {
+                "text": "6 ohms",
+                "explanation": "A parallel total must be LESS than the smallest branch, so it must come out below 6 ohms. Product over sum gives (12 x 6) / (12 + 6) = 72 / 18 = 4 ohms."
+              },
+              {
+                "text": "4 ohms",
+                "correct": true,
+                "explanation": "Correct! Product over sum: (12 x 6) / (12 + 6) = 72 / 18 = 4 ohms. And 4 ohms is less than the smallest branch (6 ohms), which confirms the answer makes sense."
+              }
+            ]
+          }
+        ],
+        "quizConfig": {
+          "questionsPerQuiz": 6
+        }
+      },
+      {
+        "id": "EI-3",
+        "title": "Electronic Components",
+        "description": "Meet the building blocks of every circuit: resistors, capacitors, inductors, diodes, transistors, relays, transformers, batteries, and integrated circuits. Learn what each part does and when to use it.",
+        "lesson": {
+          "intro": "Every radio, vehicle, and piece of gear in the military is built from a small set of basic electronic parts. Once you know what each component does, circuit questions on the ASVAB get a lot easier. Think of components like members of a squad: each one has a specific job. Resistors hold current back, capacitors store energy for a moment, diodes act like one-way doors, and transistors do the switching and amplifying. In this chapter you will learn each component's job, the symbol-level idea behind it, and a few safety points that show up on the test.",
+          "concepts": [
+            {
+              "title": "Resistors and Potentiometers",
+              "content": "A resistor's job is to limit (resist) the flow of current. Resistance is measured in ohms. Without resistors, sensitive parts like LEDs would draw too much current and burn out. Resistors are color-coded with painted bands that tell you their value. A potentiometer is a variable resistor: it has a knob or slider that changes its resistance. The volume knob on a radio and a dimmer control are classic potentiometers. Key idea for the test: more resistance means less current for the same voltage (Ohm's law), and a potentiometer lets you adjust that resistance on the fly."
+            },
+            {
+              "title": "Capacitors: Tiny Energy Tanks",
+              "content": "A capacitor stores electrical charge on two metal plates separated by an insulator, then releases that charge quickly when needed. Capacitance is measured in farads (usually microfarads in real circuits). Capacitors smooth out ripples in power supplies, provide quick bursts of energy for things like camera flashes, and block DC while letting AC signals pass. SAFETY: a large capacitor can hold a dangerous charge long after the equipment is unplugged. That is why technicians discharge capacitors before working inside old TVs, microwave ovens, or power supplies. Power off does not always mean safe."
+            },
+            {
+              "title": "Inductors, Coils, and Transformers",
+              "content": "An inductor is a coil of wire that stores energy in a magnetic field and resists changes in current. Inductance is measured in henries. Coils are used in filters, motors, and tuning circuits. A transformer is two coils (a primary and a secondary) wound near each other. AC in the primary creates a changing magnetic field that induces voltage in the secondary. The turns ratio sets the voltage change: if the secondary has half the turns of the primary, it puts out half the voltage (step-down). More secondary turns than primary means higher output voltage (step-up). Transformers only work on AC or pulsing current, because a steady DC current makes no changing magnetic field."
+            },
+            {
+              "title": "Diodes and LEDs: One-Way Valves",
+              "content": "A diode lets current flow in only one direction, like a one-way valve or a check valve in a water line. Current flows from the anode to the cathode when the diode is forward-biased; it blocks flow the other way. This one-way behavior is what makes rectification possible: diodes convert AC (which flips direction) into pulsing DC. Your phone charger uses diodes to do exactly that. An LED (light-emitting diode) is a diode that gives off light when current flows through it in the correct direction. LEDs are efficient and long-lasting, but they need a resistor in series to limit current or they will burn out."
+            },
+            {
+              "title": "Transistors, Relays, and Solenoids",
+              "content": "A transistor is a tiny semiconductor device that acts as a switch or an amplifier. A small current or voltage at one terminal controls a much larger current through the other two terminals. That is the whole trick behind modern electronics: small signals controlling big ones, millions of times per second. A relay does the same basic job mechanically: a small current through a coil creates a magnetic field that pulls a set of contacts closed (or open), switching a separate, often much larger, circuit. Your car's starter uses a relay so a small key switch can control a huge starter current. A solenoid is a coil with a movable iron plunger; when energized, the plunger moves and does mechanical work, like engaging a starter gear or opening a valve."
+            },
+            {
+              "title": "Batteries, Cells, and Integrated Circuits",
+              "content": "A cell is a single chemical unit that produces voltage (a standard alkaline AA cell is 1.5 volts). A battery is one or more cells packaged together. Connect cells in SERIES (positive to negative in a chain) and the voltages ADD: four 1.5 volt cells in series give 6 volts. Connect cells in PARALLEL (positives together, negatives together) and the voltage stays the same but the capacity adds, so the battery lasts longer and can supply more current. Memory hook: series stacks voltage, parallel stacks capacity. Finally, an integrated circuit (IC or chip) packs thousands to billions of transistors, resistors, and other parts onto one small piece of silicon. ICs are the brains of radios, computers, and nearly all modern gear."
+            }
+          ],
+          "examples": [
+            {
+              "problem": "A transformer has 500 turns on its primary winding and 100 turns on its secondary. The primary is connected to 120 volts AC. What voltage appears at the secondary?",
+              "steps": [
+                "Find the turns ratio: primary to secondary is 500 to 100, which simplifies to 5 to 1.",
+                "A 5 to 1 ratio with fewer turns on the secondary means this is a step-down transformer: output voltage is the input divided by 5.",
+                "Compute: 120 volts divided by 5 equals 24 volts.",
+                "The secondary delivers 24 volts AC."
+              ],
+              "tip": "Secondary voltage equals primary voltage times (secondary turns divided by primary turns). Fewer secondary turns always means lower voltage."
+            },
+            {
+              "problem": "You need 9 volts for a field radio but you only have a box of fresh 1.5 volt cells. How should you connect them, and how many do you need?",
+              "steps": [
+                "Series connections add voltage, so chain cells positive to negative.",
+                "Divide the voltage you need by the voltage per cell: 9 divided by 1.5 equals 6.",
+                "Connect 6 cells in series: 6 times 1.5 equals 9 volts.",
+                "If you also wanted longer run time at 9 volts, you could build a second series string of 6 cells and connect the two strings in parallel: still 9 volts, but double the capacity."
+              ],
+              "tip": "Series adds voltage, parallel adds capacity. Check your answer by multiplying cells times volts per cell."
+            },
+            {
+              "problem": "Pick the right component for each job: (a) convert AC from the wall into DC, (b) let a small dashboard switch control the heavy current to a starter motor, (c) adjust the brightness of a panel lamp smoothly.",
+              "steps": [
+                "(a) Converting AC to DC is rectification, and rectification needs one-way valves for current. That is the diode's job, so use diodes (a rectifier).",
+                "(b) A small current controlling a big separate circuit is exactly what a relay does: the switch energizes the relay coil, and the relay contacts carry the heavy motor current.",
+                "(c) Smoothly adjusting current to a lamp calls for a variable resistor, so use a potentiometer as a dimmer."
+              ],
+              "tip": "Match the component to its one-sentence job description: diode equals one-way valve, relay equals small current switching a big one, potentiometer equals adjustable resistance."
+            }
+          ],
+          "summary": "Resistors limit current, and potentiometers are resistors you can adjust. Capacitors store charge and can still bite after the power is off, so discharge them first. Inductors are coils that store energy in a magnetic field, and transformers use two coils and a turns ratio to step AC voltage up or down. Diodes pass current one way and make rectification (AC to DC) possible; LEDs are diodes that light up. Transistors are tiny switches and amplifiers, relays let small currents switch big ones, and solenoids turn current into mechanical motion. Cells in series add voltage; cells in parallel add capacity. Integrated circuits pack huge numbers of these parts onto one chip. Learn each part's one-line job and you will recognize it instantly on test day."
+        },
+        "questions": [
+          {
+            "id": "EI3-001",
+            "text": "What is the primary purpose of a resistor in a circuit?",
+            "options": [
+              {
+                "text": "To store electrical charge for later use",
+                "explanation": "Storing charge is the job of a capacitor, not a resistor. A resistor does not store energy; it opposes current flow and gives off any excess energy as heat."
+              },
+              {
+                "text": "To limit the flow of current",
+                "explanation": "Correct! A resistor opposes (resists) current flow, measured in ohms. Resistors protect sensitive parts like LEDs by keeping current at a safe level.",
+                "correct": true
+              },
+              {
+                "text": "To convert AC into DC",
+                "explanation": "Converting AC to DC is rectification, which is done with diodes. A resistor treats current the same in both directions."
+              },
+              {
+                "text": "To amplify weak signals",
+                "explanation": "Amplification is a transistor's job. A resistor cannot make a signal stronger; it can only reduce current or drop voltage."
+              }
+            ]
+          },
+          {
+            "id": "EI3-002",
+            "text": "The volume knob on a radio smoothly adjusts loudness. Which component is it most likely to be?",
+            "options": [
+              {
+                "text": "A relay",
+                "explanation": "A relay is an on-off switch operated by an electromagnet. It snaps between states and cannot provide a smooth, gradual adjustment."
+              },
+              {
+                "text": "A diode",
+                "explanation": "A diode is a one-way valve for current. It has no knob or adjustable value, so it cannot act as a volume control."
+              },
+              {
+                "text": "A transformer",
+                "explanation": "A transformer steps AC voltage up or down using a fixed turns ratio. It is not an adjustable control you turn with a knob."
+              },
+              {
+                "text": "A potentiometer",
+                "explanation": "Correct! A potentiometer is a variable resistor. Turning the knob changes its resistance, which smoothly adjusts the signal level, making it perfect for volume and dimmer controls.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "EI3-003",
+            "text": "A technician unplugs an old power supply but still gets a painful shock from inside it. Which component most likely caused the shock?",
+            "options": [
+              {
+                "text": "A capacitor that was still holding a charge",
+                "explanation": "Correct! Capacitors store electrical charge and large ones can hold a dangerous charge long after power is removed. Technicians safely discharge capacitors before working inside equipment.",
+                "correct": true
+              },
+              {
+                "text": "A resistor that was still limiting current",
+                "explanation": "A resistor does not store energy. Once power is removed, a resistor has no charge left to deliver a shock."
+              },
+              {
+                "text": "An LED that was still lit",
+                "explanation": "An LED only emits light while current flows through it, and it stores essentially no energy of its own. It could not shock anyone after the unit was unplugged."
+              },
+              {
+                "text": "A fuse that had blown",
+                "explanation": "A blown fuse is an open circuit; it interrupts current rather than storing energy. It poses no shock hazard after power is removed."
+              }
+            ]
+          },
+          {
+            "id": "EI3-004",
+            "text": "Why are diodes used in a phone charger?",
+            "options": [
+              {
+                "text": "They increase the wall voltage to a higher level",
+                "explanation": "Stepping voltage up or down is done by a transformer or converter circuit, not by the diodes themselves. Diodes control the direction of current, not its voltage level."
+              },
+              {
+                "text": "They store energy so the phone charges faster",
+                "explanation": "Diodes do not store energy. Energy storage for smoothing the output is handled by capacitors."
+              },
+              {
+                "text": "They allow current to flow in only one direction, converting AC to DC",
+                "explanation": "Correct! A diode is a one-way valve for current. Arranged as a rectifier, diodes turn the back-and-forth AC from the wall into one-direction DC that a phone battery needs.",
+                "correct": true
+              },
+              {
+                "text": "They limit current with their color-coded resistance value",
+                "explanation": "Color-coded values belong to resistors. A diode's job is direction control, not setting a resistance value."
+              }
+            ]
+          },
+          {
+            "id": "EI3-005",
+            "text": "Which statement best describes what a transistor does?",
+            "options": [
+              {
+                "text": "It stores charge on two metal plates separated by an insulator",
+                "explanation": "That describes a capacitor. A transistor is a semiconductor device with a completely different job."
+              },
+              {
+                "text": "It acts as a tiny switch or amplifier, using a small signal to control a larger current",
+                "explanation": "Correct! A small current or voltage at one terminal of a transistor controls a much larger current through the others. This switching and amplifying action is the foundation of modern electronics.",
+                "correct": true
+              },
+              {
+                "text": "It converts electrical current into mechanical motion with a plunger",
+                "explanation": "A coil with a movable plunger is a solenoid. Transistors have no moving parts at all."
+              },
+              {
+                "text": "It steps AC voltage up or down using two coils of wire",
+                "explanation": "Two coupled coils that change AC voltage make up a transformer, not a transistor. The similar names trip people up, so read carefully on test day."
+              }
+            ]
+          },
+          {
+            "id": "EI3-006",
+            "text": "A step-down transformer has 400 turns on the primary and 100 turns on the secondary. If 240 volts AC is applied to the primary, what is the secondary voltage?",
+            "options": [
+              {
+                "text": "960 volts",
+                "explanation": "That would be a step-up result from multiplying by 4. With fewer turns on the secondary, the voltage goes down, not up."
+              },
+              {
+                "text": "240 volts",
+                "explanation": "The voltage only stays the same when the turns ratio is 1 to 1. Here the secondary has one quarter of the primary turns, so the voltage must change."
+              },
+              {
+                "text": "120 volts",
+                "explanation": "That would be correct for a 2 to 1 ratio, but this transformer's ratio is 400 to 100, which is 4 to 1. Divide by 4, not by 2."
+              },
+              {
+                "text": "60 volts",
+                "explanation": "Correct! The turns ratio is 400 to 100, or 4 to 1 step-down. Secondary voltage equals 240 divided by 4, which is 60 volts.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "EI3-007",
+            "text": "Three 1.5 volt cells are connected in series. What is the total voltage of the combination?",
+            "options": [
+              {
+                "text": "4.5 volts",
+                "explanation": "Correct! Cells in series add their voltages: 1.5 plus 1.5 plus 1.5 equals 4.5 volts.",
+                "correct": true
+              },
+              {
+                "text": "1.5 volts",
+                "explanation": "The voltage stays at 1.5 volts only if the cells are connected in parallel. In series, the voltages add together."
+              },
+              {
+                "text": "3.0 volts",
+                "explanation": "That would be the total for only two cells in series. With three cells, add 1.5 volts three times."
+              },
+              {
+                "text": "0.5 volts",
+                "explanation": "Series cells never divide the voltage down. Their voltages add, so the total is higher than a single cell, not lower."
+              }
+            ]
+          },
+          {
+            "id": "EI3-008",
+            "text": "In a vehicle, a small current from the ignition switch needs to control the very large current going to the starter motor. Which component is designed for this job?",
+            "options": [
+              {
+                "text": "A capacitor",
+                "explanation": "A capacitor stores and releases charge; it cannot use one circuit to switch another. It is the wrong tool for controlling a heavy motor current."
+              },
+              {
+                "text": "A potentiometer",
+                "explanation": "A potentiometer adjusts resistance gradually, and its small contacts could never handle starter-motor current. This job needs a switching device, not an adjustable resistor."
+              },
+              {
+                "text": "A relay",
+                "explanation": "Correct! A relay uses a small current through its coil to create a magnetic field that closes heavy-duty contacts, letting a small switch safely control a much larger circuit like a starter motor.",
+                "correct": true
+              },
+              {
+                "text": "An LED",
+                "explanation": "An LED is a diode that produces light. It indicates status on a dashboard but cannot switch a large current."
+              }
+            ]
+          }
+        ],
+        "quizConfig": {
+          "questionsPerQuiz": 6
+        }
+      },
+      {
+        "id": "EI-4",
+        "title": "Reading Schematics and Wiring",
+        "description": "Learn to read circuit schematics like a map: recognize the standard symbols for batteries, resistors, capacitors, diodes, switches, and more. Then move into real-world wiring, including US household wire colors, wire gauge, breaker sizing, and grounded plugs.",
+        "lesson": {
+          "intro": "Every piece of military electronics, from a radio to a generator panel, comes with a schematic: a simple drawing that shows how the circuit is put together. Once you can read one, you can troubleshoot almost anything. The good news is that schematics use a small set of standard symbols, and the ASVAB loves to ask about them. In this chapter you will learn those symbols, practice following a simple circuit on paper, and then step into practical wiring: which wire color does what in a US household circuit, how wire thickness is measured, and why the ground pin on a plug can save your life. None of this requires math. It is pure recognition and common sense, which makes it some of the easiest points you can earn on test day.",
+          "concepts": [
+            {
+              "title": "What a Schematic Is",
+              "content": "A schematic is a map of a circuit. It does not show what the parts physically look like or where they sit inside the equipment. Instead, it uses standard symbols connected by straight lines to show how electricity flows from one component to the next. The lines represent wires or conductive paths. A dot where lines cross means the wires are connected; lines that cross without a dot are not connected. Because everyone uses the same symbols, a technician in one unit can read a schematic drawn by someone on the other side of the world. Reading a schematic is like reading a road map: you trace the path the current takes from the power source, through each component, and back to the source."
+            },
+            {
+              "title": "The Core Symbols You Must Know",
+              "content": "Learn these by their word descriptions, because that is how the test presents them. Battery: a pair of parallel lines, one long and one short. The long line is the positive terminal and the short line is the negative terminal. Resistor: a zigzag line, like a sawtooth or a stretched letter W. Capacitor: two parallel lines of equal length with a gap between them (do not confuse it with the battery, whose lines are unequal). Diode: a triangle pointing at a bar; the triangle shows the direction conventional current is allowed to flow, and the bar blocks it the other way. Ground: a set of short horizontal lines stacked and getting smaller as they go down, like a small upside-down pyramid. Switch: a line that pivots at a hinge point, like a tiny drawbridge that opens and closes the circuit. Lamp or light bulb: a circle with a loop or curl of wire inside it."
+            },
+            {
+              "title": "Following a Simple Circuit on Paper",
+              "content": "To trace a circuit, start at the positive terminal of the power source (the long line of the battery symbol) and follow the wire line with your finger. Ask three questions as you go. First, is there a complete loop back to the negative terminal? If yes, current can flow. Second, are there any open switches along the path? An open switch breaks the loop and stops all current in that path. Third, what components does the current pass through, and in what order? If components sit one after another on the same single path, they are in series and the same current flows through all of them. If the path splits into branches that rejoin later, those branches are in parallel and the current divides between them. A classic simple schematic is a battery, a switch, and a lamp in one loop: close the switch, the loop is complete, and the lamp lights."
+            },
+            {
+              "title": "US Household Wire Colors",
+              "content": "In standard US residential wiring, insulation color tells you the job of each wire. Black is the hot wire: it carries current from the panel to the device and is the dangerous one. (Red is also used as a second hot wire in some circuits.) White is the neutral wire: it completes the circuit by carrying current back to the panel. Green, or bare copper with no insulation at all, is the ground wire: it normally carries no current and exists purely for safety, giving fault current a safe path to the earth so a breaker can trip instead of a person getting shocked. Memory hook: black means back off (hot), white returns the current (neutral), and green is like grass, connected to the ground."
+            },
+            {
+              "title": "Wire Gauge: AWG",
+              "content": "Wire thickness in the US is measured in American Wire Gauge, or AWG. Here is the part that trips people up: the numbering runs backwards. A LOWER gauge number means a THICKER wire, and a thicker wire can safely carry MORE current. So 10 AWG wire is thicker than 14 AWG wire. Common household pairings to remember: 14 gauge wire is rated for 15 amp circuits (typical lighting), 12 gauge wire for 20 amp circuits (typical outlets), and 10 gauge wire for 30 amp circuits (dryers and similar heavy loads). Why does thickness matter? A wire that is too thin for its current acts like a weak resistor: it heats up, the insulation can melt, and a fire can start. Think of gauge like a water pipe: a fatter pipe moves more water; a fatter wire moves more current safely."
+            },
+            {
+              "title": "Breakers, Plugs, and Grounding",
+              "content": "A circuit breaker is a safety switch that trips (opens the circuit) when current exceeds its rating. The breaker must be matched to the wire, not to the appliance: the breaker rating can never exceed what the wire can safely carry. Putting a 30 amp breaker on thin 14 gauge wire is dangerous, because the wire would overheat long before the breaker ever tripped. The breaker protects the wiring; sizing it too big removes that protection. On plugs, the third round pin is the ground pin, connected to the green or bare ground wire. If a hot wire inside an appliance comes loose and touches the metal case, the ground path carries that fault current straight back to the panel and trips the breaker instantly. Without the ground, the metal case would sit there energized, waiting for someone to touch it. That is why you should never snap the ground pin off a plug to make it fit a two-slot outlet."
+            }
+          ],
+          "examples": [
+            {
+              "problem": "A schematic shows a symbol made of two parallel lines, one noticeably longer than the other. Nearby is another symbol made of two parallel lines of equal length with a gap between them. Which is the battery and which is the capacitor?",
+              "steps": [
+                "Recall the rule: a battery symbol has UNEQUAL lines, one long (positive terminal) and one short (negative terminal).",
+                "A capacitor symbol has two EQUAL parallel lines separated by a gap.",
+                "The first symbol (long line plus short line) is therefore the battery.",
+                "The second symbol (two equal lines) is the capacitor."
+              ],
+              "tip": "Unequal lines equals battery, equal lines equals capacitor. If the lines match, it stores a charge; if one is longer, it supplies the charge."
+            },
+            {
+              "problem": "You need to wire a new 20 amp outlet circuit. Should you use 14 gauge or 12 gauge wire, and what size breaker should protect it?",
+              "steps": [
+                "Recall the standard pairings: 14 AWG handles 15 amps, 12 AWG handles 20 amps, 10 AWG handles 30 amps.",
+                "The circuit is 20 amps, so 14 gauge is too thin. Choose 12 gauge.",
+                "Match the breaker to the wire: 12 gauge wire pairs with a 20 amp breaker.",
+                "Check the logic: the breaker (20 amps) does not exceed what the wire can carry, so the wire is protected."
+              ],
+              "tip": "Lower AWG number means thicker wire and more current capacity. The breaker protects the wire, so never install a breaker rated higher than the wire can handle."
+            },
+            {
+              "problem": "You trace a simple schematic: from the battery's long line, the wire runs to a pivoting-line symbol shown in the open position, then to a circle with a loop inside, then back to the battery's short line. Will the lamp light?",
+              "steps": [
+                "Identify the symbols: the pivoting line is a switch, and the circle with a loop is a lamp.",
+                "The circuit is one single loop: battery, switch, lamp, back to battery. Everything is in series.",
+                "The switch is drawn OPEN, so the loop is broken at that point.",
+                "An open switch stops current everywhere in a series loop, so no current reaches the lamp. The lamp does not light. Closing the switch would complete the loop and light it."
+              ],
+              "tip": "In a series loop, one open switch kills the whole circuit. Always check switch positions before deciding whether current flows."
+            }
+          ],
+          "summary": "A schematic is a symbol map of a circuit: battery (one long line, one short line), resistor (zigzag), capacitor (two equal parallel lines), diode (triangle against a bar, pointing the direction current may flow), ground (descending stack of shrinking lines), switch (pivoting line), and lamp (circle with a loop). Trace circuits from the positive terminal and check for a complete loop and open switches. In US household wiring, black is hot, white is neutral, and green or bare copper is ground. Wire gauge runs backwards: lower AWG number means thicker wire and more current, with 14 AWG for 15 amps, 12 AWG for 20 amps, and 10 AWG for 30 amps. Breakers are sized to protect the wire, never larger than the wire's rating, and the round third pin on a plug is the ground that trips the breaker during a fault. Master these facts and the schematic and wiring questions become free points."
+        },
+        "questions": [
+          {
+            "id": "EI4-001",
+            "text": "On a schematic, a symbol shows two parallel lines, one long and one short. What component is this?",
+            "options": [
+              {
+                "text": "A battery",
+                "explanation": "Correct! The battery symbol uses unequal parallel lines: the long line is the positive terminal and the short line is the negative terminal.",
+                "correct": true
+              },
+              {
+                "text": "A capacitor",
+                "explanation": "A capacitor is drawn as two parallel lines of EQUAL length with a gap between them. Unequal lines indicate a battery."
+              },
+              {
+                "text": "A resistor",
+                "explanation": "A resistor is drawn as a zigzag line, not as parallel lines."
+              },
+              {
+                "text": "A switch",
+                "explanation": "A switch is drawn as a line that pivots at a hinge point, like a small drawbridge, not as parallel lines."
+              }
+            ]
+          },
+          {
+            "id": "EI4-002",
+            "text": "Which schematic symbol represents a resistor?",
+            "options": [
+              {
+                "text": "A circle with a loop of wire inside",
+                "explanation": "A circle with a loop inside represents a lamp or light bulb, not a resistor."
+              },
+              {
+                "text": "A zigzag line",
+                "explanation": "Correct! The standard resistor symbol is a zigzag or sawtooth line, representing opposition to current flow.",
+                "correct": true
+              },
+              {
+                "text": "A triangle pointing at a bar",
+                "explanation": "A triangle against a bar is the diode symbol, which allows current in only one direction."
+              },
+              {
+                "text": "A stack of shrinking horizontal lines",
+                "explanation": "Descending lines that get smaller represent a ground connection, not a resistor."
+              }
+            ]
+          },
+          {
+            "id": "EI4-003",
+            "text": "A diode symbol shows a triangle pointing at a bar. What does this symbol tell you about current?",
+            "options": [
+              {
+                "text": "Current flows equally well in both directions",
+                "explanation": "That describes a plain wire or a resistor. A diode is specifically a one-way device."
+              },
+              {
+                "text": "Current is stored between two plates",
+                "explanation": "Storing charge between plates describes a capacitor, whose symbol is two equal parallel lines."
+              },
+              {
+                "text": "Current is allowed to flow only in the direction the triangle points",
+                "explanation": "Correct! A diode is a one-way valve for current: conventional current flows in the direction the triangle points, and the bar blocks flow the other way.",
+                "correct": true
+              },
+              {
+                "text": "The circuit is connected to the earth at that point",
+                "explanation": "A connection to earth is shown by the ground symbol, a descending stack of shrinking lines, not by a triangle and bar."
+              }
+            ]
+          },
+          {
+            "id": "EI4-004",
+            "text": "In standard US household wiring, which wire is the hot wire that carries current from the panel to the device?",
+            "options": [
+              {
+                "text": "The white wire",
+                "explanation": "White is the neutral wire, which carries current back to the panel to complete the circuit."
+              },
+              {
+                "text": "The green wire",
+                "explanation": "Green (or bare copper) is the safety ground wire and normally carries no current at all."
+              },
+              {
+                "text": "The bare copper wire",
+                "explanation": "Bare copper serves the same role as green: it is the ground wire, present only for safety."
+              },
+              {
+                "text": "The black wire",
+                "explanation": "Correct! Black is the hot wire in US household wiring. It carries current from the panel and is the wire most likely to shock you.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "EI4-005",
+            "text": "Which of the following wires is the THICKEST?",
+            "options": [
+              {
+                "text": "14 AWG",
+                "explanation": "In the AWG system a higher number means a thinner wire, so 14 AWG is thinner than both 12 and 10 AWG."
+              },
+              {
+                "text": "10 AWG",
+                "explanation": "Correct! AWG numbering runs backwards: the lower the gauge number, the thicker the wire. Of these choices, 10 AWG is the lowest number and therefore the thickest.",
+                "correct": true
+              },
+              {
+                "text": "12 AWG",
+                "explanation": "12 AWG is thicker than 14 AWG but thinner than 10 AWG, since lower gauge numbers mean thicker wire."
+              },
+              {
+                "text": "16 AWG",
+                "explanation": "16 AWG is the highest number listed, which makes it the THINNEST wire of the four, not the thickest."
+              }
+            ]
+          },
+          {
+            "id": "EI4-006",
+            "text": "Why is it dangerous to protect thin 14 gauge wire with an oversized 30 amp breaker?",
+            "options": [
+              {
+                "text": "The breaker would trip constantly and cut power to the circuit",
+                "explanation": "An OVERSIZED breaker trips too rarely, not too often. The danger is the opposite: it fails to trip when it should."
+              },
+              {
+                "text": "The wire could overheat and start a fire before the breaker ever trips",
+                "explanation": "Correct! The breaker exists to protect the wire. 14 gauge wire is rated for about 15 amps, so a 30 amp breaker would let the wire carry far more current than it can handle, overheating it before the breaker reacts.",
+                "correct": true
+              },
+              {
+                "text": "The breaker would lower the voltage available to appliances",
+                "explanation": "A breaker does not regulate voltage. It simply opens the circuit when current exceeds its rating."
+              },
+              {
+                "text": "Nothing is wrong; a bigger breaker just allows more devices",
+                "explanation": "This is a dangerous assumption. The breaker rating must never exceed the safe current rating of the wire it protects."
+              }
+            ]
+          },
+          {
+            "id": "EI4-007",
+            "text": "What is the purpose of the round third pin on a grounded US plug?",
+            "options": [
+              {
+                "text": "It carries the normal operating current to the appliance",
+                "explanation": "Normal operating current flows through the hot and neutral blades. The ground pin carries current only during a fault."
+              },
+              {
+                "text": "It doubles the power available to the appliance",
+                "explanation": "The ground pin does not deliver power at all. It is a safety connection only."
+              },
+              {
+                "text": "It gives fault current a safe path so the breaker trips instead of a person getting shocked",
+                "explanation": "Correct! The ground pin connects the appliance case to the ground wire. If a hot wire touches the metal case, the fault current flows through the ground path and trips the breaker immediately, instead of energizing the case.",
+                "correct": true
+              },
+              {
+                "text": "It keeps the plug from being inserted upside down",
+                "explanation": "While the pin does affect plug orientation, that is not its purpose. Its job is electrical safety through grounding."
+              }
+            ]
+          },
+          {
+            "id": "EI4-008",
+            "text": "A schematic shows one loop: a battery, an open switch, and a lamp connected in series. What happens in this circuit?",
+            "options": [
+              {
+                "text": "The lamp lights at half brightness",
+                "explanation": "There is no partial flow through an open switch. An open switch stops current completely, so the lamp cannot light at any brightness."
+              },
+              {
+                "text": "No current flows and the lamp stays off until the switch is closed",
+                "explanation": "Correct! An open switch breaks the loop, and in a series circuit one break stops all current. Closing the switch completes the loop and lights the lamp.",
+                "correct": true
+              },
+              {
+                "text": "Current flows through the lamp but skips the switch",
+                "explanation": "In a series loop there is only one path. Current cannot skip any component, so the open switch blocks everything."
+              },
+              {
+                "text": "The battery drains quickly because the circuit is open",
+                "explanation": "An open circuit draws no current, so the battery is not being drained. Batteries drain when current flows, not when the loop is broken."
+              }
+            ]
+          }
+        ],
+        "quizConfig": {
+          "questionsPerQuiz": 6
+        }
+      },
+      {
+        "id": "EI-5",
+        "title": "AC, DC, and Electrical Power",
+        "description": "Learn the difference between direct and alternating current, why AC powers our homes, how rectifiers convert AC to DC, and how to calculate electrical power with P = V x I.",
+        "lesson": {
+          "intro": "Every piece of electrical gear you will touch in the military runs on one of two kinds of current: DC or AC. Your flashlight, radio battery, and vehicle electrical system use DC. The outlets in the barracks and the generators powering a field kitchen supply AC. In this chapter you will learn what makes them different, why AC won the battle for long-distance power delivery, and how to calculate electrical power using one simple formula: P = V x I. Master that formula and a handful of standards, and you will be ready for a big chunk of the Electronics Information section.",
+          "concepts": [
+            {
+              "title": "DC: Direct Current",
+              "content": "Direct current (DC) flows in one direction only, at a steady level. Batteries are the classic DC source: a AA cell pushes conventional current out of its positive terminal, through the circuit, and back into its negative terminal, always the same way. Solar panels and vehicle alternator systems (after internal rectification) also deliver DC. Because DC never changes direction, it is easy to store in batteries and it is what almost all electronic circuits, from radios to computers, actually need internally. Remember: batteries equal DC, always."
+            },
+            {
+              "title": "AC: Alternating Current",
+              "content": "Alternating current (AC) reverses direction many times per second. Instead of flowing steadily one way, the current pushes forward, slows, reverses, and pushes back, over and over in a smooth wave pattern. The number of complete back-and-forth cycles per second is the frequency, measured in hertz (Hz). Wall outlets, power lines, and generators at power plants all supply AC. If you plug something into an outlet, it is running on AC, at least until something inside converts it."
+            },
+            {
+              "title": "Why AC Won: Transformers and Transmission",
+              "content": "In the late 1800s there was a famous fight between DC (Edison) and AC (Tesla and Westinghouse). AC won for one big reason: transformers. A transformer can easily step AC voltage up or down, but it does not work on steady DC. Power companies step voltage way up (hundreds of thousands of volts) for long-distance lines. Higher voltage means less current is needed to deliver the same power, and less current means far less energy wasted as heat in the wires. Near your home, transformers step the voltage back down to a safe level. Cheap, efficient voltage changing is why AC runs the power grid."
+            },
+            {
+              "title": "US Standards: 120 Volts, 60 Hertz",
+              "content": "In the United States, standard household outlets deliver about 120 volts AC at a frequency of 60 hertz. That 60 Hz means the current completes 60 full back-and-forth cycles every second. Large appliances like electric dryers, ranges, and central air conditioners use special 240-volt circuits to deliver more power. Many other countries use 220 to 240 volts at 50 Hz, which is why travelers need adapters and converters. For the ASVAB, memorize the US pair: 120 volts, 60 Hz."
+            },
+            {
+              "title": "Rectifiers: Converting AC to DC",
+              "content": "Your phone charger plugs into an AC outlet, but the phone battery needs DC. The device that converts AC into DC is called a rectifier, built from diodes, which are one-way valves for current. A rectifier blocks or flips the reverse half of the AC wave so current only flows one direction, and filter components smooth it into steady DC. Nearly every electronic device you plug into the wall has a rectifier inside its power supply. Going the other direction, DC to AC, takes a different device called an inverter."
+            },
+            {
+              "title": "Power: P = V x I",
+              "content": "Electrical power is the rate at which electrical energy is used, measured in watts (W). The formula is simple: Power equals Voltage times Current, or P = V x I. A device drawing 2 amps from a 120-volt outlet uses 120 x 2 = 240 watts. You can rearrange the formula too: I = P divided by V tells you the current, and V = P divided by I tells you the voltage. One kilowatt (kW) is 1000 watts. This formula shows up constantly on the ASVAB, so practice it until it is automatic."
+            },
+            {
+              "title": "Watts vs Kilowatt-Hours, and Dedicated Circuits",
+              "content": "Watts measure power, the rate of energy use right now. Kilowatt-hours (kWh) measure energy, which is power multiplied by time, and that is what the utility company bills you for. Run a 1000-watt (1 kW) heater for 3 hours and you use 3 kWh. Now think about current: a 1500-watt space heater at 120 volts draws 1500 / 120 = 12.5 amps, most of a standard 15-amp or 20-amp circuit by itself. That is why high-power appliances like dryers, ranges, and water heaters get their own dedicated circuits, often at 240 volts: it keeps the current in each wire at a safe level and prevents tripped breakers and overheated wiring. One more pairing to remember: a generator converts mechanical energy into electrical energy, while a motor does the opposite, converting electrical energy into mechanical motion. They are opposite machines built on the same principles."
+            }
+          ],
+          "examples": [
+            {
+              "problem": "A microwave oven is rated at 1200 watts and plugs into a standard 120-volt outlet. How much current does it draw?",
+              "steps": [
+                "Start with the power formula: P = V x I.",
+                "We know P = 1200 watts and V = 120 volts, and we need I.",
+                "Rearrange the formula to solve for current: I = P / V.",
+                "Plug in the numbers: I = 1200 / 120.",
+                "Divide: 1200 / 120 = 10.",
+                "The microwave draws 10 amps of current."
+              ],
+              "tip": "With 120-volt outlets, there is a quick shortcut: divide the wattage by 120. A 1200 W appliance draws 10 A, a 600 W appliance draws 5 A. Ten amps is a big share of a 15-amp circuit, which is why running two big appliances on one circuit trips the breaker."
+            },
+            {
+              "problem": "A flashlight bulb runs on a 6-volt battery and draws 0.5 amps. How much power does the bulb use?",
+              "steps": [
+                "Use the power formula directly: P = V x I.",
+                "Identify the values: V = 6 volts, I = 0.5 amps.",
+                "Multiply: P = 6 x 0.5.",
+                "6 x 0.5 = 3.",
+                "The bulb uses 3 watts of power."
+              ],
+              "tip": "When you have voltage and current, just multiply, no rearranging needed. Watch your decimals: multiplying by 0.5 is the same as taking half."
+            },
+            {
+              "problem": "A 2000-watt space heater runs for 4 hours. If electricity costs 15 cents per kilowatt-hour, how much did it cost to run?",
+              "steps": [
+                "First convert watts to kilowatts: 2000 watts = 2000 / 1000 = 2 kW.",
+                "Energy equals power multiplied by time: 2 kW x 4 hours = 8 kilowatt-hours (kWh).",
+                "Multiply energy by the price: 8 kWh x 15 cents = 120 cents.",
+                "Convert to dollars: 120 cents = 1.20 dollars.",
+                "Running the heater for 4 hours cost 1 dollar and 20 cents."
+              ],
+              "tip": "Watts tell you how fast energy is used; kilowatt-hours tell you how much was used in total. The electric company bills for kWh (energy), not watts (power)."
+            }
+          ],
+          "summary": "DC flows one way and comes from batteries; AC reverses direction, comes from generators and wall outlets, and won the grid because transformers can step its voltage up for efficient long-distance transmission and back down for safe use. US household power is 120 volts at 60 Hz. Rectifiers convert AC to DC (inverters do the reverse). Power in watts is P = V x I, and you can rearrange it as I = P / V or V = P / I. Your electric bill charges for energy in kilowatt-hours, which is power times time. High-power appliances draw big currents, so they need dedicated circuits. And keep the opposites straight: generators turn mechanical energy into electrical energy, while motors turn electrical energy into mechanical energy. You have the core of electrical power in hand, keep drilling that formula."
+        },
+        "questions": [
+          {
+            "id": "EI5-001",
+            "text": "Which of the following is a source of direct current (DC)?",
+            "options": [
+              {
+                "text": "A battery",
+                "explanation": "Correct! Batteries always supply direct current, which flows steadily in one direction from one terminal to the other.",
+                "correct": true
+              },
+              {
+                "text": "A household wall outlet",
+                "explanation": "Wall outlets supply alternating current (AC), which in the US cycles 60 times per second (60 hertz)."
+              },
+              {
+                "text": "A power plant generator",
+                "explanation": "Power plant generators produce alternating current, which is what travels over transmission lines to homes."
+              },
+              {
+                "text": "A transformer",
+                "explanation": "A transformer is not a power source at all; it changes the voltage of AC power that passes through it."
+              }
+            ]
+          },
+          {
+            "id": "EI5-002",
+            "text": "Why did AC become the standard for long-distance electric power transmission?",
+            "options": [
+              {
+                "text": "AC is easier to store in batteries",
+                "explanation": "It is actually DC that batteries store; AC cannot be stored directly in a battery."
+              },
+              {
+                "text": "Transformers can easily step AC voltage up and down, reducing losses over long lines",
+                "explanation": "Correct! Transformers let power companies raise AC voltage for efficient long-distance transmission, then lower it for safe household use. Transformers do not work on steady DC.",
+                "correct": true
+              },
+              {
+                "text": "AC flows in only one direction, making it safer",
+                "explanation": "AC reverses direction many times per second; it is DC that flows in only one direction."
+              },
+              {
+                "text": "AC requires thicker wires than DC",
+                "explanation": "Needing thicker wire would be a disadvantage, not a reason to adopt AC. High-voltage AC actually allows thinner wires because less current is needed."
+              }
+            ]
+          },
+          {
+            "id": "EI5-003",
+            "text": "What are the standard voltage and frequency of household outlets in the United States?",
+            "options": [
+              {
+                "text": "240 volts at 50 Hz",
+                "explanation": "220 to 240 volts at 50 Hz is common in Europe and many other countries, not the standard US outlet."
+              },
+              {
+                "text": "120 volts at 50 Hz",
+                "explanation": "The voltage is right, but US power runs at 60 cycles per second, not 50."
+              },
+              {
+                "text": "12 volts at 60 Hz",
+                "explanation": "12 volts is a typical vehicle battery voltage (DC), far below household outlet voltage."
+              },
+              {
+                "text": "120 volts at 60 Hz",
+                "explanation": "Correct! Standard US household outlets deliver about 120 volts of AC at a frequency of 60 hertz, meaning 60 complete cycles per second.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "EI5-004",
+            "text": "What device converts alternating current (AC) into direct current (DC)?",
+            "options": [
+              {
+                "text": "An inverter",
+                "explanation": "An inverter does the opposite job: it converts DC into AC, for example turning battery power into outlet-style power."
+              },
+              {
+                "text": "A transformer",
+                "explanation": "A transformer changes AC voltage levels up or down, but its output is still AC."
+              },
+              {
+                "text": "A rectifier",
+                "explanation": "Correct! A rectifier, built from diodes that act as one-way valves, forces current to flow in only one direction, converting AC into DC.",
+                "correct": true
+              },
+              {
+                "text": "A circuit breaker",
+                "explanation": "A circuit breaker is a safety device that cuts off current when it gets too high; it does not convert current types."
+              }
+            ]
+          },
+          {
+            "id": "EI5-005",
+            "text": "A hair dryer draws 10 amps from a 120-volt outlet. How much power does it use?",
+            "options": [
+              {
+                "text": "12 watts",
+                "explanation": "This comes from dividing 120 by 10, but power requires multiplying voltage by current, not dividing."
+              },
+              {
+                "text": "1200 watts",
+                "explanation": "Correct! P = V x I, so P = 120 x 10 = 1200 watts.",
+                "correct": true
+              },
+              {
+                "text": "130 watts",
+                "explanation": "This comes from adding 120 and 10, but the power formula multiplies voltage and current."
+              },
+              {
+                "text": "600 watts",
+                "explanation": "600 watts would be the result of 120 x 5, but this dryer draws 10 amps, so multiply 120 by 10."
+              }
+            ]
+          },
+          {
+            "id": "EI5-006",
+            "text": "A 1500-watt space heater plugs into a 120-volt outlet. How much current does it draw?",
+            "options": [
+              {
+                "text": "8 amps",
+                "explanation": "8 amps at 120 volts would be only 960 watts. Divide 1500 by 120 to find the actual current."
+              },
+              {
+                "text": "15 amps",
+                "explanation": "Close, but 15 amps at 120 volts would be 1800 watts. Work the division carefully: 1500 / 120."
+              },
+              {
+                "text": "12.5 amps",
+                "explanation": "Correct! I = P / V = 1500 / 120 = 12.5 amps. That is most of a standard circuit's capacity, which is why space heaters often trip breakers.",
+                "correct": true
+              },
+              {
+                "text": "180 amps",
+                "explanation": "This would come from multiplying instead of dividing. To find current from power and voltage, use I = P / V."
+              }
+            ]
+          },
+          {
+            "id": "EI5-007",
+            "text": "A utility company bills customers based on kilowatt-hours (kWh). What does a kilowatt-hour measure?",
+            "options": [
+              {
+                "text": "The total energy used over time",
+                "explanation": "Correct! A kilowatt-hour is energy: power (kilowatts) multiplied by time (hours). A 1 kW device running for 1 hour uses 1 kWh.",
+                "correct": true
+              },
+              {
+                "text": "The rate of energy use at a given instant",
+                "explanation": "The rate of energy use is power, measured in watts or kilowatts, not kilowatt-hours."
+              },
+              {
+                "text": "The voltage delivered to the home",
+                "explanation": "Voltage is measured in volts, and it is roughly constant regardless of how much you use."
+              },
+              {
+                "text": "The current flowing through the meter",
+                "explanation": "Current is measured in amps. Kilowatt-hours combine power and time to measure energy consumed."
+              }
+            ]
+          },
+          {
+            "id": "EI5-008",
+            "text": "Which statement best describes the relationship between a generator and a motor?",
+            "options": [
+              {
+                "text": "Both convert electrical energy into heat",
+                "explanation": "Converting electrical energy mostly into heat describes a heating element or a resistor, not generators and motors."
+              },
+              {
+                "text": "A generator converts mechanical energy into electrical energy, while a motor does the reverse",
+                "explanation": "Correct! A generator turns motion into electricity; a motor turns electricity into motion. They are opposite machines built on the same electromagnetic principles.",
+                "correct": true
+              },
+              {
+                "text": "A motor converts mechanical energy into electrical energy, while a generator does the reverse",
+                "explanation": "This is backwards: the motor consumes electricity to create motion, and the generator uses motion to create electricity."
+              },
+              {
+                "text": "Both store electrical energy for later use",
+                "explanation": "Storing electrical energy is the job of a battery or capacitor; generators and motors convert energy between forms rather than storing it."
+              }
+            ]
+          }
+        ],
+        "quizConfig": {
+          "questionsPerQuiz": 6
+        }
+      },
+      {
+        "id": "EI-6",
+        "title": "Magnetism, Motors, and Electrical Safety",
+        "description": "Learn how electricity and magnetism work together to power motors and generators, then master the safety rules that keep electricians and mechanics alive on the job.",
+        "lesson": {
+          "intro": "This chapter ties together two big ideas. First, electricity and magnetism are two sides of the same coin: current creates magnetic fields, and moving magnets create current. That single relationship explains electromagnets, motors, and generators. Second, we cover electrical safety, the knowledge that matters most in the real world. The ASVAB loves both topics because they show you understand electricity as a working technician would, not just on paper. Take your time here. These concepts show up in the military every day, from vehicle alternators to shipboard generators to the outlet in your barracks bathroom.",
+          "concepts": [
+            {
+              "title": "Electricity and Magnetism Are Linked",
+              "content": "Any time current flows through a wire, a magnetic field forms in circles around that wire. This was discovered when a compass needle moved near a current-carrying wire. The bigger the current, the stronger the field. This connection is called electromagnetism, and it is the foundation for motors, generators, transformers, relays, and speakers. Remember the one-line version for test day: moving electric charge creates a magnetic field. No current, no field. The field appears the instant current flows and disappears the instant it stops, which is exactly what makes it so useful, you can switch magnetism on and off."
+            },
+            {
+              "title": "Electromagnets: Coil Plus Core",
+              "content": "A straight wire makes a weak field, so we wind the wire into a coil. Each loop adds its field to the next, concentrating the magnetism. Slide an iron core inside the coil and the field gets dramatically stronger, because iron focuses and multiplies magnetic field lines. That is an electromagnet. Three things make an electromagnet stronger: more turns of wire in the coil, more current through the wire, and a better iron core. Unlike a permanent magnet, an electromagnet can be turned on and off, and its strength can be adjusted by changing the current. That is why junkyard cranes, door locks, relays, and solenoids in your car starter all use electromagnets."
+            },
+            {
+              "title": "Induction: Motion Makes Current",
+              "content": "The link works in reverse too. If you move a magnet past a coil of wire, or move the coil past the magnet, a voltage is induced in the wire and current flows. This is electromagnetic induction. The key word is motion, or more precisely a changing magnetic field. A magnet sitting still next to a coil induces nothing. Move it faster, use a stronger magnet, or add more turns to the coil, and you induce more voltage. Induction is how every power plant generator, vehicle alternator, and transformer works. When the ASVAB asks how a generator produces electricity, the answer is induction: relative motion between a magnet and a coil."
+            },
+            {
+              "title": "Motors and Generators in One Breath Each",
+              "content": "A motor takes in electrical energy and puts out mechanical motion: current through a coil creates a magnetic field that pushes against another magnetic field, spinning the shaft. A generator is the exact same machine run backward: something mechanical spins a coil through a magnetic field, and induction produces electrical current. Motor: electricity in, motion out. Generator: motion in, electricity out. In fact, many machines can do both. Your car has one of each, the starter motor uses battery current to crank the engine, and the alternator uses engine rotation to generate current that recharges the battery."
+            },
+            {
+              "title": "Current Is What Hurts You",
+              "content": "People say do not touch high voltage, but current, measured in amps, is what actually injures and kills. Currents well under one amp, even a few hundredths of an amp, can stop a human heart if they pass through the chest. Voltage matters because it pushes current through your body, and your skin resistance is the main thing limiting that current. Wet skin has far lower resistance than dry skin, so the same voltage pushes much more current through you when you are wet or sweaty. That is why working with wet hands, standing on a wet floor, or handling electrical gear near water is so dangerous. Dry conditions, insulated tools, and rubber-soled boots all raise resistance and lower the current that could flow through you."
+            },
+            {
+              "title": "Built-In Protections: Grounding, GFCIs, Fuses, and Breakers",
+              "content": "Grounding gives fault current a safe, low-resistance path into the earth instead of through your body. The third round prong on a plug connects a tool's metal case to ground, so if a hot wire touches the case, the current flows to ground and trips the breaker instead of waiting to shock you. A GFCI, or ground fault circuit interrupter, watches the current going out and coming back; if even a tiny amount leaks, possibly through a person, it shuts off power in a fraction of a second. That is why GFCI outlets are required near water: bathrooms, kitchens, garages, and outdoors. Fuses and circuit breakers protect against overloads by opening the circuit when current gets too high. Never bypass one with a bigger fuse, a coin, or a wire, that removes the protection and invites overheated wiring and fire. If a fuse keeps blowing, the circuit is telling you something is wrong; find the cause."
+            },
+            {
+              "title": "Field Safety Habits That Save Lives",
+              "content": "First, capacitors store charge even after the power is off. Equipment like TV circuits, microwave ovens, and motor-start circuits can deliver a serious shock hours after being unplugged, so capacitors must be safely discharged before you work near them. Second, always test before touching: verify a circuit is dead with a meter or tester even if you flipped the breaker yourself, because breakers get mislabeled and switches fail. Third, respect extension cord gauge. A long, thin cord has too much resistance for a high-current tool; it drops voltage, overheats, and can start a fire. Bigger loads and longer runs need thicker wire, which means a lower gauge number, 12 gauge is thicker than 16 gauge. These habits are simple, and they are exactly what separates a safe technician from a statistic."
+            }
+          ],
+          "examples": [
+            {
+              "problem": "A soldier is using an electric drill in a flooded motor pool bay. The drill has a cracked case and the outlet is a standard non-GFCI receptacle. What is wrong with this picture, and what should be done?",
+              "steps": [
+                "Identify the hazards one at a time. Standing water lowers the resistance between the soldier's body and ground, so any fault current has an easy path through him.",
+                "The cracked case means a hot wire inside could contact the housing or the soldier's hand directly, energizing exactly what he is holding.",
+                "The non-GFCI outlet means there is nothing watching for leakage current. A regular breaker only trips on a large overload, not the small current that can stop a heart.",
+                "Fix the situation: stop work, take the damaged drill out of service, get out of the standing water, and use a GFCI-protected outlet or a portable GFCI adapter for any work near water.",
+                "The safety chain here is resistance, fault path, and protection. Break the hazard at every link you can: dry footing, sound equipment, and GFCI protection."
+              ],
+              "tip": "On the ASVAB, water plus electricity almost always points to the same answers: wet skin means lower resistance and more current, and GFCI protection is required near water."
+            },
+            {
+              "problem": "A generator on base keeps blowing its 20 amp fuse. A private suggests wrapping the fuse in foil so it stops blowing. Walk through why this is dangerous and what the correct action is.",
+              "steps": [
+                "Ask what the fuse is doing. It blows when current exceeds 20 amps, which means the circuit is drawing more current than the wiring is rated to carry safely.",
+                "Wrapping the fuse in foil creates a solid metal path around it, so the fuse can never open the circuit. The protection is gone but the overload is still there.",
+                "With no protection, the excess current keeps flowing, the wiring overheats, insulation melts, and a fire or destroyed equipment is the likely result.",
+                "The blown fuse is a symptom, not the problem. The correct action is to find the cause of the overload, maybe a short circuit, a failing motor, or too many loads on one circuit, and fix it.",
+                "Replace the fuse only with one of the exact same rating. A bigger fuse or a bypass just moves the failure point from a cheap fuse to the expensive wiring."
+              ],
+              "tip": "Never bypass or oversize a fuse or breaker. Any test answer involving foil, coins, wire jumpers, or a bigger fuse than specified is the wrong move every time."
+            },
+            {
+              "problem": "A technician unplugs a microwave oven to replace a part, then reaches inside immediately. A moment later he gets a strong shock. The unit was unplugged, so what happened, and what should he have done?",
+              "steps": [
+                "Recall that capacitors store electrical charge. A microwave contains a large high-voltage capacitor that can hold a dangerous charge long after the power cord is pulled.",
+                "Unplugging removes the source of new energy, but it does nothing about energy already stored in the capacitor. The capacitor sat there charged, waiting for a path, and his hand provided one.",
+                "The correct procedure is to unplug the unit, wait, and then safely discharge the capacitor using the proper tool or bleeder procedure before touching anything.",
+                "Then apply the universal rule: test before touching. Verify with a meter that no voltage remains between the points you are about to handle.",
+                "The lesson generalizes to any equipment with capacitors, power supplies, TV and monitor circuits, motor-start circuits, and flash units. Unplugged does not automatically mean safe."
+              ],
+              "tip": "Two habits cover most shock scenarios: assume capacitors are charged until proven discharged, and test every circuit dead before you touch it, even one you de-energized yourself."
+            }
+          ],
+          "summary": "Current through a wire creates a magnetic field; coiling the wire and adding an iron core makes an electromagnet whose strength grows with more turns, more current, and a better core. Induction is the reverse: relative motion between a magnet and a coil produces current. A motor turns electrical energy into motion; a generator turns motion into electrical energy. On the safety side, current in amps is what injures, and wet skin lets far more current through. GFCIs protect people near water, grounding gives fault current a safe path, and fuses and breakers must never be bypassed. Capacitors stay charged after power-off, so discharge them and always test before touching. Match extension cord gauge to the load, thicker wire and lower gauge numbers for bigger tools and longer runs. Know the physics, respect the hazards, and you will handle every question in this section with confidence."
+        },
+        "questions": [
+          {
+            "id": "EI6-001",
+            "text": "What happens in the space around a wire when electric current flows through it?",
+            "options": [
+              {
+                "text": "A magnetic field forms around the wire",
+                "correct": true,
+                "explanation": "Correct! Any current-carrying wire is surrounded by a magnetic field. This link between electricity and magnetism is the basis of electromagnets, motors, and generators."
+              },
+              {
+                "text": "The wire becomes permanently magnetized",
+                "explanation": "The field exists only while current flows. When the current stops, the field around the wire disappears, unlike a permanent magnet."
+              },
+              {
+                "text": "Nothing happens unless the wire is coiled",
+                "explanation": "Even a straight wire produces a magnetic field when current flows. Coiling the wire simply concentrates and strengthens that field."
+              },
+              {
+                "text": "The wire loses all electrical resistance",
+                "explanation": "Current does not eliminate resistance. In fact, current flowing through resistance produces heat, which is a separate effect from the magnetic field."
+              }
+            ]
+          },
+          {
+            "id": "EI6-002",
+            "text": "Which change would make an electromagnet weaker?",
+            "options": [
+              {
+                "text": "Adding more turns of wire to the coil",
+                "explanation": "More turns make the electromagnet stronger, because each loop adds its magnetic field to the others."
+              },
+              {
+                "text": "Increasing the current through the coil",
+                "explanation": "More current means a stronger magnetic field, so this strengthens the electromagnet rather than weakening it."
+              },
+              {
+                "text": "Removing the iron core from the coil",
+                "correct": true,
+                "explanation": "Correct! The iron core concentrates and multiplies the magnetic field. Take it out and the electromagnet becomes much weaker, even with the same coil and current."
+              },
+              {
+                "text": "Inserting a larger iron core into the coil",
+                "explanation": "An iron core strengthens an electromagnet by focusing the field lines, so adding one does the opposite of weakening it."
+              }
+            ]
+          },
+          {
+            "id": "EI6-003",
+            "text": "A generator produces electricity primarily because of which principle?",
+            "options": [
+              {
+                "text": "Static charge building up on the spinning shaft",
+                "explanation": "Static electricity is not how generators work. Generators rely on the interaction between coils of wire and magnetic fields."
+              },
+              {
+                "text": "Electromagnetic induction from motion between a magnet and a coil",
+                "correct": true,
+                "explanation": "Correct! When a coil and a magnetic field move relative to each other, a voltage is induced in the coil. Spinning the machine provides that motion, which is exactly what a generator does."
+              },
+              {
+                "text": "Chemical reactions inside the windings",
+                "explanation": "Chemical reactions produce electricity in batteries, not in generators. A generator converts mechanical motion into electrical energy."
+              },
+              {
+                "text": "Friction between the brushes and the shaft",
+                "explanation": "Brushes simply carry current to or from rotating parts. Friction there is an unwanted side effect, not the source of the electricity."
+              }
+            ]
+          },
+          {
+            "id": "EI6-004",
+            "text": "Which statement best describes the difference between a motor and a generator?",
+            "options": [
+              {
+                "text": "A motor converts electrical energy to motion; a generator converts motion to electrical energy",
+                "correct": true,
+                "explanation": "Correct! They are essentially the same machine run in opposite directions. Electricity in, motion out is a motor. Motion in, electricity out is a generator."
+              },
+              {
+                "text": "A motor uses magnets but a generator does not",
+                "explanation": "Both devices depend on magnetic fields interacting with coils. Neither one works without magnetism."
+              },
+              {
+                "text": "A generator stores energy while a motor releases it",
+                "explanation": "Neither device stores energy. Batteries and capacitors store energy; motors and generators convert it from one form to another."
+              },
+              {
+                "text": "A motor runs on AC only and a generator produces DC only",
+                "explanation": "Motors and generators both come in AC and DC versions. The direction of energy conversion, not the type of current, is what separates them."
+              }
+            ]
+          },
+          {
+            "id": "EI6-005",
+            "text": "In an electrical shock, which quantity actually causes injury to the body?",
+            "options": [
+              {
+                "text": "The wattage rating printed on the equipment",
+                "explanation": "The equipment's power rating describes normal operation, not what flows through a person during a shock."
+              },
+              {
+                "text": "The voltage alone, regardless of anything else",
+                "explanation": "Voltage is the push, but injury depends on how much current that push actually drives through the body. High voltage with almost no current path can do little, while modest voltage through wet skin can be deadly."
+              },
+              {
+                "text": "The frequency of the household supply",
+                "explanation": "Frequency has some effect on how the body responds, but it is not the fundamental cause of injury. The amount of current through the body is what matters most."
+              },
+              {
+                "text": "The current, in amps, that flows through the body",
+                "correct": true,
+                "explanation": "Correct! Current is what disrupts the heart and burns tissue. Even a small fraction of one amp through the chest can be fatal, which is why lowering possible current with dry skin, insulation, and GFCIs is so important."
+              }
+            ]
+          },
+          {
+            "id": "EI6-006",
+            "text": "Why does the electrical code require GFCI outlets in bathrooms, kitchens, and outdoor locations?",
+            "options": [
+              {
+                "text": "GFCIs boost the voltage to make up for damp conditions",
+                "explanation": "A GFCI does not change the voltage at all. It monitors current and disconnects power when some of it leaks out of the circuit."
+              },
+              {
+                "text": "Water lowers body resistance, and a GFCI cuts power fast when current leaks through a person",
+                "correct": true,
+                "explanation": "Correct! Near water, a person's resistance drops and shock risk rises. A GFCI compares outgoing and returning current and trips in a fraction of a second if any current takes a stray path, such as through a body."
+              },
+              {
+                "text": "GFCIs prevent the outlet from being overloaded by large appliances",
+                "explanation": "Overload protection is the job of fuses and circuit breakers. A GFCI protects against leakage current, not against drawing too much current."
+              },
+              {
+                "text": "GFCIs are waterproof, so they can be splashed safely",
+                "explanation": "A GFCI outlet is not inherently waterproof. Its value is the internal sensing that shuts off power when current leaks, which protects people in damp locations."
+              }
+            ]
+          },
+          {
+            "id": "EI6-007",
+            "text": "A 15 amp fuse in a piece of equipment keeps blowing. What is the correct response?",
+            "options": [
+              {
+                "text": "Replace it with a 30 amp fuse so it stops blowing",
+                "explanation": "Oversizing the fuse lets dangerous current flow through wiring rated for less, risking overheating and fire. The fuse size must match the circuit."
+              },
+              {
+                "text": "Wrap the fuse in metal foil to keep the circuit closed",
+                "explanation": "Bypassing a fuse with foil removes all overload protection while the fault keeps drawing excess current. This is a classic cause of electrical fires."
+              },
+              {
+                "text": "Find and fix the cause of the overload, then install a fuse of the same rating",
+                "correct": true,
+                "explanation": "Correct! A repeatedly blowing fuse is a warning that too much current is flowing, often from a short or failing component. Fix the cause, then replace the fuse with the exact rating specified."
+              },
+              {
+                "text": "Remove the fuse and connect the wires directly together",
+                "explanation": "Jumping around the fuse leaves the circuit completely unprotected. The underlying fault remains and can now overheat the wiring unchecked."
+              }
+            ]
+          },
+          {
+            "id": "EI6-008",
+            "text": "A technician unplugs an appliance before repairing it. Why might the circuits inside still deliver a dangerous shock?",
+            "options": [
+              {
+                "text": "The metal chassis generates its own voltage when touched",
+                "explanation": "Metal does not create voltage on its own. The danger comes from energy that was stored while the unit was powered."
+              },
+              {
+                "text": "Residual current keeps circulating in the wires for days",
+                "explanation": "Current in ordinary wires stops as soon as the circuit is broken. What persists is charge stored in capacitors, not circulating current in the wiring."
+              },
+              {
+                "text": "Unplugging reverses the polarity of the internal circuits",
+                "explanation": "Removing power does not reverse polarity. The real hazard is stored energy that remains inside certain components."
+              },
+              {
+                "text": "Capacitors inside can hold a stored charge after power is removed",
+                "correct": true,
+                "explanation": "Correct! Capacitors store charge and can hold it long after the plug is pulled. Safe practice is to discharge capacitors properly and test with a meter before touching any internal circuitry."
+              }
+            ]
+          }
+        ],
+        "quizConfig": {
+          "questionsPerQuiz": 6
+        }
+      }
+    ]
+  },
   GS: {
     "name": "General Science",
     "description": "Life, earth, space, physical science, and chemistry",

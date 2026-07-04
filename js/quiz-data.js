@@ -4188,6 +4188,456 @@ const asvabData = {
         text: "A multimeter can measure all EXCEPT:",
         options: ["Voltage", "Current", "Resistance", "Weight"],
         correct: 3, difficulty: 1
+      },
+      {
+        id: "EI031",
+        text: "Electrical current is measured in which unit?",
+        options: ["Volts", "Amperes", "Ohms", "Watts"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "EI032",
+        text: "Voltage is best described as:",
+        options: ["The flow of electrons through a wire", "The opposition to electron flow", "The electrical pressure that pushes electrons through a circuit", "The heat produced by a circuit"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "EI033",
+        text: "A 24-volt battery is connected to a resistance of 6 ohms. How much current flows in the circuit?",
+        options: ["4 amps", "144 amps", "0.25 amps", "18 amps"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "EI034",
+        text: "A circuit carries 3 amps of current through a 5-ohm resistor. What is the voltage across the resistor?",
+        options: ["1.67 volts", "8 volts", "0.6 volts", "15 volts"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "EI035",
+        text: "A device draws 10 amps when plugged into a 120-volt outlet. What is its resistance?",
+        options: ["1200 ohms", "12 ohms", "110 ohms", "0.083 ohms"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "EI036",
+        text: "Which change will increase the resistance of a copper wire?",
+        options: ["Making the wire shorter", "Making the wire thicker", "Making the wire longer", "Cooling the wire down"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "EI037",
+        text: "If the length of a wire is doubled while its thickness stays the same, its resistance will:",
+        options: ["Double", "Stay the same", "Be cut in half", "Quadruple"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "EI038",
+        text: "Comparing two copper wires of the same length, a 22-gauge (AWG) wire compared to a 12-gauge wire will have:",
+        options: ["Lower resistance because it is thicker", "Lower resistance because it is thinner", "Higher resistance because it is thicker", "Higher resistance because it is thinner"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "EI039",
+        text: "Which of the following materials is a semiconductor?",
+        options: ["Copper", "Silicon", "Rubber", "Aluminum"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "EI040",
+        text: "In a battery-powered circuit, electrons actually flow:",
+        options: ["From the positive terminal to the negative terminal", "In both directions at once", "From the negative terminal to the positive terminal", "Only when the battery is being charged"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "EI041",
+        text: "As the temperature of a copper wire increases, its resistance:",
+        options: ["Increases", "Decreases", "Stays exactly the same", "Drops to zero"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "EI042",
+        text: "The voltage across a circuit stays the same, but the resistance is cut in half. The current will:",
+        options: ["Be cut in half", "Stay the same", "Drop to zero", "Double"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "EI043",
+        text: "A technician measures 0.5 amps flowing through a resistor connected across a 12-volt battery. What is the resistance?",
+        options: ["24 ohms", "6 ohms", "12.5 ohms", "0.04 ohms"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "EI044",
+        text: "Rubber and glass make good electrical insulators because their:",
+        options: ["Atoms are packed too tightly for current to pass", "Electrons are tightly bound to their atoms, leaving few free electrons", "Surfaces are too smooth for electrons to grip", "Molecules absorb electricity and store it"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "EI045",
+        text: "A wire is replaced with one made of the same material that is twice as long and has twice the cross-sectional area. Its resistance will:",
+        options: ["Double", "Quadruple", "Stay the same", "Be cut in half"],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "EI046",
+        text: "A flashlight fails to light because a wire inside has broken. This fault is best described as:",
+        options: ["A short circuit", "An open circuit", "A closed circuit", "A parallel circuit"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "EI047",
+        text: "Resistors of 5 ohms, 10 ohms, and 15 ohms are connected in series. What is the total resistance?",
+        options: ["30 ohms", "15 ohms", "10 ohms", "3.3 ohms"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "EI048",
+        text: "Two 10-ohm resistors are connected in parallel. What is the total resistance of the combination?",
+        options: ["20 ohms", "10 ohms", "5 ohms", "2 ohms"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "EI049",
+        text: "In a simple series circuit with three resistors, how does the current compare at different points in the circuit?",
+        options: ["It is greatest near the battery", "It is greatest through the largest resistor", "It is smallest through the largest resistor", "It is the same at every point"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "EI050",
+        text: "Three lamps are connected in parallel across a 12-volt battery. What is the voltage across each lamp?",
+        options: ["4 volts", "12 volts", "36 volts", "It depends on the order of the lamps"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "EI051",
+        text: "A string of identical bulbs is wired in series. If another identical bulb is added to the string, the bulbs will:",
+        options: ["All become dimmer", "All become brighter", "Stay the same brightness", "Alternate bright and dim"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "EI052",
+        text: "Household outlets and lights are wired in parallel rather than in series mainly because parallel wiring:",
+        options: ["Uses less copper wire", "Keeps the total current low", "Gives every device full voltage and lets each operate independently", "Makes the fuses last longer"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "EI053",
+        text: "A 6-ohm resistor and a 3-ohm resistor are connected in parallel. What is the total resistance?",
+        options: ["9 ohms", "4.5 ohms", "3 ohms", "2 ohms"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "EI054",
+        text: "A 4-ohm resistor is connected in series with a parallel pair of two 8-ohm resistors. What is the total resistance of the circuit?",
+        options: ["20 ohms", "8 ohms", "12 ohms", "6 ohms"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "EI055",
+        text: "A 2-ohm resistor and a 4-ohm resistor are connected in series across a 12-volt battery. What is the voltage across the 4-ohm resistor?",
+        options: ["8 volts", "12 volts", "6 volts", "4 volts"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "EI056",
+        text: "A single switch is placed in the main line between a battery and three lamps wired in parallel. When the switch is opened:",
+        options: ["Only the nearest lamp goes out", "The lamps get brighter", "The lamps dim but stay lit", "All three lamps go out"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "EI057",
+        text: "Two 6-ohm resistors in parallel are connected in series with a 3-ohm resistor across a 12-volt battery. What is the total current drawn from the battery?",
+        options: ["1 amp", "4 amps", "2 amps", "0.5 amp"],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "EI058",
+        text: "What is the primary function of a resistor in a circuit?",
+        options: ["To store energy in a magnetic field", "To convert AC into DC", "To limit or oppose the flow of current", "To boost the voltage of a signal"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "EI059",
+        text: "The colored bands printed on a resistor indicate its:",
+        options: ["Resistance value and tolerance", "Maximum power rating only", "Required direction of current flow", "Date of manufacture"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "EI060",
+        text: "A potentiometer is best described as a:",
+        options: ["Fixed resistor sealed in ceramic", "Variable resistor with a movable contact", "Capacitor whose value changes with temperature", "One-way valve for electric current"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "EI061",
+        text: "When an uncharged capacitor is connected across a DC source, the current in the circuit:",
+        options: ["Flows continuously at a steady rate", "Never flows at all", "Increases steadily the longer it is connected", "Flows at first, then drops to nearly zero as the capacitor charges"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "EI062",
+        text: "In a DC power supply, a large capacitor placed across the output is used to:",
+        options: ["Step the voltage up to a higher level", "Provide mechanical switching of the load", "Smooth out the ripple in the rectified voltage", "Increase the current rating of the transformer"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "EI063",
+        text: "An inductor opposes:",
+        options: ["Changes in the current flowing through it", "All flow of direct current", "Any voltage applied across it", "The buildup of static charge on its core"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "EI064",
+        text: "A diode conducts current only when it is:",
+        options: ["Reverse biased", "Forward biased", "Connected to an AC source", "Operating at zero volts"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "EI065",
+        text: "Unlike an ordinary diode, an LED also:",
+        options: ["Gives off light when forward current flows through it", "Conducts current equally in both directions", "Stores electric charge like a capacitor", "Works only when connected to AC"],
+        correct: 0, difficulty: 1
+      },
+      {
+        id: "EI066",
+        text: "In a transistor used as a switch, a small current applied to the base controls:",
+        options: ["The color code of the device", "The resistance of the power supply", "A much larger current between the collector and emitter", "The frequency of the AC line"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "EI067",
+        text: "A relay is a device that uses:",
+        options: ["Light to vary a resistance", "An electromagnet to open or close a separate set of switch contacts", "A dielectric to store charge", "A turns ratio to change AC voltage"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "EI068",
+        text: "When its coil is energized, a solenoid converts electrical energy into:",
+        options: ["Visible light", "Alternating voltage", "Chemical energy", "Straight-line mechanical motion of a movable core"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "EI069",
+        text: "A single-pole, single-throw (SPST) switch can:",
+        options: ["Open or close one circuit path only", "Route one input to either of two outputs", "Control two separate circuits at the same time", "Reverse the direction of a motor"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "EI070",
+        text: "Three 1.5-volt cells connected in series produce a total of:",
+        options: ["1.5 volts", "4.5 volts", "3.0 volts", "0.5 volts"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "EI071",
+        text: "An integrated circuit (IC) contains:",
+        options: ["A single large vacuum tube in a metal can", "Only mechanical relay contacts", "One heavy-duty wire-wound resistor", "Many components, such as transistors and resistors, built on one small chip"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "EI072",
+        text: "An ideal transformer has a 4-to-1 primary-to-secondary turns ratio. If the primary is fed 120 volts AC and draws 1 ampere, the secondary supplies about:",
+        options: ["480 volts at 0.25 ampere", "120 volts at 1 ampere", "30 volts at 4 amperes", "30 volts at 1 ampere"],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "EI073",
+        text: "On a schematic diagram, a zigzag line drawn in a circuit represents which component?",
+        options: ["A resistor", "A capacitor", "An inductor", "A fuse"],
+        correct: 0, difficulty: 1
+      },
+      {
+        id: "EI074",
+        text: "A schematic symbol showing two parallel lines of equal length with a gap between them represents which component?",
+        options: ["A battery", "A switch", "A capacitor", "A transformer"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "EI075",
+        text: "In the schematic symbol for a battery, the longer of the two parallel lines indicates what?",
+        options: ["The negative terminal", "The positive terminal", "The higher-capacity cell", "The ground connection"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "EI076",
+        text: "A schematic symbol drawn as a series of small loops or coils in a wire represents which component?",
+        options: ["A resistor", "A crystal", "A relay contact", "An inductor"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "EI077",
+        text: "In the schematic symbol for a diode, a triangle pointing toward a straight bar, what does the direction of the triangle indicate?",
+        options: ["The direction conventional current is allowed to flow", "The direction electrons flow while the diode is conducting", "The physical orientation of the part on the board", "The side connected to ground"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "EI078",
+        text: "Comparing 12 AWG and 14 AWG copper wire, which statement is correct?",
+        options: ["14 AWG is thicker and carries more current", "They are the same thickness but rated differently", "12 AWG is thicker and can safely carry more current", "12 AWG is thinner but has lower resistance"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "EI079",
+        text: "In standard US household wiring, the white insulated wire normally serves as the:",
+        options: ["Ground conductor", "Neutral conductor", "Hot conductor", "Switched leg"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "EI080",
+        text: "The round third pin on a three-prong plug is included primarily to:",
+        options: ["Carry the return current under normal operation", "Keep the plug from being inserted upside down", "Supply 240 volts to heavy appliances", "Give fault current a safe path to ground if the case becomes energized"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "EI081",
+        text: "A circuit wired with 14 AWG copper should be protected by a 15 amp breaker rather than a 30 amp breaker because:",
+        options: ["The breaker must trip before the wire overheats from excess current", "A larger breaker would deliver too much voltage to the outlets", "Smaller breakers respond faster to lightning strikes", "The 30 amp breaker would not physically fit the panel slot"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "EI082",
+        text: "When soldering a splice between two wires, accepted practice requires that the joint be:",
+        options: ["Held together only by the solder for maximum conductivity", "Twisted into a mechanically secure connection before solder is applied", "Coated with flux after the solder cools", "Left untaped so heat can escape the joint"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "EI083",
+        text: "What is the main difference between direct current (DC) and alternating current (AC)?",
+        options: ["DC has higher voltage than AC", "DC flows in one direction; AC reverses direction periodically", "DC only exists in power lines", "AC can only be produced by batteries"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "EI084",
+        text: "Which of the following is a source of direct current (DC)?",
+        options: ["A wall outlet in a house", "A power company generator station", "A car battery", "A doorbell transformer"],
+        correct: 2, difficulty: 1
+      },
+      {
+        id: "EI085",
+        text: "Why is AC, rather than DC, used to transmit electric power over long distances?",
+        options: ["AC voltage can be easily stepped up and down with transformers", "AC travels faster through wires than DC", "AC is safer to touch than DC", "AC wires do not need insulation"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "EI086",
+        text: "The frequency of an alternating current describes:",
+        options: ["The amount of voltage in the circuit", "The thickness of the wire carrying it", "The total power delivered to a load", "How many complete cycles occur each second"],
+        correct: 3, difficulty: 2
+      },
+      {
+        id: "EI087",
+        text: "An appliance draws 5 amps from a 120-volt outlet. How much power does it use?",
+        options: ["24 watts", "600 watts", "125 watts", "1,200 watts"],
+        correct: 1, difficulty: 2
+      },
+      {
+        id: "EI088",
+        text: "A space heater is rated at 2,400 watts and runs on 120 volts. How much current does it draw?",
+        options: ["10 amps", "12 amps", "20 amps", "24 amps"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "EI089",
+        text: "Electric companies bill customers by the kilowatt-hour. A kilowatt-hour is a unit of:",
+        options: ["Energy", "Voltage", "Current", "Resistance"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "EI090",
+        text: "A 1,500-watt heater runs for 4 hours. How many kilowatt-hours of energy does it use?",
+        options: ["0.6 kWh", "37.5 kWh", "600 kWh", "6 kWh"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "EI091",
+        text: "A generator converts:",
+        options: ["Electrical energy into mechanical energy", "Mechanical energy into electrical energy", "Chemical energy into light", "Heat energy into chemical energy"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "EI092",
+        text: "An electric motor is essentially the opposite of a generator because a motor:",
+        options: ["Uses electrical energy to produce rotating mechanical motion", "Produces electricity when it is spun by hand", "Stores electrical energy for later use", "Changes AC into DC"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "EI093",
+        text: "Which change would make an electromagnet stronger?",
+        options: ["Using thinner wire with the same current", "Removing the iron core from the coil", "Increasing the current or adding more turns of wire to the coil", "Reversing the direction of the current"],
+        correct: 2, difficulty: 3
+      },
+      {
+        id: "EI094",
+        text: "When current flows through a straight wire, the magnetic field it creates:",
+        options: ["Points straight along the wire in the direction of current flow", "Exists only at the two ends of the wire", "Cancels out unless the wire is coiled", "Forms circles around the wire"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "EI095",
+        text: "Moving a magnet back and forth through a coil of wire causes:",
+        options: ["The coil to heat up with no current flow", "A current to be induced in the coil", "The magnet to lose its magnetism immediately", "The coil to become permanently magnetized"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "EI096",
+        text: "What actually causes injury or death in an electric shock?",
+        options: ["The voltage alone, regardless of current", "The resistance of the wire", "The amount of current that flows through the body", "The frequency of the power source"],
+        correct: 2, difficulty: 2
+      },
+      {
+        id: "EI097",
+        text: "A GFCI (ground fault circuit interrupter) outlet is required in bathrooms and kitchens because it:",
+        options: ["Shuts off power quickly when current leaks to ground, such as through a person", "Increases the voltage available for large appliances", "Prevents the circuit from ever being overloaded", "Filters electrical noise from sensitive electronics"],
+        correct: 0, difficulty: 2
+      },
+      {
+        id: "EI098",
+        text: "Before servicing electrical equipment, lockout/tagout procedures require a worker to:",
+        options: ["Wear rubber gloves and continue working with the power on", "Post a warning sign and leave the breaker on", "Ask a coworker to watch the switch during the repair", "De-energize the equipment and lock the disconnect so it cannot be turned back on"],
+        correct: 3, difficulty: 3
+      },
+      {
+        id: "EI099",
+        text: "A fuse keeps blowing in a circuit. Why should you never replace it with a higher-rated fuse or a piece of wire?",
+        options: ["The circuit would stop carrying any current at all", "The wiring could overheat and start a fire because the overcurrent protection is defeated", "The voltage in the circuit would drop too low", "Higher-rated fuses only work with DC circuits"],
+        correct: 1, difficulty: 3
+      },
+      {
+        id: "EI100",
+        text: "A technician unplugs an old TV before opening it. Why can it still deliver a dangerous shock?",
+        options: ["The plug retains voltage for several days", "Unplugging reverses the polarity of the circuit", "Capacitors inside can hold a charge long after power is removed", "The antenna picks up electricity from the air"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "EI101",
+        text: "The main purpose of grounding a metal appliance case is to:",
+        options: ["Give fault current a safe, low-resistance path so a breaker or fuse trips instead of shocking the user", "Make the appliance run more efficiently", "Reduce the amount of current the appliance draws", "Keep the case from rusting"],
+        correct: 0, difficulty: 3
+      },
+      {
+        id: "EI102",
+        text: "You need an extension cord for a high-current power tool. Which cord is the best choice?",
+        options: ["The longest cord available, so the tool is easier to move", "An 18-gauge lamp cord, because it is more flexible", "Any cord, since gauge only matters for permanent wiring", "A short cord with a low gauge number, meaning thicker wire"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "EI103",
+        text: "Before touching any electrical circuit you believe is off, you should first:",
+        options: ["Touch it quickly with the back of your hand", "Verify it is de-energized with a voltage tester", "Smell the wires for burning insulation", "Assume it is safe if the light switch is off"],
+        correct: 1, difficulty: 1
+      },
+      {
+        id: "EI104",
+        text: "Why is working with electricity especially dangerous in wet conditions?",
+        options: ["Water greatly lowers the body's resistance, so more current flows through you at the same voltage", "Water increases the voltage of the circuit", "Wet air changes AC into DC", "Water makes fuses blow more slowly"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "EI105",
+        text: "A GFCI outlet is designed to trip when the difference between hot and neutral current reaches approximately:",
+        options: ["15 amps", "1 amp", "5 milliamps", "100 milliamps"],
+        correct: 2, difficulty: 5
       }
     ],
 
