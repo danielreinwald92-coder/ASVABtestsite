@@ -27,10 +27,16 @@ HTML Pages (12 served; admin/login/etc. + the 5 preview-*.html are NOT deployed 
 js/
 ├── quiz-engine.js          # Core quiz logic, timer, CAT slot materialization, offline queue
 ├── scoring.js              # AFQT (standard-score model) + Army line scores (sums of std scores)
-├── quiz-data.js            # Question bank (sections metadata now lives in section-config.js)
+├── quiz-data.js            # Question bank, 902 questions (sections metadata lives in section-config.js)
 ├── section-config.js       # Single source of truth for section metadata (timing/counts/names)
-├── courses.js              # Study content (~217KB, lazy-loaded on study-guide.html)
+├── explanations.js         # Per-question answer explanations, lazy via load-explanations.js (SP1)
+├── courses.js              # AR/MK/WK/PC study courses (~217KB, lazy on study-guide.html)
+├── courses-tech.js         # GS/AS/MC/EI study courses (SP4); lazy, merged into `courses` by loader
 ├── weak-areas.js           # Per-section accuracy aggregation → weak-area practice/study plan
+├── recent-seen.js          # On-device recent-question buffer for repeat avoidance (SP2)
+├── streak.js  study-plan.js  # Dashboard: derived streak + test-date countdown/paced plan (SP3)
+├── spaced-repetition.js    # SM-2-lite scheduler + localStorage store for flashcard review (SP3)
+├── share-card.js  pwa-install.js  # Local shareable score card + dismissible install prompt (SP3)
 ├── test-config.js          # Test mode configs (quick/full section lists)
 ├── auth.js                 # Supabase client singleton + session helpers
 ├── offline-queue.js        # Flush queued (offline) test results when back online
@@ -41,9 +47,10 @@ css/shared.css              # Shared :root tokens, nav, mobile menu, reduced-mot
 service-worker.js           # App-shell offline cache (bypasses Supabase/cross-origin/admin)
 manifest.json  robots.txt  .vercelignore
 scripts/
-├── validate-site.js        # Data/scoring contract checks (runs as the Vercel buildCommand)
+├── validate-site.js        # Data/scoring contract checks + per-section POOL_MINIMUMS ratchet +
+│                           #   explanation/course-shape contracts (runs as the Vercel buildCommand)
 └── check-no-inline-js.js   # CI gate: fails if any inline on*= handler or inline <script> exists
-tests/                      # node:test + jsdom suite (76 tests). helpers/load.js, helpers/engine.js
+tests/                      # node:test + jsdom suite (148 tests). helpers/load.js, helpers/engine.js
 docs/scoring-methodology.md # AFQT model, sources, limits
 ```
 
@@ -51,7 +58,7 @@ docs/scoring-methodology.md # AFQT model, sources, limits
 
 ```bash
 npx serve .                    # Local dev server
-npm test                       # Run the node:test + jsdom unit suite (76 tests)
+npm test                       # Run the node:test + jsdom unit suite (148 tests)
 node scripts/validate-site.js  # Validate quiz data + scoring contracts (also the Vercel build gate)
 node scripts/check-no-inline-js.js  # Verify no inline JS (required by the strict CSP)
 git push                       # main auto-deploys to Vercel (build runs validate-site.js)
@@ -150,5 +157,19 @@ Wait for approval before adding to LEARNED section.
   enforces this in CI and will fail the build otherwise. Supabase JS is pinned + SRI-hashed.
 - **Scoring is a documented practice estimate**, not official — see Percentile Scoring section. Keep
   the invariants green (perfect→99, exactly 10 line scores, integer/finite, monotonic).
+- **Content lives in two course bundles:** AR/MK/WK/PC courses in `courses.js`; GS/AS/MC/EI courses
+  in `courses-tech.js` (SP4). The study-guide loader lazy-loads both and `Object.assign(courses,
+  coursesTech)` — a `courses-tech.js` load failure must leave the base four courses working. Edit
+  the right file for the section. `validate-site.js` mirrors the merge before its course-shape checks.
+- **Pool sizes only grow:** `scripts/validate-site.js` has a `POOL_MINIMUMS` ratchet (WK 148, PC 85,
+  AR 122, MK 132, GS 105, EI 105, AS 100, MC 105). Raise the entry when you intentionally grow a pool;
+  never let a pool drop below it. Every question needs a 40–600 char, single-line, HTML-safe (no
+  `< > &`) explanation in `explanations.js`. New questions get adversarial blind-solve verification
+  (two independent agents re-solve without the key) before merge — this has kept key errors at 0.
+- **SP3 motivation features are client-side only (no DB):** streak is derived from `test_results`
+  dates, spaced-repetition state + install-dismiss live in `localStorage` (namespaced
+  `missionasvab.sp3.*`). Account-synced flashcard progress was deliberately deferred to avoid a new
+  writable table + RLS. Keep pure logic (streak/study-plan/SR scheduler/share-text) separate from
+  DOM/storage so it stays unit-testable without jsdom.
 - **Open question (owner):** General Science timing — this table says 12 min but `section-config.js`
   uses 10 min. Unresolved; reconcile when decided.
