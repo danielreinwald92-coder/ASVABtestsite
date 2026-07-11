@@ -8,17 +8,21 @@
   getClient().auth.onAuthStateChange((event, session) => {
     if (event === 'PASSWORD_RECOVERY') {
       recoveryEventFired = true;
+      document.getElementById('checkingLink').style.display = 'none';
       document.getElementById('resetForm').style.display = 'block';
       document.getElementById('invalidLink').style.display = 'none';
     }
   });
 
+  // Give the recovery event a generous window (slow connections) before
+  // declaring the link invalid; the "checking" message shows in the meantime.
   setTimeout(() => {
     if (!recoveryEventFired) {
+      document.getElementById('checkingLink').style.display = 'none';
       document.getElementById('resetForm').style.display = 'none';
       document.getElementById('invalidLink').style.display = 'block';
     }
-  }, 1500);
+  }, 4000);
 
   document.getElementById('passwordForm').addEventListener('submit', async (e) => {
     e.preventDefault();

@@ -112,7 +112,7 @@ function renderMotivation(results, profile) {
       countdownCard.textContent = '📅 Your ASVAB is today — you’ve got this';
       countdownCard.hidden = false;
     } else {
-      countdownCard.textContent = '📅 Update your test date in Account';
+      countdownCard.textContent = '📅 Your test date has passed — update it in Account';
       countdownCard.hidden = false;
     }
   }
@@ -144,6 +144,17 @@ function renderMotivation(results, profile) {
   }
 }
 
+function ordinal(n) {
+  const mod100 = n % 100;
+  if (mod100 >= 11 && mod100 <= 13) return n + 'th';
+  switch (n % 10) {
+    case 1: return n + 'st';
+    case 2: return n + 'nd';
+    case 3: return n + 'rd';
+    default: return n + 'th';
+  }
+}
+
 function getDisplayName(profile, email) {
   const raw = profile && profile.name ? String(profile.name).trim() : '';
   if (raw) {
@@ -158,6 +169,8 @@ function getDisplayName(profile, email) {
 }
 
 function showWelcomeState() {
+  const prefix = document.getElementById('greetingPrefix');
+  if (prefix) prefix.textContent = 'Welcome';
   document.getElementById('welcomeState').style.display = 'block';
   document.getElementById('dashboardContent').style.display = 'none';
   const empty = document.getElementById('emptyDashboard');
@@ -245,7 +258,7 @@ function renderProgressChart(results) {
 
   const dots = points.map(p => `
     <circle cx="${p.x}" cy="${p.y}" r="5" fill="var(--gold-500)" stroke="var(--white)" stroke-width="2">
-      <title>${p.score}th percentile — ${p.date}</title>
+      <title>${ordinal(p.score)} percentile — ${p.date}</title>
     </circle>
   `).join('');
 
@@ -499,7 +512,7 @@ function renderTestHistory(results) {
       <tr class="history-row" data-idx="${globalIdx}">
         <td>${formatDate(r.taken_at)}</td>
         <td>${(r.mode === 'tutor') ? 'Practice' : (r.test_type === 'full' ? 'Full Assessment' : 'AFQT')}</td>
-        <td>${r.afqt_score !== null ? r.afqt_score + 'th %ile' : '—'}</td>
+        <td>${r.afqt_score !== null ? ordinal(r.afqt_score) + ' percentile' : '—'}</td>
         <td><button class="expand-btn" data-idx="${globalIdx}">▾</button></td>
       </tr>
       <tr class="history-detail" id="detail-${globalIdx}" style="display:none;">

@@ -4,13 +4,30 @@
 // directly. Inline on* attributes were replaced with addEventListener wiring
 // at the end of this file.
 // Loaded at end of <body> after js/auth.js, js/test-config.js, js/scoring.js.
+// Visiting results.html with nothing to show: hide the score chrome (which
+// would otherwise render "Great work" and "--" placeholders) and leave one
+// clear message + the "Take Another Test" nav CTA.
+function showEmptyResultsState(title, detail) {
+  const hide = (el) => { if (el) el.style.display = 'none'; };
+  const badge = document.querySelector('.completion-badge');
+  if (badge) badge.textContent = 'No Results';
+  hide(document.querySelector('.greeting'));
+  hide(document.getElementById('userName'));
+  hide(document.querySelector('.afqt-section'));
+  hide(document.querySelector('.stats-row'));
+  hide(document.querySelector('.recruiter-section'));
+  const msg = document.getElementById('scoreMessage');
+  if (msg) msg.textContent = title;
+  const desc = document.getElementById('scoreDescription');
+  if (desc) desc.textContent = detail;
+}
+
 function loadResults() {
   try {
     const resultsRaw = localStorage.getItem('quizResults');
 
     if (!resultsRaw) {
-      document.getElementById('scoreMessage').textContent = 'No results found';
-      document.getElementById('scoreDescription').textContent = 'Please take a practice test first.';
+      showEmptyResultsState('No results yet', 'Take a practice test to see your score breakdown here.');
       return;
     }
 
@@ -20,8 +37,7 @@ function loadResults() {
     const userName = localStorage.getItem('asvabUserName') || 'Test Taker';
 
     if (!results || typeof results !== 'object') {
-      document.getElementById('scoreMessage').textContent = 'Invalid results data';
-      document.getElementById('scoreDescription').textContent = 'Please retake the practice test.';
+      showEmptyResultsState('Invalid results data', 'Please retake the practice test.');
       return;
     }
 
@@ -50,7 +66,20 @@ function loadResults() {
 
   const minutes = Math.floor(results.timeUsed / 60);
   const seconds = results.timeUsed % 60;
-  document.getElementById('timeUsed').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  const timeUsedEl = document.getElementById('timeUsed');
+  timeUsedEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  // Tutor mode is untimed — a "Time Used 0:00" stat is meaningless noise.
+  if (isTutor) {
+    const timeCard = timeUsedEl.closest && timeUsedEl.closest('.stat-card');
+    if (timeCard) timeCard.style.display = 'none';
+  }
+
+  // Keep the greeting honest — "Great work," over a below-minimum score reads wrong.
+  const greetingEl = document.querySelector('.greeting');
+  if (greetingEl && !isTutor) {
+    const headline = hasAFQT ? results.afqt : (results.score || 0);
+    if (headline < (hasAFQT ? 31 : 50)) greetingEl.textContent = 'Test complete,';
+  }
 
   // AFQT-based messaging only when we have a real AFQT estimate.
   // For single-section practice, use raw % with neutral copy (no eligibility claims).
@@ -73,16 +102,16 @@ function loadResults() {
     }
   } else if (afqt >= 93) {
     message = "Outstanding Performance!";
-    description = "You're in the top tier! You qualify for virtually all military occupations. Contact a recruiter to schedule your official test.";
+    description = "Based on this practice estimate, you're in the top tier and would likely qualify for virtually all military occupations. Only the official ASVAB counts — a recruiter can help you schedule it.";
   } else if (afqt >= 65) {
     message = "Excellent Work!";
-    description = "You're well above the minimum requirements and qualify for many career fields. A recruiter can help you explore your options.";
+    description = "This practice estimate puts you well above the minimum requirements — a score like this on the official test would open many career fields. A recruiter can help you explore your options.";
   } else if (afqt >= 50) {
     message = "Great Job!";
-    description = "You're above average and eligible for enlistment. A recruiter can discuss which jobs match your score.";
+    description = "This practice estimate is above average and above the enlistment minimum. Keep it up — only the official ASVAB determines eligibility. A recruiter can discuss which jobs match scores in this range.";
   } else if (afqt >= 31) {
-    message = "You're Eligible!";
-    description = "You meet the minimum AFQT requirement for enlistment. A recruiter can explain your options and help you prepare for the official test.";
+    message = "On Track to Qualify";
+    description = "Based on this practice estimate, you'd likely meet the Army's minimum AFQT requirement of 31 — but it's close, so keep practicing to build a safety margin. Only the official ASVAB determines eligibility.";
   } else if (afqt >= 21) {
     message = "Almost There";
     description = "You're close to the minimum score of 31. Focus on the sections below and retake the practice test.";

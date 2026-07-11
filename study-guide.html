@@ -654,6 +654,8 @@
     .flashcard-sr-btn:hover { background: rgba(212, 168, 83, 0.12); }
     .flashcard-sr-btn.active { background: var(--gold-500, #d4a853); color: #0a1628; }
     .flashcard-sr-due { font-size: 0.85rem; color: var(--text-secondary, #5b6b7d); font-weight: 600; }
+    .flashcard-sr-hint { text-align: center; font-size: 0.85rem; color: var(--text-secondary, #5b6b7d); max-width: 480px; margin: 0 auto 1rem; line-height: 1.5; }
+    .flashcard-action-btn:disabled { opacity: 0.45; cursor: not-allowed; }
     .flashcard-action-btn.sr-again { background: #f3d5d5; color: #7a2020; }
     .flashcard-action-btn.sr-good { background: #d8ecd8; color: #1f5a1f; }
     .flashcard-action-btn.sr-easy { background: var(--gold-500, #d4a853); color: #0a1628; }
@@ -907,6 +909,7 @@
         <button class="flashcard-sr-btn" id="srReviewBtn" type="button" data-action="start-sr">Review due cards</button>
         <span class="flashcard-sr-due" id="srDueBadge" hidden></span>
       </div>
+      <p class="flashcard-sr-hint" id="srHint" hidden>Smart review shows each card again right before you'd forget it. Flip the card, then grade yourself honestly: <strong>Again</strong> = see it again soon, <strong>Good</strong> = normal spacing, <strong>Easy</strong> = wait longer.</p>
       <div class="flashcard-container">
         <div class="flashcard" id="flashcard" data-action="flip-card">
           <div class="flashcard-face flashcard-front" id="flashcard-front"></div>

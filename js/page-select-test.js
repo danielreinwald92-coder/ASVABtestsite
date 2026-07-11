@@ -24,9 +24,28 @@ function deriveTestType(orderedSections) {
 // --- Page wiring ------------------------------------------------------------
 
 (function () {
-  sessionStorage.removeItem('quizState');
-  sessionStorage.removeItem('generatedTest');
-  sessionStorage.removeItem('testConfig');
+  // An in-progress test (this tab) gets a resume banner instead of a silent
+  // wipe — starting a new test still clears it (see the start handler).
+  const clearInProgress = () => {
+    sessionStorage.removeItem('quizState');
+    sessionStorage.removeItem('generatedTest');
+    sessionStorage.removeItem('testConfig');
+  };
+  const resumeBanner = document.getElementById('resumeBanner');
+  const hasInProgress = sessionStorage.getItem('quizState') &&
+    sessionStorage.getItem('generatedTest') && sessionStorage.getItem('testConfig');
+  if (hasInProgress && resumeBanner) {
+    resumeBanner.hidden = false;
+    document.getElementById('resumeBtn').addEventListener('click', () => {
+      window.location.href = 'quiz.html';
+    });
+    document.getElementById('discardBtn').addEventListener('click', () => {
+      clearInProgress();
+      resumeBanner.hidden = true;
+    });
+  } else {
+    clearInProgress();
+  }
 
   const nameInput = document.getElementById('userName');
   const startBtn = document.getElementById('startBtn');
@@ -83,11 +102,11 @@ function deriveTestType(orderedSections) {
     });
     const tutor = tutorEl && tutorEl.checked;
     const timeStr = tutor ? 'untimed' : `${Math.ceil(secs / 60)} min`;
-    summary.textContent = ordered.length
-      ? `Selected: ${ordered.length} section${ordered.length > 1 ? 's' : ''} · ${q}q · ${timeStr}`
-      : 'Select at least one section to begin.';
-
     const nameValid = nameInput.value.trim().length >= 2;
+    summary.textContent = ordered.length
+      ? `Selected: ${ordered.length} section${ordered.length > 1 ? 's' : ''} · ${q}q · ${timeStr}` +
+        (nameValid ? '' : ' — enter your name above to start')
+      : 'Select at least one section to begin.';
     startBtn.disabled = !nameValid || ordered.length === 0;
     startBtn.textContent = ordered.length ? `Start Practice (${q} questions)` : 'Start Practice';
   }

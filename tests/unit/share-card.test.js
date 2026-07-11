@@ -22,6 +22,16 @@ test('timed result includes up to 3 line scores', () => {
   assert.ok(!joined.includes('MM')); // capped at 3
 });
 
+test('percentile uses correct ordinal suffix', () => {
+  assert.ok(buildShareText({ mode: 'timed', afqtPercentile: 91 }).lines[0].includes('91st percentile'));
+  assert.ok(buildShareText({ mode: 'timed', afqtPercentile: 72 }).lines[0].includes('72nd percentile'));
+  assert.ok(buildShareText({ mode: 'timed', afqtPercentile: 93 }).lines[0].includes('93rd percentile'));
+  assert.ok(buildShareText({ mode: 'timed', afqtPercentile: 11 }).lines[0].includes('11th percentile'));
+  assert.ok(buildShareText({ mode: 'timed', afqtPercentile: 12 }).lines[0].includes('12th percentile'));
+  assert.ok(buildShareText({ mode: 'timed', afqtPercentile: 13 }).lines[0].includes('13th percentile'));
+  assert.ok(buildShareText({ mode: 'timed', afqtPercentile: 50 }).lines[0].includes('50th percentile'));
+});
+
 test('tutor result has no AFQT claim', () => {
   const t = buildShareText({ mode: 'tutor', dateStr: '2026-07-04' });
   assert.ok(!/AFQT/i.test(t.lines.join(' ')));

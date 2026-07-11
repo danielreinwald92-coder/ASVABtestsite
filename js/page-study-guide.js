@@ -772,7 +772,13 @@
       if (classic) classic.hidden = flashcardState.srMode;
       if (sr) sr.hidden = !flashcardState.srMode;
       if (nav) nav.style.display = flashcardState.srMode ? 'none' : '';
-      if (srBtn) srBtn.classList.toggle('active', flashcardState.srMode);
+      if (srBtn) {
+        srBtn.classList.toggle('active', flashcardState.srMode);
+        srBtn.textContent = flashcardState.srMode ? 'Exit smart review' : 'Review due cards';
+      }
+      const hint = document.getElementById('srHint');
+      if (hint) hint.hidden = !flashcardState.srMode;
+      setSrGradeEnabled(flashcardState.flipped);
 
       // Due-count badge reflects the whole deck, not just this session.
       if (badge) {
@@ -801,9 +807,17 @@
       document.getElementById('flashcard').classList.remove('flipped');
     }
 
+    // Grading is only meaningful after the user has seen the answer.
+    function setSrGradeEnabled(enabled) {
+      document.querySelectorAll('#flashcardSrActions .flashcard-action-btn').forEach((b) => {
+        b.disabled = !enabled;
+      });
+    }
+
     // Grade the current card in SR mode, persist its schedule, advance the queue.
     function gradeCard(grade) {
       if (!flashcardState.srMode || typeof MissionASVABSR === 'undefined') return;
+      if (!flashcardState.flipped) return;
       const card = flashcardState.cards[flashcardState.currentIndex];
       if (!card) return;
       const store = srStoreFor(flashcardState.type);
@@ -844,6 +858,7 @@
       // Reset flip state
       document.getElementById('flashcard').classList.remove('flipped');
       flashcardState.flipped = false;
+      setSrGradeEnabled(false);
 
       // Update nav buttons
       document.getElementById('prevCardBtn').disabled = flashcardState.currentIndex === 0;
@@ -854,6 +869,7 @@
       const card = document.getElementById('flashcard');
       card.classList.toggle('flipped');
       flashcardState.flipped = !flashcardState.flipped;
+      if (flashcardState.flipped) setSrGradeEnabled(true);
     }
 
     function prevCard() {

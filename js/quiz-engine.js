@@ -44,6 +44,17 @@ class QuizEngine {
     // Load test configuration
     this.loadTestConfig();
 
+    // No config, no URL params, and no in-progress test (e.g. Back button after
+    // submitting): send the user to test selection instead of silently starting
+    // a default test they never asked for.
+    if (!this.testSections) {
+      const hasSaved = sessionStorage.getItem('generatedTest') && sessionStorage.getItem('quizState');
+      if (!hasSaved) {
+        window.location.replace('select-test.html');
+        return;
+      }
+    }
+
     // Generate fresh randomized questions for this test session
     if (!this.loadSavedState()) {
       this.generateNewTest();
@@ -87,7 +98,7 @@ class QuizEngine {
     } else if (typeParam === 'full') {
       this.testSections = MissionASVABConfig.getSectionsForType('full');
     } else {
-      this.testSections = ['AR']; // Default to AR
+      this.testSections = null; // no config — init() redirects to select-test.html
     }
 
     // Tutor mode comes from the URL param, falling back to the saved config.
@@ -188,12 +199,14 @@ class QuizEngine {
   // Move to the next section (by finishing early or by timer expiry). On the
   // final section, submit. Unused time on an early advance is removed from the
   // total budget so timeUsed reflects real elapsed time.
-  advanceSection() {
+  advanceSection(reason) {
     clearInterval(this.timerInterval);
     this.timerInterval = null;
     this.completedSections.add(this.activeSectionIndex);
+    const prevRange = this.sectionRanges[this.activeSectionIndex];
 
     if (this.activeSectionIndex >= this.sectionRanges.length - 1) {
+      this.announceSectionTransition(prevRange, null, reason);
       this.submitQuiz();
       return;
     }
@@ -212,7 +225,34 @@ class QuizEngine {
     this.renderQuestion();
     this.renderNavigator();
     this.updateSectionHeader();
+    this.announceSectionTransition(prevRange, range, reason);
     this.startTimer();
+  }
+
+  // Tell the user why the page just jumped to a new section: an aria-live
+  // announcement plus a transient on-screen toast (time-outs are otherwise
+  // silent and disorienting, especially on mobile where the header is compact).
+  announceSectionTransition(prevRange, nextRange, reason) {
+    const prevName = (prevRange && prevRange.name) || 'this section';
+    let msg;
+    if (nextRange) {
+      msg = (reason === 'time' ? `Time's up for ${prevName}. ` : `${prevName} complete. `) +
+        `Now starting: ${nextRange.name}.`;
+    } else {
+      msg = reason === 'time' ? `Time's up for ${prevName}. Submitting your test.` : '';
+    }
+    if (!msg) return;
+    const liveEl = document.getElementById('timerLive');
+    if (liveEl) liveEl.textContent = msg;
+
+    // Visual toast (skipped in non-DOM test environments).
+    if (typeof document.createElement === 'function' && document.body) {
+      const toast = document.createElement('div');
+      toast.className = 'section-toast';
+      toast.textContent = msg;
+      document.body.appendChild(toast);
+      setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 5000);
+    }
   }
 
   // Resolve an empty slot into a concrete question using the current ability
@@ -290,6 +330,11 @@ class QuizEngine {
 
       // SP2 section state.
       this.buildSectionRanges();
+      // Resume without a testConfig (defensive): reconstruct sections from the
+      // saved test itself so the pool rebuild below still works.
+      if (!this.testSections || !this.testSections.length) {
+        this.testSections = this.sectionRanges.map((r) => r.code);
+      }
       this.activeSectionIndex = state.activeSectionIndex || 0;
       this.sectionTimeRemaining = (typeof state.sectionTimeRemaining === 'number')
         ? state.sectionTimeRemaining
@@ -348,7 +393,7 @@ class QuizEngine {
         // Section time up → lock it and advance (advanceSection submits if last).
         clearInterval(this.timerInterval);
         this.timerInterval = null;
-        this.advanceSection();
+        this.advanceSection('time');
         return;
       }
       if (this.timeRemaining <= 0) {
@@ -396,7 +441,7 @@ class QuizEngine {
   }
 
   updateTimerDisplay() {
-    const remaining = this.isSectioned() ? this.sectionTimeRemaining : this.timeRemaining;
+    const remaining = Math.max(0, this.isSectioned() ? this.sectionTimeRemaining : this.timeRemaining);
     const minutes = Math.floor(remaining / 60);
     const seconds = remaining % 60;
     const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
@@ -608,6 +653,7 @@ class QuizEngine {
     if (this.mode === 'tutor') {
       this.tutorRevealed.add(question.id);
     }
+    this.hideAnswerRequired();
     this.saveState();
     this.renderQuestion();
   }
@@ -676,8 +722,20 @@ class QuizEngine {
 
   showAnswerRequired() {
     const container = document.getElementById('answersContainer');
-    container.classList.add('shake');
-    setTimeout(() => container.classList.remove('shake'), 500);
+    if (container) {
+      container.classList.add('shake');
+      setTimeout(() => container.classList.remove('shake'), 500);
+    }
+    // A shake alone is cryptic (and invisible to screen readers) — say why.
+    const msg = document.getElementById('answerRequiredMsg');
+    if (msg) msg.hidden = false;
+    const liveEl = document.getElementById('timerLive');
+    if (liveEl) liveEl.textContent = 'Choose an answer to continue. On the real ASVAB you must answer every question before moving on.';
+  }
+
+  hideAnswerRequired() {
+    const msg = document.getElementById('answerRequiredMsg');
+    if (msg) msg.hidden = true;
   }
 
   prevQuestion() {
@@ -695,10 +753,10 @@ class QuizEngine {
 
     let message = 'Are you sure you want to submit your test?';
     if (unanswered > 0) {
-      message += `\n\n⚠️ You have ${unanswered} unanswered question${unanswered > 1 ? 's' : ''}.`;
+      message += `\n\n⚠️ ${unanswered} question${unanswered > 1 ? 's' : ''} will be marked wrong because ${unanswered > 1 ? 'they weren\'t' : 'it wasn\'t'} answered.`;
     }
-    if (flaggedCount > 0) {
-      message += `\n\n🚩 You have ${flaggedCount} flagged question${flaggedCount > 1 ? 's' : ''} for review.`;
+    if (flaggedCount > 0 && !this.isSectioned()) {
+      message += `\n\n🚩 You have ${flaggedCount} flagged question${flaggedCount > 1 ? 's' : ''} for review — cancel to go back to them.`;
     }
 
     if (confirm(message)) {
@@ -940,8 +998,11 @@ class QuizEngine {
       });
     }
 
-    // Keyboard navigation
+    // Keyboard navigation. Ignore keys typed into form fields so a future
+    // input on this page can never silently change answers.
     document.addEventListener('keydown', (e) => {
+      const t = e.target;
+      if (t && typeof t.closest === 'function' && t.closest('input, textarea, select, [contenteditable]')) return;
       const key = e.key.toUpperCase();
       if (['A', 'B', 'C', 'D'].includes(key)) {
         this.selectAnswer(key.charCodeAt(0) - 65);
@@ -958,9 +1019,9 @@ class QuizEngine {
     const quitBtn = document.getElementById('quitBtn');
     if (quitBtn) {
       quitBtn.addEventListener('click', () => {
-        if (confirm('Are you sure you want to exit? Your progress will be saved.')) {
+        if (confirm('Exit the test? Your progress is saved in this browser tab — you can resume from the practice test page as long as you don\'t close the tab.')) {
           this.saveState();
-          window.location.href = 'index.html';
+          window.location.href = 'select-test.html';
         }
       });
     }
