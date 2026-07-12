@@ -6,7 +6,13 @@
 (function () {
     let currentCourse = null, currentChapter = null, currentQuiz = null;
     let currentQuestionIndex = 0, score = 0, selectedOption = null, answered = false;
-    let completedChapters = JSON.parse(localStorage.getItem('completedChapters') || '{}');
+    // One corrupt value here would otherwise throw during script evaluation
+    // and blank the entire study-guide SPA.
+    let completedChapters = {};
+    try {
+      const parsed = JSON.parse(localStorage.getItem('completedChapters') || '{}');
+      if (parsed && typeof parsed === 'object') completedChapters = parsed;
+    } catch (_) { completedChapters = {}; }
 
     // Vocabulary flashcards for Word Knowledge
     const vocabFlashcards = [
@@ -180,6 +186,8 @@
         if (course && available) {
           const done = course.chapters.filter(ch => completedChapters[ch.id]).length;
           card.className = 'course-card';
+          card.setAttribute('role', 'button');
+          card.setAttribute('tabindex', '0');
           card.onclick = () => showCourse(code);
           card.innerHTML = `
             <div class="icon">${course.icon}</div>
@@ -189,16 +197,19 @@
           `;
         } else {
           const names = {
-            MK: 'Math Knowledge', WK: 'Word Knowledge', PC: 'Paragraph Comprehension',
-            GS: 'General Science', AS: 'Auto & Shop', MC: 'Mechanical Comprehension', EI: 'Electronics Information'
+            AR: 'Arithmetic Reasoning', MK: 'Math Knowledge', WK: 'Word Knowledge',
+            PC: 'Paragraph Comprehension', GS: 'General Science', AS: 'Auto & Shop',
+            MC: 'Mechanical Comprehension', EI: 'Electronics Information'
           };
-          const icons = { MK: '🔢', WK: '📖', PC: '📄', GS: '🔬', AS: '🔧', MC: '⚙️', EI: '⚡' };
+          const icons = { AR: '🧮', MK: '🔢', WK: '📖', PC: '📄', GS: '🔬', AS: '🔧', MC: '⚙️', EI: '⚡' };
+          // "Unavailable" here almost always means the course bundle failed to
+          // load (offline/blocked), not that the content doesn't exist — say so.
           card.className = 'course-card coming-soon';
           card.innerHTML = `
-            <div class="icon">${icons[code]}</div>
-            <h3>${names[code]}</h3>
-            <p>Coming soon</p>
-            <div class="meta">In development</div>
+            <div class="icon">${icons[code] || '📘'}</div>
+            <h3>${names[code] || code}</h3>
+            <p>Couldn't load this course</p>
+            <div class="meta">Check your connection and refresh</div>
           `;
         }
         grid.appendChild(card);
@@ -220,6 +231,8 @@
         const done = completedChapters[ch.id];
         const card = document.createElement('div');
         card.className = 'chapter-card' + (done ? ' completed' : '');
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
         card.onclick = () => showLesson(ch);
         card.innerHTML = `
           <div class="chapter-num">${done ? '✓' : i + 1}</div>
@@ -267,12 +280,12 @@
             <h3>📚 Study Tools</h3>
           </div>
           <div class="tools-grid">
-            <div class="tool-card" data-action="show-flashcards" data-type="formulas">
+            <div class="tool-card" role="button" tabindex="0" data-action="show-flashcards" data-type="formulas">
               <div class="icon">🃏</div>
               <h3>Formula Flashcards</h3>
               <p>Drill the essential math formulas</p>
             </div>
-            <div class="tool-card" data-action="show-formulas">
+            <div class="tool-card" role="button" tabindex="0" data-action="show-formulas">
               <div class="icon">📋</div>
               <h3>Formula Cheat Sheet</h3>
               <p>Quick reference for all formulas</p>
@@ -286,7 +299,7 @@
             <h3>📚 Study Tools</h3>
           </div>
           <div class="tools-grid">
-            <div class="tool-card" data-action="show-flashcards" data-type="vocab">
+            <div class="tool-card" role="button" tabindex="0" data-action="show-flashcards" data-type="vocab">
               <div class="icon">🃏</div>
               <h3>Vocabulary Flashcards</h3>
               <p>Learn 30 common ASVAB words</p>
@@ -772,7 +785,13 @@
       if (classic) classic.hidden = flashcardState.srMode;
       if (sr) sr.hidden = !flashcardState.srMode;
       if (nav) nav.style.display = flashcardState.srMode ? 'none' : '';
-      if (srBtn) srBtn.classList.toggle('active', flashcardState.srMode);
+      if (srBtn) {
+        srBtn.classList.toggle('active', flashcardState.srMode);
+        srBtn.textContent = flashcardState.srMode ? 'Exit smart review' : 'Review due cards';
+      }
+      const hint = document.getElementById('srHint');
+      if (hint) hint.hidden = !flashcardState.srMode;
+      setSrGradeEnabled(flashcardState.flipped);
 
       // Due-count badge reflects the whole deck, not just this session.
       if (badge) {
@@ -801,9 +820,17 @@
       document.getElementById('flashcard').classList.remove('flipped');
     }
 
+    // Grading is only meaningful after the user has seen the answer.
+    function setSrGradeEnabled(enabled) {
+      document.querySelectorAll('#flashcardSrActions .flashcard-action-btn').forEach((b) => {
+        b.disabled = !enabled;
+      });
+    }
+
     // Grade the current card in SR mode, persist its schedule, advance the queue.
     function gradeCard(grade) {
       if (!flashcardState.srMode || typeof MissionASVABSR === 'undefined') return;
+      if (!flashcardState.flipped) return;
       const card = flashcardState.cards[flashcardState.currentIndex];
       if (!card) return;
       const store = srStoreFor(flashcardState.type);
@@ -844,6 +871,7 @@
       // Reset flip state
       document.getElementById('flashcard').classList.remove('flipped');
       flashcardState.flipped = false;
+      setSrGradeEnabled(false);
 
       // Update nav buttons
       document.getElementById('prevCardBtn').disabled = flashcardState.currentIndex === 0;
@@ -854,6 +882,7 @@
       const card = document.getElementById('flashcard');
       card.classList.toggle('flipped');
       flashcardState.flipped = !flashcardState.flipped;
+      if (flashcardState.flipped) setSrGradeEnabled(true);
     }
 
     function prevCard() {
@@ -927,6 +956,17 @@
         case 'next-section-question': nextSectionQuestion(); break;
         case 'render-formulas': renderFormulas(el.dataset.category); break;
       }
+    });
+
+    // Keyboard activation for the div/span cards above (role="button"):
+    // Enter/Space triggers the same delegated click path, so keyboard and
+    // switch-control users can navigate courses, chapters, tools, and back links.
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+      const el = e.target && e.target.closest && e.target.closest('[role="button"]');
+      if (!el || el.tagName === 'BUTTON' || el.tagName === 'A') return;
+      e.preventDefault();
+      el.click();
     });
 
     // Deep link: study-guide.html?section=AR jumps straight into that course

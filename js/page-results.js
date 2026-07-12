@@ -4,13 +4,30 @@
 // directly. Inline on* attributes were replaced with addEventListener wiring
 // at the end of this file.
 // Loaded at end of <body> after js/auth.js, js/test-config.js, js/scoring.js.
+// Visiting results.html with nothing to show: hide the score chrome (which
+// would otherwise render "Great work" and "--" placeholders) and leave one
+// clear message + the "Take Another Test" nav CTA.
+function showEmptyResultsState(title, detail) {
+  const hide = (el) => { if (el) el.style.display = 'none'; };
+  const badge = document.querySelector('.completion-badge');
+  if (badge) badge.textContent = 'No Results';
+  hide(document.querySelector('.greeting'));
+  hide(document.getElementById('userName'));
+  hide(document.querySelector('.afqt-section'));
+  hide(document.querySelector('.stats-row'));
+  hide(document.querySelector('.recruiter-section'));
+  const msg = document.getElementById('scoreMessage');
+  if (msg) msg.textContent = title;
+  const desc = document.getElementById('scoreDescription');
+  if (desc) desc.textContent = detail;
+}
+
 function loadResults() {
   try {
     const resultsRaw = localStorage.getItem('quizResults');
 
     if (!resultsRaw) {
-      document.getElementById('scoreMessage').textContent = 'No results found';
-      document.getElementById('scoreDescription').textContent = 'Please take a practice test first.';
+      showEmptyResultsState('No results yet', 'Take a practice test to see your score breakdown here.');
       return;
     }
 
@@ -20,8 +37,7 @@ function loadResults() {
     const userName = localStorage.getItem('asvabUserName') || 'Test Taker';
 
     if (!results || typeof results !== 'object') {
-      document.getElementById('scoreMessage').textContent = 'Invalid results data';
-      document.getElementById('scoreDescription').textContent = 'Please retake the practice test.';
+      showEmptyResultsState('Invalid results data', 'Please retake the practice test.');
       return;
     }
 
@@ -50,7 +66,20 @@ function loadResults() {
 
   const minutes = Math.floor(results.timeUsed / 60);
   const seconds = results.timeUsed % 60;
-  document.getElementById('timeUsed').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  const timeUsedEl = document.getElementById('timeUsed');
+  timeUsedEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  // Tutor mode is untimed — a "Time Used 0:00" stat is meaningless noise.
+  if (isTutor) {
+    const timeCard = timeUsedEl.closest && timeUsedEl.closest('.stat-card');
+    if (timeCard) timeCard.style.display = 'none';
+  }
+
+  // Keep the greeting honest — "Great work," over a below-minimum score reads wrong.
+  const greetingEl = document.querySelector('.greeting');
+  if (greetingEl && !isTutor) {
+    const headline = hasAFQT ? results.afqt : (results.score || 0);
+    if (headline < (hasAFQT ? 31 : 50)) greetingEl.textContent = 'Test complete,';
+  }
 
   // AFQT-based messaging only when we have a real AFQT estimate.
   // For single-section practice, use raw % with neutral copy (no eligibility claims).
@@ -73,16 +102,16 @@ function loadResults() {
     }
   } else if (afqt >= 93) {
     message = "Outstanding Performance!";
-    description = "You're in the top tier! You qualify for virtually all military occupations. Contact a recruiter to schedule your official test.";
+    description = "Based on this practice estimate, you're in the top tier and would likely qualify for virtually all military occupations. Only the official ASVAB counts — a recruiter can help you schedule it.";
   } else if (afqt >= 65) {
     message = "Excellent Work!";
-    description = "You're well above the minimum requirements and qualify for many career fields. A recruiter can help you explore your options.";
+    description = "This practice estimate puts you well above the minimum requirements — a score like this on the official test would open many career fields. A recruiter can help you explore your options.";
   } else if (afqt >= 50) {
     message = "Great Job!";
-    description = "You're above average and eligible for enlistment. A recruiter can discuss which jobs match your score.";
+    description = "This practice estimate is above average and above the enlistment minimum. Keep it up — only the official ASVAB determines eligibility. A recruiter can discuss which jobs match scores in this range.";
   } else if (afqt >= 31) {
-    message = "You're Eligible!";
-    description = "You meet the minimum AFQT requirement for enlistment. A recruiter can explain your options and help you prepare for the official test.";
+    message = "On Track to Qualify";
+    description = "Based on this practice estimate, you'd likely meet the Army's minimum AFQT requirement of 31 — but it's close, so keep practicing to build a safety margin. Only the official ASVAB determines eligibility.";
   } else if (afqt >= 21) {
     message = "Almost There";
     description = "You're close to the minimum score of 31. Focus on the sections below and retake the practice test.";
@@ -260,6 +289,17 @@ function renderAnswerReview(sectionResults) {
   }
 }
 
+// Bank content is first-party, but some questions legitimately contain < > &
+// (e.g. "x < 6") — escape at render time so they can never corrupt the DOM.
+function escReview(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function renderFilteredQuestions(filter) {
   currentReviewFilter = filter;
   const list = document.getElementById('reviewQuestionsList');
@@ -285,10 +325,10 @@ function renderFilteredQuestions(filter) {
     html += `
       <div class="review-question ${statusClass}">
         <div class="review-question-header">
-          <span class="review-question-number">${q.sectionName} - Question ${q.num}</span>
+          <span class="review-question-number">${escReview(q.sectionName)} - Question ${q.num}</span>
           <span class="review-question-status ${statusClass}">${statusText}</span>
         </div>
-        <div class="review-question-text">${q.text}</div>
+        <div class="review-question-text">${escReview(q.text)}</div>
         <div class="review-options">
     `;
 
@@ -311,7 +351,7 @@ function renderFilteredQuestions(filter) {
       html += `
         <div class="review-option ${optionClass}">
           <span class="option-letter">${letters[idx]}</span>
-          <span class="option-text">${opt}</span>
+          <span class="option-text">${escReview(opt)}</span>
           ${indicator ? `<span class="option-indicator">${indicator}</span>` : ''}
         </div>
       `;
@@ -387,23 +427,34 @@ getSession().then(session => {
 });
 
 function checkPendingResultSync() {
-  const raw = localStorage.getItem('pendingTestResult');
-  if (!raw) return;
-  let pending;
-  try { pending = JSON.parse(raw); } catch (_) { localStorage.removeItem('pendingTestResult'); return; }
-  if (!pending || !pending.payload) { localStorage.removeItem('pendingTestResult'); return; }
-  showSaveBanner('Your results could not be saved to your account. Click retry to try again.');
+  // The engine queues failed saves under the ARRAY key 'pendingTestResults'
+  // (js/quiz-engine.js _queuePendingResult); the legacy single key is also
+  // honored. Draining goes through flushPendingTestResults (js/offline-queue.js)
+  // so retry and auto-flush share one dedup-safe path.
+  let count = 0;
+  try {
+    const raw = localStorage.getItem('pendingTestResults');
+    const arr = raw ? JSON.parse(raw) : [];
+    if (Array.isArray(arr)) count = arr.length;
+  } catch (_) { /* corrupt queue — offline-queue readQueue treats it as empty too */ }
+  if (localStorage.getItem('pendingTestResult')) count += 1;
+  if (count === 0) return;
+
+  showSaveBanner(count === 1
+    ? 'Your results could not be saved to your account. Click retry to try again.'
+    : `${count} test results could not be saved to your account. Click retry to try again.`);
   document.getElementById('retrySaveBtn').onclick = async () => {
     const btn = document.getElementById('retrySaveBtn');
     btn.disabled = true; btn.textContent = 'Retrying...';
     try {
-      const { error } = await getClient().from('test_results').insert(pending.payload);
-      if (error) {
-        showSaveBanner('Retry failed: ' + error.message);
-        btn.disabled = false; btn.textContent = 'Retry';
-      } else {
-        localStorage.removeItem('pendingTestResult');
+      const res = (typeof flushPendingTestResults === 'function')
+        ? await flushPendingTestResults()
+        : { remaining: count };
+      if (res && res.remaining === 0) {
         document.getElementById('saveStatusBanner').style.display = 'none';
+      } else {
+        showSaveBanner('Retry failed — still offline or the server rejected the save. Your results stay saved on this device.');
+        btn.disabled = false; btn.textContent = 'Retry';
       }
     } catch (err) {
       showSaveBanner('Retry failed: ' + (err.message || 'Network error'));
@@ -447,7 +498,8 @@ function submitRecruiterRequest(e) {
   btn.disabled = true;
   btn.textContent = 'Submitting...';
 
-  const results = JSON.parse(localStorage.getItem('quizResults')) || {};
+  let results = {};
+  try { results = JSON.parse(localStorage.getItem('quizResults')) || {}; } catch (_) { results = {}; }
   const consentEl = form.querySelector('.consent-label');
   const data = {
     name: form.elements.name.value,

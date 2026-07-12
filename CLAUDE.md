@@ -19,13 +19,16 @@ Mission ASVAB - Static HTML/JS practice test site for military applicants prepar
 ## Architecture
 
 ```
-HTML Pages (12 served; admin/login/etc. + the 5 preview-*.html are NOT deployed — see .vercelignore):
+HTML Pages (all 12 deployed; admin.html is served but gated by requireAdmin(). Only docs/,
+.github/ and *.md are excluded — see .vercelignore; the buildCommand also strips tests/,
+scripts/ and package files from the served output after the build gates run):
 ├── index.html  select-test.html  test-intro.html  quiz.html  results.html
 ├── dashboard.html  study-guide.html  about.html
 └── admin.html  login.html  register.html  reset-password.html
 
 js/
-├── quiz-engine.js          # Core quiz logic, timer, CAT slot materialization, offline queue
+├── quiz-engine.js          # Core quiz logic, timer, CAT slot materialization, offline queue,
+│                           #   render-time escaping, section-change toasts, resume/redirect guards
 ├── scoring.js              # AFQT (standard-score model) + Army line scores (sums of std scores)
 ├── quiz-data.js            # Question bank, 902 questions (sections metadata lives in section-config.js)
 ├── section-config.js       # Single source of truth for section metadata (timing/counts/names)
@@ -38,7 +41,8 @@ js/
 ├── spaced-repetition.js    # SM-2-lite scheduler + localStorage store for flashcard review (SP3)
 ├── share-card.js  pwa-install.js  # Local shareable score card + dismissible install prompt (SP3)
 ├── test-config.js          # Test mode configs (quick/full section lists)
-├── auth.js                 # Supabase client singleton + session helpers
+├── auth.js                 # Supabase client singleton + session helpers + friendlyAuthError()
+│                           #   (maps raw Supabase auth errors to plain language on all auth pages)
 ├── offline-queue.js        # Flush queued (offline) test results when back online
 ├── admin.js  dashboard.js  # Admin panel + user dashboard logic
 ├── page-*.js               # Per-page logic (externalized; NO inline <script> — see CSP rule below)
@@ -48,9 +52,10 @@ service-worker.js           # App-shell offline cache (bypasses Supabase/cross-o
 manifest.json  robots.txt  .vercelignore
 scripts/
 ├── validate-site.js        # Data/scoring contract checks + per-section POOL_MINIMUMS ratchet +
-│                           #   explanation/course-shape contracts (runs as the Vercel buildCommand)
+│                           #   distinct-options check + explanation/course-shape contracts
+│                           #   (runs in the Vercel buildCommand after npm test)
 └── check-no-inline-js.js   # CI gate: fails if any inline on*= handler or inline <script> exists
-tests/                      # node:test + jsdom suite (148 tests). helpers/load.js, helpers/engine.js
+tests/                      # node:test + jsdom suite (182 tests). helpers/load.js, helpers/engine.js
 docs/scoring-methodology.md # AFQT model, sources, limits
 ```
 
@@ -58,11 +63,15 @@ docs/scoring-methodology.md # AFQT model, sources, limits
 
 ```bash
 npx serve .                    # Local dev server
-npm test                       # Run the node:test + jsdom unit suite (148 tests)
-node scripts/validate-site.js  # Validate quiz data + scoring contracts (also the Vercel build gate)
+npm test                       # Run the node:test + jsdom unit suite (182 tests)
+node scripts/validate-site.js  # Validate quiz data + scoring contracts (also a Vercel build gate)
 node scripts/check-no-inline-js.js  # Verify no inline JS (required by the strict CSP)
-git push                       # main auto-deploys to Vercel (build runs validate-site.js)
+git push                       # main auto-deploys to Vercel (build runs npm test + validate-site.js)
 ```
+
+**Release step:** any deploy that changes an existing JS file must bump `CACHE_VERSION` in
+`service-worker.js` — subresources are cache-first, so without a bump the first post-deploy
+load runs fresh HTML against stale cached JS.
 
 CI (`.github/workflows/ci.yml`) runs `npm ci → npm test → validate-site → check-no-inline-js` on push/PR.
 

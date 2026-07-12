@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ASVAB Practice - Select Test</title>
+  <meta name="description" content="Choose your free ASVAB practice test: an AFQT practice test, the complete 8-section ASVAB, or single-section drills — timed or untimed tutor mode.">
+  <link rel="canonical" href="https://missionasvab.org/select-test.html">
+  <meta property="og:title" content="Choose Your ASVAB Practice Test — Mission ASVAB">
+  <meta property="og:description" content="AFQT practice, the full 8-section ASVAB, or single-section drills — timed or untimed tutor mode. 100% free.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://missionasvab.org/select-test.html">
+  <meta property="og:site_name" content="Mission ASVAB">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -312,6 +319,34 @@
       background: var(--white);
     }
 
+    .name-hint {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .resume-banner {
+      background: var(--cream-100);
+      border: 2px solid var(--gold-500);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .resume-banner p { margin: 0 0 0.85rem; color: var(--text-primary); }
+    .resume-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .resume-btn, .discard-btn {
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+    }
+    .resume-btn { background: var(--navy-900); color: var(--white); border: none; }
+    .resume-btn:hover { background: var(--navy-700); }
+    .discard-btn { background: transparent; color: var(--text-secondary); border: 1.5px solid var(--cream-200); }
+    .discard-btn:hover { border-color: var(--text-secondary); }
+
     /* Start Button */
     .start-btn {
       width: 100%;
@@ -442,17 +477,25 @@
       <p>100% free, no registration required. Select the test type that fits your study needs.</p>
     </div>
 
+    <div class="resume-banner" id="resumeBanner" hidden>
+      <p><strong>You have a test in progress.</strong> Pick up where you left off, or start a new one.</p>
+      <div class="resume-actions">
+        <button class="resume-btn" id="resumeBtn" type="button">Resume Test</button>
+        <button class="discard-btn" id="discardBtn" type="button">Discard &amp; Start Over</button>
+      </div>
+    </div>
+
     <!-- Test Type Selection -->
     <h2 class="section-title">Test Type</h2>
     <div class="test-type-grid" role="radiogroup" aria-label="Test type">
       <div class="test-type-card selected" data-type="quick">
         <div class="test-type-badge">Recommended</div>
         <h3 class="test-type-name">AFQT Practice</h3>
-        <p class="test-type-desc">Focus on the 4 sections that determine your AFQT score. Save progress anytime and continue later.</p>
+        <p class="test-type-desc">Focus on the 4 sections that determine your AFQT score — the score that decides whether you can enlist.</p>
         <div class="test-type-details">
           <div class="detail">
-            <span class="detail-value">20+ min</span>
-            <span class="detail-label">Per Section</span>
+            <span class="detail-value">~2 hours</span>
+            <span class="detail-label">Total Time</span>
           </div>
           <div class="detail">
             <span class="detail-value">4 Sections</span>
@@ -468,7 +511,7 @@
       <div class="test-type-card" data-type="full">
         <div class="test-type-badge">Comprehensive</div>
         <h3 class="test-type-name">Full ASVAB</h3>
-        <p class="test-type-desc">Complete all 9 sections for your AFQT score plus line scores that determine MOS qualification.</p>
+        <p class="test-type-desc">Complete all 8 sections for your AFQT score plus the line scores that determine which military jobs you qualify for.</p>
         <div class="test-type-details">
           <div class="detail">
             <span class="detail-value">~3 hours</span>
@@ -496,7 +539,8 @@
     <!-- Name Input -->
     <div class="name-section">
       <label class="name-label" for="userName">Your Name</label>
-      <input type="text" id="userName" class="name-input" placeholder="Enter your name for the results">
+      <input type="text" id="userName" class="name-input" placeholder="Enter your name for the results" aria-describedby="nameHint">
+      <p class="name-hint" id="nameHint">Only shown on your results page — it stays on your device.</p>
     </div>
 
     <!-- Start Button -->

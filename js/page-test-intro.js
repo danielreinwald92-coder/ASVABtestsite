@@ -6,8 +6,12 @@
   const checkbox = document.getElementById('acknowledge');
   const startBtn = document.getElementById('startBtn');
 
-  // Load test configuration from session storage
-  const testConfig = JSON.parse(sessionStorage.getItem('testConfig') || '{}');
+  // Load test configuration from session storage (corrupt value → defaults).
+  let testConfig = {};
+  try {
+    const parsed = JSON.parse(sessionStorage.getItem('testConfig') || '{}');
+    if (parsed && typeof parsed === 'object') testConfig = parsed;
+  } catch (_) { testConfig = {}; }
   const testType = localStorage.getItem('testType') || 'quick';
   const sections = testConfig.sections || MissionASVABConfig.getSectionsForType(testType);
   const mode = testConfig.mode === 'tutor' ? 'tutor' : 'timed';
@@ -45,11 +49,28 @@
     document.getElementById('questionCount').textContent = details.totalQuestions;
     document.getElementById('timeLimit').textContent = totalTimeMinutes;
 
+    // Per-section plan: "122 minutes" alone misleads — the user actually gets
+    // e.g. 9 minutes for WK, 55 for AR, each on its own clock.
+    const plan = document.getElementById('sectionPlan');
+    const planBody = document.getElementById('sectionPlanBody');
+    if (plan && planBody && mode !== 'tutor' && sections.length > 1) {
+      planBody.innerHTML = sections.map((code) => {
+        const info = QuizManager.getSectionInfo(code);
+        if (!info) return '';
+        return `<tr><td>${info.name}</td><td>${info.questionsPerTest}</td><td>${Math.round(info.timeLimit / 60)}</td></tr>`;
+      }).join('');
+      plan.hidden = false;
+    }
+
     if (mode === 'tutor') {
       const timeEl = document.getElementById('timeLimit');
       if (timeEl && timeEl.parentElement) timeEl.parentElement.style.display = 'none';
       const badge = document.getElementById('testBadge');
       if (badge) badge.textContent = 'Tutor Mode — Untimed';
+      const rulesTimed = document.getElementById('rulesTimed');
+      const rulesTutor = document.getElementById('rulesTutor');
+      if (rulesTimed) rulesTimed.hidden = true;
+      if (rulesTutor) rulesTutor.hidden = false;
     }
   }
 

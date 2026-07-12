@@ -9,18 +9,24 @@
     if (root.QUIZ_EXPLANATIONS) return Promise.resolve(root.QUIZ_EXPLANATIONS);
     if (_promise) return _promise;
 
-    _promise = new Promise((resolve) => {
+    // On failure, clear the cached promise so a later call retries instead of
+    // pinning an empty map for the whole session (flaky mobile networks).
+    // `failed` handles onerror firing synchronously, before `_promise` is set.
+    let failed = false;
+    const p = new Promise((resolve) => {
       try {
         const s = root.document.createElement('script');
         s.src = 'js/explanations.js';
         s.onload = () => resolve(root.QUIZ_EXPLANATIONS || {});
-        s.onerror = () => resolve({});
+        s.onerror = () => { failed = true; _promise = null; resolve({}); };
         root.document.head.appendChild(s);
       } catch (_) {
+        failed = true;
         resolve({});
       }
     });
-    return _promise;
+    _promise = failed ? null : p;
+    return p;
   }
 
   root.loadExplanations = loadExplanations;

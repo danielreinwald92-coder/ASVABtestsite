@@ -7,12 +7,38 @@ function timedOnly(results) {
   return (results || []).filter((r) => (r && r.mode ? r.mode : 'timed') === 'timed');
 }
 
+// Registration stashes profile details locally when the email-confirmation
+// flow leaves it without a session (see js/page-register.js). Apply them on
+// the first authenticated dashboard load; keep the stash unless a row was
+// confirmably updated.
+async function applyPendingProfile(client, userId) {
+  let fields = null;
+  try {
+    const raw = localStorage.getItem('missionasvab.pendingProfile');
+    if (raw) fields = JSON.parse(raw);
+  } catch (_) { /* corrupt stash — fall through and drop it */ }
+  if (!fields || typeof fields !== 'object') {
+    try { localStorage.removeItem('missionasvab.pendingProfile'); } catch (_) {}
+    return;
+  }
+  try {
+    const { data, error } = await client.from('profiles')
+      .update(fields)
+      .eq('id', userId)
+      .select('id');
+    if (!error && data && data.length > 0) {
+      localStorage.removeItem('missionasvab.pendingProfile');
+    }
+  } catch (_) { /* transient failure — retried on the next load */ }
+}
+
 async function loadDashboard() {
   const session = await requireAuth();
   if (!session) return;
   _currentSession = session;
 
   const client = getClient();
+  await applyPendingProfile(client, session.user.id);
 
   // Fetch profile and results in parallel
   const [profileRes, resultsRes] = await Promise.all([
@@ -22,6 +48,15 @@ async function loadDashboard() {
       .eq('user_id', session.user.id)
       .order('taken_at', { ascending: false })
   ]);
+
+  // A failed history query must not masquerade as an empty account — a
+  // veteran user would be shown the first-time welcome as if their tests
+  // vanished. (PGRST116 = no profile row yet; that one is fine.)
+  if (resultsRes.error) {
+    console.error('Dashboard load error:', resultsRes.error);
+    showDashboardError();
+    return;
+  }
 
   const profile = profileRes.data;
   _currentProfile = profile;
@@ -112,12 +147,13 @@ function renderMotivation(results, profile) {
       countdownCard.textContent = '📅 Your ASVAB is today — you’ve got this';
       countdownCard.hidden = false;
     } else {
-      countdownCard.textContent = '📅 Update your test date in Account';
+      countdownCard.textContent = '📅 Your test date has passed — update it in Account';
       countdownCard.hidden = false;
     }
   }
 
-  if (row && (!countdownCard.hidden || !document.getElementById('streakCard').hidden)) {
+  const streakEl = document.getElementById('streakCard');
+  if (row && ((countdownCard && !countdownCard.hidden) || (streakEl && !streakEl.hidden))) {
     row.hidden = false;
   }
 
@@ -144,6 +180,17 @@ function renderMotivation(results, profile) {
   }
 }
 
+function ordinal(n) {
+  const mod100 = n % 100;
+  if (mod100 >= 11 && mod100 <= 13) return n + 'th';
+  switch (n % 10) {
+    case 1: return n + 'st';
+    case 2: return n + 'nd';
+    case 3: return n + 'rd';
+    default: return n + 'th';
+  }
+}
+
 function getDisplayName(profile, email) {
   const raw = profile && profile.name ? String(profile.name).trim() : '';
   if (raw) {
@@ -157,7 +204,20 @@ function getDisplayName(profile, email) {
   return 'recruit';
 }
 
+function showDashboardError() {
+  const err = document.getElementById('dashboardError');
+  if (err) err.hidden = false;
+  const welcome = document.getElementById('welcomeState');
+  if (welcome) welcome.style.display = 'none';
+  const content = document.getElementById('dashboardContent');
+  if (content) content.style.display = 'none';
+  const empty = document.getElementById('emptyDashboard');
+  if (empty) empty.style.display = 'none';
+}
+
 function showWelcomeState() {
+  const prefix = document.getElementById('greetingPrefix');
+  if (prefix) prefix.textContent = 'Welcome';
   document.getElementById('welcomeState').style.display = 'block';
   document.getElementById('dashboardContent').style.display = 'none';
   const empty = document.getElementById('emptyDashboard');
@@ -245,7 +305,7 @@ function renderProgressChart(results) {
 
   const dots = points.map(p => `
     <circle cx="${p.x}" cy="${p.y}" r="5" fill="var(--gold-500)" stroke="var(--white)" stroke-width="2">
-      <title>${p.score}th percentile — ${p.date}</title>
+      <title>${ordinal(p.score)} percentile — ${p.date}</title>
     </circle>
   `).join('');
 
@@ -268,8 +328,14 @@ function renderProgressChart(results) {
   `;
 }
 
-const SECTION_NAMES = { AR: 'Arithmetic Reasoning', MK: 'Math Knowledge', WK: 'Word Knowledge', PC: 'Paragraph Comprehension' };
+const SECTION_NAMES = {
+  AR: 'Arithmetic Reasoning', MK: 'Math Knowledge', WK: 'Word Knowledge', PC: 'Paragraph Comprehension',
+  GS: 'General Science', AS: 'Auto & Shop', MC: 'Mechanical Comprehension', EI: 'Electronics Information',
+};
 const AFQT_SECTIONS = ['AR', 'MK', 'WK', 'PC'];
+// Full-test order for history detail rows — a user who took the full 8-section
+// test should see ALL their section scores, not just the AFQT four.
+const ALL_SECTIONS = ['AR', 'MK', 'WK', 'PC', 'GS', 'AS', 'MC', 'EI'];
 
 function getSectionScore(sectionResults, code) {
   const s = sectionResults && sectionResults[code];
@@ -489,7 +555,7 @@ function renderTestHistory(results) {
   const rows = page.map((r, i) => {
     const globalIdx = historyPage * HISTORY_PAGE_SIZE + i;
     const sectionDetail = r.section_scores
-      ? AFQT_SECTIONS.map(code => {
+      ? ALL_SECTIONS.map(code => {
           const score = getSectionScore(r.section_scores, code);
           return score !== null ? `<span>${SECTION_NAMES[code]}: <strong>${score}%</strong></span>` : '';
         }).filter(Boolean).join(' &nbsp;|&nbsp; ')
@@ -499,8 +565,8 @@ function renderTestHistory(results) {
       <tr class="history-row" data-idx="${globalIdx}">
         <td>${formatDate(r.taken_at)}</td>
         <td>${(r.mode === 'tutor') ? 'Practice' : (r.test_type === 'full' ? 'Full Assessment' : 'AFQT')}</td>
-        <td>${r.afqt_score !== null ? r.afqt_score + 'th %ile' : '—'}</td>
-        <td><button class="expand-btn" data-idx="${globalIdx}">▾</button></td>
+        <td>${r.afqt_score !== null ? ordinal(r.afqt_score) + ' percentile' : '—'}</td>
+        <td><button class="expand-btn" data-idx="${globalIdx}" aria-expanded="false" aria-label="Show section scores for this test">▾</button></td>
       </tr>
       <tr class="history-detail" id="detail-${globalIdx}" style="display:none;">
         <td colspan="4"><div class="detail-sections">${sectionDetail}</div></td>
@@ -525,7 +591,11 @@ function renderTestHistory(results) {
 
 function toggleHistoryDetail(idx) {
   const row = document.getElementById(`detail-${idx}`);
-  row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+  if (!row) return;
+  const open = row.style.display === 'none';
+  row.style.display = open ? 'table-row' : 'none';
+  const btn = document.querySelector(`.expand-btn[data-idx="${idx}"]`);
+  if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }
 
 function changeHistoryPage(dir) {

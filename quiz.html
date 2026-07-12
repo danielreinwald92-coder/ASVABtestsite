@@ -447,8 +447,10 @@
       .quiz-header { padding: 0.75rem 1rem; }
       .quiz-header-inner { flex-wrap: wrap; gap: 0.75rem; }
       .quiz-info { gap: 0.75rem; flex: 1; min-width: 0; }
-      .quiz-title { font-size: 1rem; }
-      .quiz-section { display: none; }
+      /* On small screens the static title is expendable; the section name
+         ("Section 2 of 4: Word Knowledge") is what orients the user. */
+      .quiz-title { display: none; }
+      .quiz-section { font-size: 0.9rem; font-weight: 600; }
       .quiz-timer { padding: 0.5rem 1rem; font-size: 0.95rem; }
       .quit-btn { padding: 0.5rem 1rem; font-size: 0.85rem; }
 
@@ -492,8 +494,8 @@
       .quiz-header-inner {
         justify-content: space-between;
       }
-      .quiz-info { flex: none; }
-      .quiz-title { display: none; }
+      .quiz-info { flex: none; min-width: 100%; justify-content: center; order: 1; }
+      .quiz-section { font-size: 0.85rem; }
       .quiz-timer {
         order: -1;
         flex: 1;
@@ -504,7 +506,7 @@
       .question-text { font-size: 1.1rem; }
 
       .navigator-grid { grid-template-columns: repeat(5, 1fr); }
-      .nav-dot { width: 32px; height: 32px; font-size: 0.75rem; }
+      .nav-dot { width: 44px; height: 44px; font-size: 0.8rem; }
     }
 
     @keyframes shake {
@@ -515,6 +517,38 @@
 
     .shake {
       animation: shake 0.4s ease-in-out;
+    }
+
+    .answer-required {
+      margin-top: 0.75rem;
+      color: var(--error, #c0392b);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Transient notice when a section ends (especially on time-out). */
+    .section-toast {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      max-width: min(90vw, 480px);
+      background: var(--navy-900, #0a1628);
+      color: var(--white, #fff);
+      padding: 0.85rem 1.25rem;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      font-weight: 600;
+      text-align: center;
+      animation: toastIn 0.25s ease-out;
+    }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translate(-50%, -8px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .section-toast { animation: none; }
     }
 
     .shake .answer-option {
@@ -552,11 +586,11 @@
     <div class="quiz-header-inner">
       <div class="quiz-info">
         <span class="quiz-title">ASVAB Practice Test</span>
-        <span class="quiz-section">Arithmetic Reasoning</span>
+        <span class="quiz-section">Loading…</span>
       </div>
       <div class="quiz-timer" role="timer" aria-label="Time remaining">
         <span class="timer-icon" aria-hidden="true">⏱</span>
-        <span class="timer-display" id="timerDisplay">39:00</span>
+        <span class="timer-display" id="timerDisplay">--:--</span>
       </div>
       <button class="quit-btn" id="quitBtn">Save & Exit</button>
     </div>
@@ -579,6 +613,7 @@
       <h2 class="question-text" id="questionText">Loading question...</h2>
       <div class="answers-container" id="answersContainer"></div>
       <p class="answers-hint">Press A–D or use Tab + Enter to choose an answer.</p>
+      <p class="answer-required" id="answerRequiredMsg" hidden>Choose an answer to continue — on the real ASVAB you must answer every question before moving on.</p>
       <div id="tutorFeedback" class="tutor-feedback" role="status" aria-live="polite" hidden></div>
     </div>
 

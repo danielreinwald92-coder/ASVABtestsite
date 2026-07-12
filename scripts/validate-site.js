@@ -70,6 +70,9 @@ for (const [code, section] of Object.entries(asvabData.sections)) {
     ids.add(question.id);
     assert(question.text, `${question.id} missing text`);
     assert(Array.isArray(question.options) && question.options.length === 4, `${question.id} must have 4 options`);
+    // Distinct options: shuffleQuestionOptions relocates the key via indexOf on
+    // the option TEXT, so a duplicated distractor would grade the wrong index.
+    assert(new Set(question.options).size === 4, `${question.id} has duplicate option text`);
     assert(Number.isInteger(question.correct) && question.correct >= 0 && question.correct < 4, `${question.id} has invalid correct index`);
   }
 }

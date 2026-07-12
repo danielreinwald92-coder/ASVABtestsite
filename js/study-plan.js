@@ -36,7 +36,7 @@
         headline: 'Build your foundation',
         items: [
           'Work broadly across all sections',
-          'Read the study guides for the AFQT sections (AR, MK, WK, PC)',
+          'Read the study guides for the four AFQT sections: Arithmetic Reasoning, Math Knowledge, Word Knowledge, and Paragraph Comprehension',
           'Take a full practice test each week to track progress'
         ]
       };
@@ -54,7 +54,7 @@
     }
     return {
       phase: 'sprint',
-      headline: d < 0 ? 'Test date passed - update it in Account' : 'Final sprint',
+      headline: d < 0 ? 'Your test date has passed — update it in Account' : 'Final sprint',
       items: [
         'Take full timed practice tests to build stamina',
         'Do a light review of ' + weakPhrase,

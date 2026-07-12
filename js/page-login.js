@@ -29,20 +29,43 @@
     btn.disabled = true;
     btn.textContent = 'Logging in...';
 
+    const email = document.getElementById('email').value.trim();
     const { error } = await getClient().auth.signInWithPassword({
-      email: document.getElementById('email').value.trim(),
+      email,
       password: document.getElementById('password').value
     });
 
     if (error) {
-      errorMsg.textContent = error.message;
+      errorMsg.textContent = (typeof friendlyAuthError === 'function') ? friendlyAuthError(error) : error.message;
       errorMsg.style.display = 'block';
+      // Unconfirmed accounts are a dead end without a resend path.
+      const resendRow = document.getElementById('resendConfirmRow');
+      if (resendRow) resendRow.hidden = !/email not confirmed/i.test(error.message || '');
       btn.disabled = false;
       btn.textContent = 'Log In';
       return;
     }
     window.location.href = 'dashboard.html';
   });
+
+  const resendBtn = document.getElementById('resendConfirmBtn');
+  if (resendBtn) {
+    resendBtn.addEventListener('click', async () => {
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('resendConfirmMsg');
+      if (!email) return;
+      resendBtn.disabled = true;
+      resendBtn.textContent = 'Sending…';
+      const { error } = await getClient().auth.resend({ type: 'signup', email });
+      msg.textContent = error
+        ? ((typeof friendlyAuthError === 'function') ? friendlyAuthError(error) : error.message)
+        : 'Confirmation email sent — check your inbox and spam folder.';
+      msg.style.display = 'block';
+      msg.style.color = error ? '#c0392b' : '#27ae60';
+      resendBtn.textContent = 'Resend confirmation email';
+      setTimeout(() => { resendBtn.disabled = false; }, 15000);
+    });
+  }
 
   document.getElementById('forgotForm').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -61,13 +84,13 @@
     );
 
     if (error) {
-      errorMsg.textContent = error.message;
+      errorMsg.textContent = (typeof friendlyAuthError === 'function') ? friendlyAuthError(error) : error.message;
       errorMsg.style.display = 'block';
       btn.disabled = false;
       btn.textContent = 'Send Reset Link';
       return;
     }
-    successMsg.textContent = 'Check your email for the reset link.';
+    successMsg.textContent = 'If an account exists with this email, a reset link is on its way — check your inbox and spam folder.';
     successMsg.style.display = 'block';
     btn.textContent = 'Email Sent';
     setTimeout(() => {
