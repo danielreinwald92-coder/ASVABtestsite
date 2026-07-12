@@ -36,6 +36,31 @@ test('loadExplanations resolves {} when the injected script errors', async () =>
   assert.deepStrictEqual({ ...map }, {});
 });
 
+test('a failed load is retried on the next call (no session-sticky empty cache)', async () => {
+  let attempts = 0;
+  const fakeDoc = {
+    head: {
+      appendChild(node) {
+        attempts++;
+        if (attempts === 1) {
+          if (node.onerror) node.onerror(); // transient network blip
+        } else {
+          this._sandbox.QUIZ_EXPLANATIONS = { AR001: 'because' };
+          if (node.onload) node.onload();
+        }
+      },
+    },
+    createElement() { return { set src(v) {}, onload: null, onerror: null }; },
+  };
+  const sandbox = loadInSandbox({ document: fakeDoc });
+  fakeDoc.head._sandbox = sandbox;
+  const first = await sandbox.loadExplanations();
+  assert.deepStrictEqual({ ...first }, {});
+  const second = await sandbox.loadExplanations();
+  assert.deepStrictEqual(second, { AR001: 'because' });
+  assert.strictEqual(attempts, 2);
+});
+
 test('loadExplanations resolves the map when the injected script loads', async () => {
   const fakeDoc = {
     head: {

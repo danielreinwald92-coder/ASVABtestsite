@@ -62,11 +62,21 @@ async function loadAdmin() {
     };
   });
 
+  bindStaticHandlers();
+  renderStats();
+  applyFilters();
+}
+
+// Bound exactly once: loadAdmin() re-runs after every admin action (toggle
+// admin, delete tests/user), and re-binding here used to stack duplicate
+// listeners — sort clicks fired twice (flipping back), search ran N times.
+let _handlersBound = false;
+function bindStaticHandlers() {
+  if (_handlersBound) return;
+  _handlersBound = true;
   bindSortHandlers();
   bindLiveSearch();
   bindRowClicks();
-  renderStats();
-  applyFilters();
 }
 
 function bindSortHandlers() {
@@ -427,7 +437,11 @@ function exportCsv() {
 }
 
 function csvCell(val) {
-  const s = String(val);
+  let s = String(val);
+  // Neutralize spreadsheet formula injection: a user who registers with a
+  // name like =HYPERLINK(...) would otherwise execute when the export is
+  // opened in Excel/Sheets.
+  if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
   return s.includes(',') || s.includes('"') || s.includes('\n') ? `"${s.replace(/"/g, '""')}"` : s;
 }
 

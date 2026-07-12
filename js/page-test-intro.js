@@ -6,8 +6,12 @@
   const checkbox = document.getElementById('acknowledge');
   const startBtn = document.getElementById('startBtn');
 
-  // Load test configuration from session storage
-  const testConfig = JSON.parse(sessionStorage.getItem('testConfig') || '{}');
+  // Load test configuration from session storage (corrupt value → defaults).
+  let testConfig = {};
+  try {
+    const parsed = JSON.parse(sessionStorage.getItem('testConfig') || '{}');
+    if (parsed && typeof parsed === 'object') testConfig = parsed;
+  } catch (_) { testConfig = {}; }
   const testType = localStorage.getItem('testType') || 'quick';
   const sections = testConfig.sections || MissionASVABConfig.getSectionsForType(testType);
   const mode = testConfig.mode === 'tutor' ? 'tutor' : 'timed';

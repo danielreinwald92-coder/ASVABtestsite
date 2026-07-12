@@ -18,6 +18,17 @@ const fullSections = {
   EI: {correct: 9, total: 15},
 };
 
+test('AFQT returns null unless ALL four AFQT sections are present', () => {
+  // A partial set would silently score the missing sections as 0% (SS 20)
+  // and produce a plausible-looking but bogus percentile.
+  assert.strictEqual(scoring.calculateAFQTEstimate({AR: {correct: 10, total: 15}}), null);
+  assert.strictEqual(scoring.calculateAFQTEstimate({
+    AR: {correct: 10, total: 15},
+    WK: {correct: 10, total: 15},
+    PC: {correct: 7, total: 10},
+  }), null);
+});
+
 test('perfect AFQT input caps at 99', () => {
   const afqt = scoring.calculateAFQTEstimate({
     AR: {correct: 15, total: 15},
@@ -28,8 +39,13 @@ test('perfect AFQT input caps at 99', () => {
   assert.strictEqual(afqt, 99);
 });
 
-test('zero/empty input yields finite AFQT >= 1 (no NaN)', () => {
-  const afqt = scoring.calculateAFQTEstimate({AR: {correct: 0, total: 0}});
+test('zero/empty totals yield finite AFQT >= 1 (no NaN)', () => {
+  const afqt = scoring.calculateAFQTEstimate({
+    AR: {correct: 0, total: 0},
+    WK: {correct: 0, total: 0},
+    PC: {correct: 0, total: 0},
+    MK: {correct: 0, total: 0},
+  });
   assert.ok(Number.isFinite(afqt), `expected finite, got ${afqt}`);
   assert.ok(afqt >= 1, `expected >= 1, got ${afqt}`);
 });

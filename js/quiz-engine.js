@@ -44,19 +44,16 @@ class QuizEngine {
     // Load test configuration
     this.loadTestConfig();
 
-    // No config, no URL params, and no in-progress test (e.g. Back button after
-    // submitting): send the user to test selection instead of silently starting
-    // a default test they never asked for.
+    // No config and no URL params (e.g. Back button after submitting): only an
+    // intact in-progress test can supply the sections. Otherwise send the user
+    // to test selection instead of silently starting a test they never asked for.
     if (!this.testSections) {
-      const hasSaved = sessionStorage.getItem('generatedTest') && sessionStorage.getItem('quizState');
-      if (!hasSaved) {
+      if (!this.loadSavedState()) {
         window.location.replace('select-test.html');
         return;
       }
-    }
-
-    // Generate fresh randomized questions for this test session
-    if (!this.loadSavedState()) {
+    } else if (!this.loadSavedState()) {
+      // Generate fresh randomized questions for this test session
       this.generateNewTest();
     }
 
@@ -88,9 +85,15 @@ class QuizEngine {
     // Load saved test config from session storage
     const savedConfig = sessionStorage.getItem('testConfig');
 
+    // A corrupt saved config (quota-truncated write, other tab) must degrade
+    // to "no config" — init() then redirects to select-test.html.
+    let config = null;
     if (savedConfig) {
-      const config = JSON.parse(savedConfig);
-      this.testSections = config.sections || ['AR'];
+      try { config = JSON.parse(savedConfig); } catch (_) { config = null; }
+    }
+
+    if (config && config.sections) {
+      this.testSections = config.sections;
     } else if (sectionParam) {
       this.testSections = sectionParam.split(',');
     } else if (typeParam === 'afqt') {
@@ -102,8 +105,7 @@ class QuizEngine {
     }
 
     // Tutor mode comes from the URL param, falling back to the saved config.
-    let cfgMode = null;
-    if (savedConfig) { try { cfgMode = (JSON.parse(savedConfig) || {}).mode || null; } catch (_) {} }
+    const cfgMode = (config && config.mode) || null;
     this.mode = (modeParam === 'tutor' || cfgMode === 'tutor') ? 'tutor' : 'timed';
   }
 
@@ -309,15 +311,25 @@ class QuizEngine {
     const savedState = sessionStorage.getItem('quizState');
 
     if (savedTest && savedState) {
-      const state = JSON.parse(savedState);
-      // SP2: the timer/navigation model changed. Discard any pre-SP2 in-progress
-      // state (no schemaV) and regenerate a fresh test rather than migrate it.
-      if (state.schemaV !== 2) {
+      // Corrupt state (quota-truncated write, another tab) → discard and
+      // regenerate rather than crashing init with a blank quiz page.
+      let state = null, savedQuizData = null;
+      try {
+        state = JSON.parse(savedState);
+        savedQuizData = JSON.parse(savedTest);
+      } catch (_) {
         sessionStorage.removeItem('generatedTest');
         sessionStorage.removeItem('quizState');
         return false;
       }
-      this.quizData = JSON.parse(savedTest);
+      // SP2: the timer/navigation model changed. Discard any pre-SP2 in-progress
+      // state (no schemaV) and regenerate a fresh test rather than migrate it.
+      if (!state || state.schemaV !== 2 || !savedQuizData || !Array.isArray(savedQuizData.questions)) {
+        sessionStorage.removeItem('generatedTest');
+        sessionStorage.removeItem('quizState');
+        return false;
+      }
+      this.quizData = savedQuizData;
       this.answers = state.answers || {};
       this.flagged = new Set(state.flagged || []);
       this.currentQuestion = state.currentQuestion || 0;

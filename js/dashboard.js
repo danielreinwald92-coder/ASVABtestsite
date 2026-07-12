@@ -49,6 +49,15 @@ async function loadDashboard() {
       .order('taken_at', { ascending: false })
   ]);
 
+  // A failed history query must not masquerade as an empty account — a
+  // veteran user would be shown the first-time welcome as if their tests
+  // vanished. (PGRST116 = no profile row yet; that one is fine.)
+  if (resultsRes.error) {
+    console.error('Dashboard load error:', resultsRes.error);
+    showDashboardError();
+    return;
+  }
+
   const profile = profileRes.data;
   _currentProfile = profile;
   const results = resultsRes.data || [];
@@ -143,7 +152,8 @@ function renderMotivation(results, profile) {
     }
   }
 
-  if (row && (!countdownCard.hidden || !document.getElementById('streakCard').hidden)) {
+  const streakEl = document.getElementById('streakCard');
+  if (row && ((countdownCard && !countdownCard.hidden) || (streakEl && !streakEl.hidden))) {
     row.hidden = false;
   }
 
@@ -192,6 +202,17 @@ function getDisplayName(profile, email) {
     if (local) return local.charAt(0).toUpperCase() + local.slice(1);
   }
   return 'recruit';
+}
+
+function showDashboardError() {
+  const err = document.getElementById('dashboardError');
+  if (err) err.hidden = false;
+  const welcome = document.getElementById('welcomeState');
+  if (welcome) welcome.style.display = 'none';
+  const content = document.getElementById('dashboardContent');
+  if (content) content.style.display = 'none';
+  const empty = document.getElementById('emptyDashboard');
+  if (empty) empty.style.display = 'none';
 }
 
 function showWelcomeState() {

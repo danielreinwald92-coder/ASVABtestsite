@@ -487,7 +487,8 @@ function submitRecruiterRequest(e) {
   btn.disabled = true;
   btn.textContent = 'Submitting...';
 
-  const results = JSON.parse(localStorage.getItem('quizResults')) || {};
+  let results = {};
+  try { results = JSON.parse(localStorage.getItem('quizResults')) || {}; } catch (_) { results = {}; }
   const consentEl = form.querySelector('.consent-label');
   const data = {
     name: form.elements.name.value,

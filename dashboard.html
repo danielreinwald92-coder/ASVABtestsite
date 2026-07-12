@@ -157,6 +157,12 @@
   <main>
     <h1 class="page-heading"><span id="greetingPrefix">Welcome back</span>, <span id="userName">...</span></h1>
 
+    <!-- Error state: history query failed (network/server) -->
+    <div id="dashboardError" hidden style="background:#fff7ed;border:1px solid #fdba74;border-radius:10px;padding:1.25rem 1.5rem;color:#9a3412;margin-bottom:1.5rem;">
+      We couldn't load your test history right now — your data is safe, this is usually a connection hiccup.
+      <a href="dashboard.html" style="color:#9a3412;font-weight:700;">Reload the page</a> to try again.
+    </div>
+
     <!-- Welcome state: shown when no tests yet -->
     <div id="welcomeState">
       <div class="welcome-hero">

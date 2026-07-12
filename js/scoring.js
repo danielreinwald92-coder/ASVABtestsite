@@ -91,8 +91,10 @@
   function calculateAFQTEstimate(sectionResults) {
     if (!sectionResults) return null;
 
-    const hasAFQTSection = AFQT_SECTIONS.some((code) => sectionResults[code]);
-    if (!hasAFQTSection) return null;
+    // All four sections required — a partial set would score the missing ones
+    // as 0% and yield a plausible-looking but bogus percentile.
+    const hasAllAFQTSections = AFQT_SECTIONS.every((code) => sectionResults[code]);
+    if (!hasAllAFQTSections) return null;
 
     const ve = getVEStandardScore(sectionResults);
     const ar = getSectionStandardScore(sectionResults, 'AR');

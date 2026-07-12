@@ -50,6 +50,22 @@ test('init does NOT redirect when a section URL param is present', () => {
   assert.deepStrictEqual(JSON.parse(JSON.stringify(engine.testSections)), ['AR']);
 });
 
+test('corrupt sessionStorage never crashes init (falls back to redirect)', () => {
+  const replaced = [];
+  const storage = emptyStorage();
+  storage.setItem('testConfig', '{corrupt json!!');
+  storage.setItem('quizState', '{also corrupt');
+  storage.setItem('generatedTest', 'nope');
+  const sandbox = loadEngine({
+    document: fakeDoc(),
+    sessionStorage: storage,
+    URLSearchParams,
+    window: { location: { search: '', replace: (url) => replaced.push(url) } },
+  });
+  const engine = new sandbox.QuizEngine();
+  assert.doesNotThrow(() => engine.init());
+});
+
 test('updateTimerDisplay clamps negative remaining time to 0:00', () => {
   const doc = fakeDoc();
   doc._els.timerDisplay = { textContent: '' };

@@ -6,7 +6,13 @@
 (function () {
     let currentCourse = null, currentChapter = null, currentQuiz = null;
     let currentQuestionIndex = 0, score = 0, selectedOption = null, answered = false;
-    let completedChapters = JSON.parse(localStorage.getItem('completedChapters') || '{}');
+    // One corrupt value here would otherwise throw during script evaluation
+    // and blank the entire study-guide SPA.
+    let completedChapters = {};
+    try {
+      const parsed = JSON.parse(localStorage.getItem('completedChapters') || '{}');
+      if (parsed && typeof parsed === 'object') completedChapters = parsed;
+    } catch (_) { completedChapters = {}; }
 
     // Vocabulary flashcards for Word Knowledge
     const vocabFlashcards = [
@@ -189,16 +195,19 @@
           `;
         } else {
           const names = {
-            MK: 'Math Knowledge', WK: 'Word Knowledge', PC: 'Paragraph Comprehension',
-            GS: 'General Science', AS: 'Auto & Shop', MC: 'Mechanical Comprehension', EI: 'Electronics Information'
+            AR: 'Arithmetic Reasoning', MK: 'Math Knowledge', WK: 'Word Knowledge',
+            PC: 'Paragraph Comprehension', GS: 'General Science', AS: 'Auto & Shop',
+            MC: 'Mechanical Comprehension', EI: 'Electronics Information'
           };
-          const icons = { MK: '🔢', WK: '📖', PC: '📄', GS: '🔬', AS: '🔧', MC: '⚙️', EI: '⚡' };
+          const icons = { AR: '🧮', MK: '🔢', WK: '📖', PC: '📄', GS: '🔬', AS: '🔧', MC: '⚙️', EI: '⚡' };
+          // "Unavailable" here almost always means the course bundle failed to
+          // load (offline/blocked), not that the content doesn't exist — say so.
           card.className = 'course-card coming-soon';
           card.innerHTML = `
-            <div class="icon">${icons[code]}</div>
-            <h3>${names[code]}</h3>
-            <p>Coming soon</p>
-            <div class="meta">In development</div>
+            <div class="icon">${icons[code] || '📘'}</div>
+            <h3>${names[code] || code}</h3>
+            <p>Couldn't load this course</p>
+            <div class="meta">Check your connection and refresh</div>
           `;
         }
         grid.appendChild(card);
