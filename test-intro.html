@@ -206,6 +206,14 @@
     }
 
     .rules-section { margin-bottom: 2rem; }
+    .shortcut-note { margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-secondary); }
+    .section-plan { margin-bottom: 2rem; }
+    .section-plan-note { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem; }
+    .section-plan-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    .section-plan-table th, .section-plan-table td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--cream-200); }
+    .section-plan-table th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-secondary); }
+    .section-plan-table td:nth-child(2), .section-plan-table td:nth-child(3),
+    .section-plan-table th:nth-child(2), .section-plan-table th:nth-child(3) { text-align: right; }
 
     .rules-title {
       font-size: 0.85rem;
@@ -369,24 +377,33 @@
   <main class="main-content">
     <div class="intro-card">
       <div class="test-badge" id="testBadge">Practice Test</div>
-      <h1 id="sectionTitle">Arithmetic Reasoning</h1>
+      <h1 id="sectionTitle">Loading…</h1>
       <p class="test-description" id="sectionDesc">
-        This section tests your ability to solve basic arithmetic word problems encountered in everyday life.
+        Preparing your practice test…
       </p>
 
       <div class="test-details">
         <div class="detail-item">
-          <div class="detail-value" id="questionCount">20</div>
+          <div class="detail-value" id="questionCount">–</div>
           <div class="detail-label">Questions</div>
         </div>
         <div class="detail-item">
-          <div class="detail-value" id="timeLimit">39</div>
-          <div class="detail-label">Minutes</div>
+          <div class="detail-value" id="timeLimit">–</div>
+          <div class="detail-label">Minutes Total</div>
         </div>
         <div class="detail-item">
-          <div class="detail-value" id="sectionCode">AR</div>
+          <div class="detail-value" id="sectionCode">–</div>
           <div class="detail-label">Section Code</div>
         </div>
+      </div>
+
+      <div class="section-plan" id="sectionPlan" hidden>
+        <div class="rules-title">Section-by-Section Plan</div>
+        <p class="section-plan-note">Each section runs on its own clock, one after another:</p>
+        <table class="section-plan-table">
+          <thead><tr><th scope="col">Section</th><th scope="col">Questions</th><th scope="col">Minutes</th></tr></thead>
+          <tbody id="sectionPlanBody"></tbody>
+        </table>
       </div>
 
       <div class="warning-box">
@@ -398,18 +415,27 @@
       </div>
 
       <div class="rules-section">
-        <div class="rules-title">Test Guidelines</div>
-        <ul class="rules-list">
-          <li>Use keyboard shortcuts: A, B, C, D to select answers</li>
-          <li>Arrow keys or Enter to navigate between questions</li>
-          <li>Press F to flag questions for review</li>
-          <li>Your results will be shown immediately after submission</li>
+        <div class="rules-title">How This Test Works</div>
+        <ul class="rules-list" id="rulesTimed">
+          <li><strong>You must answer every question</strong> before you can move to the next one — just like the real computer-based ASVAB.</li>
+          <li><strong>Each section has its own timer.</strong> When a section's time runs out, the test automatically moves to the next section.</li>
+          <li><strong>You can't return to a finished section.</strong> Within the current section you can revisit questions you've already answered.</li>
+          <li><strong>Unanswered questions count as wrong</strong> if time runs out.</li>
+          <li>If you switch to another tab, the timer pauses — you won't be penalized for interruptions.</li>
+          <li>Your results appear immediately after the test. You don't need an account, but if you log in first your results are saved to your dashboard.</li>
         </ul>
+        <ul class="rules-list" id="rulesTutor" hidden>
+          <li><strong>No timer, no pressure.</strong> Tutor mode is untimed practice.</li>
+          <li>You get <strong>instant feedback and an explanation</strong> after every answer.</li>
+          <li>You can move freely between all questions.</li>
+          <li>Tutor sessions don't produce an AFQT estimate — take a timed test for that.</li>
+        </ul>
+        <p class="shortcut-note">On a keyboard: press A–D to answer, arrow keys to move, F to flag a question.</p>
       </div>
 
       <div class="acknowledge-box">
         <input type="checkbox" id="acknowledge">
-        <label for="acknowledge">I understand that I should not use a calculator and will complete this test under realistic conditions.</label>
+        <label for="acknowledge">I understand the rules above and won't use a calculator — same conditions as the real test.</label>
       </div>
 
       <button class="start-btn" id="startBtn" disabled>Begin Test</button>
