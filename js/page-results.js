@@ -289,6 +289,17 @@ function renderAnswerReview(sectionResults) {
   }
 }
 
+// Bank content is first-party, but some questions legitimately contain < > &
+// (e.g. "x < 6") — escape at render time so they can never corrupt the DOM.
+function escReview(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function renderFilteredQuestions(filter) {
   currentReviewFilter = filter;
   const list = document.getElementById('reviewQuestionsList');
@@ -314,10 +325,10 @@ function renderFilteredQuestions(filter) {
     html += `
       <div class="review-question ${statusClass}">
         <div class="review-question-header">
-          <span class="review-question-number">${q.sectionName} - Question ${q.num}</span>
+          <span class="review-question-number">${escReview(q.sectionName)} - Question ${q.num}</span>
           <span class="review-question-status ${statusClass}">${statusText}</span>
         </div>
-        <div class="review-question-text">${q.text}</div>
+        <div class="review-question-text">${escReview(q.text)}</div>
         <div class="review-options">
     `;
 
@@ -340,7 +351,7 @@ function renderFilteredQuestions(filter) {
       html += `
         <div class="review-option ${optionClass}">
           <span class="option-letter">${letters[idx]}</span>
-          <span class="option-text">${opt}</span>
+          <span class="option-text">${escReview(opt)}</span>
           ${indicator ? `<span class="option-indicator">${indicator}</span>` : ''}
         </div>
       `;

@@ -1,4 +1,17 @@
 // Quiz Engine - Handles all quiz functionality
+
+// Bank content is first-party, but some questions legitimately contain < > &
+// (e.g. "x < 6") and options are also interpolated into an aria-label
+// attribute — escape everything at render time.
+function escQuiz(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 class QuizEngine {
   constructor() {
     this.currentQuestion = 0;
@@ -517,7 +530,7 @@ class QuizEngine {
     // Update question text (handle multi-line for paragraph comprehension)
     const questionTextEl = document.getElementById('questionText');
 
-    questionTextEl.innerHTML = question.text.replace(/\n/g, '<br>');
+    questionTextEl.innerHTML = escQuiz(question.text).replace(/\n/g, '<br>');
 
     // Update progress
     const progress = (questionNum / totalQuestions) * 100;
@@ -533,15 +546,16 @@ class QuizEngine {
     const revealed = this.mode === 'tutor' && this.tutorRevealed.has(question.id);
     container.innerHTML = question.options.map((option, idx) => {
       const isSelected = this.answers[question.id] === idx;
+      const safeOption = escQuiz(option);
       let revealClass = '';
       if (revealed) {
         if (idx === question.correct) revealClass = ' reveal-correct';
         else if (isSelected) revealClass = ' reveal-incorrect';
       }
       return `
-        <div class="answer-option ${isSelected ? 'selected' : ''}${revealClass}" data-index="${idx}" role="radio" tabindex="0" aria-checked="${isSelected}" aria-label="Option ${letters[idx]}: ${option}. Press ${letters[idx]} to select.">
+        <div class="answer-option ${isSelected ? 'selected' : ''}${revealClass}" data-index="${idx}" role="radio" tabindex="0" aria-checked="${isSelected}" aria-label="Option ${letters[idx]}: ${safeOption}. Press ${letters[idx]} to select.">
           <span class="answer-letter" aria-hidden="true">${letters[idx]}</span>
-          <span class="answer-text">${option}</span>
+          <span class="answer-text">${safeOption}</span>
           <span class="keyboard-hint" aria-hidden="true">Press ${letters[idx]}</span>
         </div>
       `;

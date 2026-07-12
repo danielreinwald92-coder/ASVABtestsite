@@ -64,7 +64,7 @@ test('renderSectionBreakdown guards divide-by-zero (no NaN, width 0%)', () => {
 test('renderFilteredQuestions injects an explanation block when available', () => {
   const src = fs.readFileSync(path.join(root, 'js/page-results.js'), 'utf8');
   // Pull the two functions we need out of the shipped source.
-  const fnSrc = extractFn(src, 'renderFilteredQuestions');
+  const fnSrc = extractFn(src, 'escReview') + '\n' + extractFn(src, 'renderFilteredQuestions');
 
   let listHTML = '';
   const listEl = {

@@ -32,7 +32,7 @@ const asvabData = {
       {
         id: "GS003",
         text: "What type of rock is formed from cooled magma or lava?",
-        options: ["Sedimentary", "Metamorphic", "Igneous", "Ite (Crystal)"],
+        options: ["Sedimentary", "Metamorphic", "Igneous", "Crystalline"],
         correct: 2,
         difficulty: 2
       },
@@ -5254,7 +5254,7 @@ const asvabData = {
       {
         id: "MC001",
         text: "If Gear A turns clockwise, which direction does Gear B (meshed with Gear A) turn?",
-        options: ["Clockwise", "Counter-clockwise", "Same as Gear A", "Gears don't mesh"],
+        options: ["Clockwise", "Counter-clockwise", "It does not turn", "It alternates direction"],
         correct: 1, difficulty: 1
       },
       {
@@ -5566,7 +5566,7 @@ const asvabData = {
       {
         id: "MC053",
         text: "A 1000 kg truck moves at 5 meters per second, and a 500 kg car moves at 12 meters per second. Which vehicle has more momentum?",
-        options: ["The car, because its momentum is 6000 kg x m/s versus 5000 kg x m/s", "The truck, because it has twice the mass", "They have equal momentum", "Neither has momentum unless it is accelerating"],
+        options: ["The car", "The truck", "They have equal momentum", "Neither, because momentum requires acceleration"],
         correct: 0, difficulty: 4
       },
       {
