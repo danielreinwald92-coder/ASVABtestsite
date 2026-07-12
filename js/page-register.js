@@ -51,18 +51,29 @@
     });
 
     if (error) {
-      return failWith(error.message);
+      return failWith((typeof friendlyAuthError === 'function') ? friendlyAuthError(error) : error.message);
     }
 
     let profileSaveFailed = false;
-    if (data.user) {
-      const { error: profileError } = await client.from('profiles')
-        .update({ name, education, age: ageNum, zipcode })
-        .eq('id', data.user.id);
-      if (profileError) {
-        console.error('Profile update error:', profileError);
+    const profileFields = { name, education, age: ageNum, zipcode };
+    if (data.user && data.session) {
+      // .select() verifies a row was actually updated: RLS returns NO error
+      // for an update that matches 0 rows, which silently discards the data.
+      const { data: updated, error: profileError } = await client.from('profiles')
+        .update(profileFields)
+        .eq('id', data.user.id)
+        .select('id');
+      if (profileError || !updated || updated.length === 0) {
+        console.error('Profile update error:', profileError || '0 rows updated');
         profileSaveFailed = true;
       }
+    } else if (data.user) {
+      // Email-confirmation flow: no session yet, so an update here would match
+      // 0 rows under RLS. Stash the details; the dashboard applies them after
+      // the first login.
+      try {
+        localStorage.setItem('missionasvab.pendingProfile', JSON.stringify(profileFields));
+      } catch (_) { /* storage unavailable — details can be re-entered in Account */ }
     }
 
     btn.textContent = 'Account Created ✓';

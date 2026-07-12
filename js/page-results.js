@@ -416,23 +416,34 @@ getSession().then(session => {
 });
 
 function checkPendingResultSync() {
-  const raw = localStorage.getItem('pendingTestResult');
-  if (!raw) return;
-  let pending;
-  try { pending = JSON.parse(raw); } catch (_) { localStorage.removeItem('pendingTestResult'); return; }
-  if (!pending || !pending.payload) { localStorage.removeItem('pendingTestResult'); return; }
-  showSaveBanner('Your results could not be saved to your account. Click retry to try again.');
+  // The engine queues failed saves under the ARRAY key 'pendingTestResults'
+  // (js/quiz-engine.js _queuePendingResult); the legacy single key is also
+  // honored. Draining goes through flushPendingTestResults (js/offline-queue.js)
+  // so retry and auto-flush share one dedup-safe path.
+  let count = 0;
+  try {
+    const raw = localStorage.getItem('pendingTestResults');
+    const arr = raw ? JSON.parse(raw) : [];
+    if (Array.isArray(arr)) count = arr.length;
+  } catch (_) { /* corrupt queue — offline-queue readQueue treats it as empty too */ }
+  if (localStorage.getItem('pendingTestResult')) count += 1;
+  if (count === 0) return;
+
+  showSaveBanner(count === 1
+    ? 'Your results could not be saved to your account. Click retry to try again.'
+    : `${count} test results could not be saved to your account. Click retry to try again.`);
   document.getElementById('retrySaveBtn').onclick = async () => {
     const btn = document.getElementById('retrySaveBtn');
     btn.disabled = true; btn.textContent = 'Retrying...';
     try {
-      const { error } = await getClient().from('test_results').insert(pending.payload);
-      if (error) {
-        showSaveBanner('Retry failed: ' + error.message);
-        btn.disabled = false; btn.textContent = 'Retry';
-      } else {
-        localStorage.removeItem('pendingTestResult');
+      const res = (typeof flushPendingTestResults === 'function')
+        ? await flushPendingTestResults()
+        : { remaining: count };
+      if (res && res.remaining === 0) {
         document.getElementById('saveStatusBanner').style.display = 'none';
+      } else {
+        showSaveBanner('Retry failed — still offline or the server rejected the save. Your results stay saved on this device.');
+        btn.disabled = false; btn.textContent = 'Retry';
       }
     } catch (err) {
       showSaveBanner('Retry failed: ' + (err.message || 'Network error'));

@@ -46,6 +46,34 @@ async function requireAdmin() {
   return profile;
 }
 
+// Map raw Supabase auth errors to plain-language guidance a first-time user
+// can act on. Falls back to the raw message for anything unrecognized.
+function friendlyAuthError(error) {
+  const raw = (error && error.message) ? String(error.message) : '';
+  if (!raw) return 'Something went wrong. Please try again.';
+
+  if (/invalid login credentials/i.test(raw)) {
+    return "That email and password don't match. Double-check both, or use “Forgot password?” to reset it.";
+  }
+  if (/email not confirmed/i.test(raw)) {
+    return "Your email hasn't been confirmed yet. Check your inbox (and spam folder) for the confirmation link, or resend it below.";
+  }
+  const rateMatch = raw.match(/after (\d+) seconds/i);
+  if (rateMatch) {
+    return `Too many attempts — please wait ${rateMatch[1]} seconds and try again.`;
+  }
+  if (/already registered/i.test(raw)) {
+    return 'An account with this email already exists. Try logging in instead, or reset your password if you forgot it.';
+  }
+  if (/auth session missing/i.test(raw)) {
+    return 'Your reset link expired. Please request a new reset link from the log-in page.';
+  }
+  if (/password should be at least/i.test(raw)) {
+    return 'Your password needs to be at least 8 characters long.';
+  }
+  return raw;
+}
+
 async function signOut() {
   await getClient().auth.signOut();
   window.location.href = 'index.html';

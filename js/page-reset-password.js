@@ -45,7 +45,7 @@
     const { error } = await getClient().auth.updateUser({ password: newPass });
 
     if (error) {
-      errorMsg.textContent = error.message;
+      errorMsg.textContent = (typeof friendlyAuthError === 'function') ? friendlyAuthError(error) : error.message;
       errorMsg.style.display = 'block';
       btn.disabled = false;
       btn.textContent = 'Update Password';

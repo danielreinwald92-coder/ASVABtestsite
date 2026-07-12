@@ -95,50 +95,70 @@
     } catch (_) {}
   }
 
+  // Re-entrancy guard: flush is wired to `load`, `online`, AND post-submit —
+  // overlapping runs would each read the same queue and double-insert.
+  let _flushing = false;
+
   // Drain the queue to Supabase. No-op (and non-throwing) when there is no
-  // client, no session, or the browser reports it is offline.
+  // client, no session, the browser reports it is offline, or a flush is
+  // already in flight.
   async function flushPendingTestResults() {
-    migrateLegacy();
-
-    const queue = readQueue();
-    if (queue.length === 0) return { flushed: 0, remaining: 0 };
-
-    if (typeof getClient !== 'function' || typeof getSession !== 'function') {
-      return { flushed: 0, remaining: queue.length, reason: 'no-client' };
+    if (_flushing) {
+      return { flushed: 0, remaining: readQueue().length, reason: 'in-flight' };
     }
-    if (isOffline()) {
-      return { flushed: 0, remaining: queue.length, reason: 'offline' };
-    }
-
-    let session;
+    _flushing = true;
     try {
-      session = await getSession();
-    } catch (_) {
-      return { flushed: 0, remaining: queue.length, reason: 'no-session' };
-    }
-    if (!session) {
-      return { flushed: 0, remaining: queue.length, reason: 'no-session' };
-    }
+      migrateLegacy();
 
-    const remaining = [];
-    let flushed = 0;
-    for (const entry of queue) {
-      const payload = entry && entry.payload ? entry.payload : entry;
-      try {
-        const { error } = await getClient().from('test_results').insert(payload);
-        if (error) {
-          remaining.push(entry); // keep on failure — never drop unsent results
-        } else {
-          flushed += 1;
-        }
-      } catch (_) {
-        remaining.push(entry);
+      const queue = readQueue();
+      if (queue.length === 0) return { flushed: 0, remaining: 0 };
+
+      if (typeof getClient !== 'function' || typeof getSession !== 'function') {
+        return { flushed: 0, remaining: queue.length, reason: 'no-client' };
       }
-    }
+      if (isOffline()) {
+        return { flushed: 0, remaining: queue.length, reason: 'offline' };
+      }
 
-    writeQueue(remaining);
-    if (flushed > 0) showFlushToast(flushed);
-    return { flushed, remaining: remaining.length };
+      let session;
+      try {
+        session = await getSession();
+      } catch (_) {
+        return { flushed: 0, remaining: queue.length, reason: 'no-session' };
+      }
+      if (!session) {
+        return { flushed: 0, remaining: queue.length, reason: 'no-session' };
+      }
+
+      // Dequeue per entry, immediately after its confirmed insert: if the page
+      // navigates away mid-flush, already-inserted entries must not be re-run
+      // on the next load (that produced duplicate test_results rows).
+      const pending = queue.slice();
+      const failed = [];
+      let flushed = 0;
+      while (pending.length > 0) {
+        const entry = pending.shift();
+        const payload = entry && entry.payload ? entry.payload : entry;
+        let ok = false;
+        try {
+          const { error } = await getClient().from('test_results').insert(payload);
+          ok = !error;
+        } catch (_) {
+          ok = false;
+        }
+        if (ok) {
+          flushed += 1;
+        } else {
+          failed.push(entry); // keep on failure — never drop unsent results
+        }
+        writeQueue(failed.concat(pending));
+      }
+
+      if (flushed > 0) showFlushToast(flushed);
+      return { flushed, remaining: failed.length };
+    } finally {
+      _flushing = false;
+    }
   }
 
   // Expose for tests and other modules.

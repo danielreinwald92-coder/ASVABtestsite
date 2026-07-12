@@ -7,12 +7,38 @@ function timedOnly(results) {
   return (results || []).filter((r) => (r && r.mode ? r.mode : 'timed') === 'timed');
 }
 
+// Registration stashes profile details locally when the email-confirmation
+// flow leaves it without a session (see js/page-register.js). Apply them on
+// the first authenticated dashboard load; keep the stash unless a row was
+// confirmably updated.
+async function applyPendingProfile(client, userId) {
+  let fields = null;
+  try {
+    const raw = localStorage.getItem('missionasvab.pendingProfile');
+    if (raw) fields = JSON.parse(raw);
+  } catch (_) { /* corrupt stash — fall through and drop it */ }
+  if (!fields || typeof fields !== 'object') {
+    try { localStorage.removeItem('missionasvab.pendingProfile'); } catch (_) {}
+    return;
+  }
+  try {
+    const { data, error } = await client.from('profiles')
+      .update(fields)
+      .eq('id', userId)
+      .select('id');
+    if (!error && data && data.length > 0) {
+      localStorage.removeItem('missionasvab.pendingProfile');
+    }
+  } catch (_) { /* transient failure — retried on the next load */ }
+}
+
 async function loadDashboard() {
   const session = await requireAuth();
   if (!session) return;
   _currentSession = session;
 
   const client = getClient();
+  await applyPendingProfile(client, session.user.id);
 
   // Fetch profile and results in parallel
   const [profileRes, resultsRes] = await Promise.all([

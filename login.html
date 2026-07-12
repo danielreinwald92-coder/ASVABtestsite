@@ -28,6 +28,7 @@
     .forgot-link { text-align: right; margin-top: -0.75rem; margin-bottom: 1.25rem; }
     .forgot-link button { background: none; border: none; color: var(--navy-600); font-size: 0.85rem; cursor: pointer; padding: 0; font-family: 'DM Sans', sans-serif; }
     .error-msg { color: #c0392b; font-size: 0.875rem; margin-top: 1rem; display: none; }
+    .btn-secondary-link { background: none; border: none; color: var(--navy-600); font-weight: 600; font-size: 0.875rem; cursor: pointer; padding: 0; margin-top: 0.75rem; text-decoration: underline; font-family: 'DM Sans', sans-serif; }
     .success-msg { color: #27ae60; font-size: 0.875rem; margin-top: 1rem; display: none; }
     .bottom-link { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-secondary); }
     .bottom-link a { color: var(--navy-700); font-weight: 600; text-decoration: none; }
@@ -58,6 +59,10 @@
           </div>
           <button type="submit" class="btn-primary" id="loginBtn">Log In</button>
           <p class="error-msg" id="loginError"></p>
+          <div id="resendConfirmRow" hidden>
+            <button type="button" class="btn-secondary-link" id="resendConfirmBtn">Resend confirmation email</button>
+            <p class="success-msg" id="resendConfirmMsg"></p>
+          </div>
         </form>
         <p class="bottom-link">Don't have an account? <a href="register.html">Sign up free</a></p>
       </div>
