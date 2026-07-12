@@ -328,8 +328,14 @@ function renderProgressChart(results) {
   `;
 }
 
-const SECTION_NAMES = { AR: 'Arithmetic Reasoning', MK: 'Math Knowledge', WK: 'Word Knowledge', PC: 'Paragraph Comprehension' };
+const SECTION_NAMES = {
+  AR: 'Arithmetic Reasoning', MK: 'Math Knowledge', WK: 'Word Knowledge', PC: 'Paragraph Comprehension',
+  GS: 'General Science', AS: 'Auto & Shop', MC: 'Mechanical Comprehension', EI: 'Electronics Information',
+};
 const AFQT_SECTIONS = ['AR', 'MK', 'WK', 'PC'];
+// Full-test order for history detail rows — a user who took the full 8-section
+// test should see ALL their section scores, not just the AFQT four.
+const ALL_SECTIONS = ['AR', 'MK', 'WK', 'PC', 'GS', 'AS', 'MC', 'EI'];
 
 function getSectionScore(sectionResults, code) {
   const s = sectionResults && sectionResults[code];
@@ -549,7 +555,7 @@ function renderTestHistory(results) {
   const rows = page.map((r, i) => {
     const globalIdx = historyPage * HISTORY_PAGE_SIZE + i;
     const sectionDetail = r.section_scores
-      ? AFQT_SECTIONS.map(code => {
+      ? ALL_SECTIONS.map(code => {
           const score = getSectionScore(r.section_scores, code);
           return score !== null ? `<span>${SECTION_NAMES[code]}: <strong>${score}%</strong></span>` : '';
         }).filter(Boolean).join(' &nbsp;|&nbsp; ')
@@ -560,7 +566,7 @@ function renderTestHistory(results) {
         <td>${formatDate(r.taken_at)}</td>
         <td>${(r.mode === 'tutor') ? 'Practice' : (r.test_type === 'full' ? 'Full Assessment' : 'AFQT')}</td>
         <td>${r.afqt_score !== null ? ordinal(r.afqt_score) + ' percentile' : '—'}</td>
-        <td><button class="expand-btn" data-idx="${globalIdx}">▾</button></td>
+        <td><button class="expand-btn" data-idx="${globalIdx}" aria-expanded="false" aria-label="Show section scores for this test">▾</button></td>
       </tr>
       <tr class="history-detail" id="detail-${globalIdx}" style="display:none;">
         <td colspan="4"><div class="detail-sections">${sectionDetail}</div></td>
@@ -585,7 +591,11 @@ function renderTestHistory(results) {
 
 function toggleHistoryDetail(idx) {
   const row = document.getElementById(`detail-${idx}`);
-  row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+  if (!row) return;
+  const open = row.style.display === 'none';
+  row.style.display = open ? 'table-row' : 'none';
+  const btn = document.querySelector(`.expand-btn[data-idx="${idx}"]`);
+  if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }
 
 function changeHistoryPage(dir) {

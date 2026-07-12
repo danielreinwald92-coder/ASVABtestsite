@@ -855,13 +855,13 @@
     </div>
 
     <div class="view" id="course-view">
-      <span class="back-btn" data-action="show-home">← Back to Courses</span>
+      <span class="back-btn" role="button" tabindex="0" data-action="show-home">← Back to Courses</span>
       <div class="course-header" id="course-header"></div>
       <div class="chapter-list" id="chapter-list"></div>
     </div>
 
     <div class="view" id="lesson-view">
-      <span class="back-btn" id="lesson-back-btn">← Back to Chapters</span>
+      <span class="back-btn" role="button" tabindex="0" id="lesson-back-btn">← Back to Chapters</span>
       <div class="lesson-container" id="lesson-container"></div>
     </div>
 
@@ -881,7 +881,7 @@
     </div>
 
     <div class="view" id="section-practice-view">
-      <span class="back-btn" id="section-practice-back-btn">← Exit Practice</span>
+      <span class="back-btn" role="button" tabindex="0" id="section-practice-back-btn">← Exit Practice</span>
       <div class="section-quiz-header">
         <div class="section-quiz-info">
           <h2 id="section-practice-title">Section Practice</h2>
@@ -897,7 +897,7 @@
     </div>
 
     <div class="view" id="formulas-view">
-      <span class="back-btn" id="formulas-back-btn">← Back to Course</span>
+      <span class="back-btn" role="button" tabindex="0" id="formulas-back-btn">← Back to Course</span>
       <div class="formula-header">
         <h1>Formula Cheat Sheet</h1>
         <p>Essential formulas for the ASVAB math sections</p>
@@ -907,7 +907,7 @@
     </div>
 
     <div class="view" id="flashcards-view">
-      <span class="back-btn" id="flashcards-back-btn">← Back to Course</span>
+      <span class="back-btn" role="button" tabindex="0" id="flashcards-back-btn">← Back to Course</span>
       <div class="flashcard-header">
         <h1>Formula Flashcards</h1>
         <p class="flashcard-progress" id="flashcard-progress">Card 1 of 20</p>
@@ -918,7 +918,7 @@
       </div>
       <p class="flashcard-sr-hint" id="srHint" hidden>Smart review shows each card again right before you'd forget it. Flip the card, then grade yourself honestly: <strong>Again</strong> = see it again soon, <strong>Good</strong> = normal spacing, <strong>Easy</strong> = wait longer.</p>
       <div class="flashcard-container">
-        <div class="flashcard" id="flashcard" data-action="flip-card">
+        <div class="flashcard" id="flashcard" data-action="flip-card" role="button" tabindex="0" aria-label="Flashcard — press Enter or Space to flip">
           <div class="flashcard-face flashcard-front" id="flashcard-front"></div>
           <div class="flashcard-face flashcard-back" id="flashcard-back"></div>
         </div>

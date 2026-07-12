@@ -638,7 +638,10 @@ class QuizEngine {
       }
       if (this.flagged.has(q.id)) classes.push('flagged');
       const sectionAttr = q.sectionCode ? `data-section="${q.sectionCode}"` : '';
-      html += `<div class="${classes.join(' ')}" data-index="${idx}" ${sectionAttr}>${idx - range.start + 1}</div>`;
+      const num = idx - range.start + 1;
+      const state = this.answers[q.id] !== undefined ? ', answered' : ', unanswered';
+      const current = idx === this.currentQuestion ? ' aria-current="true"' : '';
+      html += `<div class="${classes.join(' ')}" data-index="${idx}" ${sectionAttr} role="button" tabindex="0" aria-label="Question ${num}${state}"${current}>${num}</div>`;
     }
     grid.innerHTML = html;
   }
@@ -993,13 +996,25 @@ class QuizEngine {
       // stopPropagation so the document-level Enter handler does not also
       // advance to the next question while an option is focused.
       answersContainer.addEventListener('keydown', (e) => {
+        const option = e.target.closest && e.target.closest('.answer-option');
+        if (!option) return;
         if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-          const option = e.target.closest('.answer-option');
-          if (option) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.selectAnswer(parseInt(option.dataset.index));
-          }
+          e.preventDefault();
+          e.stopPropagation();
+          this.selectAnswer(parseInt(option.dataset.index));
+          return;
+        }
+        // Radio pattern: arrows move focus BETWEEN OPTIONS while an option is
+        // focused (the document-level arrow handler would otherwise hijack
+        // ArrowRight to jump to the next question mid-choice).
+        if (['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'].includes(e.key)) {
+          e.preventDefault();
+          e.stopPropagation();
+          const options = Array.from(answersContainer.querySelectorAll('.answer-option'));
+          const i = options.indexOf(option);
+          const delta = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : -1;
+          const next = options[(i + delta + options.length) % options.length];
+          if (next && next.focus) next.focus();
         }
       });
     }
@@ -1019,6 +1034,15 @@ class QuizEngine {
       navigatorGrid.addEventListener('click', (e) => {
         const dot = e.target.closest('.nav-dot');
         if (dot) {
+          this.goToQuestion(parseInt(dot.dataset.index));
+        }
+      });
+      navigatorGrid.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+        const dot = e.target.closest && e.target.closest('.nav-dot');
+        if (dot) {
+          e.preventDefault();
+          e.stopPropagation();
           this.goToQuestion(parseInt(dot.dataset.index));
         }
       });

@@ -186,6 +186,8 @@
         if (course && available) {
           const done = course.chapters.filter(ch => completedChapters[ch.id]).length;
           card.className = 'course-card';
+          card.setAttribute('role', 'button');
+          card.setAttribute('tabindex', '0');
           card.onclick = () => showCourse(code);
           card.innerHTML = `
             <div class="icon">${course.icon}</div>
@@ -229,6 +231,8 @@
         const done = completedChapters[ch.id];
         const card = document.createElement('div');
         card.className = 'chapter-card' + (done ? ' completed' : '');
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
         card.onclick = () => showLesson(ch);
         card.innerHTML = `
           <div class="chapter-num">${done ? '✓' : i + 1}</div>
@@ -276,12 +280,12 @@
             <h3>📚 Study Tools</h3>
           </div>
           <div class="tools-grid">
-            <div class="tool-card" data-action="show-flashcards" data-type="formulas">
+            <div class="tool-card" role="button" tabindex="0" data-action="show-flashcards" data-type="formulas">
               <div class="icon">🃏</div>
               <h3>Formula Flashcards</h3>
               <p>Drill the essential math formulas</p>
             </div>
-            <div class="tool-card" data-action="show-formulas">
+            <div class="tool-card" role="button" tabindex="0" data-action="show-formulas">
               <div class="icon">📋</div>
               <h3>Formula Cheat Sheet</h3>
               <p>Quick reference for all formulas</p>
@@ -295,7 +299,7 @@
             <h3>📚 Study Tools</h3>
           </div>
           <div class="tools-grid">
-            <div class="tool-card" data-action="show-flashcards" data-type="vocab">
+            <div class="tool-card" role="button" tabindex="0" data-action="show-flashcards" data-type="vocab">
               <div class="icon">🃏</div>
               <h3>Vocabulary Flashcards</h3>
               <p>Learn 30 common ASVAB words</p>
@@ -952,6 +956,17 @@
         case 'next-section-question': nextSectionQuestion(); break;
         case 'render-formulas': renderFormulas(el.dataset.category); break;
       }
+    });
+
+    // Keyboard activation for the div/span cards above (role="button"):
+    // Enter/Space triggers the same delegated click path, so keyboard and
+    // switch-control users can navigate courses, chapters, tools, and back links.
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+      const el = e.target && e.target.closest && e.target.closest('[role="button"]');
+      if (!el || el.tagName === 'BUTTON' || el.tagName === 'A') return;
+      e.preventDefault();
+      el.click();
     });
 
     // Deep link: study-guide.html?section=AR jumps straight into that course
