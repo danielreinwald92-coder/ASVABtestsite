@@ -15,7 +15,10 @@
 'use strict';
 
 // Bump this string to invalidate the whole offline cache on the next visit.
-const CACHE_VERSION = 'mission-asvab-v3';
+// RELEASE STEP: bump on every deploy that changes an existing JS file —
+// subresources are cache-first, so without a bump the first post-deploy load
+// runs fresh HTML against stale cached JS.
+const CACHE_VERSION = 'mission-asvab-v4';
 
 // Small, maintainable core of STATIC same-origin assets that make up the app
 // shell. Admin assets are intentionally excluded.
@@ -50,6 +53,12 @@ const PRECACHE_URLS = [
   '/js/page-dashboard.js',
   '/js/dashboard.js',
   '/js/weak-areas.js',
+  // SP3 modules the dashboard/results pages load
+  '/js/streak.js',
+  '/js/study-plan.js',
+  '/js/share-card.js',
+  '/js/spaced-repetition.js',
+  '/js/pwa-install.js',
   '/js/mobile-menu.js',
   '/js/focus-trap.js',
   '/js/year.js'
