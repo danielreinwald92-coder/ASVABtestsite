@@ -9,20 +9,27 @@ const vm = require('vm');
 const root = path.resolve(__dirname, '..', '..');
 
 function loadEngine(ctx = {}) {
+  // Tests often pass a real jsdom document so instance methods can render into
+  // it. Do not expose that document while evaluating quiz-engine.js, because
+  // its production DOMContentLoaded hook would create and initialize a second,
+  // uncontrolled QuizEngine when jsdom finishes loading. Install against a
+  // no-op load-time document, then swap in the requested runtime document.
+  const runtimeDocument = ctx.document;
   const sandbox = Object.assign(
     {
       console,
       setInterval: () => 1,
       clearInterval: () => {},
       setTimeout: () => 0,
-      document: { addEventListener() {} }, // load-time DOMContentLoaded hook
     },
     ctx,
+    { document: { addEventListener() {} } },
   );
   sandbox.globalThis = sandbox;
   vm.createContext(sandbox);
   const src = fs.readFileSync(path.join(root, 'js/quiz-engine.js'), 'utf8');
   vm.runInContext(src + '\nthis.QuizEngine = QuizEngine;', sandbox);
+  if (runtimeDocument) sandbox.document = runtimeDocument;
   return sandbox;
 }
 

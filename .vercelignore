@@ -2,3 +2,7 @@ docs/
 preview-*.html
 .github/
 *.md
+.claude/
+.mcp.json
+.vercel/
+playwright.config.js

@@ -9,7 +9,7 @@
       code: "GS",
       description: "Tests knowledge of physical, earth, and biological sciences",
       questionsPerTest: 15,
-      timeLimit: 10 * 60, // 10 minutes
+      timeLimit: 12 * 60, // 12 minutes
       inAFQT: false
     },
     AR: {

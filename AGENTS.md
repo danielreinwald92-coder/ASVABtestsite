@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 Mission ASVAB - Static HTML/JS practice test site for military applicants preparing for the Armed Services Vocational Aptitude Battery. Deployed on Vercel.
 

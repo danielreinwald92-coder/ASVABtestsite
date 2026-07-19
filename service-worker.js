@@ -18,7 +18,7 @@
 // RELEASE STEP: bump on every deploy that changes an existing JS file —
 // subresources are cache-first, so without a bump the first post-deploy load
 // runs fresh HTML against stale cached JS.
-const CACHE_VERSION = 'mission-asvab-v4';
+const CACHE_VERSION = 'mission-asvab-v5';
 
 // Small, maintainable core of STATIC same-origin assets that make up the app
 // shell. Admin assets are intentionally excluded.

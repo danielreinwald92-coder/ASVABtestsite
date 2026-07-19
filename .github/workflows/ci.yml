@@ -14,5 +14,7 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
       - run: node scripts/validate-site.js
       - run: node scripts/check-no-inline-js.js
