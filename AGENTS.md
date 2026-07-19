@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Mission ASVAB - Static HTML/JS practice test site for military applicants preparing for the Armed Services Vocational Aptitude Battery. Deployed on Vercel.
+Mission ASVAB - Static HTML/JS practice test site for military applicants preparing for the Armed Services Vocational Aptitude Battery. Deployed on Vercel at `https://www.missionasvab.org`; the bare domain permanently redirects to `www`.
 
 ## Core Features
 

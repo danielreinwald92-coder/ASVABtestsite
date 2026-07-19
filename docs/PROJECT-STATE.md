@@ -9,7 +9,8 @@ features were built; unchecked boxes there are not the current work queue.
 
 ## Production Baseline
 
-- Static HTML/JavaScript application deployed from `main` to Vercel at missionasvab.org.
+- Static HTML/JavaScript application deployed from `main` to Vercel. The canonical production
+  URL is `https://www.missionasvab.org`; the bare domain permanently redirects to `www`.
 - Twelve served pages; account and admin data use Supabase project `rcspwkmrtukblvvdifer`.
 - Guest practice works without an account. Supabase adds saved history, profiles, reports,
   and guarded admin operations.
@@ -42,6 +43,7 @@ features were built; unchecked boxes there are not the current work queue.
 - Study courses: `js/courses.js` and `js/courses-tech.js`
 - Supabase client expectations: `js/auth.js`, `js/dashboard.js`, `js/admin.js`
 - Deployment/security headers: `vercel.json`
+- Canonical production routing: Vercel project domains (`www` primary; bare domain → `www` 308)
 - Release history visible to users: Recent Updates in `index.html`
 
 ## Known Constraints and Next Priorities

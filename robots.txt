@@ -8,4 +8,4 @@ Disallow: /quiz.html
 Disallow: /results.html
 Disallow: /preview-
 
-Sitemap: https://missionasvab.org/sitemap.xml
+Sitemap: https://www.missionasvab.org/sitemap.xml
