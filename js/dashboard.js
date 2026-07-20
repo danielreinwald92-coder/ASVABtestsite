@@ -39,14 +39,22 @@ async function loadDashboard() {
 
   const client = getClient();
   await applyPendingProfile(client, session.user.id);
+  if (typeof MissionASVABMissionProgress !== 'undefined') {
+    // Imports a guest's current result + local missions once, then makes them
+    // available on every signed-in device. Duplicate client ids are harmless.
+    await MissionASVABMissionProgress.syncLocalProgress(session);
+  }
 
-  // Fetch profile and results in parallel
-  const [profileRes, resultsRes] = await Promise.all([
+  // Fetch profile, results, and mission history in parallel.
+  const [profileRes, resultsRes, missionsRes] = await Promise.all([
     client.from('profiles').select('*').eq('id', session.user.id).single(),
     client.from('test_results')
       .select('*')
       .eq('user_id', session.user.id)
-      .order('taken_at', { ascending: false })
+      .order('taken_at', { ascending: false }),
+    typeof MissionASVABMissionProgress !== 'undefined'
+      ? MissionASVABMissionProgress.fetchRemoteMissions(session)
+      : Promise.resolve({ data: [], error: null })
   ]);
 
   // A failed history query must not masquerade as an empty account — a
@@ -85,6 +93,7 @@ async function loadDashboard() {
   const timed = timedOnly(results);
   // Zone 0: motivation (countdown + streak + paced plan), from all results.
   renderMotivation(results, profile);
+  renderMissionProgress(missionsRes.error ? [] : missionsRes.data);
   // Timed-only: AFQT score card, trend chart, section cards.
   renderScoreSummary(timed);
   renderProgressChart(timed);
@@ -180,6 +189,62 @@ function renderMotivation(results, profile) {
   }
 }
 
+function safeMissionTarget(mission) {
+  const target = mission && mission.target;
+  const M = (typeof MissionASVABMissions !== 'undefined') ? MissionASVABMissions : null;
+  if (!target || !M || !M.validateTarget(target)) return null;
+  return M.targetUrl(target, mission.clientId);
+}
+
+function renderMissionProgress(missions) {
+  const all = Array.isArray(missions) ? missions : [];
+  const wrap = document.getElementById('missionDashboard');
+  if (!wrap || all.length === 0) return;
+
+  const completed = all.filter((m) => m.status === 'completed').length;
+  const active = all.find((m) => m.status !== 'completed' && safeMissionTarget(m)) ||
+    all.find((m) => safeMissionTarget(m));
+  const rate = Math.round((completed / all.length) * 100);
+  document.getElementById('missionCompletionCount').textContent = completed;
+  document.getElementById('missionCompletionLabel').textContent =
+    `${completed === 1 ? 'mission' : 'missions'} complete · ${rate}% of ${all.length}`;
+  document.getElementById('missionProgressFill').style.width = rate + '%';
+
+  const card = document.getElementById('currentMissionCard');
+  card.innerHTML = '';
+  if (active) {
+    const eyebrow = document.createElement('div');
+    eyebrow.className = 'eyebrow';
+    eyebrow.textContent = active.status === 'completed' ? 'Maintenance Mission' : 'Continue Your Mission';
+    const title = document.createElement('h3');
+    title.textContent = active.title;
+    const summary = document.createElement('p');
+    summary.textContent = active.summary;
+    const link = document.createElement('a');
+    link.href = safeMissionTarget(active);
+    link.dataset.missionId = active.clientId;
+    link.dataset.action = 'resume-mission';
+    link.textContent = active.status === 'in_progress' ? 'Resume Mission →' :
+      (active.status === 'completed' ? 'Review Again →' : 'Start Mission →');
+    card.append(eyebrow, title, summary, link);
+  }
+
+  const list = document.getElementById('missionHistoryList');
+  list.innerHTML = '';
+  all.slice(0, 6).forEach((mission) => {
+    const li = document.createElement('li');
+    li.className = 'mission-history-item';
+    const label = document.createElement('strong');
+    label.textContent = mission.title;
+    const status = document.createElement('span');
+    status.textContent = mission.status === 'completed' ? '✓ Completed' :
+      (mission.status === 'in_progress' ? 'In progress' : 'Not started');
+    li.append(label, status);
+    list.appendChild(li);
+  });
+  wrap.hidden = false;
+}
+
 function ordinal(n) {
   const mod100 = n % 100;
   if (mod100 >= 11 && mod100 <= 13) return n + 'th';
@@ -247,13 +312,14 @@ async function skipWelcome() {
 }
 
 function renderScoreSummary(results) {
-  if (!results.length) {
+  const scored = (results || []).filter((r) => typeof r.afqt_score === 'number');
+  if (!scored.length) {
     document.getElementById('latestAfqt').textContent = '—';
     document.getElementById('latestDate').textContent = 'Take a timed test for your AFQT';
     return;
   }
-  const latest = results[0];
-  const previous = results[1];
+  const latest = scored[0];
+  const previous = scored[1];
 
   document.getElementById('latestAfqt').textContent = latest.afqt_score !== null ? latest.afqt_score : '—';
   document.getElementById('latestDate').textContent = formatDate(latest.taken_at);
@@ -564,7 +630,7 @@ function renderTestHistory(results) {
     return `
       <tr class="history-row" data-idx="${globalIdx}">
         <td>${formatDate(r.taken_at)}</td>
-        <td>${(r.mode === 'tutor') ? 'Practice' : (r.test_type === 'full' ? 'Full Assessment' : 'AFQT')}</td>
+        <td>${r.test_type === 'diagnostic' ? 'Starting-Point Diagnostic' : ((r.mode === 'tutor') ? 'Practice' : (r.test_type === 'full' ? 'Full Assessment' : 'AFQT'))}</td>
         <td>${r.afqt_score !== null ? ordinal(r.afqt_score) + ' percentile' : '—'}</td>
         <td><button class="expand-btn" data-idx="${globalIdx}" aria-expanded="false" aria-label="Show section scores for this test">▾</button></td>
       </tr>
@@ -716,13 +782,14 @@ async function exportUserData() {
   setAccMsg('exportMsg', 'Preparing your data…');
 
   const client = getClient();
-  const [profileRes, resultsRes] = await Promise.all([
+  const [profileRes, resultsRes, missionsRes] = await Promise.all([
     client.from('profiles').select('*').eq('id', session.user.id).single(),
-    client.from('test_results').select('*').eq('user_id', session.user.id)
+    client.from('test_results').select('*').eq('user_id', session.user.id),
+    client.from('study_missions').select('*').eq('user_id', session.user.id)
   ]);
 
-  if (profileRes.error || resultsRes.error) {
-    const msg = (profileRes.error || resultsRes.error).message;
+  if (profileRes.error || resultsRes.error || missionsRes.error) {
+    const msg = (profileRes.error || resultsRes.error || missionsRes.error).message;
     return setAccMsg('exportMsg', 'Could not export your data: ' + msg, 'err');
   }
 
@@ -730,7 +797,8 @@ async function exportUserData() {
     exported_at: new Date().toISOString(),
     account: { id: session.user.id, email: session.user.email },
     profile: profileRes.data || null,
-    test_results: resultsRes.data || []
+    test_results: resultsRes.data || [],
+    study_missions: missionsRes.data || []
   };
 
   const date = new Date().toISOString().slice(0, 10);

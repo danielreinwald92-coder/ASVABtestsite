@@ -45,13 +45,15 @@ test('select-test: test-type cards get role/tabindex and respond to Enter', () =
 
   const full = document.querySelector('.test-type-card[data-type="full"]');
   const quick = document.querySelector('.test-type-card[data-type="quick"]');
-  assert.strictEqual(quick.classList.contains('selected'), true, 'quick selected by default');
+  const diagnostic = document.querySelector('.test-type-card[data-type="diagnostic"]');
+  assert.strictEqual(diagnostic.classList.contains('selected'), true, 'diagnostic selected by default');
 
   // Enter on the "full" card selects it.
   full.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
   assert.strictEqual(full.classList.contains('selected'), true, 'Enter selects the full card');
   assert.strictEqual(full.getAttribute('aria-checked'), 'true');
-  assert.strictEqual(quick.classList.contains('selected'), false, 'previous selection cleared');
+  assert.strictEqual(diagnostic.classList.contains('selected'), false, 'previous selection cleared');
+  assert.strictEqual(quick.classList.contains('selected'), false, 'other presets remain cleared');
 });
 
 // 3.3(b) — quiz answer options rendered by the engine are keyboard operable.

@@ -6,23 +6,25 @@ const { runPageScript, flush } = require('../helpers/load.js');
 // js/dashboard.js exportUserData() against a jsdom dashboard.html DOM, mocking
 // getSession()/getClient()/Blob/URL seams and capturing the download anchor.
 
-function makeClient(profile, results) {
+function makeClient(profile, results, missions = []) {
   return {
     from: (tbl) => {
       if (tbl === 'profiles') {
         return { select: () => ({ eq: () => ({ single: async () => ({ data: profile, error: null }) }) }) };
       }
-      return { select: () => ({ eq: async () => ({ data: results, error: null }) }) };
+      const data = tbl === 'study_missions' ? missions : results;
+      return { select: () => ({ eq: async () => ({ data, error: null }) }) };
     }
   };
 }
 
-test('export builds a JSON blob + download anchor with profile and test_results', async () => {
+test('export builds a JSON blob + download anchor with profile, results, and missions', async () => {
   const profile = { id: 'u9', name: 'Pat Recruit', age: 22 };
   const results = [
     { id: 'r1', afqt_score: 55, test_type: 'afqt' },
     { id: 'r2', afqt_score: 61, test_type: 'full' }
   ];
+  const missions = [{ client_id: 'mission-v1-result-1', status: 'completed' }];
 
   let capturedBlob = null;
   const FakeBlob = class { constructor(parts, opts) { this.parts = parts; this.type = opts && opts.type; } };
@@ -33,7 +35,7 @@ test('export builds a JSON blob + download anchor with profile and test_results'
 
   const { document, sandbox } = runPageScript('dashboard.html', 'exportUserData', {
     getSession: async () => ({ user: { id: 'u9', email: 'pat@example.test' } }),
-    getClient: () => makeClient(profile, results),
+    getClient: () => makeClient(profile, results, missions),
     globals: { Blob: FakeBlob, URL: URLMock }
   });
 
@@ -62,6 +64,8 @@ test('export builds a JSON blob + download anchor with profile and test_results'
   assert.strictEqual(payload.account.email, 'pat@example.test');
   assert.strictEqual(payload.test_results.length, 2);
   assert.strictEqual(payload.test_results[1].afqt_score, 61);
+  assert.strictEqual(payload.study_missions.length, 1);
+  assert.strictEqual(payload.study_missions[0].status, 'completed');
 
   assert.strictEqual(createdAnchors.length, 1, 'one download anchor created');
   const a = createdAnchors[0];

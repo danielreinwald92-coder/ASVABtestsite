@@ -32,8 +32,6 @@ function loadResults() {
     }
 
     const results = JSON.parse(resultsRaw);
-    console.log('Parsed results:', results);
-
     const userName = localStorage.getItem('asvabUserName') || 'Test Taker';
 
     if (!results || typeof results !== 'object') {
@@ -49,9 +47,13 @@ function loadResults() {
   // Handle null AFQT (single section tests): show practice score, not a percentile
   const hasAFQT = typeof results.afqt === 'number';
   const isTutor = results.mode === 'tutor';
+  const isDiagnostic = results.testType === 'diagnostic';
   const displayScore = hasAFQT ? results.afqt : (results.score || 0);
   document.getElementById('afqtScore').textContent = displayScore;
-  if (hasAFQT) {
+  if (isDiagnostic) {
+    document.getElementById('afqtLabel').textContent = 'Starting-Point Diagnostic';
+    document.getElementById('afqtPercentile').textContent = `${results.score}% correct — practice performance, not an AFQT percentile`;
+  } else if (hasAFQT) {
     document.getElementById('afqtLabel').textContent = 'Estimated AFQT Score';
     document.getElementById('afqtPercentile').textContent = `${results.afqt}${getOrdinalSuffix(results.afqt)} Percentile`;
   } else if (isTutor) {
@@ -86,7 +88,10 @@ function loadResults() {
   const afqt = hasAFQT ? results.afqt : results.score;
   let message, description;
 
-  if (isTutor) {
+  if (isDiagnostic) {
+    message = 'Your Starting Point Is Ready';
+    description = 'Use the section evidence and Today’s Mission below to begin focused study. This independent practice diagnostic is not an official ASVAB or guaranteed AFQT prediction.';
+  } else if (isTutor) {
     message = 'Practice Complete';
     description = 'Review each question below with its explanation. Weak areas from this session feed your study plan. Take a timed test when you want an AFQT estimate.';
   } else if (!hasAFQT) {
@@ -123,6 +128,11 @@ function loadResults() {
   document.getElementById('scoreMessage').textContent = message;
   document.getElementById('scoreDescription').textContent = description;
 
+  if (isDiagnostic) {
+    const recruiter = document.querySelector('.recruiter-section');
+    if (recruiter) recruiter.style.display = 'none';
+  }
+
   // Update recruiter section messaging only when we have a real AFQT estimate
   if (hasAFQT && afqt >= 31) {
     document.querySelector('.recruiter-content h3').textContent = "Ready to Take the Next Step?";
@@ -131,6 +141,10 @@ function loadResults() {
 
   // Render section breakdown
   renderSectionBreakdown(results.sectionResults);
+
+  // Turn this attempt into one stable, resumable next step. Generation is
+  // deterministic, then persisted so reopening the page never changes it.
+  renderTodaysMission(results);
 
   // Render line scores for full tests
   if (results.testType === 'full') {
@@ -148,6 +162,70 @@ function loadResults() {
     document.getElementById('scoreMessage').textContent = 'Error loading results';
     document.getElementById('scoreDescription').textContent = 'Please try taking the test again. Error: ' + error.message;
   }
+}
+
+let currentMission = null;
+
+function readCompletedChapters() {
+  try {
+    const value = JSON.parse(localStorage.getItem('completedChapters') || '{}');
+    return value && typeof value === 'object' ? value : {};
+  } catch (_) { return {}; }
+}
+
+function renderTodaysMission(results) {
+  const panel = document.getElementById('missionPanel');
+  const M = (typeof MissionASVABMissions !== 'undefined') ? MissionASVABMissions : null;
+  const P = (typeof MissionASVABMissionProgress !== 'undefined') ? MissionASVABMissionProgress : null;
+  if (!panel || !M || !P || !M.ENABLED) return;
+
+  const sourceId = M.resultClientId(results);
+  currentMission = P.getCurrentLocalMission(sourceId);
+  if (!currentMission || currentMission.version !== M.VERSION || !M.validateTarget(currentMission.target)) {
+    currentMission = M.buildMission(results, { completedChapters: readCompletedChapters() });
+    if (currentMission) P.saveLocalMission(currentMission);
+  }
+  if (!currentMission) return;
+
+  document.getElementById('missionTitle').textContent = currentMission.title;
+  document.getElementById('missionSummary').textContent = currentMission.summary;
+  document.getElementById('missionWhy').textContent = currentMission.evidenceNote;
+
+  const meta = document.getElementById('missionMeta');
+  meta.innerHTML = '';
+  [`About ${currentMission.estimatedMinutes} minutes`, 'Lesson + checkpoint'].forEach((label) => {
+    const chip = document.createElement('span');
+    chip.className = 'mission-chip';
+    chip.textContent = label;
+    meta.appendChild(chip);
+  });
+
+  const priorities = document.getElementById('missionPriorities');
+  priorities.innerHTML = '';
+  (currentMission.priorities || []).forEach((priority) => {
+    const card = document.createElement('div');
+    card.className = 'mission-priority';
+    const name = document.createElement('strong');
+    name.textContent = priority.name;
+    const detail = document.createElement('span');
+    detail.textContent = priority.reason;
+    card.appendChild(name);
+    card.appendChild(detail);
+    priorities.appendChild(card);
+  });
+
+  const start = document.getElementById('missionStartBtn');
+  start.href = M.targetUrl(currentMission.target, currentMission.clientId);
+  if (currentMission.status === 'completed') {
+    start.textContent = 'Mission Complete — Review Again →';
+    start.classList.add('mission-complete');
+  } else if (currentMission.status === 'in_progress') {
+    start.textContent = 'Resume Today’s Mission →';
+  }
+  start.addEventListener('click', () => {
+    P.setMissionStatus(currentMission.clientId, 'in_progress');
+  }, { once: true });
+  panel.style.display = 'block';
 }
 
 function renderSectionBreakdown(sectionResults) {
@@ -416,13 +494,22 @@ function getOrdinalSuffix(n) {
 document.addEventListener('DOMContentLoaded', loadResults);
 
 // Show auth-appropriate CTA
-getSession().then(session => {
+getSession().then(async session => {
+  const note = document.getElementById('missionAccountNote');
   if (session) {
     document.getElementById('dashboardBtn').style.display = 'inline-flex';
     document.getElementById('homeBtn').style.display = 'none';
     checkPendingResultSync();
+    if (typeof MissionASVABMissionProgress !== 'undefined') {
+      const synced = await MissionASVABMissionProgress.syncLocalProgress(session);
+      if (note) note.textContent = synced.missionsFailed
+        ? 'Your mission is saved here; account sync will retry later.'
+        : 'Saved to your account so you can continue on another device.';
+    }
   } else {
     document.getElementById('signupBtn').style.display = 'inline-flex';
+    document.getElementById('signupBtn').textContent = 'Create Account for Future Progress';
+    if (note) note.innerHTML = 'Saved on this browser. <a href="register.html">Create a free account</a> to build cross-device test and mission history.';
   }
 });
 

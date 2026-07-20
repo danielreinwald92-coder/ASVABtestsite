@@ -94,6 +94,7 @@ test('guest completes an AFQT practice test and reaches numeric results', async 
 
   await page.goto('/select-test.html');
   await page.getByLabel('Your Name').fill('Practice Tester');
+  await page.locator('.test-type-card[data-type="quick"]').click();
   await expect(page.locator('#startBtn')).toBeEnabled();
   await page.locator('#startBtn').click();
 
@@ -122,5 +123,44 @@ test('guest completes an AFQT practice test and reaches numeric results', async 
   expect(Number.isInteger(score)).toBe(true);
   expect(score).toBeGreaterThanOrEqual(1);
   expect(score).toBeLessThanOrEqual(99);
+  expect(errors).toEqual([]);
+});
+
+test('guest diagnostic finishes in 18 questions and yields a personalized mission without an AFQT claim', async ({ page }) => {
+  await isolateExternalServices(page);
+  const errors = collectBrowserErrors(page);
+
+  await page.goto('/select-test.html');
+  await page.getByLabel('Your Name').fill('New Student');
+  await expect(page.locator('.test-type-card[data-type="diagnostic"]')).toHaveAttribute('aria-checked', 'true');
+  await expect(page.locator('#pickerSummary')).toContainText('18q · 20 min');
+  await page.locator('#startBtn').click();
+
+  await expect(page).toHaveURL(/test-intro\.html$/);
+  await expect(page.locator('#questionCount')).toHaveText('18');
+  await expect(page.locator('#timeLimit')).toHaveText('20');
+  await expect(page.locator('#diagnosticNotice')).toBeVisible();
+  await page.locator('#acknowledge').check();
+  await page.locator('#startBtn').click();
+
+  await expect(page).toHaveURL(/quiz\.html$/);
+  for (let answered = 0; answered < 18; answered++) {
+    await page.locator('.answer-option').first().click();
+    if (answered === 17) {
+      page.once('dialog', (dialog) => dialog.accept());
+      await Promise.all([
+        page.waitForURL(/results\.html$/),
+        page.locator('#nextBtn').click()
+      ]);
+    } else {
+      await page.locator('#nextBtn').click();
+    }
+  }
+
+  await expect(page.locator('#afqtLabel')).toHaveText('Starting-Point Diagnostic');
+  await expect(page.locator('#afqtPercentile')).toContainText('not an AFQT percentile');
+  await expect(page.locator('#missionPanel')).toBeVisible();
+  await expect(page.locator('#missionStartBtn')).toHaveAttribute('href', /study-guide\.html\?section=/);
+  await expect(page.locator('.recruiter-section')).toBeHidden();
   expect(errors).toEqual([]);
 });

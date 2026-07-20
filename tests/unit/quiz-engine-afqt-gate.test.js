@@ -40,3 +40,13 @@ test('AFQT is computed when all four AFQT sections are present', () => {
     assert.strictEqual(JSON.parse(stored.quizResults).afqt, 55);
   });
 });
+
+test('AFQT remains null for a diagnostic even with all four AFQT sections', () => {
+  const { engine, stored } = engineFor(['AR', 'WK', 'PC', 'MK']);
+  engine.testKind = 'diagnostic';
+  return engine.submitQuiz().then(() => {
+    const results = JSON.parse(stored.quizResults);
+    assert.strictEqual(results.afqt, null);
+    assert.strictEqual(results.testType, 'diagnostic');
+  });
+});

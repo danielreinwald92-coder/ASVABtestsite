@@ -52,12 +52,15 @@ function deriveTestType(orderedSections) {
   const picker = document.getElementById('sectionPicker');
   const summary = document.getElementById('pickerSummary');
   const tutorEl = document.getElementById('tutorToggle');
+  const tutorLabel = document.getElementById('tutorToggleLabel');
 
   const savedName = localStorage.getItem('asvabUserName');
   if (savedName) nameInput.value = savedName;
 
-  // Selection state: a Set of section codes. Start from the quick preset.
-  const selected = new Set(MissionASVABConfig.getSectionsForType('quick'));
+  // Selection state: start new students on the short diagnostic. Once a
+  // checkbox is edited, the selection becomes custom instead of a preset.
+  let activePreset = 'diagnostic';
+  const selected = new Set(MissionASVABConfig.getSectionsForType(activePreset));
 
   // Build the section-picker rows from SECTION_CONFIG (full-test order).
   const allCodes = MissionASVABConfig.getSectionsForType('full');
@@ -82,13 +85,21 @@ function deriveTestType(orderedSections) {
     });
     // Reflect selection on the preset cards.
     const ordered = orderSections(Array.from(selected));
-    const type = deriveTestType(ordered);
     document.querySelectorAll('.test-type-card').forEach((c) => {
-      const isMatch = (type === 'quick' && c.dataset.type === 'quick') ||
-        (type === 'full' && c.dataset.type === 'full');
+      const derived = deriveTestType(ordered);
+      const isMatch = activePreset
+        ? c.dataset.type === activePreset
+        : ((derived === 'quick' && c.dataset.type === 'quick') ||
+          (derived === 'full' && c.dataset.type === 'full'));
       c.classList.toggle('selected', isMatch);
       c.setAttribute('aria-checked', isMatch ? 'true' : 'false');
     });
+    const isDiagnostic = activePreset === 'diagnostic';
+    if (tutorEl) {
+      if (isDiagnostic) tutorEl.checked = false;
+      tutorEl.disabled = isDiagnostic;
+    }
+    if (tutorLabel) tutorLabel.classList.toggle('disabled', isDiagnostic);
     updateSummaryAndButton();
   }
 
@@ -96,7 +107,10 @@ function deriveTestType(orderedSections) {
     const ordered = orderSections(Array.from(selected));
     let q = 0, secs = 0;
     ordered.forEach((code) => {
-      const info = QuizManager.getSectionInfo(code) || {};
+      const canResolvePresetSettings = typeof MissionASVABConfig.getSectionSettings === 'function';
+      const info = activePreset && canResolvePresetSettings
+        ? (MissionASVABConfig.getSectionSettings(activePreset, code, QuizManager) || {})
+        : (QuizManager.getSectionInfo(code) || {});
       q += info.questionsPerTest || 0;
       secs += info.timeLimit || 0;
     });
@@ -108,7 +122,11 @@ function deriveTestType(orderedSections) {
         (nameValid ? '' : ' — enter your name above to start')
       : 'Select at least one section to begin.';
     startBtn.disabled = !nameValid || ordered.length === 0;
-    startBtn.textContent = ordered.length ? `Start Practice (${q} questions)` : 'Start Practice';
+    const presetConfig = activePreset && typeof MissionASVABConfig.getTestConfig === 'function'
+      ? MissionASVABConfig.getTestConfig(activePreset) : null;
+    startBtn.textContent = ordered.length
+      ? (presetConfig ? presetConfig.startButtonText : `Start Practice (${q} questions)`)
+      : 'Start Practice';
   }
 
   // Preset cards set the selection to that preset's sections.
@@ -116,6 +134,7 @@ function deriveTestType(orderedSections) {
     card.setAttribute('role', 'radio');
     card.setAttribute('tabindex', '0');
     const choose = () => {
+      activePreset = card.dataset.type;
       selected.clear();
       MissionASVABConfig.getSectionsForType(card.dataset.type).forEach((c) => selected.add(c));
       syncPickerUI();
@@ -131,6 +150,7 @@ function deriveTestType(orderedSections) {
     const box = e.target.closest('input[data-code]');
     if (!box) return;
     const code = box.dataset.code;
+    activePreset = null;
     if (box.checked) selected.add(code); else selected.delete(code);
     syncPickerUI();
   });
@@ -146,12 +166,20 @@ function deriveTestType(orderedSections) {
     if (!ordered.length) return;
 
     localStorage.setItem('asvabUserName', nameInput.value.trim());
-    localStorage.setItem('testType', deriveTestType(ordered));
+    const testType = activePreset || deriveTestType(ordered);
+    localStorage.setItem('testType', testType);
 
     sessionStorage.removeItem('quizState');
     sessionStorage.removeItem('generatedTest');
-    const mode = tutorEl && tutorEl.checked ? 'tutor' : 'timed';
-    sessionStorage.setItem('testConfig', JSON.stringify({ sections: ordered, mode: mode }));
+    const mode = testType !== 'diagnostic' && tutorEl && tutorEl.checked ? 'tutor' : 'timed';
+    const presetConfig = activePreset && typeof MissionASVABConfig.getTestConfig === 'function'
+      ? MissionASVABConfig.getTestConfig(activePreset) : null;
+    sessionStorage.setItem('testConfig', JSON.stringify({
+      type: testType,
+      sections: ordered,
+      mode: mode,
+      sectionOverrides: presetConfig && presetConfig.sectionOverrides ? presetConfig.sectionOverrides : null
+    }));
 
     window.location.href = 'test-intro.html';
   });

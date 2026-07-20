@@ -29,6 +29,7 @@ loadScript('js/quiz-data.js', context);
 loadScript('js/explanations.js', context);
 loadScript('js/courses.js', context, 'this.courses = courses;');
 loadScript('js/courses-tech.js', context, 'this.coursesTech = coursesTech;');
+loadScript('js/mission-recommendations.js', context);
 
 const config = context.window.MissionASVABConfig;
 const scoring = context.window.MissionASVABScoring;
@@ -36,6 +37,7 @@ const quizManager = context.window.QuizManager;
 const asvabData = context.window.asvabData;
 const courses = context.courses;
 const coursesTech = context.coursesTech;
+const missions = context.window.MissionASVABMissions;
 
 assert(config, 'MissionASVABConfig failed to load');
 assert(scoring, 'MissionASVABScoring failed to load');
@@ -43,6 +45,7 @@ assert(quizManager, 'QuizManager failed to load');
 assert(asvabData, 'asvabData failed to load');
 assert(courses, 'courses failed to load');
 assert(coursesTech, 'coursesTech failed to load');
+assert(missions, 'MissionASVABMissions failed to load');
 // Mirror the study-guide merge so the course-shape checks below cover both bundles.
 Object.assign(courses, coursesTech);
 
@@ -54,6 +57,20 @@ assert(
   JSON.stringify(config.getSectionsForType('full')) === JSON.stringify(['GS', 'AR', 'WK', 'PC', 'MK', 'EI', 'AS', 'MC']),
   'Full ASVAB section contract changed'
 );
+assert(
+  JSON.stringify(config.getSectionsForType('diagnostic')) === JSON.stringify(['AR', 'WK', 'PC', 'MK']),
+  'Diagnostic section contract changed'
+);
+const diagnostic = config.getTestConfig('diagnostic');
+const diagnosticDetails = config.getTestDetails('diagnostic', quizManager);
+assert(diagnosticDetails.totalQuestions === 18, 'Diagnostic must remain 18 questions');
+assert(diagnosticDetails.totalTimeSeconds === 20 * 60, 'Diagnostic must remain 20 minutes');
+for (const code of diagnostic.sections) {
+  const settings = config.getSectionSettings('diagnostic', code, quizManager);
+  assert(Array.isArray(settings.difficultyPlan), `${code} diagnostic difficulty plan missing`);
+  assert(settings.difficultyPlan.length === settings.questionsPerTest,
+    `${code} diagnostic difficulty plan must match its question count`);
+}
 
 // Pool-size ratchet (SP4): pools may only grow. Raise a section's floor in the
 // same branch that ships its content expansion.
@@ -124,6 +141,18 @@ for (const [courseCode, course] of Object.entries(courses)) {
     }
   }
 }
+
+// The lightweight recommendation catalog must exactly mirror real study
+// chapters so a mission can never deep-link to missing or renamed content.
+for (const [courseCode, course] of Object.entries(courses)) {
+  const expected = course.chapters.map((chapter) => [chapter.id, chapter.title]);
+  const catalog = missions.CONTENT_CATALOG[courseCode];
+  assert(Array.isArray(catalog), `${courseCode} missing from mission content catalog`);
+  assert(JSON.stringify(catalog) === JSON.stringify(expected),
+    `${courseCode} mission catalog is out of sync with study chapters`);
+}
+assert(Object.keys(missions.CONTENT_CATALOG).length === Object.keys(courses).length,
+  'Mission content catalog has an unknown section');
 
 const perfectSectionResults = {};
 for (const code of config.getSectionsForType('full')) {

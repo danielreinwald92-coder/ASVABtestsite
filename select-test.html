@@ -94,7 +94,7 @@
 
     .test-type-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1.5rem;
       margin-bottom: 3rem;
     }
@@ -488,8 +488,28 @@
     <!-- Test Type Selection -->
     <h2 class="section-title">Test Type</h2>
     <div class="test-type-grid" role="radiogroup" aria-label="Test type">
-      <div class="test-type-card selected" data-type="quick">
-        <div class="test-type-badge">Recommended</div>
+      <div class="test-type-card selected" data-type="diagnostic">
+        <div class="test-type-badge">Start Here</div>
+        <h3 class="test-type-name">20-Minute Diagnostic</h3>
+        <p class="test-type-desc">Find your starting point across the four AFQT-related areas and get one clear study mission. Independent practice—not an official score.</p>
+        <div class="test-type-details">
+          <div class="detail">
+            <span class="detail-value">~20 min</span>
+            <span class="detail-label">Total Time</span>
+          </div>
+          <div class="detail">
+            <span class="detail-value">18 Questions</span>
+            <span class="detail-label">4 Areas</span>
+          </div>
+          <div class="detail">
+            <span class="detail-value">Study Mission</span>
+            <span class="detail-label">Results</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="test-type-card" data-type="quick">
+        <div class="test-type-badge">AFQT Focus</div>
         <h3 class="test-type-name">AFQT Practice</h3>
         <p class="test-type-desc">Focus on the 4 sections that determine your AFQT score — the score that decides whether you can enlist.</p>
         <div class="test-type-details">
@@ -544,7 +564,7 @@
     </div>
 
     <!-- Start Button -->
-        <label class="tutor-toggle">
+        <label class="tutor-toggle" id="tutorToggleLabel">
           <input type="checkbox" id="tutorToggle">
           <span>Untimed tutor mode — instant feedback &amp; explanations after each question</span>
         </label>

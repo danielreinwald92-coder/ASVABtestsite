@@ -12,8 +12,11 @@ features were built; unchecked boxes there are not the current work queue.
 - Static HTML/JavaScript application deployed from `main` to Vercel. The canonical production
   URL is `https://www.missionasvab.org`; the bare domain permanently redirects to `www`.
 - Twelve served pages; account and admin data use Supabase project `rcspwkmrtukblvvdifer`.
-- Guest practice works without an account. Supabase adds saved history, profiles, reports,
-  and guarded admin operations.
+- Guest practice works without an account. Every completed test produces a deterministic Today’s
+  Mission that opens a real study chapter and checkpoint. Supabase adds saved test/mission history,
+  profiles, reports, cross-device mission status, and guarded admin operations.
+- The 20-minute Starting-Point Diagnostic uses 18 balanced AR/WK/PC/MK questions and returns
+  study priorities without presenting an AFQT percentile or official-test claim.
 - The question bank has 902 questions across eight Mission ASVAB practice sections, with
   complete explanation coverage and four AFQT plus four technical study courses.
 - Timed practice uses per-section CAT-style scored-question limits. General Science is
@@ -23,10 +26,11 @@ features were built; unchecked boxes there are not the current work queue.
 
 ## Verification Baseline
 
-- `npm test` — 184 node:test/jsdom checks.
+- `npm test` — 197 node:test/jsdom checks.
 - `npm run test:e2e` — Chromium checks all 12 pages under the production Vercel headers,
-  then completes a 55-question guest AFQT flow through numeric results.
-- `node scripts/validate-site.js` — question pools, explanations, course shapes, and scoring.
+  then completes both a 55-question guest AFQT flow and the 18-question guest diagnostic/mission flow.
+- `node scripts/validate-site.js` — question pools, explanations, course shapes, diagnostic blueprint,
+  mission catalog targets, and scoring.
 - `node scripts/check-no-inline-js.js` — strict CSP guard for every served page.
 - Vercel runs the unit, data/scoring, and no-inline-JS gates before publishing output.
 - Vercel excludes documentation and local developer-tool configuration from the static output.
@@ -36,20 +40,22 @@ features were built; unchecked boxes there are not the current work queue.
 ## Source-of-Truth Map
 
 - Section names, counts, and timers: `js/section-config.js`
-- Preset section lists: `js/test-config.js`
+- Preset section lists and diagnostic blueprint: `js/test-config.js`
 - Quiz behavior and persistence: `js/quiz-engine.js`
 - Scoring model and limitations: `js/scoring.js` and `docs/scoring-methodology.md`
 - Question and explanation content: `js/quiz-data.js` and `js/explanations.js`
 - Study courses: `js/courses.js` and `js/courses-tech.js`
+- Personalized next step: `js/mission-recommendations.js` and `js/mission-progress.js`
 - Supabase client expectations: `js/auth.js`, `js/dashboard.js`, `js/admin.js`
+- New database changes: `supabase/migrations/`
 - Deployment/security headers: `vercel.json`
 - Canonical production routing: Vercel project domains (`www` primary; bare domain → `www` 308)
 - Release history visible to users: Recent Updates in `index.html`
 
 ## Known Constraints and Next Priorities
 
-1. Supabase schema, grants, RLS policies, and RPC definitions are not version-controlled in
-   this repository. Exporting and checking them in is the highest operational priority.
+1. New personalized-mission schema changes are version-controlled under `supabase/migrations/`,
+   but the older Supabase baseline, grants, policies, and RPC definitions still need a repository export.
 2. Perform a dedicated privacy/operations review of recruiter lead collection and its Google
    Apps Script destination before materially increasing traffic.
 3. Account-synced flashcard progress and reminders remain intentionally deferred because they

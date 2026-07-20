@@ -1,6 +1,21 @@
 // Shared test configuration for Mission ASVAB.
 (function (root) {
   const TEST_CONFIGS = {
+    diagnostic: {
+      type: 'diagnostic',
+      label: 'Starting-Point Diagnostic',
+      title: '20-Minute Starting-Point Diagnostic',
+      sectionCode: 'AFQT AREAS',
+      description: 'A short, independent practice diagnostic across Arithmetic Reasoning, Mathematics Knowledge, Word Knowledge, and Paragraph Comprehension. It gives you a study starting point, not an official score or guaranteed predictor.',
+      startButtonText: 'Start 20-Minute Diagnostic',
+      sections: ['AR', 'WK', 'PC', 'MK'],
+      sectionOverrides: {
+        AR: { questionsPerTest: 4, timeLimit: 6 * 60, difficultyPlan: [2, 2, 3, 4] },
+        WK: { questionsPerTest: 6, timeLimit: 3 * 60, difficultyPlan: [2, 2, 3, 3, 3, 4] },
+        PC: { questionsPerTest: 4, timeLimit: 6 * 60, difficultyPlan: [2, 2, 3, 4] },
+        MK: { questionsPerTest: 4, timeLimit: 5 * 60, difficultyPlan: [2, 2, 3, 4] }
+      }
+    },
     quick: {
       type: 'quick',
       label: 'AFQT Practice',
@@ -31,6 +46,16 @@
     return [...getTestConfig(type).sections];
   }
 
+  function getSectionSettings(type, code, quizManager) {
+    const config = getTestConfig(type);
+    const base = quizManager && quizManager.getSectionInfo
+      ? quizManager.getSectionInfo(code)
+      : null;
+    const override = config.sectionOverrides && config.sectionOverrides[code];
+    if (!base && !override) return null;
+    return { ...(base || {}), ...(override || {}) };
+  }
+
   function getTestTypeFromSections(sections) {
     if (!Array.isArray(sections)) return 'single';
     if (sections.length === TEST_CONFIGS.quick.sections.length &&
@@ -47,9 +72,7 @@
   function getTestDetails(type, quizManager) {
     const config = getTestConfig(type);
     const details = config.sections.reduce((currentDetails, code) => {
-      const sectionInfo = quizManager && quizManager.getSectionInfo
-        ? quizManager.getSectionInfo(code)
-        : null;
+      const sectionInfo = getSectionSettings(type, code, quizManager);
 
       if (sectionInfo) {
         currentDetails.totalQuestions += sectionInfo.questionsPerTest;
@@ -72,6 +95,7 @@
     TEST_CONFIGS,
     getTestConfig,
     getSectionsForType,
+    getSectionSettings,
     getTestTypeFromSections,
     getTestDetails
   };

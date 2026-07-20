@@ -69,6 +69,11 @@
     const practice = e.target.closest && e.target.closest('[data-action="practice-weak-areas"]');
     if (practice) {
       startWeakAreaPractice(practice.dataset.sections);
+      return;
+    }
+    const mission = e.target.closest && e.target.closest('[data-action="resume-mission"]');
+    if (mission && typeof MissionASVABMissionProgress !== 'undefined') {
+      MissionASVABMissionProgress.setMissionStatus(mission.dataset.missionId, 'in_progress');
     }
   });
 

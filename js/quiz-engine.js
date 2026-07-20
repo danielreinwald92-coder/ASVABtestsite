@@ -12,6 +12,14 @@ function escQuiz(str) {
     .replace(/'/g, '&#39;');
 }
 
+function createClientResultId(completedAt) {
+  try {
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
+  } catch (_) {}
+  return 'result-' + String(completedAt || Date.now()).replace(/[^0-9]/g, '') + '-' +
+    Math.random().toString(36).slice(2, 10);
+}
+
 class QuizEngine {
   constructor() {
     this.currentQuestion = 0;
@@ -22,6 +30,8 @@ class QuizEngine {
     this.quizData = null;
     this.timeRemaining = 0;
     this.testSections = [];
+    this.testKind = 'custom';
+    this.sectionOverrides = {};
 
     // Adaptive testing state
     this.adaptiveMode = true; // Enable CAT-like adaptive testing
@@ -113,13 +123,22 @@ class QuizEngine {
       this.testSections = MissionASVABConfig.getSectionsForType('quick');
     } else if (typeParam === 'full') {
       this.testSections = MissionASVABConfig.getSectionsForType('full');
+    } else if (typeParam === 'diagnostic') {
+      this.testSections = MissionASVABConfig.getSectionsForType('diagnostic');
     } else {
       this.testSections = null; // no config — init() redirects to select-test.html
     }
 
     // Tutor mode comes from the URL param, falling back to the saved config.
+    const configApi = typeof MissionASVABConfig !== 'undefined' ? MissionASVABConfig : null;
+    const derivedType = this.testSections && configApi && configApi.getTestTypeFromSections
+      ? configApi.getTestTypeFromSections(this.testSections)
+      : (this.testSections && this.testSections.length === 1 ? 'single' : 'custom');
+    this.testKind = (config && config.type) || typeParam || derivedType;
+    const preset = configApi && configApi.TEST_CONFIGS && configApi.TEST_CONFIGS[this.testKind];
+    this.sectionOverrides = (config && config.sectionOverrides) || (preset && preset.sectionOverrides) || {};
     const cfgMode = (config && config.mode) || null;
-    this.mode = (modeParam === 'tutor' || cfgMode === 'tutor') ? 'tutor' : 'timed';
+    this.mode = this.testKind !== 'diagnostic' && (modeParam === 'tutor' || cfgMode === 'tutor') ? 'tutor' : 'timed';
   }
 
   generateNewTest() {
@@ -131,7 +150,8 @@ class QuizEngine {
     let slotId = 0;
 
     this.testSections.forEach(sectionCode => {
-      const sectionInfo = QuizManager.getSectionInfo(sectionCode);
+      const baseInfo = QuizManager.getSectionInfo(sectionCode);
+      const sectionInfo = baseInfo ? { ...baseInfo, ...(this.sectionOverrides[sectionCode] || {}) } : null;
       if (!sectionInfo) return;
 
       this.abilityLevels[sectionCode] = 3; // start at medium difficulty
@@ -142,7 +162,9 @@ class QuizEngine {
         slots.push({
           id: slotId,
           sectionCode: sectionCode,
-          sectionName: sectionInfo.name
+          sectionName: sectionInfo.name,
+          targetDifficulty: Array.isArray(sectionInfo.difficultyPlan) ? sectionInfo.difficultyPlan[i] : null,
+          sectionTimeLimit: sectionInfo.timeLimit
           // Question content (text/options/correct/originalId/difficulty)
           // is filled in by materializeSlot() on first navigation.
         });
@@ -151,13 +173,21 @@ class QuizEngine {
     });
 
     this.quizData = {
-      section: this.testSections.length === 1
+      section: this.testKind === 'diagnostic'
+        ? 'Starting-Point Diagnostic'
+        : this.testSections.length === 1
         ? QuizManager.getSectionInfo(this.testSections[0])?.name
         : (MissionASVABConfig.getTestTypeFromSections(this.testSections) === 'afqt'
           ? 'AFQT Practice Test'
           : 'Full ASVAB Practice Test'),
       sectionCode: this.testSections.join(','),
       timeLimit: totalTimeLimit,
+      testKind: this.testKind,
+      sectionTimeLimits: Object.fromEntries(this.testSections.map((code) => {
+        const base = QuizManager.getSectionInfo(code) || {};
+        const override = this.sectionOverrides[code] || {};
+        return [code, override.timeLimit || base.timeLimit || 0];
+      })),
       questions: slots
     };
 
@@ -192,12 +222,13 @@ class QuizEngine {
       // QuizManager is always present on the quiz page; guard so a resume path
       // never hard-crashes if it is unavailable (same idiom as materializeSlot).
       const info = (typeof QuizManager !== 'undefined') ? QuizManager.getSectionInfo(code) : null;
+      const savedTime = this.quizData && this.quizData.sectionTimeLimits && this.quizData.sectionTimeLimits[code];
       ranges.push({
         code,
         name: (info && info.name) || (qs[start] && qs[start].sectionName) || code,
         start,
         end: i,
-        timeLimit: (info && info.timeLimit) || 0,
+        timeLimit: savedTime || (info && info.timeLimit) || 0,
       });
     }
     this.sectionRanges = ranges;
@@ -284,7 +315,7 @@ class QuizEngine {
       this.abilityLevels[slot.sectionCode] = 3;
     }
 
-    const ability = Math.max(1, Math.min(5, Math.round(this.abilityLevels[slot.sectionCode])));
+    const ability = slot.targetDifficulty || Math.max(1, Math.min(5, Math.round(this.abilityLevels[slot.sectionCode])));
     // SP2: also avoid questions the user saw in recent tests (on-device). If the
     // filtered pool can't supply one, relax to the session-used set so a test
     // always fills (thin non-AFQT pools).
@@ -343,6 +374,7 @@ class QuizEngine {
         return false;
       }
       this.quizData = savedQuizData;
+      this.testKind = savedQuizData.testKind || this.testKind;
       this.answers = state.answers || {};
       this.flagged = new Set(state.flagged || []);
       this.currentQuestion = state.currentQuestion || 0;
@@ -394,6 +426,7 @@ class QuizEngine {
       activeSectionIndex: this.activeSectionIndex,
       sectionTimeRemaining: this.sectionTimeRemaining,
       completedSections: Array.from(this.completedSections),
+      testKind: this.testKind,
     };
     sessionStorage.setItem('quizState', JSON.stringify(state));
     this._lastSaveAt = Date.now();
@@ -858,13 +891,17 @@ class QuizEngine {
     // AFQT is only valid with all four AFQT sections. Tutor sessions never score.
     const AFQT = (MissionASVABConfig.AFQT_SECTIONS) || ['AR', 'WK', 'PC', 'MK'];
     const includesAllAFQT = AFQT.every((s) => this.testSections.includes(s));
-    const afqtEstimate = (this.mode === 'tutor' || !includesAllAFQT)
+    const afqtEstimate = (this.mode === 'tutor' || this.testKind === 'diagnostic' || !includesAllAFQT)
       ? null
       : MissionASVABScoring.calculateAFQTEstimate(sectionResults);
 
     // Store results
+    const completedAt = new Date().toISOString();
     const quizResults = {
-      testType: MissionASVABConfig.getTestTypeFromSections(this.testSections),
+      clientResultId: createClientResultId(completedAt),
+      testType: this.testKind === 'diagnostic'
+        ? 'diagnostic'
+        : MissionASVABConfig.getTestTypeFromSections(this.testSections),
       section: this.quizData.section,
       sectionCode: this.quizData.sectionCode,
       mode: this.mode,
@@ -877,7 +914,7 @@ class QuizEngine {
       afqt: afqtEstimate,
       timeUsed: totalTime,
       timeLimit: this.quizData.timeLimit,
-      completedAt: new Date().toISOString()
+      completedAt: completedAt
     };
 
     localStorage.setItem('quizResults', JSON.stringify(quizResults));
@@ -901,7 +938,11 @@ class QuizEngine {
     sessionStorage.removeItem('generatedTest');
     sessionStorage.removeItem('testConfig');
 
-    await this.saveResultsToSupabase(quizResults);
+    const saved = await this.saveResultsToSupabase(quizResults);
+    if (saved && saved.ok && saved.userId) {
+      quizResults.ownerUserId = saved.userId;
+      localStorage.setItem('quizResults', JSON.stringify(quizResults));
+    }
 
     window.location.href = 'results.html';
   }
@@ -911,7 +952,7 @@ class QuizEngine {
     const session = await getSession();
     if (!session) return { skipped: true };
 
-    const lineScores = quizResults.mode === 'tutor'
+    const lineScores = quizResults.mode === 'tutor' || quizResults.testType === 'diagnostic'
       ? null
       : MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
     const strippedSections = {};
@@ -922,23 +963,25 @@ class QuizEngine {
       for (const [code, data] of Object.entries(quizResults.sectionResults)) {
         strippedSections[code] = { correct: data.correct, total: data.total };
         (data.questions || []).forEach(q => {
-          questionResults.push({ id: q.id, section: code, correct: !!q.isCorrect });
+          questionResults.push({ id: q.originalId || q.id, section: code, correct: !!q.isCorrect });
         });
       }
     }
     const payload = {
       user_id: session.user.id,
+      client_result_id: quizResults.clientResultId,
       test_type: quizResults.testType || 'afqt',
       mode: quizResults.mode || 'timed',
       afqt_score: quizResults.afqt,
       section_scores: strippedSections,
       line_scores: lineScores,
-      question_results: questionResults
+      question_results: questionResults,
+      taken_at: quizResults.completedAt
     };
 
     try {
       const { error } = await getClient().from('test_results').insert(payload);
-      if (error) {
+      if (error && error.code !== '23505') {
         console.error('Supabase insert error:', error);
         this._queuePendingResult(payload, error.message);
         return { ok: false, error: error.message };
@@ -947,7 +990,7 @@ class QuizEngine {
       if (typeof flushPendingTestResults === 'function') {
         try { flushPendingTestResults(); } catch (_) {}
       }
-      return { ok: true };
+      return { ok: true, duplicate: !!error, userId: session.user.id };
     } catch (err) {
       console.error('Failed to save results to Supabase:', err);
       this._queuePendingResult(payload, err.message || 'Network error');

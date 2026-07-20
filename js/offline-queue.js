@@ -142,7 +142,7 @@
         let ok = false;
         try {
           const { error } = await getClient().from('test_results').insert(payload);
-          ok = !error;
+          ok = !error || error.code === '23505';
         } catch (_) {
           ok = false;
         }

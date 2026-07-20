@@ -83,6 +83,24 @@
     .study-plan-list li { position: relative; padding: 0.4rem 0 0.4rem 1.6rem; color: var(--text-secondary); }
     .study-plan-list li::before { content: '→'; position: absolute; left: 0; color: var(--gold-text); font-weight: 700; }
 
+    /* Mission history + cross-device progress */
+    .mission-dashboard { border: 1px solid #ead5a1; background: linear-gradient(135deg, #fffdf7, #fff8e8); }
+    .mission-dashboard-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.65fr); gap: 1.25rem; }
+    .mission-current { background: var(--navy-900); color: var(--white); border-radius: 12px; padding: 1.35rem; }
+    .mission-current .eyebrow { color: var(--gold-400); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+    .mission-current h3 { margin: 0.35rem 0 0.45rem; font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; }
+    .mission-current p { color: rgba(255,255,255,0.8); font-size: 0.9rem; line-height: 1.5; }
+    .mission-current a { display: inline-flex; margin-top: 0.9rem; padding: 0.65rem 1rem; border-radius: 8px; background: var(--gold-500); color: var(--navy-900); text-decoration: none; font-weight: 800; }
+    .mission-progress-stat { display: grid; place-items: center; align-content: center; text-align: center; background: var(--white); border-radius: 12px; padding: 1rem; }
+    .mission-progress-number { font: 700 2.6rem 'Cormorant Garamond', serif; color: var(--navy-900); }
+    .mission-progress-label { color: var(--text-secondary); font-size: 0.85rem; }
+    .mission-progress-track { width: 100%; height: 10px; background: var(--cream-200); border-radius: 999px; margin-top: 0.75rem; overflow: hidden; }
+    .mission-progress-fill { height: 100%; background: var(--gold-500); border-radius: inherit; }
+    .mission-history-list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
+    .mission-history-item { display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--cream-200); padding-top: 0.55rem; font-size: 0.88rem; }
+    .mission-history-item span { color: var(--text-secondary); white-space: nowrap; }
+    @media (max-width: 650px) { .mission-dashboard-grid { grid-template-columns: 1fr; } }
+
     /* Zone 2: Chart */
     .section-card-container { background: var(--white); border-radius: 16px; padding: 1.75rem; margin-bottom: 1.5rem; }
     .section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 1.25rem; }
@@ -174,7 +192,7 @@
       <div class="welcome-hero">
         <div class="welcome-eyebrow">Step 1 of 3</div>
         <h2>Let's get your <em>baseline score</em></h2>
-        <p>A short diagnostic test reveals exactly where you stand on each ASVAB section. From there, we'll track every retest so you can watch your scores climb.</p>
+        <p>A 20-minute independent practice diagnostic shows where to begin across the four AFQT-related areas, then gives you one clear study mission.</p>
         <div class="welcome-form">
           <div class="field">
             <label for="testDateInput">When do you plan to take the ASVAB? <span class="opt">(optional)</span></label>
@@ -190,7 +208,7 @@
         <div class="welcome-step">
           <div class="num">1</div>
           <div class="t">Take a diagnostic</div>
-          <div class="d">A timed practice test that mirrors the real ASVAB and produces an AFQT percentile.</div>
+          <div class="d">A short independent practice check that finds a useful starting point without claiming an official score.</div>
         </div>
         <div class="welcome-step">
           <div class="num">2</div>
@@ -227,6 +245,19 @@
       <div class="section-card-container" id="studyPlanContainer" hidden>
         <div class="section-title" id="studyPlanHeadline">Your study plan</div>
         <ul class="study-plan-list" id="studyPlanList"></ul>
+      </div>
+
+      <div class="section-card-container mission-dashboard" id="missionDashboard" hidden>
+        <div class="section-title">Mission Progress</div>
+        <div class="mission-dashboard-grid">
+          <div class="mission-current" id="currentMissionCard"></div>
+          <div class="mission-progress-stat">
+            <div class="mission-progress-number" id="missionCompletionCount">0</div>
+            <div class="mission-progress-label" id="missionCompletionLabel">missions complete</div>
+            <div class="mission-progress-track" aria-hidden="true"><div class="mission-progress-fill" id="missionProgressFill"></div></div>
+          </div>
+        </div>
+        <ul class="mission-history-list" id="missionHistoryList"></ul>
       </div>
 
       <!-- Zone 1: Score Summary -->
@@ -330,6 +361,10 @@
   <script src="js/auth.js"></script>
   <script src="js/focus-trap.js"></script>
   <script src="js/weak-areas.js"></script>
+  <script src="js/test-config.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/mission-recommendations.js"></script>
+  <script src="js/mission-progress.js"></script>
   <script src="js/streak.js"></script>
   <script src="js/study-plan.js"></script>
   <script src="js/pwa-install.js"></script>

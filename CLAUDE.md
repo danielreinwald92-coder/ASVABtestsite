@@ -4,15 +4,16 @@ Mission ASVAB - Static HTML/JS practice test site for military applicants prepar
 
 ## Core Features
 
-1. **Two Test Modes**
+1. **Three Test Modes**
+   - Starting-Point Diagnostic (20 minutes): 18 balanced AR/WK/PC/MK questions; produces study priorities and no AFQT percentile
    - AFQT Practice (~2 hours): AR, WK, PC, MK sections - calculates an estimated AFQT percentile
    - Full Army Assessment (~3 hours): All 8 Mission ASVAB sections - calculates estimated AFQT + 10 Army line scores
 
 2. **User Flow**
-   - Landing page → Test mode selection → Timed section-by-section test → Results with score breakdown
+   - Landing page → Test mode selection → Timed section-by-section test → Results with score breakdown → personalized Today’s Mission → resumable lesson + checkpoint
 
 3. **Scoring System**
-   - VE (Verbal Expression) = lookup table from WK + PC raw scores
+   - VE (Verbal Expression) ≈ average of WK + PC standard-score estimates
    - AFQT raw = 2×VE + AR + MK, converted to percentile via approximation curve
    - Army line scores: GT, CL, CO, EL, FA, GM, MM, OF, SC, ST
 
@@ -36,11 +37,13 @@ js/
 ├── courses.js              # AR/MK/WK/PC study courses (~217KB, lazy on study-guide.html)
 ├── courses-tech.js         # GS/AS/MC/EI study courses (SP4); lazy, merged into `courses` by loader
 ├── weak-areas.js           # Per-section accuracy aggregation → weak-area practice/study plan
+├── mission-recommendations.js # Pure result evidence → deterministic, content-validated mission
+├── mission-progress.js     # Local mission history, guest-result import, Supabase mission sync
 ├── recent-seen.js          # On-device recent-question buffer for repeat avoidance (SP2)
 ├── streak.js  study-plan.js  # Dashboard: derived streak + test-date countdown/paced plan (SP3)
 ├── spaced-repetition.js    # SM-2-lite scheduler + localStorage store for flashcard review (SP3)
 ├── share-card.js  pwa-install.js  # Local shareable score card + dismissible install prompt (SP3)
-├── test-config.js          # Test mode configs (quick/full section lists)
+├── test-config.js          # Test mode configs (diagnostic/quick/full + diagnostic blueprint)
 ├── auth.js                 # Supabase client singleton + session helpers + friendlyAuthError()
 │                           #   (maps raw Supabase auth errors to plain language on all auth pages)
 ├── offline-queue.js        # Flush queued (offline) test results when back online
@@ -55,8 +58,9 @@ scripts/
 │                           #   distinct-options check + explanation/course-shape contracts
 │                           #   (runs in the Vercel buildCommand after npm test)
 └── check-no-inline-js.js   # CI gate: fails if any inline on*= handler or inline <script> exists
-tests/                      # node:test + jsdom suite (184 tests). helpers/load.js, helpers/engine.js
-tests/e2e/                  # Playwright: all-page CSP/console smoke + complete guest AFQT flow
+supabase/migrations/        # Versioned additive database changes (new schema work belongs here)
+tests/                      # node:test + jsdom suite (197 tests). helpers/load.js, helpers/engine.js
+tests/e2e/                  # Playwright: all-page CSP/console smoke + guest AFQT and diagnostic flows
 playwright.config.js        # Chromium config; local server mirrors production Vercel headers
 docs/scoring-methodology.md # AFQT model, sources, limits
 docs/PROJECT-STATE.md       # Concise current-state index and prioritized handoff context
@@ -66,7 +70,7 @@ docs/PROJECT-STATE.md       # Concise current-state index and prioritized handof
 
 ```bash
 npx serve .                    # Local dev server
-npm test                       # Run the node:test + jsdom unit suite (184 tests)
+npm test                       # Run the node:test + jsdom unit suite (197 tests)
 npm run test:e2e               # Run Playwright against all pages + the guest AFQT flow
 node scripts/validate-site.js  # Validate quiz data + scoring contracts (also a Vercel build gate)
 node scripts/check-no-inline-js.js  # Verify no inline JS (required by the strict CSP)
@@ -107,10 +111,14 @@ Documentation review is a required first step for every change or implementation
   `email` are NOT writable by clients** (admin changes go through the `admin_set_is_admin` SECURITY
   DEFINER RPC). See the privilege-escalation lesson in LEARNED.
 - `test_results` (RLS): own-`user_id` select/insert. Has `section_scores`, `line_scores`,
-  `afqt_score`, and `question_results` jsonb (`[{id,section,correct}]`, for weak-area analysis).
+  `afqt_score`, `client_result_id` (per-user deduplication), and `question_results` jsonb
+  (`[{id,section,correct}]`, for weak-area analysis).
+- `study_missions` (RLS): own-row select/insert/update for account-synced Today’s Mission status,
+  content target, and section evidence. Anonymous roles have no table grants; answer text and profile
+  fields are not stored. Local guest history uses `missionasvab.missions.v1` and imports after sign-in.
 - `question_reports` (RLS): insert-own / select own-or-admin; backs the report-a-question feature.
 - Admin RPCs (`admin_*`, `delete_my_account`) are SECURITY DEFINER and self-guard with `is_admin()`/
-  `auth.uid()`. Deletes cascade auth.users → profiles → test_results.
+  `auth.uid()`. Deletes cascade auth.users → profiles → test_results/study_missions.
 
 ## ASVAB Section Reference
 

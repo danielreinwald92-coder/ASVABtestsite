@@ -5,6 +5,7 @@
 // js/section-config.js and js/quiz-data.js; courses.js is lazy-loaded on demand.
 (function () {
     let currentCourse = null, currentChapter = null, currentQuiz = null;
+    let activeMissionId = null;
     let currentQuestionIndex = 0, score = 0, selectedOption = null, answered = false;
     // One corrupt value here would otherwise throw during script evaluation
     // and blank the entire study-guide SPA.
@@ -449,6 +450,9 @@
       if (passed) {
         completedChapters[currentChapter.id] = true;
         localStorage.setItem('completedChapters', JSON.stringify(completedChapters));
+        if (activeMissionId && typeof MissionASVABMissionProgress !== 'undefined') {
+          MissionASVABMissionProgress.setMissionStatus(activeMissionId, 'completed');
+        }
       }
       const need = Math.ceil(currentChapter.quizConfig.passingScore * currentQuiz.length);
       document.getElementById('results-card').innerHTML = `
@@ -969,13 +973,23 @@
       el.click();
     });
 
-    // Deep link: study-guide.html?section=AR jumps straight into that course
-    // (used by the dashboard study plan / "Practice my weak areas" flow).
+    // Deep links can open a section or one allowlisted chapter. The mission id
+    // records start/completion locally and, when signed in, in Supabase.
     initHome().then(() => {
       try {
-        const sec = new URLSearchParams(window.location.search).get('section');
+        const params = new URLSearchParams(window.location.search);
+        const sec = params.get('section');
+        const chapterId = params.get('chapter');
+        activeMissionId = params.get('mission');
         if (sec && typeof courses !== 'undefined' && courses[sec]) {
           showCourse(sec);
+          if (chapterId) {
+            const chapter = courses[sec].chapters.find((item) => item.id === chapterId);
+            if (chapter) showLesson(chapter);
+          }
+          if (activeMissionId && typeof MissionASVABMissionProgress !== 'undefined') {
+            MissionASVABMissionProgress.setMissionStatus(activeMissionId, 'in_progress');
+          }
         }
       } catch (_) { /* no-op: fall back to the home view */ }
     });

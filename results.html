@@ -992,6 +992,32 @@
       font-size: 0.95rem;
     }
 
+    .mission-panel {
+      display: none;
+      margin: 2rem 0;
+      padding: 2rem;
+      background: linear-gradient(135deg, #0f2747, #173a65);
+      color: var(--white);
+      border: 1px solid rgba(212, 168, 83, 0.65);
+      border-radius: 18px;
+      box-shadow: 0 14px 35px rgba(10, 22, 40, 0.18);
+    }
+    .mission-eyebrow { color: var(--gold-400); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; }
+    .mission-panel h3 { margin: 0.35rem 0 0.5rem; font-size: 1.7rem; color: var(--white); }
+    .mission-summary { margin: 0; color: #e9eef5; line-height: 1.6; }
+    .mission-meta { display: flex; gap: 0.65rem; flex-wrap: wrap; margin: 1rem 0; }
+    .mission-chip { padding: 0.35rem 0.65rem; border-radius: 999px; background: rgba(255,255,255,0.1); color: #f7e8bd; font-size: 0.85rem; font-weight: 700; }
+    .mission-why { padding: 0.85rem 1rem; background: rgba(255,255,255,0.08); border-left: 3px solid var(--gold-500); border-radius: 8px; color: #f4f6f9; line-height: 1.5; }
+    .mission-priorities { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; margin: 1.15rem 0; }
+    .mission-priority { padding: 0.9rem; border-radius: 10px; background: rgba(255,255,255,0.08); }
+    .mission-priority strong { display: block; color: var(--white); margin-bottom: 0.2rem; }
+    .mission-priority span { color: #dbe4ef; font-size: 0.86rem; line-height: 1.4; }
+    .mission-start { display: inline-flex; align-items: center; justify-content: center; margin-top: 0.25rem; padding: 0.85rem 1.25rem; border-radius: 9px; background: var(--gold-500); color: #0a1628; font-weight: 800; text-decoration: none; }
+    .mission-start:hover { background: #e3bd6f; transform: translateY(-1px); }
+    .mission-account-note { margin: 1rem 0 0; color: #dbe4ef; font-size: 0.88rem; line-height: 1.5; }
+    .mission-account-note a { color: #f3d488; font-weight: 700; }
+    .mission-complete { color: #bce7bf; font-weight: 800; }
+
     @media (max-width: 768px) {
       .answer-review { padding: 1.5rem; }
       .answer-review-header { flex-direction: column; align-items: flex-start; }
@@ -999,6 +1025,9 @@
       .filter-btn { flex: 1; text-align: center; padding: 0.6rem 0.75rem; }
       .review-question { padding: 1rem; }
       .review-question-header { flex-direction: column; gap: 0.5rem; }
+      .mission-panel { padding: 1.35rem; }
+      .mission-priorities { grid-template-columns: 1fr; }
+      .mission-panel h3 { font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -1053,6 +1082,17 @@
       <h3 class="breakdown-title">Performance by Section</h3>
       <p class="breakdown-subtitle">See which areas need more practice</p>
       <div class="breakdown-grid" id="breakdownGrid"></div>
+    </section>
+
+    <section class="mission-panel" id="missionPanel" aria-labelledby="missionTitle">
+      <div class="mission-eyebrow">Today’s Mission</div>
+      <h3 id="missionTitle"></h3>
+      <p class="mission-summary" id="missionSummary"></p>
+      <div class="mission-meta" id="missionMeta"></div>
+      <div class="mission-why" id="missionWhy"></div>
+      <div class="mission-priorities" id="missionPriorities"></div>
+      <a class="mission-start" id="missionStartBtn" href="study-guide.html">Start Today’s Mission →</a>
+      <p class="mission-account-note" id="missionAccountNote">This mission is saved on this browser.</p>
     </section>
 
     <section class="line-scores" id="lineScores" style="display: none;">
@@ -1134,6 +1174,8 @@
   <script src="js/test-config.js"></script>
   <script src="js/scoring.js"></script>
   <script src="js/share-card.js"></script>
+  <script src="js/mission-recommendations.js"></script>
+  <script src="js/mission-progress.js"></script>
   <script src="js/load-explanations.js"></script>
   <script src="js/page-results.js"></script>
 

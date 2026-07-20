@@ -45,6 +45,11 @@ first (their official combination into one AS standard score).
 
 ## 2. AFQT percentile
 
+The 20-minute **Starting-Point Diagnostic is deliberately excluded from AFQT scoring**. Although it
+samples AR, WK, PC, and MK, its 18-question blueprint is designed only to choose a useful study
+starting point. Diagnostic results store `afqt: null` and the results page shows percent correct,
+section evidence, and a personalized study mission—not an AFQT percentile or enlistment prediction.
+
 The official AFQT composite formula is:
 
 ```

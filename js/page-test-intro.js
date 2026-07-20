@@ -12,14 +12,15 @@
     const parsed = JSON.parse(sessionStorage.getItem('testConfig') || '{}');
     if (parsed && typeof parsed === 'object') testConfig = parsed;
   } catch (_) { testConfig = {}; }
-  const testType = localStorage.getItem('testType') || 'quick';
+  const testType = testConfig.type || localStorage.getItem('testType') || 'quick';
   const sections = testConfig.sections || MissionASVABConfig.getSectionsForType(testType);
-  const mode = testConfig.mode === 'tutor' ? 'tutor' : 'timed';
+  const mode = testType !== 'diagnostic' && testConfig.mode === 'tutor' ? 'tutor' : 'timed';
+  const sectionOverrides = testConfig.sectionOverrides || {};
 
   // Calculate actual test details from quiz data
   function loadTestInfo() {
     const details = sections.reduce((currentDetails, code) => {
-      const sectionInfo = QuizManager.getSectionInfo(code);
+      const sectionInfo = { ...(QuizManager.getSectionInfo(code) || {}), ...(sectionOverrides[code] || {}) };
       if (sectionInfo) {
         currentDetails.totalQuestions += sectionInfo.questionsPerTest;
         currentDetails.totalTimeSeconds += sectionInfo.timeLimit;
@@ -28,7 +29,7 @@
     }, { totalQuestions: 0, totalTimeSeconds: 0 });
 
     const totalTimeMinutes = Math.ceil(details.totalTimeSeconds / 60);
-    const isPreset = testType === 'quick' || testType === 'full';
+    const isPreset = testType === 'quick' || testType === 'full' || testType === 'diagnostic';
 
     if (isPreset) {
       const activeConfig = MissionASVABConfig.getTestConfig(testType);
@@ -55,7 +56,7 @@
     const planBody = document.getElementById('sectionPlanBody');
     if (plan && planBody && mode !== 'tutor' && sections.length > 1) {
       planBody.innerHTML = sections.map((code) => {
-        const info = QuizManager.getSectionInfo(code);
+        const info = { ...(QuizManager.getSectionInfo(code) || {}), ...(sectionOverrides[code] || {}) };
         if (!info) return '';
         return `<tr><td>${info.name}</td><td>${info.questionsPerTest}</td><td>${Math.round(info.timeLimit / 60)}</td></tr>`;
       }).join('');
@@ -71,6 +72,13 @@
       const rulesTutor = document.getElementById('rulesTutor');
       if (rulesTimed) rulesTimed.hidden = true;
       if (rulesTutor) rulesTutor.hidden = false;
+    }
+
+    if (testType === 'diagnostic') {
+      const notice = document.getElementById('diagnosticNotice');
+      if (notice) notice.hidden = false;
+      const ack = document.querySelector('label[for="acknowledge"]');
+      if (ack) ack.textContent = 'I understand this is an independent practice diagnostic, not an official ASVAB or guaranteed AFQT prediction.';
     }
   }
 

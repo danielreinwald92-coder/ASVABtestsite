@@ -5,4 +5,5 @@ preview-*.html
 .claude/
 .mcp.json
 .vercel/
+supabase/
 playwright.config.js
