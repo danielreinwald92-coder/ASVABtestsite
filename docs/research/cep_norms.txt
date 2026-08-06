@@ -1,0 +1,1265 @@
+
+===PAGE 1===
+ASVAB Norms for the Career Exploration Program  
+ 
+Defense Manpower Data Center 
+July 2004 
+===PAGE 2===
+
+===PAGE 3===
+  
+Contents 
+ASVAB Norms for the Career Exploration Program ......................................................... 1 
+Norming Samples ............................................................................................................... 1 
+Weighting...................................................................................................................... ...... 3 
+Representativeness of Norms.............................................................................................. 4 
+Norm Distributions ............................................................................................................. 9 
+ Standard Scores.................................................................................................... 10 
+ Percentile Scores.................................................................................................. 11 
+References..................................................................................................................... .... 12 
+CEP Norming Tables ........................................................................................................ 13 
+ 
+Tables 
+1 Target Numbers and Completion Rates by Grade for the CEP Sample ................ 3 
+2 Demographic Characteristics of the Norm Sample and the U.S. Population 
+ in Grade 10............................................................................................................. 6 
+3 Demographic Characteristics of the Norm Sample and the U.S. Population 
+ in Grade 11............................................................................................................. 7 
+4 Demographic Characteristics of the Norm Sample and the U.S. Population 
+ in Grade 12............................................................................................................. 8 
+5 ASVAB Subtest Means and Standard Deviations by Grade in Youth 
+ Population Metric ................................................................................................ 10 
+6 Career Exploration Composite Means and Standard Deviations by Grade  
+ in Youth Population Metric ................................................................................. 11 
+ 
+A-1 Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) 
+ Norms for the ASVAB Subtest General Science (GS) ........................................ 13 
+ 
+A-2 Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) 
+ Norms for the ASVAB Subtest Arithmetic Reasoning (AR) .............................. 14 
+ 
+A-3 Male (M), Female (F), Combined -Gender(C), and Youth Population (YP) 
+ Norms for the ASVAB Subtest Word Knowledge (WK) .................................... 15 
+  i
+===PAGE 4===
+  
+A-4 Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) 
+ Norms for the ASVAB Subtest Paragraph Comprehension (PC)........................ 16 
+ 
+A-5 Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) 
+ Norms for the ASVAB Subtest Mathematics Knowledge (MK)......................... 17 
+ 
+A-6 Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) 
+ Norms for the ASVAB Subtest Electronic Information (EI)............................... 18 
+ 
+A-7 Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) 
+ Norms for the ASVAB Subtest Auto and Shop Information (AS) ...................... 19 
+ 
+A-8 Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) 
+ Norms for the ASVAB Subtest Mechanical Comprehension (MC) .................... 20 
+ 
+A-9 Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) 
+ Norms for the ASVAB Subtest Assembling Objects (AO) ................................. 21 
+ 
+A-10 Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) 
+ Norms for the ASVAB Verbal (VE).................................................................... 22 
+ 
+A-11 Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) 
+ Norms for the ASVAB Math Skills Composite................................................... 23 
+ 
+A-12 Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) 
+ Norms for the ASVAB Verbal Skills Composite ................................................ 24 
+ 
+A-13 Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) 
+ Norms for the ASVAB Science and Technical Skills Composite ....................... 25 
+ 
+ 
+  ii
+===PAGE 5===
+  
+ASVAB Norms for the Career Exploration Program  
+National norms for the Armed Services Vo cational Aptitude Battery (ASVAB) are pro-
+vided for students in grades 10, 11, and 12, as well as for postsecondary schools (2-year 
+colleges), as part of the Career Exploration Program. These norms enable students to 
+know how their scores compare with a nationally representative sample of youth in their 
+particular grades. 
+Norming Samples 
+ 
+The norming samples were obtained from aptitude test data collected as part of the Pro-
+file of American Youth (PAY97) project. This large-scale research project was sponsored 
+by the U.S. Department of Defense (DoD) with the cooperation of the U.S. Department 
+of Labor (DoL). PAY97 is intended to upda te current national norms for the ASVAB. 
+PAY97 was conducted by the National Opinion Research Center (NORC) at the Univer-
+sity of Chicago and is described in detail by Moore, Pedlow, and Wolter (1999). 
+ 
+The norming samples
+1 were drawn to be representative nationally of two groups of 
+American youth and hence to support two programs of interest to DoD: 
+ 
+1. The Enlistment Testing Program (ETP), which provides an assessment of about 
+6,000 American youth age 18-23 as of June 1, 1997, with oversampling for His-
+panic and Non-Hispanic Black youth. 
+ 
+2. The Career Exploration Program (CEP), which provides an assessment of ap-
+proximately 4,700 youth expected to be enrolled in grades 10, 11, and 12 as of 
+fall 1997. 
+                                                           
+1 A third sample was drawn at the same time for DoL consisting of youth age 12-16 and 
+is known as the National Longitudinal Survey of Youth (NLSY97). 
+  1
+===PAGE 6===
+  
+ 
+The norms described in this report for grades 10, 11, and 12 were derived from CEP data. 
+Norms for students in postsecondary schools (2-year colleges) were derived from the 
+ETP data. 
+ 
+The norming samples drawn were based on a stratified clustered random sampling de-
+sign. The basis of the sampling was the housi ng unit (HU). All housing units within the 
+50 states and the District of Columbia had a nonzero probability of selection.  
+ 
+Representative housing units were selected fro m a large sample of over 90,000 units. 
+Screening interviews were conducted on the occupied units, and selected subsamples of 
+eligible youth were identified for participation in the ASVAB testing.  
+ 
+The testing was done using a Computerized Adaptive Testing (CAT) version of the 
+ASVAB. All testing was conducted under standa rdized conditions at Sylvan Learning 
+Centers. Serious efforts were expended to en courage participation in the testing. Respon-
+dents who agreed to participate in the approximately 1.5 hours of testing were paid $75 as 
+an incentive. 
+ 
+Table 1 shows the number of youth targeted for the CEP sample, the number of eligibles 
+found, and test completion rates by grade (Moore et al., 1999). The overall completion 
+rate was about 75 percent of eligible youth,  and completion rates were similar for the 
+various grades. The postsecondary sample was part of the larger ETP sample. The test 
+completion rate for this larger sample was 77 percent of eligible youth.  
+ 
+The bulk of the sample screening and testing was done in the summer and fall of 1997, 
+but some testing was done through April 1998. 
+ 
+  2
+===PAGE 7===
+  
+Table 1. Target Numbers and Completion Rates by Grade for the CEP Sample 
+Group Target Eligible Complete 
+ASVAB
+Completion rate 
+(%)
+10th grade males 1,151 1,179   901 76.42 
+10th grade females 1,065 1,085   827 76.22 
+11th grade males 1,089 1,032   730 70.74 
+11th grade females 1,018 1,017   789 77.58 
+12th grade males   967   941   684 72.69 
+12th grade females   874   935   724 77.43 
+Total 6,164 6,189 4,655 75.21 
+ 
+Weighting 
+ 
+Data from large-scale national samples are normally weighted to achieve an unbiased 
+estimate of population responses. The weights for the CEP and ETP samples were com-
+puted in six stages: 
+ 
+1. Weight for selection probability, 
+2. Weight for nonresponse to the screening instrument, 
+3. Weight for subsampling into the CEP and ETP samples, 
+4. Weight for merging cross-sectional and supplemental samples, 
+5. Weight for nonresponse to the main data collection and testing, and 
+6. Poststratification weight to match the U.S. population. 
+ 
+The weights for the CEP sample (grades 10, 11, and 12) were developed by NORC 
+(Moore et al., 1999). The final stage post-stratification weights corrected the sample to 
+the national population by weighting each gender, race/ethnicity, and grade cell to the 
+national population, based on the October 1997 Current Population Survey (CPS).
+2
+ 
+                                                           
+2 Bureau of Labor Statistics, U.S. Department of Labor. 
+  3
+===PAGE 8===
+  
+Weights for the ETP sample, of which the post-secondary schools are a subset, were de-
+veloped by MaCurdy and Vytlacil (2003) of Stanford University. These final stage post-
+stratification weights correct the sample to  the national population by weighting each 
+gender, race/ethnicity, age, and respondent’s  education cell to the national population 
+based on the October 1997 Survey of Inco me and Program Participation (SIPP). 3  These 
+authors used the SIPP data because the ages and timing of the measurement of educa-
+tional attainment in the SIPP were thought to be better aligned with the ETP sample. 
+Representativeness of Norms 
+ 
+Considerable attention has been given to the representativeness of the norms. Norms for a 
+test describe how a target reference population performs on a test. To be truly representa-
+tive with respect to test scores, the norming sample must be fully representative of the 
+target population on any demographic variable that makes a unique contribution to the 
+variance of test scores.  
+ 
+Sims and Hiatt (2003a) examined the general question of the relationship of demograph-
+ics to aptitude scores and which demographics make unique contributions to test score 
+variance. They found that a norming sample fo r aptitude tests must be representative of 
+the underlying population with respect to the demographic variables of age, 
+race/ethnicity, gender, respondent’s education,  and a social-economic variable, such as 
+mother’s education. They also found that, if a norming sample was indeed representative 
+with respect to these five critical demographics, it need not also be representative with 
+respect to other demographics (e.g., number of respondents/siblings in the household, 
+degree of urbanization, or census region).  
+ 
+Tables 2, 3, and 4 compare (Sims and Hiatt, 2003b) the demographic characteristics of 
+the norming sample with those of the national population for grades 10, 11, and 12. The 
+agreement was found to be generally good. As previously noted, the sample
+ was post-
+stratification weighted by grade, gender, a nd the three broad race/ethnic groupings of 
+                                                           
+3 Census Bureau, U. S. Department of Commerce. 
+  4
+===PAGE 9===
+  
+Black, Hispanic, and Other. It is therefore expected that the weighted sample and the U.S. 
+population should agree closely.  
+ 
+Note that there are some small differen ces among the population values and the weighted 
+sample for the White, Asian, American Indian, and Other subgroupings. These differ-
+ences are mainly the result of the small samp le sizes for some of these groups and the 
+categorization used by the CPS which does not record an “Other” category.  
+ 
+In addition, Sims and Hiatt (2003b) examined the norming sample for grades 10, 11, and 
+12
+ with respect to the five critical demographic variables (age, race/ethnicity, gender, re-
+spondent’s education, and mother’s education) and concluded that it was indeed represen-
+tative of the underlying population and hence was a satisfactory sa mple for use in 
+developing norms.  
+ 
+As a further check on the norms, these authors also examined changes over time in math 
+and verbal scores for 17-year-old yout h from the 1979 and 1997 ASVAB norming sam-
+ples with those from 17-year-old youth from the National Assessment of Educational 
+Progress (NAEP) conducted by the National Council on Educational Statistics. The 
+agreement on changes in test scores over time on the two instruments was excellent and 
+lends further credence to the new CEP norms. 
+ 
+Because the testing was spread out over many months, there was some concern that youth 
+tested late in the sampling may have been re luctant to test and hence may not have given 
+their full effort. This concern appears to have been unwarranted. Sims and Hiatt (2003c) 
+analyzed a posttest survey and found that respondents tested late in the sampling period 
+reported trying just as hard as those who test ed during the first month of the data collec-
+tion.  
+  5
+===PAGE 10===
+  
+Table 2. Demographic Characteristics of the Norm Sample and the U.S. Population 
+in Grade 10 
+ Percentage
+Characteristic Unweighted 
+sample
+Weighted 
+sample
+U.S.      
+population*
+Gender    
+ Male 52.06 51.41 51.42 
+ Female 47.94 48.59 48.58 
+Race/ethnic    
+ Black 24.29 17.23 16.73 
+ Hispanic 18.20 14.33 12.65 
+        Other  57.51 68.44 70.61 
+ White (53.97) (65.11) (64.80) 
+ Asian (2.20) (2.05) (4.87) 
+ American Indian (0.41) (0.39) (0.94) 
+ Other (0.93) (0.89) (0.00)** 
+* October 1997 CPS. 
+** CPS responses do not contain an “Other” group. 
+  6
+===PAGE 11===
+  
+Table 3. Demographic characteristics of th e norm sample and the U.S. population  
+in Grade 11 
+ Percentage
+Characteristic Unweighted 
+sample
+Weighted 
+sample
+U.S.      
+population*
+Gender    
+ Male 48.06 50.67 50.67 
+ Female 51.94 49.33 49.33 
+Race/ethnic    
+ Black 21.72 14.75 16.09 
+ Hispanic 17.64 13.25 13.08 
+        Other  60.63 72.00 70.83 
+ White (55.89) (67.04) (65.96) 
+ Asian (2.57) (2.46) (3.99) 
+ American Indian (0.59) (0.71) (0.88) 
+ Other (1.58) (1.79) (0.00)** 
+* October 1997 CPS. 
+** CPS responses do not contain an “Other” group. 
+ 
+ 
+ 
+ 
+ 
+  7
+===PAGE 12===
+  
+Table 4. Demographic Characteristics of the Norm Sample and the U.S. Population 
+in Grade 12 
+ Percentage
+Characteristic Unweighted 
+sample
+Weighted 
+sample
+U.S.      
+population*
+Gender    
+ Male 48.54 50.38 50.45 
+ Female 51.46 49.62 49.55 
+Race/ethnic    
+ Black 23.17 15.95 15.87 
+ Hispanic 17.06 13.01 12.00 
+        Other  59.78 71.04 72.13 
+ White (54.80) (65.60) (66.77) 
+ Asian (3.34) (3.60) (3.82) 
+ American Indian (0.50) (0.71) (1.54) 
+ Other (1.14) (1.13) (0.00)** 
+* October 1997 CPS. 
+** CPS responses do not contain an “Other” group. 
+ 
+ 
+MaCurdy and Vytlacil (2003) have examined the ETP sample from which the postsec-
+ondary sub-sample was drawn and conclude that it is also representative of the underly-
+ing population. 
+  8
+===PAGE 13===
+  
+Norm Distributions 
+ 
+All ASVAB scores were initially generated on the 1997 ASVAB Score Scale (Segall, 
+2004). These scores were referenced to a repr esentative group of American youth age 18-
+23 known as the 1997 Youth Population. Most sco res on the high school versions of the 
+ASVAB are converted into other metrics to facilitate use in the CEP. Data shown in Ta-
+bles 5 and 6 and in the appendix are used to make these conversions. 
+ 
+The norming tables for students in grades 10, 11, 12, and 2-year colleges were developed 
+by Hiatt and Sims (2003) using the data samples described in the preceding sections. 
+ 
+The ASVAB Summary Results sheet reports scores in three metrics. Grade-specific sub-
+test standard scores are shown on the left, and grade and gender-specific percentile scores 
+are shown on the right. The score bands in the center of the form represent a graphical 
+display of the grade-specific subtest standard  scores. In addition, a Military Entrance 
+Score (AFQT) is shown at the bottom left.  
+ 
+The AFQT score is expressed as a percentile  in the 1997 Youth P opulation (age 18-23) 
+reference group. It is a composite used by DoD as a measure of general aptitude and is 
+made up of the sum of scores from Arithme tic Reasoning, Mathematics Knowledge, and 
+two Verbal (AR+MK+2VE) subtests. It is the only score on the report sheet referenced to 
+the 18 to 23-year-old youth population. 
+  9
+===PAGE 14===
+  
+Standard Scores 
+ 
+The grade-specific ASVAB subtest standard scores are standardized to have a mean of 50 
+and a standard deviation of 10 in the indicat ed grade in the 1997 CEP sample, using the 
+means and standard deviations shown in Table 5.  
+ 
+Table 5. ASVAB Subtest Means and Standard Deviations by Grade in Youth  
+Population Metric 
+ Grade
+ 10th 11th 12th Postsecondary
+Subtest Mean Std. Mean Std. Mean Std. Mean Std.
+General Science (GS) 46.256 9.451 48.531 9. 542 49.479 9.724 50.198 8.747 
+Arithmetic Reasoning (AR) 45.204 10.289 47.793 10.634 48.939 10.575 50.825 8.269 
+Word Knowledge (WK) 43.469 9.409 45.836 9.511 47.519 9.075 50.375 8.846 
+Paragraph Comprehension (PC) 44.010 11.144 46.503 10.798 48.050 10.380 50.784 8.778 
+Math Knowledge (MK) 47.297 9.290 50.149 9.676 51.377 9.833 51.661 7.932 
+Mech. Comprehension (MC) 45.589 10.052 47.354 9.879 48.491 9.874 49.825 9.004 
+Auto & Shop Information (AS) 43.153 8.252 44.903 8.573 46.239 9.144 49.804 9.640 
+Electronics Information (EI) 43.763 9.387 45.447 9.144 47.425 9.594 50.489 9.413 
+Assembling Objects (AO) 46.965 9.791 48.563 10.263 49.399 9.978 50.177 9.729 
+Verbal (VE=WK+PC)  43.301 9.966 45.863 9.932 47.580 9.465 50.584 8.595 
+Note:  Because of its short length and relatively low reliability, PC is never used by itself as a sub-
+test but is always combined with WK to form VE for use in composites.  VE is functionally iden-
+tical to the Verbal Skills Composite described in Table 6. 
+ 
+Most of the mean values for students in grades 10, 11, and 12 in Table 5 are below 
+50, as expected, because these data are standardized in the 18 to 23-year-old youth 
+population. The Assembling Objects (AO) subtest is not currently included in the 
+CEP but is shown because it might be included at some point in the future. 
+ 
+  10
+===PAGE 15===
+  
+The grade-specific Career Exploration Composites are constructed from combina-
+tions of ASVAB subtests and are standardized to have a mean of 50 and standard de-
+viation of 10 in the indicated grade in the 1997 CEP sample using the means and 
+standard deviations shown in Table 6.  
+ 
+Table 6. Career Exploration Composite Me ans and Standard Deviations by Grade 
+in Youth Population Metric 
+ Grade
+ 10th 11th 12th Postsecondary
+Career Exploration 
+Composite
+Mean Std. Mean Std. Mean Std. Mean Std.
+Math Skills (AR+MK) 46.027 9.776 48.902 10.194 50.162 10.241 51.324 7.905 
+Verbal Skills (PC+WK) 43.301 9.966 45.863 9.932 47.580 9.465 50.584 8.595 
+Science and Technical 
+Skills (GS+EI+MC) 
+44.632 9.615 46.752 9.493 48.280 9.760 50.183 8.915 
+ 
+ 
+Percentile scores 
+ 
+Tables in the appendix are used to convert ASVAB subtest or Career Exploration Com-
+posite youth population standard scores (SSS) in to grade and gender-specific percentiles. 
+Separate headings are shown for males (M),  females (F), and the combined (C) gender 
+groups. For reference, the tables also show the youth population score (YP) correspond-
+ing to each SSS for the 18 to 23-year-old population. 
+ 
+For example, an SSS of 50 on the GS subtest corresponds to the 63
+rd percentile of per-
+formance for male 10 th grade students. This same SSS of 50 on GS also corresponds to 
+the 52nd percentile of the age 18-23 youth population. 
+  11
+===PAGE 16===
+  
+References 
+ 
+Hiatt, C., & Sims, W. (2003). Norming tables for the Student Testing Program (STP) 
+(Tech. Rep CAB D0009233.A2). Alexandria, VA: The CNA Corporation. 
+MaCurdy, T., & Vytlacil, E. (2003). Establishing new norms for the AFQT using data 
+from PAY97  (Tech. Rep.). Stanford, CA: Stanford University, Department of 
+Economics. 
+Moore, W., Pedlow, S., & Wolter, K. (1999). Profile of American youth 1997 (PAY97): 
+Technical sampling report (Tech. Rep.). Chicago, IL: National Opinion Research 
+Center. 
+Segall, D. O. (2004). Development and evaluation of the 1997 ASVAB score scale . Sea-
+side, CA: Defense Manpower Data Center.  
+Sims, W., & Hiatt, C. (2003a). On the representativeness of norming samples for aptitude 
+tests (Tech. Rep. CAB D0007188.A2). Alexandria, VA: The CNA Corporation. 
+Sims, W., & Hiatt, C. (2003b). An evaluation of the Student Testing Program (STP97) 
+norming sample (Tech. Rep. D0007499.A2). Alexandria, VA: The CNA Corpo-
+ration. 
+Sims, W., & Hiatt, C. (2003c). Attitudes, incentives, and test performance  (Tech. Rep. 
+CAB D0007502.A2). Alexandria VA: The CNA Corporation. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  12
+===PAGE 17===
+  
+Appendix: CEP Norming Tables 
+ 
+Table A-1. 
+ 
+Male (M), Female (F), Combined-Gender (C ), and Youth Population (YP) Norms for the 
+ASVAB Subtest General Science (GS) 
+ 10th grade 11th grade 12th grade Post Secondary YP
+SSS M F C M F C M F C M F C  
+              
+24 1 1 1 1 1 1 1 1 1 1 1 1 1 
+25 2 1 1 1 1 1 1 1 1 1 1 1 1 
+26 2 1 2 1 2 1 1 1 1 1 1 1 1 
+27 3 2 2 2 2 2 1 1 1 1 1 1 1 
+28 4 2 3 2 3 2 1 1 1 1 1 1 2 
+29 4 3 3 2 4 3 2 2 2 1 2 1 2 
+30 5 4 5 3 5 4 3 3 3 1 2 1 2 
+31 6 6 6 5 6 5 4 4 4 1 2 2 3 
+32 8 8 8 5 6 6 4 4 4 2 2 2 4 
+33 10 10 10 7 7 7 6 6 6 2 3 2 5 
+34 12 12 12 7 9 8 6 7 7 3 4 3 7 
+35 14 14 14 9 10 10 7 9 8 3 6 5 8 
+36 15 16 16 10 12 11 9 11 10 4 6 5 9 
+37 18 19 19 12 14 13 9 14 12 6 10 8 12 
+38 20 24 22 14 17 16 10 17 14 7 12 9 13 
+39 23 28 25 16 19 17 12 19 16 8 14 11 15 
+40 26 31 28 17 21 19 14 22 18 10 16 13 18 
+41 28 35 32 20 24 22 16 25 20 12 20 16 20 
+42 32 38 35 22 27 24 18 29 23 13 24 19 23 
+43 35 42 38 25 31 28 21 31 26 17 29 23 26 
+44 38 43 41 29 35 32 23 34 29 20 32 26 29 
+45 42 48 45 32 39 35 27 39 33 23 36 30 32 
+46 44 52 48 34 43 38 30 42 36 28 41 35 36 
+47 49 54 51 40 47 43 35 49 42 31 45 39 39 
+48 53 60 56 45 52 48 39 53 46 34 50 43 44 
+49 58 66 62 48 57 52 42 59 51 38 54 46 48 
+50 63 73 68 52 61 57 46 64 55 42 60 51 52 
+51 67 76 71 57 67 62 50 69 59 44 65 55 55 
+52 72 80 76 61 70 66 54 73 64 48 69 59 59 
+53 75 84 80 67 75 71 57 78 67 53 73 64 63 
+54 78 87 82 69 79 74 60 80 70 59 76 68 67 
+55 80 88 84 72 81 76 65 83 74 61 79 71 70 
+56 83 90 86 75 83 79 68 85 76 67 83 76 74 
+57 85 92 88 79 85 82 72 86 79 72 86 79 77 
+58 87 94 90 82 88 85 75 89 82 75 89 82 80 
+59 89 95 92 86 90 88 79 89 84 80 91 86 83 
+60 90 97 93 88 92 90 81 91 86 83 92 88 85 
+61 92 97 95 89 94 92 84 94 89 87 93 90 87 
+62 94 98 96 91 96 93 86 95 90 90 94 92 89 
+63 95 98 96 92 97 94 88 96 92 92 95 94 91 
+64 95 99 97 95 97 96 91 98 94 95 96 96 93 
+65 96 99 97 96 98 97 92 98 95 96 98 97 94 
+66 97 99 98 97 99 98 93 99 96 96 98 97 95 
+67 98 99 99 97 99 98 95 99 97 97 98 98 96 
+68 99 99 99 99 99 99 96 99 98 98 99 99 97 
+69 99 99 99 99 99 99 97 99 98 98 99 99 98 
+70 99 99 99 99 99 99 97 99 98 98 99 99 98 
+71 99 99 99 99 99 99 98 99 99 98 99 99 99 
+72 99 99 99 99 99 99 99 99 99 99 99 99 99 
+ 
+  13
+===PAGE 18===
+  
+Table A-2. Male (M), Female (F), Combined-Ge nder (C), and Youth Population (YP) Norms for the 
+ASVAB Subtest Arithmetic Reasoning (AR) 
+ 10th grade 11th grade 12th grade Post Secondary YP
+SSS M F C M F C M F C M F C  
+              
+17 1 1 1 1 1 1 1 1 1 1 1 1 1 
+18 2 1 2 1 2 1 1 1 1 1 1 1 1 
+19 2 1 2 1 2 2 2 1 1 1 1 1 1 
+20 3 2 2 2 2 2 2 1 2 1 1 1 1 
+21 3 2 3 2 3 2 3 1 2 1 1 1 1 
+22 4 2 3 3 3 3 3 2 2 1 1 1 1 
+23 5 3 4 3 3 3 4 2 3 1 1 1 2 
+24 6 3 4 3 4 4 4 2 3 1 1 1 2 
+25 6 3 5 4 4 4 4 2 3 1 1 1 2 
+26 7 4 6 4 5 4 5 2 4 1 1 1 2 
+27 8 5 7 5 5 5 6 3 4 1 1 1 3 
+28 8 6 7 5 6 5 6 4 5 1 1 1 3 
+29 9 7 8 5 6 6 7 4 5 1 1 1 3 
+30 10 8 9 6 7 7 7 5 6 2 1 1 4 
+31 11 9 10 6 8 7 7 5 6 2 1 1 4 
+32 13 10 11 7 9 8 8 6 7 2 1 2 5 
+33 14 11 12 8 10 9 9 7 8 3 2 2 5 
+34 15 12 13 9 11 10 9 8 9 3 2 3 6 
+35 16 14 15 11 13 12 10 9 10 4 4 4 7 
+36 18 17 17 12 13 13 11 10 10 5 4 4 8 
+37 21 19 20 13 15 14 12 12 12 5 5 5 9 
+38 22 22 22 14 18 16 13 13 13 6 6 6 11 
+39 25 26 25 16 19 18 14 16 15 6 9 8 13 
+40 28 29 29 18 21 20 15 19 17 8 11 10 15 
+41 31 31 31 21 25 23 17 22 19 9 13 11 17 
+42 33 36 35 24 28 26 20 25 23 11 16 14 20 
+43 37 41 39 26 32 29 22 30 26 13 21 17 23 
+44 41 46 43 30 36 33 24 34 29 16 24 20 26 
+45 45 49 47 34 41 38 27 39 33 20 28 24 29 
+46 50 54 52 39 44 42 30 43 37 23 32 28 33 
+47 55 60 57 43 50 46 33 49 41 26 37 32 37 
+48 58 66 62 48 54 51 36 55 46 30 43 37 42 
+49 63 71 67 54 58 56 41 62 51 34 48 42 47 
+50 67 75 71 60 64 62 46 67 57 39 54 47 51 
+51 70 79 74 65 68 67 52 70 61 44 61 53 56 
+52 74 82 78 68 73 71 57 74 65 50 65 58 60 
+53 76 84 80 70 76 73 62 76 69 56 69 63 64 
+54 79 86 83 73 78 75 64 79 71 61 74 68 68 
+55 82 88 85 75 80 77 69 80 74 67 79 73 72 
+56 85 90 87 77 81 79 71 82 77 72 82 77 76 
+57 88 91 89 79 83 81 75 84 79 75 86 81 78 
+58 89 93 91 82 85 84 76 87 81 78 88 83 81 
+59 90 94 92 84 87 85 79 88 83 81 90 86 83 
+60 92 95 93 86 89 88 81 90 85 84 92 88 85 
+61 94 96 95 88 92 90 84 92 88 87 93 90 88 
+62 96 98 97 90 93 92 86 93 89 89 94 91 90 
+63 96 98 97 92 95 94 87 95 91 91 96 93 91 
+64 97 99 98 94 97 95 91 96 93 93 97 95 93 
+65 98 99 99 95 98 97 93 98 96 95 98 96 95 
+66 99 99 99 96 99 98 95 99 97 97 98 98 96 
+67 99 99 99 97 99 98 96 99 98 98 99 99 97 
+68 99 99 99 97 99 99 97 99 98 99 99 99 98 
+69 99 99 99 99 99 99 98 99 99 99 99 99 98 
+70 99 99 99 99 99 99 99 99 99 99 99 99 99 
+  14
+===PAGE 19===
+  
+Table A-3. Male (M), Female (F), Combined-Ge nder (C), and Youth Population (YP) Norms for the 
+ASVAB Subtest Word Knowledge (WK) 
+ 10th grade 11th grade 12th grade Post Secondary YP
+SSS M F C M F C M F C M F C  
+              
+19 1 1 1 1 1 1 1 1 1 1 1 1 1 
+20 2 1 1 1 2 1 1 1 1 1 1 1 1 
+21 2 1 2 1 2 1 1 1 1 1 1 1 1 
+22 3 2 2 2 2 2 1 1 1 1 1 1 1 
+23 4 2 3 2 2 2 1 1 1 1 1 1 1 
+24 4 3 3 2 2 2 1 1 1 1 1 1 1 
+25 4 4 4 2 3 3 2 1 2 1 1 1 2 
+26 6 4 5 2 4 3 2 2 2 1 1 1 2 
+27 7 5 6 3 4 4 3 2 2 2 1 2 2 
+28 7 7 7 4 5 4 3 3 3 2 2 2 3 
+29 9 7 8 5 6 5 3 4 3 2 2 2 3 
+30 11 8 9 6 6 6 3 4 4 3 3 3 4 
+31 13 10 11 7 8 7 5 5 5 3 3 3 4 
+32 14 11 13 7 9 8 6 6 6 3 3 3 5 
+33 16 14 15 9 10 10 8 7 7 3 4 4 5 
+34 18 16 17 10 13 11 8 8 8 4 4 4 6 
+35 21 19 20 13 15 14 9 10 10 5 5 5 7 
+36 24 23 24 15 17 16 11 12 11 5 7 6 9 
+37 27 26 26 18 20 19 12 14 13 6 8 7 10 
+38 30 29 29 22 23 23 14 18 16 8 9 9 12 
+39 32 32 32 24 25 25 16 20 18 11 10 11 14 
+40 35 35 35 26 29 28 19 23 21 12 12 12 16 
+41 38 40 39 30 32 31 22 27 24 14 16 15 19 
+42 42 44 43 33 36 34 24 31 28 17 18 17 22 
+43 47 47 47 35 40 37 27 35 31 19 21 20 25 
+44 50 50 50 39 43 41 31 37 34 21 23 22 28 
+45 53 55 54 40 48 44 34 43 38 24 28 26 31 
+46 57 61 59 46 51 48 37 48 42 29 33 31 34 
+47 61 64 63 51 55 53 41 50 45 32 39 36 38 
+48 67 69 68 55 59 57 46 55 50 37 43 41 43 
+49 71 73 72 61 64 62 50 59 55 43 48 46 46 
+50 75 78 77 66 69 67 55 66 60 46 51 49 50 
+51 79 82 81 71 71 71 59 70 65 50 55 52 54 
+52 83 85 84 77 77 77 65 75 70 54 58 56 57 
+53 87 88 88 80 81 81 71 80 76 59 62 61 62 
+54 90 91 90 84 84 84 75 83 79 64 67 66 66 
+55 92 92 92 87 88 87 79 86 83 69 72 71 70 
+56 94 94 94 89 90 89 82 90 86 75 75 75 74 
+57 95 96 95 92 91 92 85 92 88 80 81 80 77 
+58 97 97 97 93 92 93 87 93 90 84 84 84 81 
+59 97 97 97 95 94 95 90 95 92 87 86 87 84 
+60 97 98 98 96 95 95 92 96 94 89 88 89 86 
+61 98 98 98 96 96 96 94 97 95 91 90 91 89 
+62 98 99 99 97 96 97 95 98 96 93 93 93 91 
+63 98 99 99 98 96 97 96 98 97 95 94 94 92 
+64 99 99 99 99 97 98 97 98 98 97 94 95 94 
+65 99 99 99 99 98 98 98 99 99 98 95 96 95 
+66 99 99 99 99 98 99 98 99 99 98 97 97 96 
+67 99 99 99 99 99 99 99 99 99 98 97 98 97 
+68 99 99 99 99 99 99 99 99 99 99 98 99 98 
+69 99 99 99 99 99 99 99 99 99 99 99 99 98 
+70 99 99 99 99 99 99 99 99 99 99 99 99 98 
+71 99 99 99 99 99 99 99 99 99 99 99 99 99 
+  15
+===PAGE 20===
+  
+Table A-4. Male (M), Female (F), Combined-Ge nder (C), and Youth Population (YP) Norms for the 
+ASVAB Subtest Paragraph Comprehension (PC) 
+ 10th grade 11th grade 12th grade Post Secondary YP
+SSS M F C M F C M F C M F C  
+              
+18 1 1 1 1 1 1 1 1 1 1 1 1 1 
+19 2 1 1 1 1 1 1 1 1 1 1 1 1 
+20 3 1 2 1 1 1 1 1 1 1 1 1 1 
+21 4 2 3 2 1 1 2 1 2 1 1 1 1 
+22 5 3 4 2 1 2 3 2 2 1 1 1 1 
+23 7 3 5 4 3 3 4 2 3 1 1 1 2 
+24 8 4 6 5 5 5 5 2 4 1 1 1 2 
+25 9 5 7 6 5 5 6 2 4 1 1 1 2 
+26 10 5 8 7 5 6 6 3 4 2 1 2 3 
+27 12 7 10 8 6 7 7 3 5 3 1 2 4 
+28 14 8 11 9 6 8 8 4 6 3 1 2 4 
+29 16 9 13 11 7 9 8 4 6 4 2 3 5 
+30 19 10 14 12 8 10 10 5 7 4 2 3 5 
+31 20 11 16 13 9 11 10 6 8 5 2 4 6 
+32 23 12 18 15 10 13 11 7 9 6 2 4 7 
+33 24 14 19 17 11 14 12 8 10 6 3 4 7 
+34 26 17 21 18 12 15 14 9 11 7 4 5 8 
+35 28 18 23 20 14 17 15 10 12 8 5 6 9 
+36 31 20 25 21 16 19 16 11 14 8 6 7 10 
+37 34 22 28 24 18 21 17 13 15 10 8 9 11 
+38 37 24 31 25 19 22 18 16 17 11 8 10 13 
+39 40 26 33 27 22 25 20 17 19 12 9 11 14 
+40 42 29 35 29 23 26 23 20 21 15 11 13 16 
+41 45 32 39 31 26 29 25 23 24 16 13 14 18 
+42 48 34 41 33 29 31 28 26 27 18 14 16 20 
+43 51 38 44 37 32 34 30 29 29 21 17 19 23 
+44 52 42 47 42 36 39 34 33 33 24 20 22 26 
+45 55 46 51 45 39 42 38 35 36 25 23 24 29 
+46 57 50 54 47 42 45 40 38 39 29 25 27 31 
+47 60 54 57 50 45 48 43 42 42 34 28 30 35 
+48 62 57 60 54 49 52 46 46 46 36 31 34 38 
+49 66 62 64 57 52 55 49 49 49 38 35 37 41 
+50 70 65 68 60 57 59 53 53 53 41 39 40 45 
+51 73 69 71 63 60 62 57 58 58 46 43 45 49 
+52 77 72 74 67 66 66 61 62 61 52 50 51 54 
+53 80 76 78 71 68 69 64 67 65 59 57 58 58 
+54 84 79 82 76 73 75 68 72 70 63 63 63 63 
+55 87 84 85 82 77 79 72 76 74 69 69 69 68 
+56 90 87 88 86 79 82 76 80 78 75 74 74 73 
+57 92 90 91 89 85 87 81 84 83 80 78 79 77 
+58 94 92 93 90 87 89 83 87 85 83 82 82 81 
+59 95 94 95 93 91 92 87 89 88 89 86 87 85 
+60 96 94 95 95 93 94 91 92 91 92 89 90 88 
+61 97 95 96 95 93 94 92 93 93 93 91 92 89 
+62 98 96 97 97 94 96 94 96 95 95 93 94 92 
+63 99 97 98 98 97 97 97 98 97 97 95 96 95 
+64 99 98 98 98 98 98 98 99 98 98 97 97 96 
+65 99 99 99 99 98 98 98 99 99 98 97 98 97 
+66 99 99 99 99 98 98 98 99 99 98 97 98 97 
+67 99 99 99 99 99 99 99 99 99 99 98 98 98 
+68 99 99 99 99 99 99 99 99 99 99 99 99 99 
+ 
+ 
+             
+  16
+===PAGE 21===
+  
+Table A-5. Male (M), Female (F), Combined-Ge nder (C), and Youth Population (YP) Norms for the 
+ASVAB Subtest Math Knowledge (MK) 
+ 10th grade 11th grade 12th grade Post Secondary YP
+SSS M F C M F C M F C M F C  
+              
+23 1 1 1 1 1 1 1 1 1 1 1 1 1 
+24 2 1 1 2 1 1 1 1 1 1 1 1 1 
+25 2 1 2 2 1 1 1 1 1 1 1 1 1 
+26 3 1 2 3 1 2 2 1 1 1 1 1 1 
+27 3 2 2 3 2 3 2 1 2 1 1 1 1 
+28 4 2 3 4 2 3 3 2 2 1 1 1 2 
+29 5 2 4 4 3 3 3 3 3 1 1 1 2 
+30 5 3 4 4 3 4 4 3 3 1 1 1 3 
+31 7 4 5 4 3 4 4 4 4 1 1 1 4 
+32 8 5 7 5 4 4 4 4 4 2 2 2 4 
+33 9 6 8 6 4 5 4 5 5 2 2 2 5 
+34 11 7 9 8 6 7 4 6 5 2 2 2 7 
+35 13 10 12 9 7 8 5 8 7 3 2 2 8 
+36 15 11 13 11 8 9 6 9 8 4 3 3 10 
+37 18 12 15 12 9 11 7 11 9 4 4 4 11 
+38 21 14 18 13 11 12 9 12 11 5 5 5 13 
+39 24 17 21 15 12 14 12 14 13 7 6 7 15 
+40 28 20 24 17 15 16 13 16 14 9 8 9 18 
+41 31 24 28 19 16 18 14 19 16 11 11 11 21 
+42 33 28 30 21 19 20 15 21 18 14 13 13 24 
+43 36 31 33 24 23 23 17 24 20 16 16 16 27 
+44 39 34 37 26 26 26 20 27 24 18 20 19 30 
+45 43 37 40 29 29 29 24 29 26 21 24 23 35 
+46 46 40 43 33 32 33 26 32 29 26 27 27 38 
+47 51 44 48 38 35 37 28 35 32 31 31 31 41 
+48 56 49 52 42 38 40 32 39 35 34 34 34 44 
+49 61 52 57 47 42 45 36 43 39 37 37 37 47 
+50 64 56 60 51 45 48 40 48 44 41 43 42 50 
+51 68 60 64 55 49 52 45 51 48 46 48 47 54 
+52 73 64 69 59 52 56 49 54 51 52 51 52 57 
+53 75 69 72 64 59 61 53 57 55 55 56 55 60 
+54 80 75 77 68 62 65 59 61 60 60 59 59 63 
+55 82 78 80 71 66 68 63 65 64 65 65 65 67 
+56 85 83 84 74 71 72 66 69 68 70 70 70 69 
+57 86 86 86 77 74 75 69 72 71 73 76 74 73 
+58 89 89 89 80 77 79 71 75 73 77 80 78 77 
+59 91 91 91 83 82 83 74 80 77 82 84 83 81 
+60 93 94 94 87 85 86 79 83 81 85 89 87 84 
+61 96 96 96 89 87 88 83 86 84 90 92 91 88 
+62 97 97 97 91 91 91 85 90 88 91 94 93 91 
+63 98 98 98 94 94 94 89 92 90 94 96 95 93 
+64 98 98 98 96 96 96 91 93 92 95 97 96 94 
+65 98 99 99 97 97 97 93 96 95 97 99 98 96 
+66 99 99 99 98 98 98 95 97 96 98 99 99 97 
+67 99 99 99 98 99 98 96 99 98 98 99 99 98 
+68 99 99 99 99 99 99 98 99 99 99 99 99 98 
+69 99 99 99 99 99 99 98 99 99 99 99 99 99 
+70 99 99 99 99 99 99 99 99 99 99 99 99 99 
+ 
+ 
+ 
+  17
+===PAGE 22===
+  
+Table A-6. Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) Norms for the ASVAB 
+Subtest Electronics Information (EI) 
+ 10th grade 11th grade 12th grade Post Secondary YP
+SSS M F C M F C M F C M F C  
+              
+22 1 1 1 1 1 1 1 1 1 1 1 1 1 
+23 2 1 1 1 1 1 1 1 1 1 1 1 1 
+24 2 1 2 1 2 1 1 1 1 1 1 1 1 
+25 4 2 3 1 2 2 1 1 1 1 1 1 1 
+26 6 3 4 2 3 2 2 1 1 1 1 1 1 
+27 6 4 5 2 3 3 2 2 2 1 1 1 1 
+28 7 5 6 3 4 3 3 2 2 1 1 1 2 
+29 8 7 8 4 5 4 3 3 3 1 1 1 2 
+30 10 8 9 5 6 5 4 3 3 1 2 1 2 
+31 11 9 10 5 8 7 5 5 5 1 3 2 3 
+32 13 10 12 7 9 8 7 6 6 1 4 3 4 
+33 14 13 13 7 10 9 8 7 7 2 5 3 5 
+34 15 15 15 9 13 11 9 8 8 2 6 4 6 
+35 18 18 18 10 16 13 9 10 10 2 7 5 7 
+36 20 21 21 12 18 15 10 13 11 3 9 6 8 
+37 22 26 24 13 21 17 11 15 13 3 10 7 9 
+38 25 30 27 17 24 20 12 20 16 4 12 8 11 
+39 28 34 31 19 29 24 13 25 19 5 15 10 13 
+40 31 39 35 21 34 28 15 29 22 6 18 12 16 
+41 34 45 39 23 40 32 16 34 25 7 23 15 19 
+42 36 51 43 27 47 37 18 40 29 8 26 18 21 
+43 40 56 48 31 52 41 20 47 34 10 31 21 24 
+44 45 61 53 34 57 45 23 52 37 13 36 25 28 
+45 49 68 59 38 62 50 26 57 41 15 41 29 32 
+46 53 73 63 41 68 54 30 63 46 17 48 34 35 
+47 57 79 68 47 72 60 34 67 50 20 53 38 39 
+48 60 83 71 53 79 66 38 74 56 26 58 43 44 
+49 65 87 76 59 83 70 43 79 61 28 69 50 49 
+50 69 90 79 64 88 76 49 85 67 32 75 55 54 
+51 74 92 83 67 91 79 54 90 72 36 80 59 59 
+52 77 93 85 70 93 81 58 92 75 40 85 63 64 
+53 80 94 87 74 95 84 62 94 78 44 87 67 68 
+54 82 95 89 77 96 86 66 95 80 48 89 70 71 
+55 84 96 90 79 97 88 69 96 82 53 91 73 74 
+56 86 97 91 82 97 89 73 96 85 58 93 76 77 
+57 88 98 93 85 97 91 75 97 86 62 95 79 79 
+58 89 98 93 87 98 92 78 98 88 65 96 81 82 
+59 90 98 94 89 98 93 81 98 90 70 97 84 84 
+60 92 99 95 91 98 95 84 98 91 73 98 86 86 
+61 93 99 96 93 99 96 85 99 92 77 99 88 88 
+62 94 99 96 93 99 96 87 99 93 79 99 89 89 
+63 95 99 97 95 99 97 90 99 95 82 99 91 91 
+64 96 99 98 96 99 98 91 99 95 86 99 93 92 
+65 98 99 99 96 99 98 92 99 96 87 99 93 93 
+66 98 99 99 96 99 98 93 99 96 89 99 94 94 
+67 98 99 99 97 99 98 94 99 97 91 99 95 95 
+68 99 99 99 97 99 98 94 99 97 92 99 96 95 
+69 99 99 99 97 99 99 95 99 98 92 99 96 96 
+70 99 99 99 98 99 99 96 99 98 93 99 97 97 
+71 99 99 99 98 99 99 97 99 98 94 99 97 97 
+72 99 99 99 99 99 99 98 99 99 96 99 98 98 
+73 99 99 99 99 99 99 98 99 99 97 99 98 98 
+74 99 99 99 99 99 99 99 99 99 97 99 99 99 
+75 99 99 99 99 99 99 99 99 99 98 99 99 99 
+76 99 99 99 99 99 99 99 99 99 98 99 99 99 
+77 99 99 99 99 99 99 99 99 99 98 99 99 99 
+78 99 99 99 99 99 99 99 99 99 98 99 99 99 
+79 99 99 99 99 99 99 99 99 99 99 99 99 99 
+ 
+  18
+===PAGE 23===
+  
+Table A-7. Male (M), Female (F), Combined-Ge nder (C), and Youth Population (YP) Norms for the 
+ASVAB Subtest Auto and Shop Information (AS) 
+ 10th grade 11th grade 12th grade Post Secondary YP
+SSS M F C M F C M F C M F C  
+              
+25 1 1 1 1 
+1 
+99 
+1 1 1 1 1 1 1 1 1 
+26 2 2 2 1 1 1 1 1 1 1 1 1 1 
+27 2 3 2 1 1 1 1 1 1 1 1 1 
+28 2 4 3 1 2 1 1 1 1 1 1 1 1 
+29 3 5 4 2 2 2 2 2 2 1 1 1 1 
+30 4 6 5 2 4 3 2 3 2 1 2 1 1 
+31 6 7 6 3 6 4 2 3 3 1 2 1 2 
+32 6 10 8 4 7 6 2 5 4 1 3 2 2 
+33 8 12 10 5 10 8 3 8 5 1 4 2 3 
+34 10 17 13 6 13 10 4 11 7 1 5 3 4 
+35 12 21 16 7 18 13 6 13 9 1 8 4 6 
+36 14 26 20 9 22 15 7 17 12 1 11 6 7 
+37 17 31 24 11 26 19 9 23 16 2 14 8 9 
+38 20 37 28 13 31 22 11 28 20 3 18 11 12 
+39 24 44 34 15 38 26 15 33 24 4 21 13 14 
+40 26 52 39 20 45 32 17 40 28 5 26 16 18 
+41 30 59 44 23 52 37 19 46 32 7 32 20 20 
+42 33 66 49 26 59 42 21 53 37 9 37 24 24 
+43 38 73 55 30 65 47 24 60 42 11 41 27 27 
+44 44 78 61 35 71 53 27 66 46 13 47 31 31 
+45 48 82 64 38 77 58 31 72 51 16 51 35 35 
+46 54 85 69 43 81 61 35 77 56 20 57 39 39 
+47 59 88 73 48 85 66 38 83 60 23 61 43 43 
+48 63 92 77 51 89 70 42 85 63 28 68 49 47 
+49 68 94 80 55 91 73 47 88 67 31 72 53 51 
+50 71 96 83 59 93 76 53 91 72 34 78 57 56 
+51 74 97 85 63 95 79 56 93 74 37 81 60 59 
+52 76 98 87 68 96 82 60 97 78 41 86 65 63 
+53 81 99 90 71 98 84 64 98 81 46 89 69 66 
+54 84 99 91 74 98 86 68 98 83 49 92 72 69 
+55 85 99 92 78 99 88 72 99 85 54 94 75 72 
+56 88 99 93 81 99 90 76 99 87 57 96 78 75 
+57 90 99 95 84 99 92 78 99 89 62 97 80 78 
+58 91 99 95 86 99 93 81 99 91 66 98 83 80 
+59 93 99 96 89 99 94 83 99 91 69 99 84 82 
+60 94 99 97 90 99 95 86 99 93 71 99 86 84 
+61 96 99 98 92 99 96 88 99 94 74 99 87 86 
+62 97 99 98 93 99 96 89 99 95 76 99 89 88 
+63 97 99 99 94 99 97 91 99 95 81 99 91 90 
+64 98 99 99 96 99 98 92 99 96 84 99 92 91 
+65 98 99 99 96 99 98 93 99 96 86 99 93 93 
+66 98 99 99 98 99 99 94 99 97 89 99 95 94 
+67 99 99 99 98 99 99 95 99 98 91 99 96 95 
+68 99 99 99 99 99 99 96 99 98 92 99 96 96 
+69 99 99 99 99 99 99 96 99 98 93 99 97 96 
+70 99 99 99 99 99 99 97 99 98 94 99 97 97 
+71 99 99 99 99 99 99 97 99 99 94 99 97 98 
+72 99 99 99 99 99 99 98 99 99 95 99 97 98 
+73 99 99 99 99 99 99 99 99 99 96 99 98 98 
+74 99 99 99 99 99 99 99 99 99 98 99 99 99 
+75 99 99 99 99 99 99 99 99 99 98 99 99 99 
+76 99 99 99 99 99 99 99 99 99 99 99 99 
+ 
+  19
+===PAGE 24===
+  
+Table A-8. Male (M), Female (F), Combined-Ge nder (C), and Youth Population (YP) Norms for the 
+ASVAB Subtest Mechanical Comprehension (MC) 
+ 10th grade 11th grade 12th grade Post Secondary YP
+SSS M F C M F C M F C M F C  
+              
+98 
+ 
+21 1 1 1 1 1 1 1 1 1 1 1 1 1 
+22 3 1 2 1 1 1 1 2 1 1 1 1 1 
+23 3 2 3 1 2 2 1 3 2 1 1 1 1 
+24 4 2 3 2 2 2 1 3 2 1 1 1 1 
+25 4 4 4 2 3 2 1 3 2 1 2 1 2 
+26 5 4 5 2 3 3 2 4 3 1 2 1 2 
+27 6 5 6 3 4 4 2 4 3 1 2 2 2 
+28 7 7 7 4 5 4 3 4 4 1 3 2 3 
+29 8 8 8 4 6 5 4 5 4 1 3 2 3 
+30 9 9 9 5 8 7 4 6 5 2 4 3 4 
+31 10 12 11 6 9 7 5 7 6 2 5 4 5 
+32 11 13 12 7 10 9 7 8 8 2 6 4 6 
+33 13 15 14 8 12 10 8 9 8 2 7 5 6 
+34 14 17 15 9 13 11 8 11 10 3 8 5 7 
+35 15 19 17 10 15 13 9 13 11 3 9 6 8 
+36 17 21 19 11 16 14 9 14 12 4 10 7 9 
+37 19 23 21 13 19 16 11 16 13 5 12 8 11 
+38 20 26 23 14 21 18 12 18 15 5 13 9 13 
+39 22 29 26 15 26 20 14 20 17 6 15 11 14 
+40 24 31 27 16 29 22 15 22 19 7 17 12 16 
+41 26 34 30 17 32 24 17 25 21 8 20 14 18 
+42 29 38 33 18 35 27 18 28 23 9 24 17 20 
+43 31 41 36 21 40 30 19 33 26 12 29 21 23 
+44 34 45 39 24 44 34 22 37 29 15 33 25 25 
+45 37 51 44 27 48 37 24 41 33 19 39 29 29 
+46 40 56 48 29 51 40 27 46 36 21 43 32 32 
+47 44 59 52 34 57 45 29 52 40 23 49 36 36 
+48 49 65 57 39 62 51 32 57 44 26 54 41 40 
+49 54 70 62 44 67 55 36 64 50 29 63 47 45 
+50 60 75 67 51 71 61 41 71 56 35 68 52 50 
+51 64 80 72 55 78 66 46 78 62 41 73 58 55 
+52 67 85 76 59 82 71 52 83 67 47 77 63 60 
+53 72 88 79 64 86 75 59 86 72 51 82 67 65 
+54 76 91 83 69 89 79 64 89 76 56 85 72 69 
+55 80 93 86 73 92 82 68 92 80 61 89 76 73 
+56 83 95 89 79 94 86 72 94 83 65 93 80 77 
+57 85 97 91 82 95 88 76 95 85 68 95 82 79 
+58 88 98 93 85 96 91 78 97 87 74 96 86 82 
+59 90 98 94 88 97 92 80 97 89 78 97 88 85 
+60 92 99 95 89 98 93 82 98 90 82 97 90 87 
+61 94 99 96 90 98 94 85 99 92 86 98 92 89 
+62 95 99 97 91 99 95 87 99 93 87 98 93 90 
+63 96 99 98 93 99 96 88 99 94 89 99 94 92 
+64 96 99 98 94 99 97 90 99 95 90 99 95 93 
+65 97 99 98 95 99 98 91 99 96 91 99 95 94 
+66 98 99 99 96 99 98 94 99 97 93 99 96 95 
+67 98 99 99 97 99 98 95 99 97 94 99 97 96 
+68 98 99 99 97 99 98 96 99 98 96 99 98 97 
+69 99 99 99 97 99 99 97 99 98 97 99 98 98 
+70 99 99 99 97 99 99 98 99 99 98 99 99 98 
+71 99 99 99 98 99 99 99 99 99 98 99 99 
+72 99 99 99 99 99 99 99 99 99 98 99 99 99 
+73 99 99 99 99 99 99 99 99 99 99 99 99 99 
+  20
+===PAGE 25===
+  
+Table A-9. Male (M), Female (F), Combined-Gender (C ), and Youth Population (YP) Norms for the 
+ASVAB Subtest Assembling Objects (AO) 
+10th grade 11th grade 12th grade Post Secondary YP
+SSS M F C M F C M F C M F C  
+              
+26 1 1 1 1 1 1 
+38 
+1 1 1 1 1 1 1 
+27 1 1 1 1 2 1 1 1 1 1 1 1 1 
+28 2 2 2 2 3 2 1 1 1 1 1 1 1 
+29 3 4 4 3 3 3 2 2 2 1 2 2 2 
+30 5 6 5 5 5 5 4 3 3 2 3 3 3 
+31 7 7 7 7 7 7 6 4 5 4 5 4 5 
+32 8 9 9 9 8 9 8 6 7 5 6 6 6 
+33 11 10 11 11 10 10 10 8 9 7 8 7 8 
+34 14 12 13 13 11 12 11 9 10 9 9 9 9 
+35 17 13 15 16 12 14 12 11 11 10 12 11 11 
+36 20 15 18 17 14 15 13 12 13 11 13 12 12 
+37 22 17 19 20 16 18 14 13 14 12 14 13 13 
+38 25 19 22 22 18 20 16 15 16 13 16 14 15 
+39 28 21 24 23 20 22 18 18 18 13 17 16 17 
+40 29 24 27 26 22 24 20 22 21 15 20 18 19 
+41 34 26 30 28 25 26 23 24 23 18 22 20 21 
+42 29 34 31 27 29 25 27 26 20 25 23 24 
+43 42 33 38 34 29 32 28 31 29 22 27 25 27 
+44 47 37 42 37 32 35 31 35 33 24 33 29 30 
+45 50 40 45 40 35 38 34 37 35 27 34 31 33 
+46 53 43 48 42 38 40 36 40 38 30 36 33 35 
+47 55 47 51 45 41 43 39 43 41 31 38 35 38 
+48 57 51 54 48 45 46 42 46 44 36 41 39 40 
+49 60 54 57 52 48 50 45 49 47 39 45 42 43 
+50 63 56 60 54 50 52 47 51 49 44 48 46 46 
+51 66 61 63 57 55 56 50 55 53 48 51 50 50 
+52 68 64 67 60 59 59 52 59 56 51 54 52 53 
+53 71 69 70 62 61 62 55 64 59 56 59 57 58 
+54 74 72 73 66 66 66 59 68 64 59 64 61 62 
+55 77 77 77 68 71 70 65 74 69 64 68 66 67 
+56 81 82 81 73 76 74 68 77 73 69 75 72 72 
+57 84 85 85 77 80 79 72 82 77 74 80 77 76 
+58 87 89 88 81 85 83 76 86 81 78 85 82 80 
+59 89 91 90 84 87 85 80 87 84 80 89 85 83 
+60 91 94 92 87 89 88 83 90 87 82 91 87 86 
+61 94 95 94 89 91 90 86 92 89 86 93 90 88 
+62 95 96 95 93 93 93 89 95 92 89 95 92 91 
+63 97 97 97 96 95 95 91 96 94 91 96 93 93 
+64 98 98 98 97 96 97 94 97 95 92 97 95 94 
+65 98 99 99 98 97 97 95 98 97 93 97 95 96 
+66 99 99 99 98 98 98 98 99 98 95 98 96 97 
+67 99 99 99 99 99 99 98 99 99 97 99 98 98 
+68 99 99 99 99 99 99 99 99 99 98 99 98 98 
+69 99 99 99 99 99 99 99 99 99 99 99 99 99 
+ 
+ 
+ 
+ 
+  21
+===PAGE 26===
+  
+Table A-10. Male (M), Female (F), Combined-Ge nder (C), and Youth Population (YP) Norms for the 
+ASVAB Subtest Verbal (VE = WK + PC) 
+ 10th grade 11th grade 12th grade Post Secondary YP
+SSS M F C M F C M F C M F C  
+              
+19 1 1 1 1 1 1 1 1 1 1 1 1 1 
+20 2 1 1 1 2 2 1 1 1 1 1 1 1 
+21 3 2 2 1 2 2 1 1 1 1 1 1 1 
+22 3 3 3 1 2 2 1 1 1 1 1 1 1 
+23 4 3 3 2 3 2 2 1 2 1 1 1 1 
+24 5 3 4 2 3 3 2 2 2 1 1 1 1 
+25 6 4 5 3 3 3 3 2 2 1 1 1 2 
+26 7 5 6 4 4 4 3 3 3 1 1 1 2 
+27 8 6 7 4 4 4 4 4 4 1 1 1 3 
+28 10 7 8 4 
+5 
+6 5 5 4 4 2 1 2 3 
+29 12 8 10 6 6 6 5 4 5 2 1 2 4 
+30 14 9 11 7 7 7 6 5 2 2 2 4 
+31 17 11 14 9 8 8 7 6 6 3 3 3 5 
+32 19 12 16 10 9 10 8 6 7 3 4 3 6 
+33 21 14 18 11 11 11 10 7 8 3 4 4 6 
+34 23 16 19 15 13 14 11 8 10 5 5 5 7 
+35 26 18 22 17 15 16 12 10 11 5 5 5 8 
+36 28 21 24 20 18 19 13 12 12 6 6 6 9 
+37 32 25 29 22 20 21 15 14 14 7 7 7 11 
+38 35 28 32 24 22 23 17 17 17 8 8 8 12 
+39 37 31 34 26 25 26 19 20 19 11 10 10 14 
+40 40 36 38 28 29 28 21 22 22 14 12 13 17 
+41 43 38 41 31 31 31 23 25 24 16 14 15 19 
+42 46 42 44 33 34 34 26 28 27 17 16 17 22 
+43 49 44 47 38 37 37 28 33 30 19 18 19 24 
+44 51 48 49 40 41 41 31 36 34 23 21 22 27 
+45 56 51 54 44 44 44 35 40 37 25 25 25 30 
+46 59 56 58 48 48 48 39 45 42 28 28 28 34 
+47 65 60 63 52 51 52 42 48 45 32 33 32 37 
+48 68 65 67 58 56 57 47 52 49 34 37 36 40 
+49 71 70 70 61 60 61 51 56 54 39 42 41 44 
+50 75 74 75 65 65 65 56 61 58 45 49 47 48 
+51 77 78 78 69 69 69 60 66 63 49 53 51 53 
+52 81 83 82 72 73 73 63 70 67 55 56 56 56 
+53 86 86 86 77 77 77 68 75 72 60 61 60 61 
+54 88 88 88 80 81 81 72 81 76 65 65 65 65 
+55 91 90 91 86 84 85 77 84 81 70 70 70 69 
+56 93 93 93 88 86 87 81 87 84 74 76 75 73 
+57 95 94 95 91 90 90 84 91 87 80 81 80 76 
+58 96 95 96 94 92 93 86 92 89 84 84 84 80 
+59 97 97 97 95 93 94 89 93 91 89 86 87 84 
+60 98 97 97 96 94 95 92 95 93 92 88 90 86 
+61 98 97 98 97 95 96 94 96 95 93 90 92 89 
+62 98 99 99 98 96 97 95 97 96 95 92 93 91 
+63 99 99 99 98 97 97 96 98 97 96 93 94 93 
+64 99 99 99 98 97 98 97 99 98 96 95 96 94 
+65 99 99 99 99 98 98 98 99 99 98 97 97 96 
+66 99 99 99 99 98 99 99 99 99 98 98 98 97 
+67 99 99 99 99 99 99 99 99 99 99 98 99 98 
+68 99 99 99 99 99 99 99 99 99 99 99 99 99 
+ 
+ 
+  22
+===PAGE 27===
+  
+Table A-11. Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) Norms for 
+the ASVAB Math Skills Composite 
+ 10th grade 11th grade 12th grade Post Secondary YP
+SSS M F C M F C M F C M F C  
+              
+21 1 1 1 1 1 1 1 1 1 1 1 1 1 
+22 2 1 1 1 1 1 1 1 1 1 1 1 1 
+23 2 1 2 2 2 2 1 1 1 1 1 1 1 
+24 3 1 2 2 2 2 2 1 1 1 1 1 1 
+25 3 2 3 3 3 3 2 2 2 1 1 1 1 
+26 4 2 3 3 4 3 3 2 3 1 1 1 2 
+27 6 3 4 3 4 4 3 2 3 1 1 1 2 
+28 7 4 6 4 4 4 5 3 4 1 1 1 3 
+29 8 5 6 5 5 5 4 1 
+9 5 7 5 6 6 6 3 5 2 1 1 3 
+6 6 4 5 2 1 1 4 
+32 11 
+5 3 1 1 3 
+30 
+31 10 6 8 6 6 
+8 10 7 6 6 7 5 6 2 1 1 5 
+33 13 9 11 7 8 7 7 6 7 2 1 2 5 
+34 14 11 13 9 8 8 8 8 8 3 1 2 6 
+35 15 13 14 9 10 10 9 9 9 3 2 3 8 
+36 19 14 17 11 12 11 10 10 10 4 2 3 9 
+37 22 17 20 13 13 13 11 12 11 4 4 4 11 
+38 24 20 22 15 15 15 12 14 13 7 6 6 13 
+39 26 22 24 16 17 17 14 16 15 9 7 8 15 
+40 29 26 27 19 20 19 15 19 17 9 9 9 17 
+41 30 28 29 20 20 20 15 20 18 10 11 11 19 
+42 34 31 32 22 23 23 17 22 19 12 13 13 22 
+43 36 34 35 27 27 27 19 26 22 14 17 15 25 
+44 40 38 39 30 31 31 21 31 26 15 20 18 28 
+45 45 43 44 34 35 34 25 34 30 19 24 22 32 
+46 50 48 49 37 38 38 27 38 33 22 30 26 36 
+47 54 52 53 41 42 42 30 44 37 25 35 30 40 
+48 60 56 58 46 46 46 34 47 41 30 39 35 44 
+49 64 63 63 52 51 51 40 50 45 36 43 40 47 
+50 66 66 66 54 53 54 43 52 48 39 46 43 50 
+51 69 71 70 60 57 59 49 58 53 44 53 49 54 
+52 73 75 74 64 63 63 52 63 58 50 58 54 58 
+53 76 79 78 66 67 67 57 68 62 55 64 60 62 
+54 79 83 81 71 71 71 61 73 67 61 69 65 66 
+55 82 85 84 74 75 74 65 76 71 68 75 71 71 
+56 85 88 86 77 77 77 69 79 74 72 78 75 74 
+57 88 89 89 80 80 80 73 80 77 77 82 80 77 
+58 90 92 91 82 83 82 76 83 79 79 85 82 80 
+59 92 94 93 83 87 85 79 85 82 83 88 85 83 
+60 93 95 94 84 88 86 81 86 83 85 90 87 84 
+61 94 96 95 88 90 89 82 88 85 87 92 90 87 
+62 95 98 96 90 92 91 84 89 87 89 94 92 89 
+63 96 98 97 93 94 93 87 93 90 92 95 94 91 
+64 98 99 98 94 96 95 89 95 92 94 96 95 93 
+65 98 99 99 95 97 96 92 96 94 96 98 97 95 
+66 99 99 99 96 98 97 94 99 96 97 99 98 96 
+67 99 99 99 98 99 98 96 99 98 98 99 99 97 
+68 99 99 99 99 99 99 97 99 98 98 99 99 98 
+69 99 99 99 99 99 99 97 99 99 99 99 99 98 
+70 99 99 99 99 99 99 98 99 99 99 99 99 99 
+71 99 99 99 99 99 99 98 99 99 99 99 99 99 
+72 99 99 99 99 99 99 99 99 99 99 99 99 99 
+ 
+  23
+===PAGE 28===
+  
+Table A-12. Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) Norms for 
+the ASVAB Verbal Skills Composite 
+ 10th grade 11th grade 12th grade Post Secondary YP
+SSS M F C M F C M F C M F C  
+              
+19 1 1 1 1 1 1 1 1 1 1 1 1 1 
+20 2 1 1 1 2 2 1 1 1 1 1 1 1 
+21 3 2 2 1 2 2 1 1 1 1 1 1 1 
+22 3 3 3 1 2 2 1 1 1 1 1 1 1 
+23 4 3 3 2 3 2 2 1 2 1 1 1 1 
+24 5 3 4 2 3 3 2 2 2 1 1 1 1 
+25 6 4 5 3 3 3 3 2 2 1 1 1 2 
+26 7 5 6 4 4 
+5 
+6 
+52 
+4 3 3 3 1 1 1 2 
+27 8 6 7 4 4 4 4 4 4 1 1 1 3 
+28 10 7 8 6 5 5 4 4 4 2 1 2 3 
+29 12 8 10 6 6 6 5 4 2 1 2 4 
+30 14 9 11 7 7 7 6 5 5 2 2 2 4 
+31 17 11 14 9 8 8 7 6 3 3 3 5 
+32 19 12 16 10 9 10 8 6 7 3 4 3 6 
+33 21 14 18 11 11 11 10 7 8 3 4 4 6 
+34 23 16 19 15 13 14 11 8 10 5 5 5 7 
+35 26 18 22 17 15 16 12 10 11 5 5 5 8 
+36 28 21 24 20 18 19 13 12 12 6 6 6 9 
+37 32 25 29 22 20 21 15 14 14 7 7 7 11 
+38 35 28 32 24 22 23 17 17 17 8 8 8 12 
+39 37 31 34 26 25 26 19 20 19 11 10 10 14 
+40 40 36 38 28 29 28 21 22 22 14 12 13 17 
+41 43 38 41 31 31 31 23 25 24 16 14 15 19 
+42 46 42 44 33 34 34 26 28 27 17 16 17 22 
+43 49 44 47 38 37 37 28 33 30 19 18 19 24 
+44 51 48 49 40 41 41 31 36 34 23 21 22 27 
+45 56 51 54 44 44 44 35 40 37 25 25 25 30 
+46 59 56 58 48 48 48 39 45 42 28 28 28 34 
+47 65 60 63 51 52 42 48 45 32 33 32 37 
+48 68 65 67 58 56 57 47 52 49 34 37 36 40 
+49 71 70 70 61 60 61 51 56 54 39 42 41 44 
+50 75 74 75 65 65 65 56 61 58 45 49 47 48 
+51 77 78 78 69 69 69 60 66 63 49 53 51 53 
+52 81 83 82 72 73 73 63 70 67 55 56 56 56 
+53 86 86 86 77 77 77 68 75 72 60 61 60 61 
+54 88 88 88 80 81 81 72 81 76 65 65 65 65 
+55 91 90 91 86 84 85 77 84 81 70 70 70 69 
+56 93 93 93 88 86 87 81 87 84 74 76 75 73 
+57 95 94 95 91 90 90 84 91 87 80 81 80 76 
+58 96 95 96 94 92 93 86 92 89 84 84 84 80 
+59 97 97 97 95 93 94 89 93 91 89 86 87 84 
+60 98 97 97 96 94 95 92 95 93 92 88 90 86 
+61 98 97 98 97 95 96 94 96 95 93 90 92 89 
+62 98 99 99 98 96 97 95 97 96 95 92 93 91 
+63 99 99 99 98 97 97 96 98 97 96 93 94 93 
+64 99 99 99 98 97 98 97 99 98 96 95 96 94 
+65 99 99 99 99 98 98 98 99 99 98 97 97 96 
+66 99 99 99 99 98 99 99 99 99 98 98 98 97 
+67 99 99 99 99 99 99 99 99 99 99 98 99 98 
+68 99 99 99 99 99 99 99 99 99 99 99 99 99 
+ 
+ 
+  24
+===PAGE 29===
+  
+Table A-13. Male (M), Female (F), Combined-Gender (C), and Youth Population (YP) Norms for 
+the ASVAB Science and Technical Skills Composite 
+ 10th grade 11th grade 12th grade Post Secondary YP
+SSS M F C M F C M F C M F C  
+              
+22 1 1 1 1 1 1 1 1 1 1 1 1 1 
+23 2 1 1 1 1 1 1 1 1 1 1 1 1 
+24 3 2 2 1 2 1 1 1 1 1 1 1 1 
+25 3 2 3 2 2 2 1 1 1 1 1 1 1 
+26 4 3 4 2 3 3 1 2 2 1 1 1 1 
+27 5 4 5 3 4 4 2 3 2 1 1 1 1 
+28 6 5 6 3 5 4 2 3 3 1 1 1 2 
+29 8 7 8 4 6 5 3 4 4 1 1 1 2 
+30 9 9 9 4 6 5 4 5 4 1 1 1 3 
+31 11 10 10 5 8 7 4 5 5 1 2 1 4 
+32 12 11 12 6 9 8 6 7 6 1 3 2 5 
+33 13 12 12 8 10 9 7 8 7 1 4 3 6 
+34 15 16 15 9 11 10 8 11 9 2 6 4 7 
+35 17 18 17 10 14 12 10 12 11 2 7 5 9 
+36 19 22 20 11 16 14 11 14 12 3 8 5 10 
+37 21 26 23 13 20 17 12 16 14 12 
+15 
+ 
+5 11 8 
+38 24 29 27 14 23 19 12 19 16 6 14 10 13 
+39 25 32 28 16 26 20 13 21 17 7 16 12 
+40 28 37 33 18 29 24 15 25 20 9 19 14 17 
+41 30 41 36 21 35 28 17 29 23 10 24 18 20 
+42 33 44 38 23 38 30 19 32 25 11 27 19 22 
+43 38 49 43 24 42 33 21 36 29 13 32 23 25 
+44 41 54 47 29 47 38 23 42 33 15 37 26 28 
+45 43 57 50 31 51 41 24 47 36 17 40 29 31 
+46 49 61 55 36 55 46 28 53 40 21 45 34 35 
+47 53 68 60 42 61 51 31 61 46 23 50 37 38 
+48 56 73 64 45 66 55 34 65 50 25 54 41 42 
+49 61 79 69 49 72 61 40 72 56 30 61 47 46 
+50 64 83 73 56 78 67 43 76 60 34 69 53 51 
+51 68 86 77 61 81 71 48 81 64 39 76 58 56 
+52 72 89 80 64 84 74 52 84 68 42 78 61 59 
+53 77 91 84 67 87 77 57 87 72 46 83 65 64 
+54 80 93 86 73 90 81 61 90 76 51 88 71 69 
+55 83 95 88 75 92 83 65 92 78 56 89 73 71 
+56 84 96 90 79 94 87 69 93 81 62 90 77 75 
+57 86 97 91 82 97 89 74 95 84 65 93 80 79 
+58 87 98 92 85 97 91 76 96 86 68 94 82 81 
+59 90 98 94 88 98 93 79 98 88 73 95 85 84 
+60 92 99 95 90 98 94 82 99 90 77 97 88 86 
+61 93 99 96 90 99 94 84 99 91 80 97 89 88 
+62 94 99 97 94 99 96 87 99 93 85 98 92 90 
+63 96 99 98 95 99 97 89 99 94 88 98 93 92 
+64 97 99 98 95 99 97 89 99 94 90 99 95 93 
+65 98 99 99 96 99 98 93 99 96 92 99 96 94 
+66 99 99 99 97 99 98 95 99 97 94 99 97 95 
+67 99 99 99 97 99 98 95 99 97 94 99 97 96 
+68 99 99 99 97 99 99 96 99 98 96 99 98 97 
+69 99 99 99 98 99 99 97 99 99 97 99 98 97 
+70 99 99 99 98 99 99 97 99 99 97 99 99 98 
+71 99 99 99 98 99 99 98 99 99 97 99 99 98 
+72 99 99 99 99 99 99 98 99 99 98 99 99 99 
+73 99 99 99 99 99 99 98 99 99 98 99 99 99 
+74 99 99 99 99 99 99 99 99 99 99 99 99 99 
+  25

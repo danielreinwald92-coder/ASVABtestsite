@@ -2,3 +2,5 @@
 node_modules
 test-results
 playwright-report
+# 21MB of context-only scan renders (NLSY79 att.106, 1980-scale tables) kept local only
+docs/research/att106/
