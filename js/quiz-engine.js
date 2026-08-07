@@ -877,7 +877,16 @@ class QuizEngine {
 
     let message = 'Are you sure you want to submit your test?';
     if (unanswered > 0) {
-      message += `\n\n⚠️ ${unanswered} question${unanswered > 1 ? 's' : ''} ${unanswered > 1 ? "weren't" : "wasn't"} answered — your score will be adjusted as if ${unanswered > 1 ? 'they were' : 'it was'} a random guess.`;
+      const subject = unanswered > 1 ? `${unanswered} questions weren't` : `${unanswered} question wasn't`;
+      // The random-guess penalty only applies to CAT modes, which run every
+      // section through the IRT incomplete-test penalty table (scoring.js
+      // sectionAbility). Tutor sessions and the diagnostic score by simple
+      // percent-correct (see submitQuiz), so an unanswered question there
+      // just gets zero credit — see the matching results.html copy in
+      // page-results.js's formatUnansweredNote for the same distinction.
+      message += this.isCatMode()
+        ? `\n\n⚠️ ${subject} answered — your score will be adjusted as if ${unanswered > 1 ? 'they were' : 'it was'} a random guess.`
+        : `\n\n⚠️ ${subject} answered — ${unanswered > 1 ? 'they' : 'it'} will get no credit.`;
     }
     if (flaggedCount > 0 && !this.isSectioned()) {
       message += `\n\n🚩 You have ${flaggedCount} flagged question${flaggedCount > 1 ? 's' : ''} for review — cancel to go back to them.`;

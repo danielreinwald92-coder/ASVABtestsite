@@ -44,6 +44,8 @@ const asvabData = context.window.asvabData;
 const courses = context.courses;
 const coursesTech = context.coursesTech;
 const missions = context.window.MissionASVABMissions;
+const irtParams = context.window.MissionASVABIRTParams;
+const penaltyTable = context.window.MissionASVABPenalty;
 
 assert(config, 'MissionASVABConfig failed to load');
 assert(scoring, 'MissionASVABScoring failed to load');
@@ -52,6 +54,8 @@ assert(asvabData, 'asvabData failed to load');
 assert(courses, 'courses failed to load');
 assert(coursesTech, 'coursesTech failed to load');
 assert(missions, 'MissionASVABMissions failed to load');
+assert(irtParams, 'MissionASVABIRTParams failed to load');
+assert(penaltyTable, 'MissionASVABPenalty failed to load');
 // Mirror the study-guide merge so the course-shape checks below cover both bundles.
 Object.assign(courses, coursesTech);
 
@@ -97,6 +101,64 @@ for (const [code, section] of Object.entries(asvabData.sections)) {
     // the option TEXT, so a duplicated distractor would grade the wrong index.
     assert(new Set(question.options).size === 4, `${question.id} has duplicate option text`);
     assert(Number.isInteger(question.correct) && question.correct >= 0 && question.correct < 4, `${question.id} has invalid correct index`);
+    // IRT v2 (Task 9): every question needs a difficulty band so
+    // js/irt-params.js can look up item parameters (DIFF_OFFSET is keyed 1-5).
+    assert(Number.isInteger(question.difficulty) && question.difficulty >= 1 && question.difficulty <= 5,
+      `${question.id} difficulty must be an integer 1-5`);
+  }
+}
+
+// --- IRT v2 parameter/penalty coverage (Task 9) -----------------------------
+// scoring.js's sectionAbility()/getScoreDetails() index js/irt-params.js and
+// js/penalty-table.js by section code (and, for the penalty table, by the
+// exact 1..questionsPerTest unanswered count) with no fallback — a missing
+// entry either throws (penalty) or silently produces NaN (params), so both
+// are build-gated here rather than only discovered at score time.
+const ALL_IRT_SECTIONS = ['GS', 'AR', 'WK', 'PC', 'MK', 'EI', 'AS', 'MC'];
+
+for (const code of ALL_IRT_SECTIONS) {
+  const s = irtParams.SECTION_IRT[code];
+  assert(s, `SECTION_IRT missing ${code}`);
+  assert(Number.isFinite(s.a) && Number.isFinite(s.bMean) && Number.isFinite(s.bSD) && Number.isFinite(s.c),
+    `SECTION_IRT.${code} has a non-finite parameter`);
+
+  // AS is scored via the degenerate asStandardScore() form (Segall eq. 2.4)
+  // instead of an SS_TRANSFORM entry — see js/scoring.js sectionSS().
+  if (code === 'AS') {
+    assert(typeof irtParams.asStandardScore === 'function', 'asStandardScore missing for AS');
+  } else {
+    const t = irtParams.SS_TRANSFORM[code];
+    assert(t, `SS_TRANSFORM missing ${code}`);
+    assert(Number.isFinite(t.A) && Number.isFinite(t.B), `SS_TRANSFORM.${code} has non-finite A/B`);
+  }
+}
+assert(typeof irtParams.veStandardScore === 'function', 'veStandardScore missing (VE = WK/PC composite)');
+
+// afqtsToPercentile must stay a valid, monotone-nondecreasing percentile curve
+// across the full plausible AFQTS domain (0..400) — a dip or an out-of-range
+// value would silently mis-rank test-takers.
+let prevPercentile = -Infinity;
+for (let afqts = 0; afqts <= 400; afqts++) {
+  const pct = irtParams.afqtsToPercentile(afqts);
+  assert(Number.isInteger(pct) && pct >= 1 && pct <= 99,
+    `afqtsToPercentile(${afqts}) must be an integer 1-99, got ${pct}`);
+  assert(pct >= prevPercentile,
+    `afqtsToPercentile must be non-decreasing (dropped to ${pct} at afqts=${afqts}, was ${prevPercentile})`);
+  prevPercentile = pct;
+}
+
+// Every CAT-scored section needs a penalty[code][unanswered] entry for every
+// unanswered count from 1 through its full questionsPerTest (the diagnostic's
+// smaller per-section counts never reach the penalty table — see
+// quiz-engine.js submitQuiz's testKind !== 'diagnostic' gate).
+for (const code of ALL_IRT_SECTIONS) {
+  const n = asvabData.sections[code].questionsPerTest;
+  assert(penaltyTable[code], `penalty table missing section ${code}`);
+  for (let unanswered = 1; unanswered <= n; unanswered++) {
+    const entry = penaltyTable[code][unanswered];
+    assert(entry, `penalty table missing ${code} unanswered=${unanswered}`);
+    assert(Number.isFinite(entry.A) && Number.isFinite(entry.B),
+      `penalty table ${code} unanswered=${unanswered} has non-finite A/B`);
   }
 }
 
@@ -177,6 +239,12 @@ for (const code of config.getSectionsForType('full')) {
 }
 
 assert(scoring.calculateAFQTEstimate(perfectSectionResults) === 99, 'Perfect AFQT should clamp to 99');
-assert(Object.keys(scoring.calculateLineScores(perfectSectionResults)).length === 10, 'Full test should produce 10 line scores');
+
+const perfectLineScores = scoring.calculateLineScores(perfectSectionResults);
+assert(Object.keys(perfectLineScores).length === 10, 'Full test should produce 10 line scores');
+for (const [code, entry] of Object.entries(perfectLineScores)) {
+  assert(Number.isInteger(entry.score) && Number.isFinite(entry.score),
+    `Line score ${code} must be a finite integer, got ${entry.score}`);
+}
 
 console.log('Validation passed');
