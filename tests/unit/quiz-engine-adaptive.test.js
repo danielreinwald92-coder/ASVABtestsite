@@ -179,6 +179,59 @@ test('materializeSlot uses selectMaxInfoQuestion with the current theta mean for
   assert.strictEqual(engine.quizData.questions[0].difficulty, 3);
 });
 
+test('selectAnswer wires owenUpdate with the exact item-param mapping (real IRT + real AR pool), first-answer-only', () => {
+  // Real IRT globals + real QuizManager (from loadCore), so the selected item
+  // and its params are exactly what a live quiz would materialize — this is
+  // an argument-mapping regression test, not just a "state changed" check.
+  const { context } = loadCore();
+  const IRT = context.window.MissionASVABIRT;
+  const P = context.window.MissionASVABIRTParams;
+  const QuizManager = context.window.QuizManager;
+
+  const sandbox = loadEngine({
+    document: fakeDoc(),
+    sessionStorage: { getItem: () => null, setItem() {}, removeItem() {} },
+    QuizManager,
+    MissionASVABIRT: IRT,
+    MissionASVABIRTParams: P,
+  });
+  const engine = new sandbox.QuizEngine();
+  engine.mode = 'timed';
+  engine.testSections = ['AR'];
+  engine.quizData = { questions: [{ id: 1, sectionCode: 'AR', sectionName: 'AR' }] };
+  engine.questionPools = { AR: QuizManager.getAdaptiveQuestionPool('AR') };
+  engine.abilityState = { AR: { mean: 0, variance: 1 } };
+  engine.usedQuestionIds = new Set();
+  engine.answers = {};
+  engine.currentQuestion = 0;
+  engine.renderQuestion = () => {};
+
+  // Materialize a real, max-info-selected AR item through the production path.
+  engine.materializeSlot(0);
+  const question = engine.quizData.questions[0];
+  assert.ok(question.originalId, 'slot materialized with a real bank id');
+
+  const isCorrect = 0 === question.correct;
+  const expectedItem = P.getItemParams('AR', question.difficulty || 3, question.originalId || question.id);
+  const expected = IRT.owenUpdate({ mean: 0, variance: 1 }, expectedItem, isCorrect);
+
+  engine.selectAnswer(0);
+
+  assert.deepStrictEqual(
+    plain(engine.abilityState.AR),
+    plain(expected),
+    'abilityState.AR after selectAnswer must equal a direct owenUpdate call built from the same item/correctness mapping'
+  );
+
+  // First-answer-only guard: re-answering the same question must not run
+  // owenUpdate a second time, even though the recorded answer itself changes.
+  const afterFirst = plain(engine.abilityState.AR);
+  const secondIndex = question.correct === 0 ? 1 : 0;
+  engine.selectAnswer(secondIndex);
+  assert.deepStrictEqual(plain(engine.abilityState.AR), afterFirst, 'abilityState unchanged on re-answer');
+  assert.strictEqual(engine.answers[question.id], secondIndex, 'recorded answer itself still updates on re-answer');
+});
+
 test('resuming a pre-deploy saved test (no abilityState) initializes {mean:0, variance:1} per section', () => {
   const { config, scoring, context } = loadCore();
   const savedTest = JSON.stringify({
