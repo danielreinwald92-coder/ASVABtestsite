@@ -1,6 +1,6 @@
 # Mission ASVAB — Current Project State
 
-Last verified: July 19, 2026
+Last verified: August 6, 2026
 
 This is the compact handoff index for a new development session. Read `AGENTS.md` or
 `CLAUDE.md` first for binding rules, then use this file to locate current implementation
@@ -23,10 +23,20 @@ features were built; unchecked boxes there are not the current work queue.
   15 questions in 12 minutes, following the [official CAT-ASVAB timing table](https://www.officialasvab.com/applicants/cat-asvab/).
 - Mission ASVAB combines Auto/Shop into one AS practice section and omits Assembling
   Objects; the About page discloses the AO omission.
+- **Scoring v2 (IRT), shipped on this branch Aug 2026:** quick/full (CAT) modes run a real
+  3PL IRT pipeline — Owen Bayesian interim ability drives adaptive item selection during the
+  test (answers lock, no going back, like the real CAT-ASVAB); a posterior-mode (MAP) theta
+  per section feeds the official Segall (2004) theta→standard-score transforms, the official
+  VE/AS composite formulas, a verbatim AFQTS→percentile table lookup, and the official Army
+  line-score weight matrix (mean 100/SD 20). Only the per-item (a,b,c) IRT parameters are
+  estimated (from a 1–5 difficulty tag + published pool statistics); everything downstream is
+  official public math. Results carry a `scoring_version` tag (`irt-v2` vs. legacy null) and
+  the results page shows a ±1 SE "likely range" band. Diagnostic mode and tutor mode are
+  unaffected. Full model: `docs/scoring-methodology.md`.
 
 ## Verification Baseline
 
-- `npm test` — 197 node:test/jsdom checks.
+- `npm test` — 264 node:test/jsdom checks.
 - `npm run test:e2e` — Chromium checks all 12 pages under the production Vercel headers,
   then completes both a 55-question guest AFQT flow and the 18-question guest diagnostic/mission flow.
 - `node scripts/validate-site.js` — question pools, explanations, course shapes, diagnostic blueprint,
@@ -42,7 +52,8 @@ features were built; unchecked boxes there are not the current work queue.
 - Section names, counts, and timers: `js/section-config.js`
 - Preset section lists and diagnostic blueprint: `js/test-config.js`
 - Quiz behavior and persistence: `js/quiz-engine.js`
-- Scoring model and limitations: `js/scoring.js` and `docs/scoring-methodology.md`
+- Scoring model and limitations: `js/scoring.js`, `js/irt.js`, `js/irt-params.js`,
+  `js/penalty-table.js` (generated), and `docs/scoring-methodology.md`
 - Question and explanation content: `js/quiz-data.js` and `js/explanations.js`
 - Study courses: `js/courses.js` and `js/courses-tech.js`
 - Personalized next step: `js/mission-recommendations.js` and `js/mission-progress.js`

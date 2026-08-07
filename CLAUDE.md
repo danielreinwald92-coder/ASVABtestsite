@@ -12,10 +12,11 @@ Mission ASVAB - Static HTML/JS practice test site for military applicants prepar
 2. **User Flow**
    - Landing page → Test mode selection → Timed section-by-section test → Results with score breakdown → personalized Today’s Mission → resumable lesson + checkpoint
 
-3. **Scoring System**
-   - VE (Verbal Expression) ≈ average of WK + PC standard-score estimates
-   - AFQT raw = 2×VE + AR + MK, converted to percentile via approximation curve
-   - Army line scores: GT, CL, CO, EL, FA, GM, MM, OF, SC, ST
+3. **Scoring System (IRT v2)**
+   - Per-question responses feed a 3PL IRT pipeline: MAP ability (theta) per section →
+     official Segall (2004) theta→standard-score transforms → official VE/AS composites →
+     AFQTS via verbatim PAY97 percentile table → official Army line-score weight matrix
+   - Army line scores: GT, CL, CO, EL, FA, GM, MM, OF, SC, ST (mean 100 / SD 20)
 
 ## Architecture
 
@@ -28,9 +29,16 @@ scripts/ and package files from the served output after the build gates run):
 └── admin.html  login.html  register.html  reset-password.html
 
 js/
-├── quiz-engine.js          # Core quiz logic, timer, CAT slot materialization, offline queue,
-│                           #   render-time escaping, section-change toasts, resume/redirect guards
-├── scoring.js              # AFQT (standard-score model) + Army line scores (sums of std scores)
+├── quiz-engine.js          # Core quiz logic, timer, CAT slot materialization (Owen interim +
+│                           #   max-info selection), offline queue, render-time escaping,
+│                           #   section-change toasts, resume/redirect guards, answer locking (CAT)
+├── irt.js                  # 3PL p(θ)/Fisher info, Owen interim Bayesian update, MAP final + SEM
+├── irt-params.js           # Per-item (a,b,c) assignment + official constant tables (SS transforms,
+│                           #   VE/AS composites, AFQTS→percentile table, Army weight matrix)
+├── penalty-table.js        # GENERATED incomplete-test penalty coefficients (per section/unanswered
+│                           #   count); regenerate via scripts/generate-penalty-table.js
+├── scoring.js              # REWRITTEN (IRT v2): MAP theta → official transforms → AFQTS/percentile/
+│                           #   line scores; see docs/scoring-methodology.md
 ├── quiz-data.js            # Question bank, 902 questions (sections metadata lives in section-config.js)
 ├── section-config.js       # Single source of truth for section metadata (timing/counts/names)
 ├── explanations.js         # Per-question answer explanations, lazy via load-explanations.js (SP1)
@@ -55,11 +63,14 @@ service-worker.js           # App-shell offline cache (bypasses Supabase/cross-o
 manifest.json  robots.txt  .vercelignore
 scripts/
 ├── validate-site.js        # Data/scoring contract checks + per-section POOL_MINIMUMS ratchet +
-│                           #   distinct-options check + explanation/course-shape contracts
+│                           #   distinct-options check + explanation/course-shape contracts +
+│                           #   IRT v2 contracts (difficulty tags, AFQTS table, params/penalty coverage)
 │                           #   (runs in the Vercel buildCommand after npm test)
+├── generate-penalty-table.js  # Offline simulation → regenerates js/penalty-table.js (official
+│                           #   incomplete-test penalty derivation); re-run only if irt params/pools change
 └── check-no-inline-js.js   # CI gate: fails if any inline on*= handler or inline <script> exists
 supabase/migrations/        # Versioned additive database changes (new schema work belongs here)
-tests/                      # node:test + jsdom suite (197 tests). helpers/load.js, helpers/engine.js
+tests/                      # node:test + jsdom suite (264 tests). helpers/load.js, helpers/engine.js
 tests/e2e/                  # Playwright: all-page CSP/console smoke + guest AFQT and diagnostic flows
 playwright.config.js        # Chromium config; local server mirrors production Vercel headers
 docs/scoring-methodology.md # AFQT model, sources, limits
@@ -70,7 +81,7 @@ docs/PROJECT-STATE.md       # Concise current-state index and prioritized handof
 
 ```bash
 npx serve .                    # Local dev server
-npm test                       # Run the node:test + jsdom unit suite (197 tests)
+npm test                       # Run the node:test + jsdom unit suite (264 tests)
 npm run test:e2e               # Run Playwright against all pages + the guest AFQT flow
 node scripts/validate-site.js  # Validate quiz data + scoring contracts (also a Vercel build gate)
 node scripts/check-no-inline-js.js  # Verify no inline JS (required by the strict CSP)
@@ -135,6 +146,8 @@ Documentation review is a required first step for every change or implementation
 
 ## Army Line Score Formulas
 
+**Primary ingredients** (which sections feed which composite — unchanged):
+
 - GT (General Technical): VE + AR
 - CL (Clerical): VE + AR + MK
 - CO (Combat): AR + AS + MC
@@ -146,20 +159,37 @@ Documentation review is a required first step for every change or implementation
 - SC (Surveillance & Comms): VE + AR + AS + MC
 - ST (Skilled Technical): GS + VE + MK + MC
 
+**As shipped (IRT v2), these are not integer sums.** GT uses its own published
+formula (`round(1.074292·(SS_AR + SS_VE) − 7.443781)`, rounded SS inputs); the
+other nine use the exact Segall (2004) Table 2.7 non-integer weight matrix
+applied to **unrounded** standard scores (CL/EL/GM, etc. carry a small
+nonzero weight on sections outside their "primary ingredients" list above —
+e.g. CL includes a small MC term). All ten are reported on a scale with
+**mean 100 / SD 20**, directly comparable to real Army MOS cutoffs. Exact
+weights: `js/irt-params.js` (`ARMY_WEIGHTS`); full table and citation:
+[docs/scoring-methodology.md](docs/scoring-methodology.md).
+
 ## Percentile Scoring
 
-**This is a documented public approximation, not official scoring.** Full model,
-sources, and limits: [docs/scoring-methodology.md](docs/scoring-methodology.md).
+**This is a documented public approximation, not official scoring** — the
+*pipeline* is the real CAT-ASVAB's official math; the *item parameters* feeding
+it are estimated. Full model, sources, and limits:
+[docs/scoring-methodology.md](docs/scoring-methodology.md).
 
-Section % correct → standard score (mean 50, SD 10, linear onto the 20–80 band).
-VE ≈ avg(WK, PC) standard scores. AFQT raw = 2·VE + AR + MK, rescaled to a
-~100-centered practice composite and mapped to a 1–99 percentile via a normal
-CDF fit to the 1997 (PAY97) reference. Anchor points (sanity checks, ±8):
-- 31st percentile (Army minimum) ~ raw composite 85
-- 50th percentile (average) ~ raw composite 100
-- 93rd percentile (Category I) ~ raw composite 135
+Per-question responses → MAP theta per section (3PL IRT, Owen interim update
+during the test, posterior-mode final estimate) → official Segall (2004)
+theta→standard-score transforms (mean 50, SD 10, no 20–80 truncation) → VE via
+the official weighted composite (eq. 2.3, WK weighted ~1.4× PC) → AFQTS =
+SS_AR + SS_MK + 2·SS_VE → percentile via **verbatim lookup** of the official
+1997 (PAY97) Table 2.5 (not a curve fit; percentiles 37/58/65 are legitimately
+absent). Anchor points are now **exact table lookups, tolerance 0**:
+- AFQTS 183 → 31st percentile (Army minimum)
+- AFQTS 202 → 50th percentile (average)
+- AFQTS 249 → 93rd percentile (Category I)
 
-Army line scores are **sums of standard scores** (no percentage multipliers).
+Army line scores use the official Table 2.7 weight matrix, reported mean
+100/SD 20 (see Army Line Score Formulas above) — not simple standard-score
+sums.
 
 ## Recent Updates Feed (homepage trust signal)
 
@@ -196,8 +226,13 @@ Wait for approval before adding to LEARNED section.
   `'unsafe-inline'`). Do NOT add inline `<script>` blocks or `on*=` attributes to served pages —
   put logic in `js/page-<name>.js` and wire via `addEventListener`/delegation. `scripts/check-no-inline-js.js`
   enforces this in CI and will fail the build otherwise. Supabase JS is pinned + SRI-hashed.
-- **Scoring is a documented practice estimate**, not official — see Percentile Scoring section. Keep
-  the invariants green (perfect→99, exactly 10 line scores, integer/finite, monotonic).
+- **Scoring is a documented practice estimate**, not official — see Percentile Scoring section
+  (IRT v2, shipped Aug 2026: MAP theta → official Segall transforms → verbatim AFQTS table →
+  official Army weight matrix; only the per-item a/b/c parameters are estimated). Keep the v2
+  invariants green: perfect full test → AFQT 99, all-wrong → 1, exactly 10 line scores each
+  ≈100-centered (mean 100/SD 20 scale) and finite/integer, monotonic (flipping an answer
+  wrong→correct never lowers any score), and the AFQTS→percentile table matches Table 2.5
+  verbatim (anchors 183→31, 202→50, 249→93 at tolerance 0; gaps at 37/58/65 are correct).
 - **Content lives in two course bundles:** AR/MK/WK/PC courses in `courses.js`; GS/AS/MC/EI courses
   in `courses-tech.js` (SP4). The study-guide loader lazy-loads both and `Object.assign(courses,
   coursesTech)` — a `courses-tech.js` load failure must leave the base four courses working. Edit
