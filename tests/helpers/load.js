@@ -50,7 +50,10 @@ function loadScripts(files) {
 function loadCore(opts = {}) {
   const { includeData = true, includeCourses = false } = opts;
 
-  const files = ['js/test-config.js', 'js/scoring.js'];
+  // scoring.js's dep() resolver checks `root[name]` before falling back to
+  // CommonJS require(), so its IRT/params/penalty dependencies must be loaded
+  // into this vm context (as window globals) before js/scoring.js runs.
+  const files = ['js/irt.js', 'js/irt-params.js', 'js/penalty-table.js', 'js/test-config.js', 'js/scoring.js'];
   if (includeData) files.push('js/section-config.js', 'js/quiz-data.js');
   if (includeCourses) files.push({ file: 'js/courses.js', append: 'this.courses = courses;' });
 

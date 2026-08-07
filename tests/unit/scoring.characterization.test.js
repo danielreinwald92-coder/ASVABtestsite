@@ -1,6 +1,7 @@
 const {test} = require('node:test');
 const assert = require('node:assert');
 const {loadCore} = require('../helpers/load.js');
+const PARAMS = require('../../js/irt-params.js');
 
 const {scoring} = loadCore();
 
@@ -8,51 +9,58 @@ const {scoring} = loadCore();
 // rebuild produces a visible diff. They are EXPECTED to change — they are not
 // invariants. If they fail after an intentional scoring change, update them.
 //
-// Updated 2026-06-14 for the standard-score scoring rebuild
-// (see docs/scoring-methodology.md). The percentile anchor tests below assert
-// the published-reference curve fit.
+// Updated 2026-08-06 for the IRT v2 rebuild: MAP theta per section -> official
+// standard-score transforms -> official VE -> AFQTS -> verbatim PAY97
+// percentile table -> official Army composite weights. See
+// docs/scoring-methodology.md, js/irt.js, js/irt-params.js.
 
-const fullSections = {
-  WK: {correct: 12, total: 15},
-  PC: {correct: 7, total: 10},
-  AR: {correct: 11, total: 15},
-  MK: {correct: 10, total: 15},
-  GS: {correct: 9, total: 15},
-  AI: {correct: 6, total: 10},
-  SI: {correct: 5, total: 10},
-  MC: {correct: 8, total: 15},
-  EI: {correct: 9, total: 15},
-};
+function mkSection(name, pattern, difficulty) {
+  // pattern: array of booleans (isCorrect per question)
+  return {
+    name,
+    correct: pattern.filter(Boolean).length,
+    total: pattern.length,
+    questions: pattern.map((ok, i) => ({
+      id: `${name}_${i}`, difficulty: difficulty || ((i % 5) + 1), isCorrect: ok, answered: true
+    }))
+  };
+}
+function fullResults(fractionCorrect) {
+  const mk = (n) => Array.from({ length: n }, (_, i) => i < Math.round(n * fractionCorrect));
+  return {
+    GS: mkSection('GS', mk(15)), AR: mkSection('AR', mk(15)), WK: mkSection('WK', mk(15)),
+    PC: mkSection('PC', mk(10)), MK: mkSection('MK', mk(15)), EI: mkSection('EI', mk(15)),
+    AS: mkSection('AS', mk(10)), MC: mkSection('MC', mk(15))
+  };
+}
 
-test('@characterization (standard-score model): mid-range AFQT equals 85', () => {
-  const afqt = scoring.calculateAFQTEstimate(fullSections);
-  assert.strictEqual(afqt, 85);
+test('@characterization (IRT v2 model): fullResults(0.6) AFQT equals 16', () => {
+  const afqt = scoring.calculateAFQTEstimate(fullResults(0.6));
+  assert.strictEqual(afqt, 16); // pinned 2026-08-06, IRT v2 model
 });
 
-test('@characterization (standard-score model): GT line score equals 129', () => {
-  const ls = scoring.calculateLineScores(fullSections);
-  assert.strictEqual(ls.GT.score, 129);
+test('@characterization (IRT v2 model): fullResults(0.6) GT line score equals 78', () => {
+  const ls = scoring.calculateLineScores(fullResults(0.6));
+  assert.strictEqual(ls.GT.score, 78); // pinned 2026-08-06, IRT v2 model
 });
 
-test('@characterization (standard-score model): CO line score equals 169', () => {
-  const ls = scoring.calculateLineScores(fullSections);
-  assert.strictEqual(ls.CO.score, 169);
+test('@characterization (IRT v2 model): fullResults(0.6) CO line score equals 88', () => {
+  const ls = scoring.calculateLineScores(fullResults(0.6));
+  assert.strictEqual(ls.CO.score, 88); // pinned 2026-08-06, IRT v2 model
 });
 
-// Anchor tests: the AFQT raw -> percentile curve must roughly reproduce the
-// published 1997 (PAY97) reference points. Tolerance +/-8 percentile.
+// Anchor tests: the verbatim '97 (PAY97) AFQTS -> percentile table (Segall
+// Table 2.5) is published math, not an approximation, so these are now EXACT
+// — tolerance 0 (previously +/-8 under the old percentToStandardScore model).
 const ANCHORS = [
-  { raw: 85, percentile: 31 },  // Army enlistment minimum
-  { raw: 100, percentile: 50 }, // average
-  { raw: 135, percentile: 93 }, // Category I
+  { afqts: 183, percentile: 31 }, // Army enlistment minimum
+  { afqts: 202, percentile: 50 }, // average
+  { afqts: 249, percentile: 93 }, // Category I
 ];
 
-for (const { raw, percentile } of ANCHORS) {
-  test(`@anchor: AFQT raw ${raw} maps near percentile ${percentile} (+/-8)`, () => {
-    const actual = scoring.afqtRawToPercentile(raw);
-    assert.ok(
-      Math.abs(actual - percentile) <= 8,
-      `raw ${raw}: expected ~${percentile}, got ${actual}`
-    );
+for (const { afqts, percentile } of ANCHORS) {
+  test(`@anchor: AFQTS ${afqts} maps exactly to percentile ${percentile}`, () => {
+    const actual = PARAMS.afqtsToPercentile(afqts);
+    assert.strictEqual(actual, percentile); // pinned 2026-08-06, IRT v2 model
   });
 }

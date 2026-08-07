@@ -22,6 +22,12 @@ const context = {
 context.globalThis = context;
 vm.createContext(context);
 
+// scoring.js's dep() resolver checks `root[name]` (this vm context's window)
+// before falling back to CommonJS require(), so its IRT/params/penalty
+// dependencies must be loaded as window globals before js/scoring.js runs.
+loadScript('js/irt.js', context);
+loadScript('js/irt-params.js', context);
+loadScript('js/penalty-table.js', context);
 loadScript('js/test-config.js', context);
 loadScript('js/scoring.js', context);
 loadScript('js/section-config.js', context);
@@ -157,9 +163,16 @@ assert(Object.keys(missions.CONTENT_CATALOG).length === Object.keys(courses).len
 const perfectSectionResults = {};
 for (const code of config.getSectionsForType('full')) {
   const section = asvabData.sections[code];
+  const n = section.questionsPerTest;
   perfectSectionResults[code] = {
-    correct: section.questionsPerTest,
-    total: section.questionsPerTest
+    correct: n,
+    total: n,
+    // IRT v2 scoring derives ability from per-question records, not just the
+    // correct/total tally — a perfect score needs a perfect (all-correct)
+    // question record set for MAP theta to land at the top of the scale.
+    questions: Array.from({ length: n }, (_, i) => ({
+      id: `${code}_${i}`, difficulty: (i % 5) + 1, isCorrect: true, answered: true
+    }))
   };
 }
 
