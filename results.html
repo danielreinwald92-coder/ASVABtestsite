@@ -347,6 +347,13 @@
       color: var(--navy-900);
     }
 
+    .breakdown-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.15rem;
+    }
+
     .breakdown-score {
       font-weight: 600;
       font-size: 0.95rem;
@@ -358,6 +365,12 @@
 
     .breakdown-item.good .breakdown-score {
       color: var(--success);
+    }
+
+    .breakdown-note {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-secondary);
     }
 
     .breakdown-bar {
@@ -1100,7 +1113,7 @@
       <p class="line-scores-subtitle">Composite scores used for job qualification</p>
       <div class="line-scores-grid" id="lineScoresGrid"></div>
       <div class="line-scores-note">
-        <strong>Note:</strong> These are estimated line scores based on your practice test. Official scores are calculated differently and may vary. Line scores determine which Military Occupational Specialties (MOS) you qualify for.
+        <strong>Note:</strong> Estimated Army line scores on the official reporting scale (average is 100) — comparable to published Army MOS minimums. Still a practice estimate, not an official score.
       </div>
     </section>
 

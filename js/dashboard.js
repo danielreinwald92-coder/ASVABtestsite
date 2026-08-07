@@ -609,12 +609,49 @@ function startWeakAreaPractice(sections) {
   window.location.href = 'test-intro.html';
 }
 
+// IRT v2 — rows written before this deploy have `scoring_version: null`
+// (legacy linear model); rows written after have `scoring_version: 'irt-v2'`.
+// The two aren't on a directly comparable scale, so the history view needs a
+// one-time explainer whenever an account has both kinds of rows.
+function hasMixedScoringVersions(results) {
+  let hasLegacy = false;
+  let hasV2 = false;
+  (results || []).forEach((r) => {
+    if (!r) return;
+    if (r.scoring_version === 'irt-v2') hasV2 = true;
+    else if (r.scoring_version === null || r.scoring_version === undefined) hasLegacy = true;
+  });
+  return hasLegacy && hasV2;
+}
+
+// Inserts (once) or hides a muted note above the history table. Re-run on
+// every renderTestHistory call (including pagination), so it stays in sync
+// without ever duplicating the element.
+function renderScoringModelNote(results) {
+  const container = document.getElementById('historyTable');
+  if (!container || !container.parentNode) return;
+  let note = document.getElementById('scoringModelNote');
+  if (!hasMixedScoringVersions(results)) {
+    if (note) note.hidden = true;
+    return;
+  }
+  if (!note) {
+    note = document.createElement('p');
+    note.id = 'scoringModelNote';
+    note.className = 'scoring-model-note';
+    container.parentNode.insertBefore(note, container);
+  }
+  note.hidden = false;
+  note.textContent = "Scoring model upgraded Aug 2026 — earlier scores used our previous model and aren't directly comparable.";
+}
+
 let historyPage = 0;
 const HISTORY_PAGE_SIZE = 10;
 let _allResults = []; // cache for pagination
 
 function renderTestHistory(results) {
   _allResults = results; // keep in sync
+  renderScoringModelNote(results);
   const container = document.getElementById('historyTable');
   const page = results.slice(historyPage * HISTORY_PAGE_SIZE, (historyPage + 1) * HISTORY_PAGE_SIZE);
 

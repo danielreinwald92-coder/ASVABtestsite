@@ -22,6 +22,18 @@ function showEmptyResultsState(title, detail) {
   if (desc) desc.textContent = detail;
 }
 
+// IRT v2 — `afqtBand` is a +/-1 SE interval (~68% coverage), not a 95%
+// confidence interval, so the copy deliberately says "likely range" and never
+// "confidence interval" (per scoring-methodology.md). Falls back to the plain
+// percentile line when the band is absent — covers legacy stored results
+// (pre-IRT-v2, no `afqtBand` field) and any case where scoring couldn't
+// produce a band.
+function formatAfqtPercentileLine(afqt, band) {
+  const base = `${afqt}${getOrdinalSuffix(afqt)} Percentile`;
+  if (!band || typeof band.low !== 'number' || typeof band.high !== 'number') return base;
+  return `${base} · likely range ${band.low}–${band.high}`;
+}
+
 function loadResults() {
   try {
     const resultsRaw = localStorage.getItem('quizResults');
@@ -55,7 +67,7 @@ function loadResults() {
     document.getElementById('afqtPercentile').textContent = `${results.score}% correct — practice performance, not an AFQT percentile`;
   } else if (hasAFQT) {
     document.getElementById('afqtLabel').textContent = 'Estimated AFQT Score';
-    document.getElementById('afqtPercentile').textContent = `${results.afqt}${getOrdinalSuffix(results.afqt)} Percentile`;
+    document.getElementById('afqtPercentile').textContent = formatAfqtPercentileLine(results.afqt, results.afqtBand);
   } else if (isTutor) {
     document.getElementById('afqtLabel').textContent = 'Tutor Practice';
     document.getElementById('afqtPercentile').textContent = `${results.score}% correct — untimed practice with explanations`;
@@ -228,6 +240,35 @@ function renderTodaysMission(results) {
   panel.style.display = 'block';
 }
 
+// IRT v2 — section rows get a "Standard score N" suffix only when the section
+// was actually scored (details.sections stamped theta/sem/ss onto it in
+// submitQuiz). Legacy stored results and diagnostic/tutor sections never have
+// `ss`, so this is a no-op fallback to the plain correct/total line for them.
+function formatSectionScoreLine(data) {
+  const base = `${data.correct} of ${data.total} correct`;
+  return (typeof data.ss === 'number') ? `${base} · Standard score ${data.ss}` : base;
+}
+
+// Carried-over Task 6 review requirement: the percent-correct bar counts
+// never-reached CAT questions as wrong, while the quiz warns unanswered items
+// are scored "as if a random guess." Surface that same story here so the two
+// don't contradict — only when the section actually has unanswered > 0
+// (legacy results never have this key, so this is naturally a no-op for them).
+//
+// The "random guess" framing is only true for sections the IRT penalty-table
+// path actually scored (i.e. `ss` was stamped by submitQuiz) — diagnostic and
+// tutor sections never run through getScoreDetails, so their unanswered
+// questions really do just get zero credit. Claiming the random-guess
+// adjustment for those would be a new, avoidable inaccuracy.
+function formatUnansweredNote(data) {
+  const n = data.unanswered;
+  if (typeof n !== 'number' || n <= 0) return '';
+  const guess = n === 1 ? 'a random guess' : 'random guesses';
+  return (typeof data.ss === 'number')
+    ? `${n} unanswered — scored as ${guess}`
+    : `${n} unanswered — no credit given`;
+}
+
 function renderSectionBreakdown(sectionResults) {
   if (!sectionResults || Object.keys(sectionResults).length === 0) return;
 
@@ -253,11 +294,16 @@ function renderSectionBreakdown(sectionResults) {
     const needsWork = percent < 70;
     const statusClass = needsWork ? 'needs-work' : 'good';
     const name = sectionNames[code] || data.name || code;
+    const scoreLine = formatSectionScoreLine(data);
+    const unansweredNote = formatUnansweredNote(data);
 
     html += `
       <div class="breakdown-item ${statusClass}">
         <span class="breakdown-section-name">${name}</span>
-        <span class="breakdown-score">${data.correct} of ${data.total} correct</span>
+        <div class="breakdown-meta">
+          <span class="breakdown-score">${scoreLine}</span>
+          ${unansweredNote ? `<span class="breakdown-note">${unansweredNote}</span>` : ''}
+        </div>
         <div class="breakdown-bar">
           <div class="breakdown-fill" style="width: ${percent}%"></div>
         </div>
