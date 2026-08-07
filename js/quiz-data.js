@@ -5963,22 +5963,28 @@ const QuizManager = {
     return null;
   },
 
-  // Calculate new ability level based on answer
-  updateAbilityLevel: function(currentLevel, wasCorrect, questionDifficulty) {
-    // Simple IRT-like update
-    if (wasCorrect) {
-      // Correct answer: increase ability, more if question was hard
-      if (questionDifficulty >= currentLevel) {
-        return Math.min(5, currentLevel + 0.5);
-      }
-      return Math.min(5, currentLevel + 0.25);
-    } else {
-      // Wrong answer: decrease ability, more if question was easy
-      if (questionDifficulty <= currentLevel) {
-        return Math.max(1, currentLevel - 0.5);
-      }
-      return Math.max(1, currentLevel - 0.25);
+  // ADAPTIVE v2: maximum Fisher information at the current interim theta,
+  // randomized among the top 5 candidates ("randomesque" — practice-site
+  // replacement for Sympson-Hetter exposure control).
+  selectMaxInfoQuestion: function(pool, sectionCode, thetaMean, usedIds) {
+    const g = (typeof window !== 'undefined') ? window : globalThis;
+    const IRT = g.MissionASVABIRT;
+    const P = g.MissionASVABIRTParams;
+    const candidates = [];
+    for (let d = 1; d <= 5; d++) {
+      (pool.byDifficulty[d] || []).forEach(q => {
+        if (!usedIds.has(q.id)) candidates.push(q);
+      });
     }
+    if (!candidates.length) return null;
+    if (!IRT || !P) return candidates[0]; // graceful degradation if modules failed to load
+    const scored = candidates.map(q => ({
+      q,
+      info: IRT.fisherInfo(thetaMean, P.getItemParams(sectionCode, q.difficulty || 3, q.id))
+    }));
+    scored.sort((x, y) => y.info - x.info);
+    const top = scored.slice(0, Math.min(5, scored.length));
+    return top[Math.floor(Math.random() * top.length)].q;
   },
 
   // Get section info

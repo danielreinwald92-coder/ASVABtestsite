@@ -35,7 +35,7 @@ class QuizEngine {
 
     // Adaptive testing state
     this.adaptiveMode = true; // Enable CAT-like adaptive testing
-    this.abilityLevels = {}; // Track ability per section
+    this.abilityState = {}; // Owen Bayesian interim ability per section: {mean, variance}
     this.questionPools = {}; // Adaptive question pools per section
     this.usedQuestionIds = new Set(); // Track used questions
 
@@ -154,7 +154,7 @@ class QuizEngine {
       const sectionInfo = baseInfo ? { ...baseInfo, ...(this.sectionOverrides[sectionCode] || {}) } : null;
       if (!sectionInfo) return;
 
-      this.abilityLevels[sectionCode] = 3; // start at medium difficulty
+      this.abilityState[sectionCode] = { mean: 0, variance: 1 };
       this.questionPools[sectionCode] = QuizManager.getAdaptiveQuestionPool(sectionCode);
 
       for (let i = 0; i < sectionInfo.questionsPerTest; i++) {
@@ -301,8 +301,9 @@ class QuizEngine {
     }
   }
 
-  // Resolve an empty slot into a concrete question using the current ability
-  // level for that section. Called lazily on first render of each slot.
+  // Resolve an empty slot into a concrete question using the current interim
+  // theta (diagnostic slots use their fixed targetDifficulty instead). Called
+  // lazily on first render of each slot.
   materializeSlot(index) {
     const slot = this.quizData?.questions?.[index];
     if (!slot || slot.text !== undefined) return; // missing or already materialized
@@ -311,11 +312,9 @@ class QuizEngine {
     if (!this.questionPools[slot.sectionCode]) {
       this.questionPools[slot.sectionCode] = QuizManager.getAdaptiveQuestionPool(slot.sectionCode);
     }
-    if (this.abilityLevels[slot.sectionCode] === undefined) {
-      this.abilityLevels[slot.sectionCode] = 3;
-    }
+    const state = this.abilityState[slot.sectionCode] ||
+      (this.abilityState[slot.sectionCode] = { mean: 0, variance: 1 });
 
-    const ability = slot.targetDifficulty || Math.max(1, Math.min(5, Math.round(this.abilityLevels[slot.sectionCode])));
     // SP2: also avoid questions the user saw in recent tests (on-device). If the
     // filtered pool can't supply one, relax to the session-used set so a test
     // always fills (thin non-AFQT pools).
@@ -325,12 +324,11 @@ class QuizEngine {
     if (RS && typeof RS.getRecent === 'function') {
       RS.getRecent(slot.sectionCode).forEach((id) => excluded.add(id));
     }
-    let question = QuizManager.selectNextAdaptiveQuestion(
-      this.questionPools[slot.sectionCode], ability, excluded);
-    if (!question) {
-      question = QuizManager.selectNextAdaptiveQuestion(
-        this.questionPools[slot.sectionCode], ability, this.usedQuestionIds);
-    }
+    const pick = (excludedSet) => slot.targetDifficulty
+      ? QuizManager.selectNextAdaptiveQuestion(this.questionPools[slot.sectionCode], slot.targetDifficulty, excludedSet)
+      : QuizManager.selectMaxInfoQuestion(this.questionPools[slot.sectionCode], slot.sectionCode, state.mean, excludedSet);
+    let question = pick(excluded);
+    if (!question) question = pick(this.usedQuestionIds);
     if (!question) return; // pool exhausted (shouldn't happen for production pools)
 
     this.usedQuestionIds.add(question.id);
@@ -379,7 +377,7 @@ class QuizEngine {
       this.flagged = new Set(state.flagged || []);
       this.currentQuestion = state.currentQuestion || 0;
       this.timeRemaining = state.timeRemaining || this.quizData.timeLimit;
-      this.abilityLevels = state.abilityLevels || {};
+      this.abilityState = state.abilityState || {};
       this.usedQuestionIds = new Set(state.usedQuestionIds || []);
       // Tutor reveal/lock state must survive a refresh or resume, or previously
       // answered questions would lose their feedback and become re-answerable.
@@ -404,8 +402,8 @@ class QuizEngine {
         if (!this.questionPools[code]) {
           this.questionPools[code] = QuizManager.getAdaptiveQuestionPool(code);
         }
-        if (this.abilityLevels[code] === undefined) {
-          this.abilityLevels[code] = 3;
+        if (this.abilityState[code] === undefined) {
+          this.abilityState[code] = { mean: 0, variance: 1 };
         }
       });
       return true;
@@ -420,7 +418,7 @@ class QuizEngine {
       flagged: Array.from(this.flagged),
       currentQuestion: this.currentQuestion,
       timeRemaining: this.timeRemaining,
-      abilityLevels: this.abilityLevels,
+      abilityState: this.abilityState,
       usedQuestionIds: Array.from(this.usedQuestionIds),
       tutorRevealed: Array.from(this.tutorRevealed),
       activeSectionIndex: this.activeSectionIndex,
@@ -694,19 +692,20 @@ class QuizEngine {
     const previousAnswer = this.answers[question.id];
     this.answers[question.id] = index;
 
-    // Adaptive: update ability so the next unreached slot in this section
-    // is materialized at the appropriate difficulty.
+    // Adaptive: update the interim Bayesian ability estimate (Owen) so the
+    // next unreached slot in this section is materialized at max information.
+    // NOTE: this still fires on select, not on answer-lock — Task 6 moves it.
     if (this.adaptiveMode && previousAnswer === undefined) {
       const isCorrect = index === question.correct;
       const sectionCode = question.sectionCode || this.testSections[0];
-      const difficulty = question.difficulty || 3;
+      const IRT = (typeof MissionASVABIRT !== 'undefined') ? MissionASVABIRT
+        : (typeof window !== 'undefined' ? window.MissionASVABIRT : null);
+      const P = (typeof MissionASVABIRTParams !== 'undefined') ? MissionASVABIRTParams
+        : (typeof window !== 'undefined' ? window.MissionASVABIRTParams : null);
 
-      if (this.abilityLevels[sectionCode] !== undefined) {
-        this.abilityLevels[sectionCode] = QuizManager.updateAbilityLevel(
-          this.abilityLevels[sectionCode],
-          isCorrect,
-          difficulty
-        );
+      if (IRT && P && this.abilityState[sectionCode] !== undefined) {
+        const item = P.getItemParams(sectionCode, question.difficulty || 3, question.originalId || question.id);
+        this.abilityState[sectionCode] = IRT.owenUpdate(this.abilityState[sectionCode], item, isCorrect);
       }
     }
 

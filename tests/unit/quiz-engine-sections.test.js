@@ -13,7 +13,13 @@ function fakeQuizManager(poolIds) {
       return q ? { id: q, difficulty: 3, text: 't', options: ['a', 'b', 'c', 'd'], correct: 0 } : null;
     },
     shuffleQuestionOptions: (q) => ({ text: q.text, options: q.options, correct: q.correct }),
-    updateAbilityLevel: (lvl) => lvl,
+    // Slots in this fake pool carry no targetDifficulty, so materializeSlot
+    // routes through selectMaxInfoQuestion (adaptive path) — mirror the same
+    // usedIds-exclusion behavior as selectNextAdaptiveQuestion above.
+    selectMaxInfoQuestion: (pool, sectionCode, thetaMean, usedIds) => {
+      const q = pool.ids.find((id) => !usedIds.has(id));
+      return q ? { id: q, difficulty: 3, text: 't', options: ['a', 'b', 'c', 'd'], correct: 0 } : null;
+    },
   };
 }
 
@@ -28,7 +34,7 @@ test('materializeSlot excludes recent-seen ids, then relaxes when exhausted', ()
   const engine = new sandbox.QuizEngine();
   engine.quizData = { questions: [{ id: 1, sectionCode: 'AR', sectionName: 'AR' }, { id: 2, sectionCode: 'AR', sectionName: 'AR' }] };
   engine.questionPools = { AR: { ids: ['AR1', 'AR2', 'AR3'] } };
-  engine.abilityLevels = { AR: 3 };
+  engine.abilityState = { AR: { mean: 0, variance: 1 } };
   engine.usedQuestionIds = new Set();
 
   engine.materializeSlot(0); // should skip AR1/AR2 → AR3
