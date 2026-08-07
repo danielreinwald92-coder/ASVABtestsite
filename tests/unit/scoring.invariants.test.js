@@ -124,6 +124,37 @@ test('getScoreDetails returns null when a present section has zero answered reco
   assert.strictEqual(scoring.getScoreDetails(partial), null);
 });
 
+test('a fully-unanswered section with unanswered set (ran out of time) is NOT nulled — it scores via the incomplete-test penalty, strictly lower than the same fixture answered', () => {
+  // Real user path: time runs out before the last section of the full test.
+  // MC has zero answered records, but `unanswered: 15` EXPLAINS the
+  // emptiness — sectionAbility routes this through mapEstimate([]) === theta
+  // 0 -> penalty[15] -> a low-but-defined theta (js/penalty-table.js MC.15 =
+  // {A: -2.3065, B: 0}), not a "no data" refusal to score.
+  const ranOutOfTime = fullResults(0.6);
+  const mcQuestions = Array.from({ length: 15 }, (_, i) => ({
+    id: `MC_${i}`, difficulty: (i % 5) + 1, isCorrect: false, answered: false
+  }));
+  ranOutOfTime.MC = { name: 'MC', correct: 0, total: 15, unanswered: 15, questions: mcQuestions };
+
+  const details = scoring.getScoreDetails(ranOutOfTime);
+  assert.ok(details, 'expected non-null getScoreDetails for a legitimately-explained empty section');
+  const lsRanOutOfTime = scoring.calculateLineScores(ranOutOfTime);
+  assert.ok(lsRanOutOfTime, 'expected non-null calculateLineScores for a legitimately-explained empty section');
+
+  // Same fixture, but MC answered at the same 60%-correct pattern as every
+  // other section — isolates the penalty's effect on every MC-weighted
+  // composite (every line score except GT, which is VE+AR only).
+  const answered = fullResults(0.6);
+  const lsAnswered = scoring.calculateLineScores(answered);
+
+  assert.strictEqual(lsRanOutOfTime.GT.score, lsAnswered.GT.score,
+    'GT does not weight MC, so it should be unaffected by MC being unanswered');
+  for (const key of LINE_KEYS.filter((k) => k !== 'GT')) {
+    assert.ok(lsRanOutOfTime[key].score < lsAnswered[key].score,
+      `${key}: ran-out-of-time (${lsRanOutOfTime[key].score}) should be strictly less than fully-answered (${lsAnswered[key].score})`);
+  }
+});
+
 test('average-profile calibration: fullResults(0.6) line scores land in a sane band (60-140)', () => {
   const ls = scoring.calculateLineScores(fullResults(0.6));
   for (const key of LINE_KEYS) {

@@ -33,13 +33,20 @@
     return (section.questions || []).filter(function (q) { return q.answered !== false; });
   }
 
-  // A present-but-fully-unanswered section carries zero information; scoring
-  // it would silently degrade to mapEstimate([]) === theta 0 (~50 SS, ~35th
-  // percentile) instead of the "no data" null the missing-section gates below
-  // already return. Callers treat a zero-answered required section the same
-  // as a missing one.
   function answeredCount(section) {
     return answeredQuestions(section).length;
+  }
+
+  // A required section is scoreable when it has >=1 answered record, OR its
+  // emptiness is EXPLAINED by `unanswered` (the real "ran out of time before
+  // the last section" path — sectionAbility routes that through
+  // mapEstimate([]) === theta 0 -> penalty[n] -> a low-but-defined score, per
+  // Task 3's incomplete-test penalty table; every section has a penalty entry
+  // at unanswered === section length). Only a section with ZERO answered
+  // records AND no unanswered count is genuinely inconsistent/corrupt input —
+  // that's the "no data" case the missing-section gates below also cover.
+  function isScoreable(section) {
+    return answeredCount(section) > 0 || (section.unanswered || 0) > 0;
   }
 
   // MAP theta + penalty for a section's response records.
@@ -77,13 +84,14 @@
     // pass to get GS/EI/AS/MC theta/sem/ss.
     const hasAll8 = ALL_SECTIONS.every(function (code) { return sectionResults[code]; });
 
-    // Same bogus-score rationale as the hasAll gate above, extended to
-    // "present but zero answered records": include the opportunistic all-8
-    // set in the check when it applies, since those sections are also
-    // surfaced in the returned `sections` object below.
+    // Same bogus-score rationale as the hasAll gate above, extended to a
+    // section with zero answered records AND no unanswered count to explain
+    // it (see isScoreable): include the opportunistic all-8 set in the check
+    // when it applies, since those sections are also surfaced in the
+    // returned `sections` object below.
     const requiredCodes = hasAll8 ? ALL_SECTIONS : AFQT_SECTIONS;
-    const hasAnswers = requiredCodes.every(function (code) { return answeredCount(sectionResults[code]) > 0; });
-    if (!hasAnswers) return null;
+    const scoreable = requiredCodes.every(function (code) { return isScoreable(sectionResults[code]); });
+    if (!scoreable) return null;
 
     const sections = {};
     AFQT_SECTIONS.forEach(function (code) {
@@ -126,10 +134,12 @@
     if (!sectionResults) return null;
     const hasAll = ALL_SECTIONS.every(function (code) { return sectionResults[code]; });
     if (!hasAll) return null; // partial data would produce plausible-looking but bogus composites
-    // A present-but-zero-answered section is equivalent to missing data —
-    // see answeredCount() above.
-    const hasAnswers = ALL_SECTIONS.every(function (code) { return answeredCount(sectionResults[code]) > 0; });
-    if (!hasAnswers) return null;
+    // A zero-answered section with no unanswered count to explain it is
+    // equivalent to missing data — see isScoreable() above. A zero-answered
+    // section WITH an unanswered count (ran out of time) is fine; the
+    // incomplete-test penalty in sectionAbility() handles it.
+    const scoreable = ALL_SECTIONS.every(function (code) { return isScoreable(sectionResults[code]); });
+    if (!scoreable) return null;
 
     const theta = {};
     ALL_SECTIONS.forEach(function (code) { theta[code] = sectionAbility(sectionResults, code).theta; });
