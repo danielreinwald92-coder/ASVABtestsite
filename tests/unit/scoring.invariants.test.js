@@ -50,13 +50,16 @@ test('all-wrong AFQT input floors at 1', () => {
   assert.strictEqual(afqt, 1);
 });
 
-test('zero/empty totals yield finite AFQT >= 1 (no NaN)', () => {
+test('zero/empty totals yield null (never a bogus ~35th-percentile score) and never throw', () => {
+  // A present section with ZERO answered records carries no information —
+  // mapEstimate([]) === {theta:0} would otherwise silently produce a
+  // plausible-looking ~35th percentile "average" score for a test nobody
+  // took. That must be null, same as a genuinely missing section.
   const empty = (name) => mkSection(name, []);
-  const afqt = scoring.calculateAFQTEstimate({
-    AR: empty('AR'), WK: empty('WK'), PC: empty('PC'), MK: empty('MK')
-  });
-  assert.ok(Number.isFinite(afqt), `expected finite, got ${afqt}`);
-  assert.ok(afqt >= 1, `expected >= 1, got ${afqt}`);
+  const input = { AR: empty('AR'), WK: empty('WK'), PC: empty('PC'), MK: empty('MK') };
+  assert.doesNotThrow(() => scoring.calculateAFQTEstimate(input));
+  const afqt = scoring.calculateAFQTEstimate(input);
+  assert.strictEqual(afqt, null, `expected null, got ${afqt}`);
 });
 
 test('calculateLineScores returns exactly 10 line keys', () => {
@@ -107,6 +110,20 @@ test('calculateLineScores returns null when any of the 8 sections is missing', (
   assert.strictEqual(scoring.calculateLineScores(partial), null);
 });
 
+test('calculateLineScores returns null when a present section has zero answered records', () => {
+  // Present (not missing/deleted) but nobody answered any GS question — same
+  // "no information" case as the missing-section gate above.
+  const partial = fullResults(0.6);
+  partial.GS = mkSection('GS', []);
+  assert.strictEqual(scoring.calculateLineScores(partial), null);
+});
+
+test('getScoreDetails returns null when a present section has zero answered records, even with all 4 AFQT sections fine', () => {
+  const partial = fullResults(0.6);
+  partial.GS = mkSection('GS', []);
+  assert.strictEqual(scoring.getScoreDetails(partial), null);
+});
+
 test('average-profile calibration: fullResults(0.6) line scores land in a sane band (60-140)', () => {
   const ls = scoring.calculateLineScores(fullResults(0.6));
   for (const key of LINE_KEYS) {
@@ -126,30 +143,41 @@ test('band sanity: getScoreDetails band brackets the percentile, all within 1-99
   assert.ok(percentile <= band.high, `percentile (${percentile}) should be <= band.high (${band.high})`);
 });
 
-test('unanswered penalty: an AR section with 5 unanswered scores strictly lower than the same fixture fully answered correct', () => {
-  // Fully-answered baseline: AR all correct.
-  const fullyAnswered = fullResults(0.6);
-  fullyAnswered.AR = mkSection('AR', Array.from({ length: 15 }, () => true));
-  const fullyAnsweredAFQT = scoring.calculateAFQTEstimate(afqtOnlyFrom(fullyAnswered));
-
-  // Same pattern, but the last 5 questions are unanswered (answered: false)
-  // and reflected via unanswered: 5 on the section.
-  const withUnanswered = fullResults(0.6);
-  const arPattern = Array.from({ length: 15 }, (_, i) => i < 10); // 10 correct, 5 unanswered
-  const arQuestions = arPattern.map((ok, i) => ({
-    id: `AR_${i}`, difficulty: (i % 5) + 1,
-    isCorrect: i < 10 ? true : false,
-    answered: i < 10
+test('unanswered penalty: identical answered records score strictly lower with unanswered:5 than unanswered:0', () => {
+  // Isolate the penalty transform itself: use the SAME 10 answered records
+  // (same MAP theta going in) in both fixtures, varying only whether the
+  // section reports 5 unanswered questions or 0. A comparison against a
+  // differently-answered baseline (e.g. a 15/15-correct section) can't
+  // distinguish "MAP theta is naturally lower with fewer correct answers"
+  // from "the incomplete-test penalty actually fired" — this can.
+  const arQuestions = Array.from({ length: 10 }, (_, i) => ({
+    id: `AR_${i}`, difficulty: (i % 5) + 1, isCorrect: i < 6, answered: true
   }));
-  withUnanswered.AR = {
-    name: 'AR', correct: 10, total: 15, unanswered: 5, questions: arQuestions
-  };
 
-  assert.doesNotThrow(() => scoring.calculateAFQTEstimate(afqtOnlyFrom(withUnanswered)));
-  const penalizedAFQT = scoring.calculateAFQTEstimate(afqtOnlyFrom(withUnanswered));
+  const withPenalty = fullResults(0.6);
+  withPenalty.AR = { name: 'AR', correct: 6, total: 15, unanswered: 5, questions: arQuestions };
 
-  assert.ok(penalizedAFQT < fullyAnsweredAFQT,
-    `penalized (${penalizedAFQT}) should be strictly less than fully-answered (${fullyAnsweredAFQT})`);
+  const withoutPenalty = fullResults(0.6);
+  withoutPenalty.AR = { name: 'AR', correct: 6, total: 10, unanswered: 0, questions: arQuestions };
+
+  assert.doesNotThrow(() => scoring.calculateAFQTEstimate(afqtOnlyFrom(withPenalty)));
+  const withPenaltyAFQT = scoring.calculateAFQTEstimate(afqtOnlyFrom(withPenalty));
+  const withoutPenaltyAFQT = scoring.calculateAFQTEstimate(afqtOnlyFrom(withoutPenalty));
+
+  assert.ok(withPenaltyAFQT < withoutPenaltyAFQT,
+    `with-penalty (${withPenaltyAFQT}) should be strictly less than without-penalty (${withoutPenaltyAFQT})`);
+});
+
+test('a missing incomplete-test penalty table entry throws rather than silently skipping the penalty', () => {
+  // unanswered: 999 has no entry in js/penalty-table.js for any section
+  // (max is the section length, 15 for AR) — sectionAbility must fail loudly
+  // instead of silently treating the test as if it had no unanswered items.
+  const results = fullResults(0.6);
+  const arQuestions = Array.from({ length: 10 }, (_, i) => ({
+    id: `AR_${i}`, difficulty: (i % 5) + 1, isCorrect: i < 6, answered: true
+  }));
+  results.AR = { name: 'AR', correct: 6, total: 15, unanswered: 999, questions: arQuestions };
+  assert.throws(() => scoring.calculateAFQTEstimate(afqtOnlyFrom(results)));
 });
 
 function afqtOnlyFrom(all) {

@@ -29,10 +29,23 @@
     return code === 'AS' ? PARAMS.asStandardScore(theta) : PARAMS.thetaToSS(code, theta);
   }
 
+  function answeredQuestions(section) {
+    return (section.questions || []).filter(function (q) { return q.answered !== false; });
+  }
+
+  // A present-but-fully-unanswered section carries zero information; scoring
+  // it would silently degrade to mapEstimate([]) === theta 0 (~50 SS, ~35th
+  // percentile) instead of the "no data" null the missing-section gates below
+  // already return. Callers treat a zero-answered required section the same
+  // as a missing one.
+  function answeredCount(section) {
+    return answeredQuestions(section).length;
+  }
+
   // MAP theta + penalty for a section's response records.
   function sectionAbility(sectionResults, code) {
     const section = sectionResults[code];
-    const questions = (section.questions || []).filter(function (q) { return q.answered !== false; });
+    const questions = answeredQuestions(section);
     const records = questions.map(function (q) {
       const params = PARAMS.getItemParams(code, q.difficulty || 3, q.originalId || q.id);
       return { a: params.a, b: params.b, c: params.c, correct: !!q.isCorrect };
@@ -40,7 +53,13 @@
     const est = IRT.mapEstimate(records);
     let theta = est.theta;
     const unanswered = section.unanswered || 0;
-    if (unanswered > 0 && PENALTY && PENALTY[code] && PENALTY[code][unanswered]) {
+    if (unanswered > 0) {
+      // A missing/incomplete penalty table must fail loudly rather than
+      // silently score an incomplete test as if fully answered — mirrors how
+      // a missing IRT/PARAMS dependency already throws on first use above.
+      if (!PENALTY || !PENALTY[code] || !PENALTY[code][unanswered]) {
+        throw new Error('MissionASVABScoring: missing incomplete-test penalty for ' + code + ' unanswered=' + unanswered);
+      }
       const p = PENALTY[code][unanswered];
       theta = p.A + p.B * theta;
     }
@@ -52,17 +71,26 @@
     const hasAll = AFQT_SECTIONS.every(function (code) { return sectionResults[code]; });
     if (!hasAll) return null;
 
+    // Forward-looking (Task 6 consumes this): when the full 8-section profile
+    // is present, surface every section's ability alongside the AFQT four so
+    // downstream code (results/line-score UI) doesn't need a second pipeline
+    // pass to get GS/EI/AS/MC theta/sem/ss.
+    const hasAll8 = ALL_SECTIONS.every(function (code) { return sectionResults[code]; });
+
+    // Same bogus-score rationale as the hasAll gate above, extended to
+    // "present but zero answered records": include the opportunistic all-8
+    // set in the check when it applies, since those sections are also
+    // surfaced in the returned `sections` object below.
+    const requiredCodes = hasAll8 ? ALL_SECTIONS : AFQT_SECTIONS;
+    const hasAnswers = requiredCodes.every(function (code) { return answeredCount(sectionResults[code]) > 0; });
+    if (!hasAnswers) return null;
+
     const sections = {};
     AFQT_SECTIONS.forEach(function (code) {
       const ab = sectionAbility(sectionResults, code);
       sections[code] = { theta: ab.theta, sem: ab.sem, ss: PARAMS.thetaToSS(code, ab.theta) };
     });
 
-    // Forward-looking (Task 6 consumes this): when the full 8-section profile
-    // is present, surface every section's ability alongside the AFQT four so
-    // downstream code (results/line-score UI) doesn't need a second pipeline
-    // pass to get GS/EI/AS/MC theta/sem/ss.
-    const hasAll8 = ALL_SECTIONS.every(function (code) { return sectionResults[code]; });
     if (hasAll8) {
       ALL_SECTIONS.forEach(function (code) {
         if (sections[code]) return; // AFQT sections already computed above
@@ -98,6 +126,10 @@
     if (!sectionResults) return null;
     const hasAll = ALL_SECTIONS.every(function (code) { return sectionResults[code]; });
     if (!hasAll) return null; // partial data would produce plausible-looking but bogus composites
+    // A present-but-zero-answered section is equivalent to missing data —
+    // see answeredCount() above.
+    const hasAnswers = ALL_SECTIONS.every(function (code) { return answeredCount(sectionResults[code]) > 0; });
+    if (!hasAnswers) return null;
 
     const theta = {};
     ALL_SECTIONS.forEach(function (code) { theta[code] = sectionAbility(sectionResults, code).theta; });
