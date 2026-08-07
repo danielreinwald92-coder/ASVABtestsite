@@ -228,3 +228,44 @@ test('getScoreDetails includes only the 4 AFQT sections when only those are pres
   const codes = Object.keys(details.sections).sort();
   assert.deepStrictEqual(codes, ['AR', 'MK', 'PC', 'WK']);
 });
+
+// Final-review fix 2 (single-section standard score, spec §10) — the new
+// getSingleSectionDetails wrapper must reuse the exact same sectionAbility +
+// SS routing as getScoreDetails' per-section loop, not a second copy of the math.
+test('getSingleSectionDetails returns null when the section is missing', () => {
+  assert.strictEqual(scoring.getSingleSectionDetails({}, 'AR'), null);
+});
+
+test('getSingleSectionDetails returns null when the section has zero answered records and no unanswered count (no information, same as getScoreDetails)', () => {
+  const input = { AR: mkSection('AR', []) };
+  assert.strictEqual(scoring.getSingleSectionDetails(input, 'AR'), null);
+});
+
+test('getSingleSectionDetails is non-null for a legitimately-explained empty section (ran out of time, unanswered set)', () => {
+  const questions = Array.from({ length: 15 }, (_, i) => ({ id: `AR_${i}`, difficulty: (i % 5) + 1, isCorrect: false, answered: false }));
+  const input = { AR: { name: 'AR', correct: 0, total: 15, unanswered: 15, questions } };
+  const details = scoring.getSingleSectionDetails(input, 'AR');
+  assert.ok(details, 'expected the incomplete-test penalty to produce a defined score, not null');
+  assert.ok(Number.isFinite(details.theta) && Number.isFinite(details.sem) && Number.isFinite(details.ss));
+});
+
+test('getSingleSectionDetails routes AS through asStandardScore (AS has no SS_TRANSFORM entry — thetaToSS would return NaN)', () => {
+  const input = { AS: mkSection('AS', [true, true, false, true, false, true, true, false, true, true]) };
+  const details = scoring.getSingleSectionDetails(input, 'AS');
+  assert.ok(details, 'expected non-null details for an answered AS section');
+  assert.ok(Number.isFinite(details.ss), `AS ss should be finite (asStandardScore routing), got ${details.ss}`);
+});
+
+test('getSingleSectionDetails matches getScoreDetails\' per-section theta/sem/ss on the same input — no duplicated math', () => {
+  const full = fullResults(0.6);
+  const details = scoring.getScoreDetails(full);
+  assert.ok(details, 'expected non-null details for a full 8-section profile');
+
+  for (const code of ['AR', 'GS', 'AS', 'MC']) {
+    const single = scoring.getSingleSectionDetails(full, code);
+    assert.ok(single, `expected non-null single-section details for ${code}`);
+    assert.strictEqual(single.theta, details.sections[code].theta, `${code} theta mismatch`);
+    assert.strictEqual(single.sem, details.sections[code].sem, `${code} sem mismatch`);
+    assert.strictEqual(single.ss, details.sections[code].ss, `${code} ss mismatch`);
+  }
+});

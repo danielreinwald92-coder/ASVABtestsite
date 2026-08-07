@@ -130,6 +130,18 @@
     return details ? details.percentile : null;
   }
 
+  // Single-section practice (spec §10): same MAP-theta + SS routing as
+  // getScoreDetails' per-section loop, for exactly one section, with none of
+  // the 4-section AFQT gating — AFQT/percentile still require the full AFQT
+  // set, this only adds a standard score alongside the % headline. Returns
+  // null when the section is missing/unscoreable so callers can fall back to
+  // the plain %-correct display, same as getScoreDetails' null case.
+  function getSingleSectionDetails(sectionResults, code) {
+    if (!sectionResults || !sectionResults[code] || !isScoreable(sectionResults[code])) return null;
+    const ab = sectionAbility(sectionResults, code);
+    return { theta: ab.theta, sem: ab.sem, ss: sectionSS(code, ab.theta) };
+  }
+
   function calculateLineScores(sectionResults) {
     if (!sectionResults) return null;
     const hasAll = ALL_SECTIONS.every(function (code) { return sectionResults[code]; });
@@ -168,7 +180,7 @@
     };
   }
 
-  const api = { getSectionPercent, getScoreDetails, calculateAFQTEstimate, calculateLineScores };
+  const api = { getSectionPercent, getScoreDetails, getSingleSectionDetails, calculateAFQTEstimate, calculateLineScores };
   root.MissionASVABScoring = api;
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;

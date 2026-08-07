@@ -218,6 +218,22 @@ class QuizEngine {
     return this.isSectioned() && this.mode !== 'tutor' && this.testKind !== 'diagnostic';
   }
 
+  // The incomplete-test random-guess penalty (scoring.js sectionAbility, via
+  // getScoreDetails or the single-section wrapper) only ever runs for: the
+  // full AFQT four (quick/full/any custom superset that includes them — the
+  // hasAll gate in getScoreDetails), or exactly one section (the single-
+  // section path added for spec §10). Tutor and diagnostic never score via
+  // IRT; a "custom" multi-section subset missing the AFQT four never does
+  // either — those unanswered items just get zero credit, same as tutor/
+  // diagnostic. isCatMode() alone over-claims for that last case, so
+  // showSubmitConfirm's copy uses this narrower check instead.
+  appliesGuessPenalty() {
+    if (this.mode === 'tutor' || this.testKind === 'diagnostic') return false;
+    const sections = this.testSections || [];
+    if (sections.length === 1) return true;
+    return MissionASVABConfig.AFQT_SECTIONS.every((code) => sections.includes(code));
+  }
+
   // Finalize the current answer: in CAT modes an answer becomes immutable when
   // the user advances (like the real CAT-ASVAB), and the interim Owen ability
   // for the section updates at that moment.
@@ -878,13 +894,15 @@ class QuizEngine {
     let message = 'Are you sure you want to submit your test?';
     if (unanswered > 0) {
       const subject = unanswered > 1 ? `${unanswered} questions weren't` : `${unanswered} question wasn't`;
-      // The random-guess penalty only applies to CAT modes, which run every
-      // section through the IRT incomplete-test penalty table (scoring.js
-      // sectionAbility). Tutor sessions and the diagnostic score by simple
-      // percent-correct (see submitQuiz), so an unanswered question there
-      // just gets zero credit — see the matching results.html copy in
-      // page-results.js's formatUnansweredNote for the same distinction.
-      message += this.isCatMode()
+      // The random-guess penalty only applies when IRT scoring will actually
+      // run the incomplete-test penalty table (scoring.js sectionAbility) —
+      // the full AFQT four, a full test, or single-section practice (see
+      // appliesGuessPenalty()). Tutor, the diagnostic, and other custom
+      // section subsets score by simple percent-correct (see submitQuiz), so
+      // an unanswered question there just gets zero credit — see the
+      // matching results.html copy in page-results.js's formatUnansweredNote
+      // for the same distinction.
+      message += this.appliesGuessPenalty()
         ? `\n\n⚠️ ${subject} answered — your score will be adjusted as if ${unanswered > 1 ? 'they were' : 'it was'} a random guess.`
         : `\n\n⚠️ ${subject} answered — ${unanswered > 1 ? 'they' : 'it'} will get no credit.`;
     }
@@ -989,9 +1007,29 @@ class QuizEngine {
       }
     }
 
+    // Single-section practice never has all 4 AFQT sections, so getScoreDetails
+    // above is always null for it — but spec §10 still wants the section's own
+    // standard score added (headline stays % correct; no AFQT/percentile,
+    // which still requires the full AFQT set). Same MAP+SS routing as
+    // getScoreDetails, via the single-section wrapper.
+    let singleSectionDetails = null;
+    if (!details && this.mode !== 'tutor' && this.testKind !== 'diagnostic' &&
+      this.testSections && this.testSections.length === 1 &&
+      typeof MissionASVABScoring !== 'undefined' && MissionASVABScoring.getSingleSectionDetails) {
+      try {
+        singleSectionDetails = MissionASVABScoring.getSingleSectionDetails(sectionResults, this.testSections[0]);
+      } catch (e) {
+        // Same rationale as the getScoreDetails guard above: never let a
+        // scoring bug strand the user after state has already been cleared.
+        console.error('MissionASVABScoring.getSingleSectionDetails threw during scoring:', e);
+        singleSectionDetails = null;
+      }
+    }
+
     // Surface each scored section's theta/sem/ss onto its sectionResults entry
     // (4 AFQT codes for an AFQT practice test, or all 8 for a full test —
-    // details.sections already reflects whichever set was scoreable).
+    // details.sections already reflects whichever set was scoreable; a single
+    // scored section for single-section practice).
     if (details) {
       Object.keys(details.sections).forEach((code) => {
         if (!sectionResults[code]) return;
@@ -1000,6 +1038,13 @@ class QuizEngine {
         sectionResults[code].sem = Math.round(s.sem * 100) / 100;
         sectionResults[code].ss = Math.round(s.ss);
       });
+    } else if (singleSectionDetails) {
+      const code = this.testSections[0];
+      if (sectionResults[code]) {
+        sectionResults[code].theta = Math.round(singleSectionDetails.theta * 100) / 100;
+        sectionResults[code].sem = Math.round(singleSectionDetails.sem * 100) / 100;
+        sectionResults[code].ss = Math.round(singleSectionDetails.ss);
+      }
     }
 
     const afqtEstimate = details ? details.percentile : null;
@@ -1064,9 +1109,21 @@ class QuizEngine {
     const session = await getSession();
     if (!session) return { skipped: true };
 
-    const lineScores = quizResults.mode === 'tutor' || quizResults.testType === 'diagnostic'
-      ? null
-      : MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
+    let lineScores = null;
+    if (quizResults.mode !== 'tutor' && quizResults.testType !== 'diagnostic') {
+      try {
+        lineScores = MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
+      } catch (e) {
+        // calculateLineScores deliberately throws on a missing/corrupt
+        // incomplete-test penalty entry (scoring.js sectionAbility) — same as
+        // the getScoreDetails guard in submitQuiz. By this point quizState/
+        // generatedTest/testConfig are already cleared and the local result
+        // is already saved, so a throw here must not strand the user on a
+        // dead quiz page — log it and save with line_scores omitted instead.
+        console.error('MissionASVABScoring.calculateLineScores threw during save:', e);
+        lineScores = null;
+      }
+    }
     const strippedSections = {};
     // Compact per-question results: id + section + correct + difficulty only
     // (NO text/options), so the mistake history stays small. Powers weak-area

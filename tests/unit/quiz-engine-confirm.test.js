@@ -45,10 +45,15 @@ test('startNewTest removes stale quizResults from localStorage', () => {
   assert.ok(removed.includes('quizResults'), 'expected quizResults to be removed');
 });
 
-// Task 9 review fix — the unanswered-question submit warning must only claim
-// the IRT "random guess" penalty for CAT modes (quick/full, not tutor, not
-// diagnostic). Tutor and diagnostic sessions score by simple percent-correct
-// (quiz-engine.js submitQuiz), so an unanswered question there gets no
+// Task 9 review fix, narrowed by final-review fix 3 — the unanswered-question
+// submit warning must only claim the IRT "random guess" penalty when
+// appliesGuessPenalty() is true: the full AFQT four (quick/full/any custom
+// superset containing them) or single-section practice — the only cases
+// where scoring.js's incomplete-test penalty table actually runs (see
+// js/scoring.js sectionAbility, getScoreDetails, getSingleSectionDetails).
+// Tutor and diagnostic sessions score by simple percent-correct (quiz-
+// engine.js submitQuiz), and so does a custom multi-section subset that
+// doesn't include the full AFQT four — those unanswered questions get no
 // credit, not a simulated random guess — see js/page-results.js's
 // formatUnansweredNote for the matching results-page copy.
 function unansweredConfirmMessage(engineOverrides) {
@@ -60,6 +65,7 @@ function unansweredConfirmMessage(engineOverrides) {
       message = msg;
       return false; // decline → do not actually submit
     },
+    MissionASVABConfig: { AFQT_SECTIONS: ['AR', 'WK', 'PC', 'MK'] },
   });
 
   const engine = new sandbox.QuizEngine();
@@ -70,14 +76,17 @@ function unansweredConfirmMessage(engineOverrides) {
     ],
   };
   engine.answers = { 1: 0 }; // question 2 is unanswered
+  // Default: the full AFQT set, which genuinely runs the IRT penalty path.
+  // Individual tests override testSections/mode/testKind to exercise the
+  // other cases.
+  engine.testSections = ['AR', 'WK', 'PC', 'MK'];
   Object.assign(engine, engineOverrides);
 
   engine.showSubmitConfirm();
   return message;
 }
 
-test('CAT mode submit warning claims the random-guess IRT penalty', () => {
-  // Default engine state (mode 'timed', testKind 'custom') is CAT-scored.
+test('a full-AFQT-set submit warning claims the random-guess IRT penalty', () => {
   const message = unansweredConfirmMessage({});
 
   assert.match(message, /random guess/);
@@ -96,4 +105,27 @@ test('diagnostic submit warning says unanswered questions get no credit, not a r
 
   assert.match(message, /no credit/);
   assert.doesNotMatch(message, /random guess/);
+});
+
+// Final-review fix 3 — a "custom" multi-section subset that does NOT include
+// all 4 AFQT sections never runs through getScoreDetails (hasAll gate), so
+// its unanswered items just get zero credit like tutor/diagnostic. isCatMode()
+// alone would over-claim the random-guess penalty here; appliesGuessPenalty()
+// must not.
+test('a custom subset missing the AFQT four gets the honest "no credit" copy, not the random-guess claim', () => {
+  const message = unansweredConfirmMessage({ testKind: 'custom', testSections: ['AR', 'GS'] });
+
+  assert.match(message, /no credit/);
+  assert.doesNotMatch(message, /random guess/);
+});
+
+// Final-review fix 2/3 — single-section timed practice now runs through
+// getSingleSectionDetails (spec §10), which shares the same incomplete-test
+// penalty path as getScoreDetails, so its submit warning must claim the
+// random-guess penalty too.
+test('single-section timed practice submit warning claims the random-guess IRT penalty', () => {
+  const message = unansweredConfirmMessage({ testKind: 'single', testSections: ['AR'] });
+
+  assert.match(message, /random guess/);
+  assert.doesNotMatch(message, /no credit/);
 });
