@@ -34,7 +34,6 @@ class QuizEngine {
     this.sectionOverrides = {};
 
     // Adaptive testing state
-    this.adaptiveMode = true; // Enable CAT-like adaptive testing
     this.abilityState = {}; // Owen Bayesian interim ability per section: {mean, variance}
     this.questionPools = {}; // Adaptive question pools per section
     this.usedQuestionIds = new Set(); // Track used questions
@@ -55,6 +54,7 @@ class QuizEngine {
     // Tutor mode: untimed, instant feedback + explanation. Set in loadTestConfig().
     this.mode = 'timed';
     this.tutorRevealed = new Set(); // slot ids whose feedback has been shown
+    this.lockedAnswers = new Set(); // CAT modes: slot ids whose answer is final
 
     // SP2 per-section timing (timed mode only). Ranges are [{code,name,start,end,timeLimit}].
     this.sectionRanges = [];
@@ -210,6 +210,38 @@ class QuizEngine {
     return this.mode !== 'tutor';
   }
 
+  // CAT (Computer Adaptive Test) modes are the sectioned, timed, non-diagnostic
+  // tests (quick/full/custom) — real CAT-ASVAB rules apply: answers lock on
+  // advance and navigation is forward-only. Tutor (instant feedback) and the
+  // diagnostic (fixed difficulty plan, free review) are excluded.
+  isCatMode() {
+    return this.isSectioned() && this.mode !== 'tutor' && this.testKind !== 'diagnostic';
+  }
+
+  // Finalize the current answer: in CAT modes an answer becomes immutable when
+  // the user advances (like the real CAT-ASVAB), and the interim Owen ability
+  // for the section updates at that moment.
+  lockCurrentAnswer() {
+    const q = this.quizData.questions[this.currentQuestion];
+    if (!q || this.answers[q.id] === undefined || this.lockedAnswers.has(q.id)) return;
+    this.lockedAnswers.add(q.id);
+    this.updateInterimAbility(q);
+  }
+
+  // Owen Bayesian interim ability update for one answered question. Shared by
+  // the CAT lock path (lockCurrentAnswer) and tutor's reveal-time update
+  // (selectAnswer) — same idiom as materializeSlot for reaching optional globals.
+  updateInterimAbility(q) {
+    const code = q.sectionCode || this.testSections[0];
+    const IRT = (typeof MissionASVABIRT !== 'undefined') ? MissionASVABIRT
+      : (typeof window !== 'undefined' ? window.MissionASVABIRT : null);
+    const P = (typeof MissionASVABIRTParams !== 'undefined') ? MissionASVABIRTParams
+      : (typeof window !== 'undefined' ? window.MissionASVABIRTParams : null);
+    if (!IRT || !P || !this.abilityState[code]) return;
+    const item = P.getItemParams(code, q.difficulty || 3, q.originalId || q.id);
+    this.abilityState[code] = IRT.owenUpdate(this.abilityState[code], item, this.answers[q.id] === q.correct);
+  }
+
   // Derive contiguous per-section slot ranges from the generated questions.
   buildSectionRanges() {
     const ranges = [];
@@ -246,6 +278,11 @@ class QuizEngine {
   // final section, submit. Unused time on an early advance is removed from the
   // total budget so timeUsed reflects real elapsed time.
   advanceSection(reason) {
+    // A section can also end via time-out with a selected-but-not-yet-locked
+    // answer on the current slot (the user never clicked Next) — lock it now
+    // so it isn't lost from ability estimation. No-op if already locked/empty.
+    this.lockCurrentAnswer();
+
     clearInterval(this.timerInterval);
     this.timerInterval = null;
     this.completedSections.add(this.activeSectionIndex);
@@ -382,6 +419,8 @@ class QuizEngine {
       // Tutor reveal/lock state must survive a refresh or resume, or previously
       // answered questions would lose their feedback and become re-answerable.
       this.tutorRevealed = new Set(state.tutorRevealed || []);
+      // CAT answer locks must survive a refresh too, for the same reason.
+      this.lockedAnswers = new Set(state.lockedAnswers || []);
 
       // SP2 section state.
       this.buildSectionRanges();
@@ -421,6 +460,7 @@ class QuizEngine {
       abilityState: this.abilityState,
       usedQuestionIds: Array.from(this.usedQuestionIds),
       tutorRevealed: Array.from(this.tutorRevealed),
+      lockedAnswers: Array.from(this.lockedAnswers),
       activeSectionIndex: this.activeSectionIndex,
       sectionTimeRemaining: this.sectionTimeRemaining,
       completedSections: Array.from(this.completedSections),
@@ -625,12 +665,14 @@ class QuizEngine {
     // Update nav buttons. In sectioned (timed) mode Prev cannot cross into a
     // completed section, so hide it at the section floor — not just at slot 0 —
     // to avoid a visible-but-inert button on the first question of each section.
+    // CAT modes hide it everywhere: navigation is forward-only, same as the
+    // real CAT-ASVAB (no reviewing or changing a locked answer).
     const prevBtn = document.getElementById('prevBtn');
     if (prevBtn) {
       const atFloor = this.isSectioned()
         ? this.currentQuestion === this.getActiveRange().start
         : this.currentQuestion === 0;
-      prevBtn.style.visibility = atFloor ? 'hidden' : 'visible';
+      prevBtn.style.visibility = (atFloor || this.isCatMode()) ? 'hidden' : 'visible';
     }
 
     const nextBtn = document.getElementById('nextBtn');
@@ -688,31 +730,24 @@ class QuizEngine {
       const cur = this.quizData.questions[this.currentQuestion];
       if (cur && this.tutorRevealed.has(cur.id)) return;
     }
+    // CAT modes: once locked (the user has advanced past this question), the
+    // answer is final — mirrors real CAT-ASVAB behavior. Non-CAT sectioned
+    // navigation (diagnostic) still allows changing an answer freely.
+    if (this.isCatMode() && this.lockedAnswers.has(this.quizData.questions[this.currentQuestion].id)) return;
+
     const question = this.quizData.questions[this.currentQuestion];
-    const previousAnswer = this.answers[question.id];
     this.answers[question.id] = index;
-
-    // Adaptive: update the interim Bayesian ability estimate (Owen) so the
-    // next unreached slot in this section is materialized at max information.
-    // NOTE: this still fires on select, not on answer-lock — Task 6 moves it.
-    if (this.adaptiveMode && previousAnswer === undefined) {
-      const isCorrect = index === question.correct;
-      const sectionCode = question.sectionCode || this.testSections[0];
-      const IRT = (typeof MissionASVABIRT !== 'undefined') ? MissionASVABIRT
-        : (typeof window !== 'undefined' ? window.MissionASVABIRT : null);
-      const P = (typeof MissionASVABIRTParams !== 'undefined') ? MissionASVABIRTParams
-        : (typeof window !== 'undefined' ? window.MissionASVABIRTParams : null);
-
-      if (IRT && P && this.abilityState[sectionCode] !== undefined) {
-        const item = P.getItemParams(sectionCode, question.difficulty || 3, question.originalId || question.id);
-        this.abilityState[sectionCode] = IRT.owenUpdate(this.abilityState[sectionCode], item, isCorrect);
-      }
-    }
 
     // Mark revealed BEFORE persisting so a refresh right after answering keeps
     // the reveal/lock for this question (saveState serializes tutorRevealed).
+    // Tutor mode also updates the interim Bayesian ability estimate right here
+    // (instant feedback IS this mode's lock moment, and re-answering after
+    // reveal is already blocked above, so this naturally only fires once).
+    // CAT modes instead update at answer-lock time — see lockCurrentAnswer(),
+    // called from nextQuestion()/advanceSection()/submitQuiz().
     if (this.mode === 'tutor') {
       this.tutorRevealed.add(question.id);
+      this.updateInterimAbility(question);
     }
     this.hideAnswerRequired();
     this.saveState();
@@ -745,6 +780,10 @@ class QuizEngine {
       return;
     }
 
+    // CAT modes: navigation is forward-only — a locked answer can't be
+    // revisited via the question navigator either.
+    if (this.isCatMode() && index < this.currentQuestion) return;
+
     this.currentQuestion = index;
     this.saveState();
     this.renderQuestion();
@@ -756,6 +795,10 @@ class QuizEngine {
       this.showAnswerRequired();
       return;
     }
+
+    // Lock the just-answered question before moving on — Owen's interim
+    // ability updates here in CAT modes (see lockCurrentAnswer()).
+    if (this.isCatMode()) this.lockCurrentAnswer();
 
     if (this.isSectioned()) {
       const range = this.getActiveRange();
@@ -814,7 +857,7 @@ class QuizEngine {
 
     let message = 'Are you sure you want to submit your test?';
     if (unanswered > 0) {
-      message += `\n\n⚠️ ${unanswered} question${unanswered > 1 ? 's' : ''} will be marked wrong because ${unanswered > 1 ? 'they weren\'t' : 'it wasn\'t'} answered.`;
+      message += `\n\n⚠️ ${unanswered} question${unanswered > 1 ? 's' : ''} ${unanswered > 1 ? "weren't" : "wasn't"} answered — your score will be adjusted as if ${unanswered > 1 ? 'they were' : 'it was'} a random guess.`;
     }
     if (flaggedCount > 0 && !this.isSectioned()) {
       message += `\n\n🚩 You have ${flaggedCount} flagged question${flaggedCount > 1 ? 's' : ''} for review — cancel to go back to them.`;
@@ -837,11 +880,16 @@ class QuizEngine {
     const submitBtn = document.getElementById('nextBtn');
     if (submitBtn) submitBtn.disabled = true;
 
+    // Lock whatever the user was looking at when they hit submit — if they
+    // selected an answer but never clicked Next, it must still count.
+    this.lockCurrentAnswer();
+
     clearInterval(this.timerInterval);
 
     // Materialize any slots the user never reached so scoring and the review
-    // page have complete question content. Unanswered slots stay unanswered
-    // (treated as wrong, same as before).
+    // page have complete question content. Unreached slots stay unanswered —
+    // excluded from ability estimation and covered by the incomplete-test
+    // penalty table instead (see js/penalty-table.js, js/scoring.js).
     for (let i = 0; i < this.quizData.questions.length; i++) {
       if (this.quizData.questions[i].text === undefined) {
         this.materializeSlot(i);
@@ -855,6 +903,7 @@ class QuizEngine {
     this.quizData.questions.forEach(q => {
       // Skip slots that couldn't be materialized (pool exhausted) — extremely rare.
       if (q.text === undefined) return;
+      const answered = this.answers[q.id] !== undefined;
       const userAnswer = this.answers[q.id];
       const isCorrect = userAnswer === q.correct;
       if (isCorrect) totalCorrect++;
@@ -865,12 +914,14 @@ class QuizEngine {
           name: q.sectionName || this.quizData.section,
           correct: 0,
           total: 0,
+          unanswered: 0,
           questions: []
         };
       }
 
       sectionResults[sectionCode].total++;
       if (isCorrect) sectionResults[sectionCode].correct++;
+      if (!answered) sectionResults[sectionCode].unanswered++;
 
       sectionResults[sectionCode].questions.push({
         id: q.id,
@@ -879,7 +930,9 @@ class QuizEngine {
         options: q.options,
         userAnswer: userAnswer,
         correctAnswer: q.correct,
-        isCorrect: isCorrect
+        isCorrect: isCorrect,
+        difficulty: q.difficulty || 3,
+        answered: answered
       });
     });
 
@@ -887,12 +940,30 @@ class QuizEngine {
     const totalTime = this.quizData.timeLimit - this.timeRemaining;
     const score = Math.round((totalCorrect / totalQuestions) * 100);
 
-    // AFQT is only valid with all four AFQT sections. Tutor sessions never score.
-    const AFQT = (MissionASVABConfig.AFQT_SECTIONS) || ['AR', 'WK', 'PC', 'MK'];
-    const includesAllAFQT = AFQT.every((s) => this.testSections.includes(s));
-    const afqtEstimate = (this.mode === 'tutor' || this.testKind === 'diagnostic' || !includesAllAFQT)
-      ? null
-      : MissionASVABScoring.calculateAFQTEstimate(sectionResults);
+    // Full IRT scoring: percentile + confidence band + per-section theta/sem/ss.
+    // getScoreDetails itself gates on all four AFQT sections being present and
+    // scoreable — same "AFQT is only valid with all four AFQT sections" rule as
+    // before. Tutor sessions and diagnostics never score (preserved exactly).
+    const details = (this.mode !== 'tutor' && this.testKind !== 'diagnostic' &&
+      typeof MissionASVABScoring !== 'undefined' && MissionASVABScoring.getScoreDetails)
+      ? MissionASVABScoring.getScoreDetails(sectionResults)
+      : null;
+
+    // Surface each scored section's theta/sem/ss onto its sectionResults entry
+    // (4 AFQT codes for an AFQT practice test, or all 8 for a full test —
+    // details.sections already reflects whichever set was scoreable).
+    if (details) {
+      Object.keys(details.sections).forEach((code) => {
+        if (!sectionResults[code]) return;
+        const s = details.sections[code];
+        sectionResults[code].theta = Math.round(s.theta * 100) / 100;
+        sectionResults[code].sem = Math.round(s.sem * 100) / 100;
+        sectionResults[code].ss = Math.round(s.ss);
+      });
+    }
+
+    const afqtEstimate = details ? details.percentile : null;
+    const afqtBand = details ? details.band : null;
 
     // Store results
     const completedAt = new Date().toISOString();
@@ -911,6 +982,8 @@ class QuizEngine {
       incorrect: totalQuestions - totalCorrect,
       score: score,
       afqt: afqtEstimate,
+      afqtBand: afqtBand,
+      scoringVersion: 'irt-v2',
       timeUsed: totalTime,
       timeLimit: this.quizData.timeLimit,
       completedAt: completedAt
@@ -955,14 +1028,25 @@ class QuizEngine {
       ? null
       : MissionASVABScoring.calculateLineScores(quizResults.sectionResults);
     const strippedSections = {};
-    // Compact per-question results: id + section + correct only (NO text/options),
-    // so the mistake history stays small. Powers weak-area aggregation (see js/weak-areas.js).
+    // Compact per-question results: id + section + correct + difficulty only
+    // (NO text/options), so the mistake history stays small. Powers weak-area
+    // aggregation (see js/weak-areas.js) and (with difficulty) future re-scoring.
     const questionResults = [];
     if (quizResults.sectionResults) {
       for (const [code, data] of Object.entries(quizResults.sectionResults)) {
         strippedSections[code] = { correct: data.correct, total: data.total };
+        // theta/sem/ss are only present for sections the IRT pipeline actually
+        // scored (see submitQuiz) — omit them entirely rather than write nulls.
+        if (typeof data.theta === 'number') strippedSections[code].theta = data.theta;
+        if (typeof data.sem === 'number') strippedSections[code].sem = data.sem;
+        if (typeof data.ss === 'number') strippedSections[code].ss = data.ss;
         (data.questions || []).forEach(q => {
-          questionResults.push({ id: q.originalId || q.id, section: code, correct: !!q.isCorrect });
+          questionResults.push({
+            id: q.originalId || q.id,
+            section: code,
+            correct: !!q.isCorrect,
+            difficulty: q.difficulty || 3
+          });
         });
       }
     }
@@ -975,6 +1059,7 @@ class QuizEngine {
       section_scores: strippedSections,
       line_scores: lineScores,
       question_results: questionResults,
+      scoring_version: 'irt-v2',
       taken_at: quizResults.completedAt
     };
 

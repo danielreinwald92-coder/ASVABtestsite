@@ -99,7 +99,10 @@ test('tutor submit stores mode=tutor with a null AFQT', () => {
     localStorage: { setItem: (k, v) => { stored[k] = v; }, removeItem() {} },
     sessionStorage: { removeItem() {}, setItem() {} },
     MissionASVABConfig: { getTestTypeFromSections: () => 'custom' },
-    MissionASVABScoring: { calculateAFQTEstimate: () => 62, calculateLineScores: () => ({}) },
+    // Tutor sessions never reach getScoreDetails (gated on this.mode !== 'tutor'
+    // before it's even called) — this stub exists only so nothing throws if the
+    // gate is ever accidentally removed.
+    MissionASVABScoring: { getScoreDetails: () => ({ percentile: 62, band: { low: 55, high: 68 }, sections: {} }), calculateLineScores: () => ({}) },
   });
   const engine = new sandbox.QuizEngine();
   engine.mode = 'tutor';
@@ -128,7 +131,13 @@ test('timed submit still computes an AFQT', () => {
     localStorage: { setItem: (k, v) => { stored[k] = v; }, removeItem() {} },
     sessionStorage: { removeItem() {}, setItem() {} },
     MissionASVABConfig: { getTestTypeFromSections: () => 'afqt' },
-    MissionASVABScoring: { calculateAFQTEstimate: () => 62, calculateLineScores: () => ({}) },
+    MissionASVABScoring: {
+      getScoreDetails: () => ({
+        percentile: 62, band: { low: 55, high: 68 },
+        sections: { AR: { theta: 0, sem: 1, ss: 50 } }, ve: { theta: null, ss: 50 }, afqts: 100
+      }),
+      calculateLineScores: () => ({}),
+    },
   });
   const engine = new sandbox.QuizEngine();
   engine.mode = 'timed';

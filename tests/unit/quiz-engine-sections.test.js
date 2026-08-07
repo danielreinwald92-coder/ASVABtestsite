@@ -200,7 +200,10 @@ test('goToQuestion ignores targets outside the active section', () => {
   assert.strictEqual(engine.currentQuestion, 2, 'no cross-section jump');
 });
 
-test('Prev button hides at a section floor, shows mid-section (timed)', () => {
+// Task 6: sectionedEngine() defaults to a CAT-mode test (timed, testKind
+// 'custom' i.e. not diagnostic) — the Prev button is hidden everywhere in
+// CAT mode, since navigation is forward-only (no reviewing a locked answer).
+test('Prev button is hidden everywhere in CAT mode, even mid-section (forward-only navigation)', () => {
   const { sandbox, engine } = sectionedEngine();
   engine.buildSectionRanges();
   // Materialize slot content so renderQuestion has options to map.
@@ -217,6 +220,8 @@ test('Prev button hides at a section floor, shows mid-section (timed)', () => {
   engine.updateSectionHeader = () => {};
   engine.updateNavigator = () => {};
 
+  assert.strictEqual(engine.isCatMode(), true, 'sectionedEngine() defaults to a CAT-mode test');
+
   engine.activeSectionIndex = 1;   // WK range [2,4)
   engine.currentQuestion = 2;      // section floor
   engine.renderQuestion();
@@ -224,5 +229,36 @@ test('Prev button hides at a section floor, shows mid-section (timed)', () => {
 
   engine.currentQuestion = 3;      // past the floor
   engine.renderQuestion();
-  assert.strictEqual(prevBtn.style.visibility, 'visible', 'visible mid-section');
+  assert.strictEqual(prevBtn.style.visibility, 'hidden', 'still hidden mid-section — CAT mode is forward-only');
+});
+
+// The diagnostic (sectioned, but NOT CAT — isCatMode() is false) keeps the
+// pre-Task-6 floor/mid-section Prev behavior, since diagnostic navigation is
+// explicitly untouched by CAT locking.
+test('Prev button hides at a section floor, shows mid-section, for a non-CAT sectioned test (diagnostic)', () => {
+  const { sandbox, engine } = sectionedEngine();
+  engine.testKind = 'diagnostic';
+  engine.buildSectionRanges();
+  engine.quizData.questions.forEach((q) => { q.text = 'q'; q.options = ['a', 'b', 'c', 'd']; q.correct = 0; });
+
+  const prevBtn = { style: { visibility: '' }, classList: { add() {}, remove() {} } };
+  const mk = () => ({ textContent: '', innerHTML: '', style: {}, setAttribute() {}, classList: { add() {}, remove() {} } });
+  Object.assign(sandbox.document._els, {
+    questionNumber: mk(), questionText: mk(), progressFill: mk(), progressCount: mk(),
+    answersContainer: mk(), flagBtn: mk(), prevBtn, nextBtn: mk(),
+  });
+  engine.materializeSlot = () => {};
+  engine.updateSectionHeader = () => {};
+  engine.updateNavigator = () => {};
+
+  assert.strictEqual(engine.isCatMode(), false, 'diagnostic is sectioned but not CAT');
+
+  engine.activeSectionIndex = 1;   // WK range [2,4)
+  engine.currentQuestion = 2;      // section floor
+  engine.renderQuestion();
+  assert.strictEqual(prevBtn.style.visibility, 'hidden', 'hidden at section floor');
+
+  engine.currentQuestion = 3;      // past the floor
+  engine.renderQuestion();
+  assert.strictEqual(prevBtn.style.visibility, 'visible', 'visible mid-section for a non-CAT sectioned test');
 });

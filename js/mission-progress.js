@@ -170,11 +170,18 @@
     const questionResults = [];
     for (const [code, section] of Object.entries(results.sectionResults || {})) {
       sections[code] = { correct: section.correct || 0, total: section.total || 0 };
+      // theta/sem/ss are only present for sections the IRT pipeline actually
+      // scored at submit time (see js/quiz-engine.js submitQuiz) — omit them
+      // entirely (rather than write nulls) for un-scored/legacy results.
+      if (typeof section.theta === 'number') sections[code].theta = section.theta;
+      if (typeof section.sem === 'number') sections[code].sem = section.sem;
+      if (typeof section.ss === 'number') sections[code].ss = section.ss;
       (section.questions || []).forEach((q) => {
         questionResults.push({
           id: q.originalId || q.id,
           section: code,
-          correct: !!q.isCorrect
+          correct: !!q.isCorrect,
+          difficulty: q.difficulty || 3
         });
       });
     }
@@ -193,6 +200,10 @@
       section_scores: sections,
       line_scores: lineScores,
       question_results: questionResults,
+      // A local guest result saved before this field existed has no
+      // scoringVersion — leave it null rather than mislabeling a v1-scored
+      // result as v2.
+      scoring_version: results.scoringVersion || null,
       taken_at: results.completedAt || new Date().toISOString()
     };
   }

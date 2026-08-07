@@ -179,7 +179,11 @@ test('materializeSlot uses selectMaxInfoQuestion with the current theta mean for
   assert.strictEqual(engine.quizData.questions[0].difficulty, 3);
 });
 
-test('selectAnswer wires owenUpdate with the exact item-param mapping (real IRT + real AR pool), first-answer-only', () => {
+// Task 6: in CAT mode the Owen update moves from select-time to lock-time
+// (lockCurrentAnswer, called from nextQuestion()/advanceSection()/submitQuiz()).
+// Re-answering before lock is still free; the lockedAnswers set is what makes
+// the ability update itself first-(and-only)-time.
+test('lockCurrentAnswer wires owenUpdate with the exact item-param mapping (real IRT + real AR pool), lock-once', () => {
   // Real IRT globals + real QuizManager (from loadCore), so the selected item
   // and its params are exactly what a live quiz would materialize — this is
   // an argument-mapping regression test, not just a "state changed" check.
@@ -197,6 +201,7 @@ test('selectAnswer wires owenUpdate with the exact item-param mapping (real IRT 
   });
   const engine = new sandbox.QuizEngine();
   engine.mode = 'timed';
+  engine.testKind = 'quick'; // CAT mode: isCatMode() === true
   engine.testSections = ['AR'];
   engine.quizData = { questions: [{ id: 1, sectionCode: 'AR', sectionName: 'AR' }] };
   engine.questionPools = { AR: QuizManager.getAdaptiveQuestionPool('AR') };
@@ -211,25 +216,37 @@ test('selectAnswer wires owenUpdate with the exact item-param mapping (real IRT 
   const question = engine.quizData.questions[0];
   assert.ok(question.originalId, 'slot materialized with a real bank id');
 
-  const isCorrect = 0 === question.correct;
+  engine.selectAnswer(0);
+  assert.deepStrictEqual(
+    plain(engine.abilityState.AR), { mean: 0, variance: 1 },
+    'selectAnswer alone must not update the interim ability in CAT mode'
+  );
+
+  // Re-answering before the lock is still free.
+  const secondIndex = question.correct === 0 ? 1 : 0;
+  engine.selectAnswer(secondIndex);
+  assert.strictEqual(engine.answers[question.id], secondIndex, 'unlocked answer stays changeable');
+
+  const isCorrect = secondIndex === question.correct;
   const expectedItem = P.getItemParams('AR', question.difficulty || 3, question.originalId || question.id);
   const expected = IRT.owenUpdate({ mean: 0, variance: 1 }, expectedItem, isCorrect);
 
-  engine.selectAnswer(0);
-
+  engine.lockCurrentAnswer();
   assert.deepStrictEqual(
     plain(engine.abilityState.AR),
     plain(expected),
-    'abilityState.AR after selectAnswer must equal a direct owenUpdate call built from the same item/correctness mapping'
+    'abilityState.AR after lockCurrentAnswer must equal a direct owenUpdate call built from the same item/correctness mapping'
   );
+  assert.ok(engine.lockedAnswers.has(question.id), 'question is locked');
 
-  // First-answer-only guard: re-answering the same question must not run
-  // owenUpdate a second time, even though the recorded answer itself changes.
-  const afterFirst = plain(engine.abilityState.AR);
-  const secondIndex = question.correct === 0 ? 1 : 0;
-  engine.selectAnswer(secondIndex);
-  assert.deepStrictEqual(plain(engine.abilityState.AR), afterFirst, 'abilityState unchanged on re-answer');
-  assert.strictEqual(engine.answers[question.id], secondIndex, 'recorded answer itself still updates on re-answer');
+  // Locking again (or trying to re-answer) must not run owenUpdate a second time.
+  const afterLock = plain(engine.abilityState.AR);
+  engine.lockCurrentAnswer();
+  assert.deepStrictEqual(plain(engine.abilityState.AR), afterLock, 'idempotent re-lock');
+
+  engine.selectAnswer(question.correct === 0 ? 1 : 0);
+  assert.strictEqual(engine.answers[question.id], secondIndex, 'locked answer cannot be changed');
+  assert.deepStrictEqual(plain(engine.abilityState.AR), afterLock, 'abilityState unchanged after a blocked re-answer attempt');
 });
 
 test('resuming a pre-deploy saved test (no abilityState) initializes {mean:0, variance:1} per section', () => {

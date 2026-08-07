@@ -2,6 +2,17 @@ const { test } = require('node:test');
 const assert = require('node:assert');
 const { loadEngine, fakeDoc } = require('../helpers/engine.js');
 
+// Task 6: submitQuiz calls getScoreDetails (not calculateAFQTEstimate) and
+// itself does not gate on section completeness — the gate now lives inside
+// getScoreDetails, mirrored here (null unless all 4 AFQT sections are present).
+const AFQT_CODES = ['AR', 'WK', 'PC', 'MK'];
+function fakeGetScoreDetails(sectionResults) {
+  if (!AFQT_CODES.every((c) => sectionResults[c])) return null;
+  const sections = {};
+  Object.keys(sectionResults).forEach((code) => { sections[code] = { theta: 0, sem: 1, ss: 50 }; });
+  return { sections, ve: { theta: null, ss: 50 }, afqts: 100, percentile: 55, band: { low: 50, high: 60 } };
+}
+
 function engineFor(sections) {
   const stored = {};
   const sandbox = loadEngine({
@@ -10,7 +21,7 @@ function engineFor(sections) {
     localStorage: { setItem: (k, v) => { stored[k] = v; }, removeItem() {} },
     sessionStorage: { removeItem() {}, setItem() {} },
     MissionASVABConfig: { AFQT_SECTIONS: ['AR', 'WK', 'PC', 'MK'], getTestTypeFromSections: () => 'custom' },
-    MissionASVABScoring: { calculateAFQTEstimate: () => 55, calculateLineScores: () => null },
+    MissionASVABScoring: { getScoreDetails: fakeGetScoreDetails, calculateLineScores: () => null },
   });
   const engine = new sandbox.QuizEngine();
   engine.mode = 'timed';
