@@ -650,15 +650,23 @@ class QuizEngine {
       }
     }
 
-    // Update flag button
+    // Update flag button. Hidden entirely in CAT mode: navigation is
+    // forward-only there, so a flagged question can never be revisited — the
+    // affordance would be dead. Stays visible in tutor/diagnostic, where
+    // flag-and-come-back is still meaningful.
     const flagBtn = document.getElementById('flagBtn');
     if (flagBtn) {
-      if (this.flagged.has(question.id)) {
-        flagBtn.classList.add('flagged');
-        flagBtn.innerHTML = '<span>🚩</span> Flagged';
+      if (this.isCatMode()) {
+        flagBtn.style.display = 'none';
       } else {
-        flagBtn.classList.remove('flagged');
-        flagBtn.innerHTML = '<span>🚩</span> Flag for Review';
+        flagBtn.style.display = '';
+        if (this.flagged.has(question.id)) {
+          flagBtn.classList.add('flagged');
+          flagBtn.innerHTML = '<span>🚩</span> Flagged';
+        } else {
+          flagBtn.classList.remove('flagged');
+          flagBtn.innerHTML = '<span>🚩</span> Flag for Review';
+        }
       }
     }
 
@@ -714,7 +722,14 @@ class QuizEngine {
       const num = idx - range.start + 1;
       const state = this.answers[q.id] !== undefined ? ', answered' : ', unanswered';
       const current = idx === this.currentQuestion ? ' aria-current="true"' : '';
-      html += `<div class="${classes.join(' ')}" data-index="${idx}" ${sectionAttr} role="button" tabindex="0" aria-label="Question ${num}${state}"${current}>${num}</div>`;
+      // CAT mode: a dot for an already-passed question is visually useful
+      // (progress at a glance) but functionally inert — goToQuestion() refuses
+      // to move backward — so it must not be a focusable/interactive target.
+      // Leaving role="button" tabindex="0" on it would be an a11y trap: a
+      // keyboard/AT user reaches a "button" that silently does nothing.
+      const inert = this.isCatMode() && idx < this.currentQuestion;
+      const interactiveAttrs = inert ? ' aria-disabled="true"' : ' role="button" tabindex="0"';
+      html += `<div class="${classes.join(' ')}" data-index="${idx}" ${sectionAttr}${interactiveAttrs} aria-label="Question ${num}${state}"${current}>${num}</div>`;
     }
     grid.innerHTML = html;
   }
@@ -843,6 +858,11 @@ class QuizEngine {
   }
 
   prevQuestion() {
+    // CAT modes: navigation is forward-only. The Prev button is hidden and
+    // goToQuestion() already refuses to move backward, but this method is also
+    // reachable directly via the ArrowLeft keyboard shortcut (bindEvents),
+    // which bypasses both — so it needs its own guard.
+    if (this.isCatMode()) return;
     const min = this.isSectioned() ? this.getActiveRange().start : 0;
     if (this.currentQuestion > min) {
       this.currentQuestion--;
@@ -944,10 +964,21 @@ class QuizEngine {
     // getScoreDetails itself gates on all four AFQT sections being present and
     // scoreable — same "AFQT is only valid with all four AFQT sections" rule as
     // before. Tutor sessions and diagnostics never score (preserved exactly).
-    const details = (this.mode !== 'tutor' && this.testKind !== 'diagnostic' &&
-      typeof MissionASVABScoring !== 'undefined' && MissionASVABScoring.getScoreDetails)
-      ? MissionASVABScoring.getScoreDetails(sectionResults)
-      : null;
+    let details = null;
+    if (this.mode !== 'tutor' && this.testKind !== 'diagnostic' &&
+      typeof MissionASVABScoring !== 'undefined' && MissionASVABScoring.getScoreDetails) {
+      try {
+        details = MissionASVABScoring.getScoreDetails(sectionResults);
+      } catch (e) {
+        // scoring.js deliberately throws on a missing/corrupt incomplete-test
+        // penalty entry rather than silently mis-scoring — but that must never
+        // cost the user their finished test. Log it, fall back to "AFQT
+        // unavailable" (same as the null-gate cases below), and keep going so
+        // the result still saves and the user still reaches the results page.
+        console.error('MissionASVABScoring.getScoreDetails threw during scoring:', e);
+        details = null;
+      }
+    }
 
     // Surface each scored section's theta/sem/ss onto its sectionResults entry
     // (4 AFQT codes for an AFQT practice test, or all 8 for a full test —

@@ -349,3 +349,212 @@ test('a section with 5 unreached slots reports unanswered:5, marks those records
   wk.questions.forEach((q) => assert.strictEqual(q.answered, false));
   assert.ok(Number.isFinite(results.afqt), `AFQT should compute via the penalty path, got ${results.afqt}`);
 });
+
+// --- 7. Coordinator fix-loop: prevQuestion() forward-only guard ----------
+// (Critical 1) prevQuestion() is reachable directly via the ArrowLeft keyboard
+// shortcut, bypassing both the hidden Prev button and goToQuestion()'s guard.
+// The regression must drive currentQuestion forward through the real
+// navigation API (nextQuestion), not by assigning engine.currentQuestion
+// directly — that's exactly how the original hole passed review unnoticed.
+
+test('prevQuestion() is a no-op in CAT mode after advancing via the real nextQuestion() API', () => {
+  const engine = twoSectionEngine();
+  engine.selectAnswer(0);
+  engine.nextQuestion(); // real navigation: locks q1, advances currentQuestion to 1
+  assert.strictEqual(engine.currentQuestion, 1);
+
+  engine.prevQuestion(); // simulates the ArrowLeft keyboard shortcut
+  assert.strictEqual(engine.currentQuestion, 1, 'prevQuestion must not move backward in CAT mode');
+});
+
+test('prevQuestion() still moves backward for a non-CAT sectioned test (diagnostic)', () => {
+  const sandbox = loadEngine({ document: fakeDoc(), sessionStorage: memSessionStorage() });
+  const engine = new sandbox.QuizEngine();
+  engine.mode = 'timed';
+  engine.testKind = 'diagnostic';
+  engine.testSections = ['AR'];
+  engine.quizData = {
+    section: 'Starting-Point Diagnostic', sectionCode: 'AR', timeLimit: 100,
+    questions: [
+      { id: 1, sectionCode: 'AR', sectionName: 'AR', originalId: 'AR1', text: 'q1', options: ['a', 'b', 'c', 'd'], correct: 0 },
+      { id: 2, sectionCode: 'AR', sectionName: 'AR', originalId: 'AR2', text: 'q2', options: ['a', 'b', 'c', 'd'], correct: 1 },
+    ],
+  };
+  engine.buildSectionRanges();
+  engine.activeSectionIndex = 0;
+  engine.answers = { 1: 0, 2: 1 };
+  engine.currentQuestion = 1;
+  engine.renderQuestion = () => {};
+
+  assert.strictEqual(engine.isCatMode(), false);
+  engine.prevQuestion();
+  assert.strictEqual(engine.currentQuestion, 0, 'diagnostic prevQuestion still works');
+});
+
+// --- 8. Coordinator fix-loop: a throwing getScoreDetails must not lose the result ---
+// (Important 2) getScoreDetails throws on a missing/corrupt penalty-table entry
+// by design (scoring.js). That must never abort submitQuiz before quizResults is
+// saved and the redirect fires — the user's finished test must not vanish.
+
+test('submitQuiz still saves quizResults and navigates to results.html even if getScoreDetails throws', async () => {
+  const stored = {};
+  const document = fakeDoc();
+  document._els.nextBtn = { disabled: false };
+  const win = { location: { href: '' } };
+  const sandbox = loadEngine({
+    document,
+    window: win,
+    localStorage: { setItem: (k, v) => { stored[k] = v; }, removeItem() {} },
+    sessionStorage: { setItem() {}, removeItem() {}, getItem: () => null },
+    MissionASVABConfig: { getTestTypeFromSections: () => 'afqt' },
+    MissionASVABScoring: {
+      getScoreDetails: () => { throw new Error('missing incomplete-test penalty for WK unanswered=5'); },
+      calculateLineScores: () => null,
+    },
+  });
+  const engine = new sandbox.QuizEngine();
+  engine.mode = 'timed';
+  engine.testKind = 'quick';
+  engine.testSections = ['AR', 'WK', 'PC', 'MK'];
+  engine.quizData = {
+    section: 'AFQT Practice Test', sectionCode: 'AR,WK,PC,MK', timeLimit: 100,
+    questions: [
+      { id: 1, sectionCode: 'AR', sectionName: 'AR', originalId: 'AR1', text: 'q1', options: ['a', 'b', 'c', 'd'], correct: 0, difficulty: 3 },
+      { id: 2, sectionCode: 'WK', sectionName: 'WK', originalId: 'WK1', text: 'q2', options: ['a', 'b', 'c', 'd'], correct: 0, difficulty: 3 },
+      { id: 3, sectionCode: 'PC', sectionName: 'PC', originalId: 'PC1', text: 'q3', options: ['a', 'b', 'c', 'd'], correct: 0, difficulty: 3 },
+      { id: 4, sectionCode: 'MK', sectionName: 'MK', originalId: 'MK1', text: 'q4', options: ['a', 'b', 'c', 'd'], correct: 0, difficulty: 3 },
+    ],
+  };
+  engine.answers = { 1: 0, 2: 0, 3: 0, 4: 0 };
+  engine.timeRemaining = 50;
+  engine.materializeSlot = () => {};
+  engine.saveResultsToSupabase = async () => ({ skipped: true });
+
+  await assert.doesNotReject(() => engine.submitQuiz());
+
+  assert.ok(stored.quizResults, 'quizResults was still persisted despite the throw');
+  const results = JSON.parse(stored.quizResults);
+  assert.strictEqual(results.afqt, null, 'AFQT falls back to unavailable rather than losing the result');
+  assert.strictEqual(results.correct, 4, 'the rest of the result is intact');
+  assert.strictEqual(win.location.href, 'results.html', 'still navigates to results');
+});
+
+// --- 9. Coordinator fix-loop: flag button is a dead affordance in CAT mode ---
+// (Important 3) A flagged question can never be revisited in CAT mode
+// (forward-only navigation), so the flag button must be hidden there — but
+// stay visible in tutor/diagnostic, where flag-and-come-back is meaningful.
+
+function fullRenderDom() {
+  const doc = fakeDoc();
+  const mk = () => ({ textContent: '', innerHTML: '', style: {}, setAttribute() {}, classList: { add() {}, remove() {} } });
+  Object.assign(doc._els, {
+    questionNumber: mk(), questionText: mk(), progressFill: mk(), progressCount: mk(),
+    answersContainer: mk(), prevBtn: mk(), nextBtn: mk(), flagBtn: mk(),
+  });
+  return doc;
+}
+
+function renderableSingleQuestionEngine(doc) {
+  const sandbox = loadEngine({ document: doc, sessionStorage: memSessionStorage() });
+  const engine = new sandbox.QuizEngine();
+  engine.mode = 'timed';
+  engine.testKind = 'quick';
+  engine.testSections = ['AR'];
+  engine.quizData = {
+    section: 'AFQT Practice Test', sectionCode: 'AR', timeLimit: 100,
+    questions: [
+      { id: 1, sectionCode: 'AR', sectionName: 'AR', originalId: 'AR1', text: 'q1', options: ['a', 'b', 'c', 'd'], correct: 0, difficulty: 3 },
+    ],
+  };
+  engine.buildSectionRanges();
+  engine.activeSectionIndex = 0;
+  engine.currentQuestion = 0;
+  engine.answers = {};
+  engine.materializeSlot = () => {};
+  engine.updateSectionHeader = () => {};
+  engine.updateNavigator = () => {};
+  return engine;
+}
+
+test('flag button is hidden in CAT mode, visible in diagnostic and tutor', () => {
+  const doc = fullRenderDom();
+  const engine = renderableSingleQuestionEngine(doc);
+
+  assert.strictEqual(engine.isCatMode(), true);
+  engine.renderQuestion();
+  assert.strictEqual(doc._els.flagBtn.style.display, 'none', 'hidden in CAT mode');
+
+  engine.testKind = 'diagnostic';
+  engine.renderQuestion();
+  assert.notStrictEqual(doc._els.flagBtn.style.display, 'none', 'visible in diagnostic');
+
+  engine.testKind = 'quick';
+  engine.mode = 'tutor';
+  engine.renderQuestion();
+  assert.notStrictEqual(doc._els.flagBtn.style.display, 'none', 'visible in tutor');
+});
+
+// --- 10. Coordinator fix-loop: inert backward nav dots are an a11y trap ---
+// (Important 4) In CAT mode goToQuestion() refuses to move backward, so a
+// nav dot for an already-passed question must not present as an interactive
+// control (role="button" tabindex="0") that silently does nothing on activation.
+
+function catEngineTwoAR() {
+  const doc = fakeDoc();
+  doc._els.navigatorGrid = { innerHTML: '' };
+  const sandbox = loadEngine({ document: doc, sessionStorage: memSessionStorage() });
+  const engine = new sandbox.QuizEngine();
+  engine.mode = 'timed';
+  engine.testKind = 'quick';
+  engine.testSections = ['AR'];
+  engine.quizData = {
+    section: 'x', sectionCode: 'AR', timeLimit: 100,
+    questions: [
+      { id: 1, sectionCode: 'AR', sectionName: 'AR', originalId: 'AR1', text: 'q1', options: ['a', 'b', 'c', 'd'], correct: 0, difficulty: 3 },
+      { id: 2, sectionCode: 'AR', sectionName: 'AR', originalId: 'AR2', text: 'q2', options: ['a', 'b', 'c', 'd'], correct: 1, difficulty: 3 },
+    ],
+  };
+  engine.buildSectionRanges();
+  engine.activeSectionIndex = 0;
+  engine.answers = {};
+  engine.flagged = new Set();
+  return { engine, doc };
+}
+
+function dotFor(html, idx) {
+  const m = html.match(new RegExp(`<div class="[^"]*" data-index="${idx}"[^>]*>`));
+  assert.ok(m, `dot for index ${idx} found`);
+  return m[0];
+}
+
+test('CAT mode navigator: already-passed dots drop role/tabindex and gain aria-disabled; the current dot stays interactive', () => {
+  const { engine, doc } = catEngineTwoAR();
+  engine.answers = { 1: 0 };
+  engine.currentQuestion = 1; // simulates having locked/advanced past question 1
+  engine.renderNavigator();
+  const html = doc._els.navigatorGrid.innerHTML;
+
+  const dot0 = dotFor(html, 0); // already passed — inert
+  assert.ok(!dot0.includes('role="button"'), 'passed dot has no role=button');
+  assert.ok(!dot0.includes('tabindex="0"'), 'passed dot has no tabindex');
+  assert.ok(dot0.includes('aria-disabled="true"'), 'passed dot is marked aria-disabled');
+
+  const dot1 = dotFor(html, 1); // current — still interactive
+  assert.ok(dot1.includes('role="button"'), 'current dot is still interactive');
+  assert.ok(dot1.includes('tabindex="0"'), 'current dot is still interactive');
+  assert.ok(!dot1.includes('aria-disabled'), 'current dot is not disabled');
+});
+
+test('non-CAT (diagnostic) navigator: dots stay fully interactive everywhere', () => {
+  const { engine, doc } = catEngineTwoAR();
+  engine.testKind = 'diagnostic';
+  engine.answers = { 1: 0 };
+  engine.currentQuestion = 1;
+  assert.strictEqual(engine.isCatMode(), false);
+  engine.renderNavigator();
+  const html = doc._els.navigatorGrid.innerHTML;
+
+  const dot0 = dotFor(html, 0);
+  assert.ok(dot0.includes('role="button"') && dot0.includes('tabindex="0"'), 'diagnostic dots remain fully interactive');
+  assert.ok(!dot0.includes('aria-disabled'), 'diagnostic dots are never disabled');
+});
