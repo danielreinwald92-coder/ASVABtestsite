@@ -849,7 +849,7 @@
         updateFlashcardModeUI();
       } else {
         updateFlashcardModeUI();
-        showFlashcardsComplete('Review complete — nice work. Come back tomorrow for the next batch.');
+        showFlashcardsComplete('Review complete, nice work. Come back tomorrow for the next batch.');
       }
     }
 

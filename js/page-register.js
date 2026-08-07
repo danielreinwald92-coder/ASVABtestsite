@@ -34,7 +34,7 @@
 
     const ageNum = parseInt(ageVal, 10);
     if (isNaN(ageNum) || ageNum < 14 || ageNum > 42) {
-      return failWith('Please enter a valid age (14–42).');
+      return failWith('Please enter a valid age (14-42).');
     }
     if (!education) {
       return failWith('Please select your education level.');
@@ -79,13 +79,13 @@
     btn.textContent = 'Account Created ✓';
     if (data.session) {
       successMsg.textContent = profileSaveFailed
-        ? 'Account created, but saving your details failed — you can update them in your dashboard. Loading…'
+        ? 'Account created, but saving your details failed. You can update them in your dashboard. Loading…'
         : 'Account created! Loading your dashboard...';
       successMsg.style.display = 'block';
       setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
     } else {
       successMsg.textContent = profileSaveFailed
-        ? 'Account created, but saving your details failed — you can update them after you log in. Check your email to confirm, then log in.'
+        ? 'Account created, but saving your details failed. You can update them after you log in. Check your email to confirm, then log in.'
         : 'Account created! Check your email to confirm, then log in.';
       successMsg.style.display = 'block';
       setTimeout(() => { window.location.href = 'login.html'; }, 2500);

@@ -119,7 +119,7 @@ function deriveTestType(orderedSections) {
     const nameValid = nameInput.value.trim().length >= 2;
     summary.textContent = ordered.length
       ? `Selected: ${ordered.length} section${ordered.length > 1 ? 's' : ''} · ${q}q · ${timeStr}` +
-        (nameValid ? '' : ' — enter your name above to start')
+        (nameValid ? '' : ' · enter your name above to start')
       : 'Select at least one section to begin.';
     startBtn.disabled = !nameValid || ordered.length === 0;
     const presetConfig = activePreset && typeof MissionASVABConfig.getTestConfig === 'function'

@@ -54,7 +54,7 @@
     }
     return {
       phase: 'sprint',
-      headline: d < 0 ? 'Your test date has passed — update it in Account' : 'Final sprint',
+      headline: d < 0 ? 'Your test date has passed, update it in Account' : 'Final sprint',
       items: [
         'Take full timed practice tests to build stamina',
         'Do a light review of ' + weakPhrase,

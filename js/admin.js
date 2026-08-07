@@ -141,7 +141,7 @@ function renderStats() {
   document.getElementById('statAvgAfqt').textContent =
     afqtScores.length > 0
       ? Math.round(afqtScores.reduce((a, b) => a + b, 0) / afqtScores.length)
-      : '—';
+      : 'N/A';
 }
 
 function applyFilters() {
@@ -210,15 +210,15 @@ function renderTable() {
 
   tbody.innerHTML = sorted.map(u => `
     <tr data-id="${escHtml(u.id)}" class="user-row" style="cursor:pointer;">
-      <td>${escHtml(u.name || '—')}${u.is_admin ? '<span class="admin-badge-mini">Admin</span>' : ''}</td>
+      <td>${escHtml(u.name || 'N/A')}${u.is_admin ? '<span class="admin-badge-mini">Admin</span>' : ''}</td>
       <td>${escHtml(u.email)}</td>
-      <td>${escHtml(String(u.age || '—'))}</td>
-      <td>${escHtml(u.education || '—')}</td>
-      <td>${escHtml(u.zipcode || '—')}</td>
+      <td>${escHtml(String(u.age || 'N/A'))}</td>
+      <td>${escHtml(u.education || 'N/A')}</td>
+      <td>${escHtml(u.zipcode || 'N/A')}</td>
       <td>${formatDate(u.created_at)}</td>
       <td>${u.testCount}</td>
-      <td>${u.bestAfqt !== null ? u.bestAfqt + 'th %ile' : '—'}</td>
-      <td>${u.lastTestAt ? formatDate(u.lastTestAt) : '—'}</td>
+      <td>${u.bestAfqt !== null ? u.bestAfqt + 'th %ile' : 'N/A'}</td>
+      <td>${u.lastTestAt ? formatDate(u.lastTestAt) : 'N/A'}</td>
       <td>${u.lastSignInAt ? formatRelative(u.lastSignInAt) : 'never'}</td>
     </tr>
   `).join('');
@@ -243,7 +243,7 @@ function openUserModal(userId, triggerEl) {
     const sign = diff > 0 ? '+' : '';
     improvement = `<span class="${cls}">${sign}${diff}</span>`;
   } else {
-    improvement = '<span class="trend-flat">—</span>';
+    improvement = '<span class="trend-flat">N/A</span>';
   }
 
   const isSelf = user.id === currentAdminId;
@@ -261,8 +261,8 @@ function openUserModal(userId, triggerEl) {
 
     <div class="modal-stats">
       <div class="modal-stat"><div class="v">${user.testCount}</div><div class="l">Tests Taken</div></div>
-      <div class="modal-stat"><div class="v">${user.bestAfqt !== null ? user.bestAfqt : '—'}</div><div class="l">Best AFQT %ile</div></div>
-      <div class="modal-stat"><div class="v">${latest && latest.afqt_score != null ? latest.afqt_score : '—'}</div><div class="l">Latest AFQT %ile</div></div>
+      <div class="modal-stat"><div class="v">${user.bestAfqt !== null ? user.bestAfqt : 'N/A'}</div><div class="l">Best AFQT %ile</div></div>
+      <div class="modal-stat"><div class="v">${latest && latest.afqt_score != null ? latest.afqt_score : 'N/A'}</div><div class="l">Latest AFQT %ile</div></div>
       <div class="modal-stat"><div class="v">${improvement}</div><div class="l">First → Latest</div></div>
     </div>
 
@@ -277,18 +277,18 @@ function openUserModal(userId, triggerEl) {
             <tr>
               <td>${formatDateTime(t.taken_at)}</td>
               <td>${escHtml(formatTestType(t.test_type))}</td>
-              <td>${t.afqt_score != null ? t.afqt_score : '—'}</td>
+              <td>${t.afqt_score != null ? t.afqt_score : 'N/A'}</td>
               <td>${sectionSummary(t.section_scores)}</td>
             </tr>
           `).join('')}
         </tbody>
       </table>
 
-      <h3>Latest Test — Section Detail</h3>
+      <h3>Latest Test: Section Detail</h3>
       <div class="section-grid">${renderScoreGrid(latest.section_scores, SECTION_LABELS)}</div>
 
       ${latest.line_scores && Object.keys(latest.line_scores).length > 0 ? `
-        <h3>Latest Test — Army Line Scores</h3>
+        <h3>Latest Test: Army Line Scores</h3>
         <div class="section-grid">${renderScoreGrid(latest.line_scores, LINE_LABELS)}</div>
       ` : ''}
     `}
@@ -374,7 +374,7 @@ function renderScoreGrid(scores, labels) {
   }
   return keys.map(k => {
     const v = scores[k];
-    let display = '—';
+    let display = 'N/A';
     if (v && typeof v === 'object') {
       if (v.correct != null && v.total != null) {
         const pct = v.total > 0 ? Math.round((v.correct / v.total) * 100) : 0;
@@ -397,14 +397,14 @@ function renderScoreGrid(scores, labels) {
 }
 
 function sectionSummary(scores) {
-  if (!scores || typeof scores !== 'object') return '—';
+  if (!scores || typeof scores !== 'object') return 'N/A';
   const keys = Object.keys(scores);
-  if (keys.length === 0) return '—';
+  if (keys.length === 0) return 'N/A';
   return escHtml(keys.join(', '));
 }
 
 function formatTestType(t) {
-  if (!t) return '—';
+  if (!t) return 'N/A';
   if (t.toLowerCase().includes('afqt')) return 'Quick AFQT';
   if (t.toLowerCase().includes('full')) return 'Full Assessment';
   return t;

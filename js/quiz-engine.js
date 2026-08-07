@@ -533,7 +533,7 @@ class QuizEngine {
     const timer = document.querySelector && document.querySelector('.quiz-timer');
     if (timer) timer.style.display = 'none';
     const title = document.querySelector && document.querySelector('.quiz-title');
-    if (title) title.textContent = 'Tutor Mode — Untimed Practice';
+    if (title) title.textContent = 'Tutor Mode: Untimed Practice';
   }
 
   bindVisibilityHandler() {
@@ -903,11 +903,11 @@ class QuizEngine {
       // matching results.html copy in page-results.js's formatUnansweredNote
       // for the same distinction.
       message += this.appliesGuessPenalty()
-        ? `\n\n⚠️ ${subject} answered — your score will be adjusted as if ${unanswered > 1 ? 'they were' : 'it was'} a random guess.`
-        : `\n\n⚠️ ${subject} answered — ${unanswered > 1 ? 'they' : 'it'} will get no credit.`;
+        ? `\n\n⚠️ ${subject} answered. Your score will be adjusted as if ${unanswered > 1 ? 'they were' : 'it was'} a random guess.`
+        : `\n\n⚠️ ${subject} answered. ${unanswered > 1 ? 'They' : 'It'} will get no credit.`;
     }
     if (flaggedCount > 0 && !this.isSectioned()) {
-      message += `\n\n🚩 You have ${flaggedCount} flagged question${flaggedCount > 1 ? 's' : ''} for review — cancel to go back to them.`;
+      message += `\n\n🚩 You have ${flaggedCount} flagged question${flaggedCount > 1 ? 's' : ''} for review. Cancel to go back to them.`;
     }
 
     if (confirm(message)) {
@@ -1293,7 +1293,7 @@ class QuizEngine {
     const quitBtn = document.getElementById('quitBtn');
     if (quitBtn) {
       quitBtn.addEventListener('click', () => {
-        if (confirm('Exit the test? Your progress is saved in this browser tab — you can resume from the practice test page as long as you don\'t close the tab.')) {
+        if (confirm('Exit the test? Your progress is saved in this browser tab. You can resume from the practice test page as long as you don\'t close the tab.')) {
           this.saveState();
           window.location.href = 'select-test.html';
         }

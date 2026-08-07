@@ -59,7 +59,7 @@
       const { error } = await getClient().auth.resend({ type: 'signup', email });
       msg.textContent = error
         ? ((typeof friendlyAuthError === 'function') ? friendlyAuthError(error) : error.message)
-        : 'Confirmation email sent — check your inbox and spam folder.';
+        : 'Confirmation email sent. Check your inbox and spam folder.';
       msg.style.display = 'block';
       msg.style.color = error ? '#c0392b' : '#27ae60';
       resendBtn.textContent = 'Resend confirmation email';
@@ -90,7 +90,7 @@
       btn.textContent = 'Send Reset Link';
       return;
     }
-    successMsg.textContent = 'If an account exists with this email, a reset link is on its way — check your inbox and spam folder.';
+    successMsg.textContent = 'If an account exists with this email, a reset link is on its way. Check your inbox and spam folder.';
     successMsg.style.display = 'block';
     btn.textContent = 'Email Sent';
     setTimeout(() => {

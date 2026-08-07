@@ -43,19 +43,19 @@ test('results.html exposes AFQT score elements', () => {
   assertIds(document, 'results.html', ['afqtScore', 'afqtLabel', 'afqtPercentile']);
 });
 
-test('index.html recruiter form has required fields and consent checkbox', () => {
-  const {document} = loadDom('index.html');
+test('results.html recruiter form has required fields and consent checkbox', () => {
+  const {document} = loadDom('results.html');
   for (const fieldName of ['name', 'email', 'phone', 'message']) {
     assert.ok(
       document.querySelector(`[name="${fieldName}"]`) !== null,
-      `index.html: missing recruiter field [name="${fieldName}"]`,
+      `results.html: missing recruiter field [name="${fieldName}"]`,
     );
   }
   const consent = document.querySelector('input[type="checkbox"][name="consent"]');
-  assert.ok(consent !== null, 'index.html: missing consent checkbox');
+  assert.ok(consent !== null, 'results.html: missing consent checkbox');
   assert.ok(
     consent.hasAttribute('required'),
-    'index.html: consent checkbox must be required',
+    'results.html: consent checkbox must be required',
   );
 });
 

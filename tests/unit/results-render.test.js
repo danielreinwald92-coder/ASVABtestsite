@@ -106,7 +106,7 @@ test('formatAfqtPercentileLine renders a "likely range" band and never implies a
   vm.runInContext(fnSrc + '\nthis.__fn = formatAfqtPercentileLine;', sandbox);
 
   const withBand = sandbox.__fn(72, { low: 65, high: 79 });
-  assert.strictEqual(withBand, '72nd Percentile · likely range 65–79');
+  assert.strictEqual(withBand, '72nd Percentile · likely range 65-79');
   assert.ok(!/confidence interval/i.test(withBand), 'must not say "confidence interval"');
   assert.ok(!/95%/.test(withBand), 'must not imply 95% coverage');
 
@@ -158,16 +158,16 @@ test('renderSectionBreakdown appends standard score / unanswered note only when 
   // Scored section with unreached CAT slots: both standard score and note.
   ctx.renderSectionBreakdown({ MK: { correct: 8, total: 15, unanswered: 3, ss: 46 } });
   assert.ok(grid._html.includes('Standard score 46'));
-  assert.ok(grid._html.includes('3 unanswered — scored as random guesses'));
+  assert.ok(grid._html.includes('3 unanswered: scored as random guesses'));
 
   // Singular phrasing for exactly one unanswered question, still scored (ss present).
   ctx.renderSectionBreakdown({ MC: { correct: 8, total: 15, unanswered: 1, ss: 50 } });
-  assert.ok(grid._html.includes('1 unanswered — scored as a random guess'));
+  assert.ok(grid._html.includes('1 unanswered: scored as a random guess'));
 
   // Diagnostic/tutor sections track `unanswered` too (Task 6), but were never
   // routed through the IRT penalty table (no `ss`) — unanswered there really
   // is zero credit, so the note must NOT claim a random-guess adjustment.
   ctx.renderSectionBreakdown({ GS: { correct: 5, total: 15, unanswered: 4 } });
-  assert.ok(grid._html.includes('4 unanswered — no credit given'));
+  assert.ok(grid._html.includes('4 unanswered: no credit given'));
   assert.ok(!/random guess/.test(grid._html));
 });

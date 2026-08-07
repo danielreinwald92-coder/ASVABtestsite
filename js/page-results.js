@@ -31,7 +31,7 @@ function showEmptyResultsState(title, detail) {
 function formatAfqtPercentileLine(afqt, band) {
   const base = `${afqt}${getOrdinalSuffix(afqt)} Percentile`;
   if (!band || typeof band.low !== 'number' || typeof band.high !== 'number') return base;
-  return `${base} · likely range ${band.low}–${band.high}`;
+  return `${base} · likely range ${band.low}-${band.high}`;
 }
 
 function loadResults() {
@@ -64,16 +64,16 @@ function loadResults() {
   document.getElementById('afqtScore').textContent = displayScore;
   if (isDiagnostic) {
     document.getElementById('afqtLabel').textContent = 'Starting-Point Diagnostic';
-    document.getElementById('afqtPercentile').textContent = `${results.score}% correct — practice performance, not an AFQT percentile`;
+    document.getElementById('afqtPercentile').textContent = `${results.score}% correct: practice performance, not an AFQT percentile`;
   } else if (hasAFQT) {
     document.getElementById('afqtLabel').textContent = 'Estimated AFQT Score';
     document.getElementById('afqtPercentile').textContent = formatAfqtPercentileLine(results.afqt, results.afqtBand);
   } else if (isTutor) {
     document.getElementById('afqtLabel').textContent = 'Tutor Practice';
-    document.getElementById('afqtPercentile').textContent = `${results.score}% correct — untimed practice with explanations`;
+    document.getElementById('afqtPercentile').textContent = `${results.score}% correct: untimed practice with explanations`;
   } else {
     document.getElementById('afqtLabel').textContent = 'Practice Score';
-    document.getElementById('afqtPercentile').textContent = `${results.score}% Correct — single-section practice, not an AFQT estimate`;
+    document.getElementById('afqtPercentile').textContent = `${results.score}% Correct: single-section practice, not an AFQT estimate`;
   }
   document.getElementById('correctCount').textContent = results.correct || 0;
   document.getElementById('incorrectCount').textContent = results.incorrect || 0;
@@ -119,16 +119,16 @@ function loadResults() {
     }
   } else if (afqt >= 93) {
     message = "Outstanding Performance!";
-    description = "Based on this practice estimate, you're in the top tier and would likely qualify for virtually all military occupations. Only the official ASVAB counts — a recruiter can help you schedule it.";
+    description = "Based on this practice estimate, you're in the top tier and would likely qualify for virtually all military occupations. Only the official ASVAB counts. A recruiter can help you schedule it.";
   } else if (afqt >= 65) {
     message = "Excellent Work!";
-    description = "This practice estimate puts you well above the minimum requirements — a score like this on the official test would open many career fields. A recruiter can help you explore your options.";
+    description = "This practice estimate puts you well above the minimum requirements. A score like this on the official test would open many career fields. A recruiter can help you explore your options.";
   } else if (afqt >= 50) {
     message = "Great Job!";
-    description = "This practice estimate is above average and above the enlistment minimum. Keep it up — only the official ASVAB determines eligibility. A recruiter can discuss which jobs match scores in this range.";
+    description = "This practice estimate is above average and above the enlistment minimum. Keep it up. Only the official ASVAB determines eligibility. A recruiter can discuss which jobs match scores in this range.";
   } else if (afqt >= 31) {
     message = "On Track to Qualify";
-    description = "Based on this practice estimate, you'd likely meet the Army's minimum AFQT requirement of 31 — but it's close, so keep practicing to build a safety margin. Only the official ASVAB determines eligibility.";
+    description = "Based on this practice estimate, you'd likely meet the Army's minimum AFQT requirement of 31, but it's close, so keep practicing to build a safety margin. Only the official ASVAB determines eligibility.";
   } else if (afqt >= 21) {
     message = "Almost There";
     description = "You're close to the minimum score of 31. Focus on the sections below and retake the practice test.";
@@ -229,7 +229,7 @@ function renderTodaysMission(results) {
   const start = document.getElementById('missionStartBtn');
   start.href = M.targetUrl(currentMission.target, currentMission.clientId);
   if (currentMission.status === 'completed') {
-    start.textContent = 'Mission Complete — Review Again →';
+    start.textContent = 'Mission Complete: Review Again →';
     start.classList.add('mission-complete');
   } else if (currentMission.status === 'in_progress') {
     start.textContent = 'Resume Today’s Mission →';
@@ -265,8 +265,8 @@ function formatUnansweredNote(data) {
   if (typeof n !== 'number' || n <= 0) return '';
   const guess = n === 1 ? 'a random guess' : 'random guesses';
   return (typeof data.ss === 'number')
-    ? `${n} unanswered — scored as ${guess}`
-    : `${n} unanswered — no credit given`;
+    ? `${n} unanswered: scored as ${guess}`
+    : `${n} unanswered: no credit given`;
 }
 
 function renderSectionBreakdown(sectionResults) {
@@ -586,7 +586,7 @@ function checkPendingResultSync() {
       if (res && res.remaining === 0) {
         document.getElementById('saveStatusBanner').style.display = 'none';
       } else {
-        showSaveBanner('Retry failed — still offline or the server rejected the save. Your results stay saved on this device.');
+        showSaveBanner('Retry failed. Still offline or the server rejected the save. Your results stay saved on this device.');
         btn.disabled = false; btn.textContent = 'Retry';
       }
     } catch (err) {

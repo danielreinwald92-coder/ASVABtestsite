@@ -60,7 +60,7 @@ function friendlyAuthError(error) {
   }
   const rateMatch = raw.match(/after (\d+) seconds/i);
   if (rateMatch) {
-    return `Too many attempts — please wait ${rateMatch[1]} seconds and try again.`;
+    return `Too many attempts. Please wait ${rateMatch[1]} seconds and try again.`;
   }
   if (/already registered/i.test(raw)) {
     return 'An account with this email already exists. Try logging in instead, or reset your password if you forgot it.';

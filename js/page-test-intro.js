@@ -67,7 +67,7 @@
       const timeEl = document.getElementById('timeLimit');
       if (timeEl && timeEl.parentElement) timeEl.parentElement.style.display = 'none';
       const badge = document.getElementById('testBadge');
-      if (badge) badge.textContent = 'Tutor Mode — Untimed';
+      if (badge) badge.textContent = 'Tutor Mode: Untimed';
       const rulesTimed = document.getElementById('rulesTimed');
       const rulesTutor = document.getElementById('rulesTutor');
       if (rulesTimed) rulesTimed.hidden = true;

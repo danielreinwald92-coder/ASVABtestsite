@@ -2,14 +2,13 @@ const { test } = require('node:test');
 const assert = require('node:assert');
 const { runPageScript, flush, makeLocalStorage } = require('../helpers/load.js');
 
-// 2.10 — recruiter form hardening, mirrored in index.html and results.html.
-// The handler is fire-and-forget (CORS-opaque endpoint); we never read the
-// response. We verify: honeypot blocks send, abort/network errors surface an
-// error, the payload carries consentText + consentTimestamp, and the submit
-// button is disabled while a request is in flight.
+// 2.10 — recruiter form hardening (results.html; the homepage form was
+// removed 2026-08-07). The handler is fire-and-forget (CORS-opaque endpoint);
+// we never read the response. We verify: honeypot blocks send, abort/network
+// errors surface an error, the payload carries consentText + consentTimestamp,
+// and the submit button is disabled while a request is in flight.
 
 const PAGES = [
-  { file: 'index.html', source: 'homepage' },
   { file: 'results.html', source: 'results' }
 ];
 

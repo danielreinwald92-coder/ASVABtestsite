@@ -257,7 +257,7 @@ const courses = {
         description: "Master discounts, tax, tips, interest, and percent change",
 
         lesson: {
-          intro: "Percentages are everywhere — shopping, banking, test scores. Once you understand that 'percent' just means 'per 100,' these problems become simple.",
+          intro: "Percentages are everywhere: shopping, banking, test scores. Once you understand that 'percent' just means 'per 100,' these problems become simple.",
 
           concepts: [
             {
@@ -274,7 +274,7 @@ const courses = {
             },
             {
               title: "Finding the Original (Working Backwards)",
-              content: "If a price AFTER a 20% increase is $60, the original is $60 ÷ 1.20 = $50. Don't just subtract 20% — that gives the wrong answer!"
+              content: "If a price AFTER a 20% increase is $60, the original is $60 ÷ 1.20 = $50. Don't just subtract 20%. That gives the wrong answer!"
             }
           ],
 
@@ -441,7 +441,7 @@ const courses = {
               { text: "10", explanation: "This would mean 20 females, which is 66.7%, not 60%." },
               { text: "12", explanation: "Correct! 60% female means 40% male. 30 × 0.40 = 12.", correct: true },
               { text: "15", explanation: "This is 50% of the class, but males are only 40%." },
-              { text: "18", explanation: "This is 60% — that's the number of females, not males." }
+              { text: "18", explanation: "This is 60%, the number of females, not males." }
             ]
           },
           {
@@ -481,7 +481,7 @@ const courses = {
         description: "Master problems involving speed, distance, and travel time",
 
         lesson: {
-          intro: "These problems appear constantly on the ASVAB. A car travels, a plane flies, someone walks — they all use one simple formula.",
+          intro: "These problems appear constantly on the ASVAB. A car travels, a plane flies, someone walks: they all use one simple formula.",
 
           concepts: [
             {
@@ -1427,7 +1427,7 @@ const courses = {
         description: "Multiply binomials and factor quadratics",
 
         lesson: {
-          intro: "FOIL is a method for multiplying two binomials. Factoring is the reverse — breaking an expression back into two binomials. Master both!",
+          intro: "FOIL is a method for multiplying two binomials. Factoring is the reverse: breaking an expression back into two binomials. Master both!",
 
           concepts: [
             {
@@ -1953,7 +1953,7 @@ const courses = {
         description: "Calculate areas and perimeters of common shapes",
 
         lesson: {
-          intro: "These formulas come up constantly. Memorize them — there's no formula sheet on the ASVAB!",
+          intro: "These formulas come up constantly. Memorize them, there's no formula sheet on the ASVAB!",
 
           concepts: [
             {
@@ -2236,7 +2236,7 @@ const courses = {
           concepts: [
             {
               title: "Solving Inequalities",
-              content: "Solve exactly like equations — add, subtract, multiply, divide. But there's one exception..."
+              content: "Solve exactly like equations: add, subtract, multiply, divide. But there's one exception..."
             },
             {
               title: "THE FLIP RULE",
@@ -2288,7 +2288,7 @@ const courses = {
             text: "Solve: 2x < 14",
             options: [
               { text: "x < 7", explanation: "Correct! Divide by 2 (positive, no flip): x < 7.", correct: true },
-              { text: "x > 7", explanation: "No flip needed — we divided by positive 2." },
+              { text: "x > 7", explanation: "No flip needed, we divided by positive 2." },
               { text: "x < 12", explanation: "14 ÷ 2 = 7, not 12." },
               { text: "x < 28", explanation: "Divide, don't multiply: 14 ÷ 2 = 7." }
             ]
@@ -3021,7 +3021,7 @@ const courses = {
             },
             {
               title: "Context and Word Families",
-              content: "Think of related words you know. Don't know 'benevolent'? Think 'benefit' — both have BENE- (good). Don't know 'verbose'? Think 'verb' (words) — verbose means using too many words."
+              content: "Think of related words you know. Don't know 'benevolent'? Think 'benefit': both have BENE- (good). Don't know 'verbose'? Think 'verb' (words): verbose means using too many words."
             },
             {
               title: "High-Frequency Words",
@@ -3200,7 +3200,7 @@ const courses = {
             id: "WK4-015",
             text: "DETRIMENTAL most nearly means:",
             options: [
-              { text: "beneficial", explanation: "Beneficial is helpful. Detrimental is harmful — the opposite." },
+              { text: "beneficial", explanation: "Beneficial is helpful. Detrimental is harmful, the opposite." },
               { text: "harmful", explanation: "Correct! Detrimental = causing damage or harm. 'Smoking is detrimental to health' = it causes harm.", correct: true },
               { text: "helpful", explanation: "Helpful is positive. Detrimental is negative (causing harm)." },
               { text: "neutral", explanation: "Neutral has no effect. Detrimental has a negative effect." }
@@ -3234,7 +3234,7 @@ const courses = {
         description: "Identify the central theme of a passage",
 
         lesson: {
-          intro: "Every passage has ONE main idea — the central point the author wants you to understand. Everything else is just support. Your job is to find that core message.",
+          intro: "Every passage has ONE main idea: the central point the author wants you to understand. Everything else is just support. Your job is to find that core message.",
 
           concepts: [
             {
@@ -3272,10 +3272,10 @@ const courses = {
             id: "PC1-001",
             text: "The bald eagle was once on the brink of extinction in the United States. By 1963, only 417 nesting pairs remained in the lower 48 states. The decline was caused primarily by the pesticide DDT, which weakened eagle eggshells. After DDT was banned in 1972 and conservation efforts intensified, eagle populations recovered dramatically. Today, there are over 300,000 bald eagles in North America.\n\nWhat is the main idea of this passage?",
             options: [
-              { text: "Bald eagle populations have recovered after near extinction", explanation: "Correct! The passage traces the decline and recovery of bald eagles — that's the central story.", correct: true },
+              { text: "Bald eagle populations have recovered after near extinction", explanation: "Correct! The passage traces the decline and recovery of bald eagles, that's the central story.", correct: true },
               { text: "DDT was banned in 1972", explanation: "This is a detail that supports the main idea, not the main idea itself." },
               { text: "There are 300,000 bald eagles today", explanation: "This is just the final statistic. The main idea is the full recovery story." },
-              { text: "Pesticides are harmful to all birds", explanation: "Too broad — the passage is specifically about bald eagles, not all birds." }
+              { text: "Pesticides are harmful to all birds", explanation: "Too broad, the passage is specifically about bald eagles, not all birds." }
             ]
           },
           {
@@ -3283,19 +3283,19 @@ const courses = {
             text: "Sleep is essential for memory consolidation. During sleep, the brain processes and stores information from the day. Studies show that people who sleep after learning new material retain it better than those who stay awake. Deep sleep, in particular, helps transfer memories from short-term to long-term storage.\n\nWhat is the main idea of this passage?",
             options: [
               { text: "Sleep plays a crucial role in forming memories", explanation: "Correct! Every sentence supports this central point about sleep and memory.", correct: true },
-              { text: "Deep sleep is the most important sleep stage", explanation: "Too narrow — deep sleep is mentioned as one supporting detail, but the passage is about sleep and memory overall." },
+              { text: "Deep sleep is the most important sleep stage", explanation: "Too narrow, deep sleep is mentioned as one supporting detail, but the passage is about sleep and memory overall." },
               { text: "People should study before bed", explanation: "This might be implied, but it's not stated as the main idea." },
-              { text: "The brain is active during sleep", explanation: "True but too vague — the passage specifically focuses on memory, not general brain activity." }
+              { text: "The brain is active during sleep", explanation: "True but too vague, the passage specifically focuses on memory, not general brain activity." }
             ]
           },
           {
             id: "PC1-003",
             text: "The ancient Egyptians developed one of the first writing systems, called hieroglyphics. These symbols represented sounds, words, and ideas. Hieroglyphics were used for religious texts, royal decrees, and tomb inscriptions. Scribes spent years learning the thousands of symbols. The Rosetta Stone, discovered in 1799, finally allowed modern scholars to decode this ancient script.\n\nWhat is the main idea of this passage?",
             options: [
-              { text: "Hieroglyphics was an important ancient Egyptian writing system", explanation: "Correct! The passage provides an overview of hieroglyphics — what they were, how they were used, and how we decoded them.", correct: true },
+              { text: "Hieroglyphics was an important ancient Egyptian writing system", explanation: "Correct! The passage provides an overview of hieroglyphics: what they were, how they were used, and how we decoded them.", correct: true },
               { text: "The Rosetta Stone was discovered in 1799", explanation: "This is a supporting detail at the end, not the main idea." },
               { text: "Scribes had to study for many years", explanation: "This is one detail about scribes, not the central point of the passage." },
-              { text: "Writing systems are important for civilization", explanation: "Too broad — the passage is specifically about Egyptian hieroglyphics." }
+              { text: "Writing systems are important for civilization", explanation: "Too broad, the passage is specifically about Egyptian hieroglyphics." }
             ]
           },
           {
@@ -3344,7 +3344,7 @@ const courses = {
             options: [
               { text: "Coral reefs are vital ecosystems that face serious threats", explanation: "Correct! The passage explains the importance of reefs AND the threats they face.", correct: true },
               { text: "25% of marine species live in coral reefs", explanation: "This is a supporting statistic, not the main idea." },
-              { text: "Climate change is harming the oceans", explanation: "Too broad — the passage focuses specifically on coral reefs." },
+              { text: "Climate change is harming the oceans", explanation: "Too broad, the passage focuses specifically on coral reefs." },
               { text: "Fish need shelter to survive", explanation: "This is one benefit reefs provide, not the main point." }
             ]
           },
@@ -3355,7 +3355,7 @@ const courses = {
               { text: "Leonardo da Vinci's notebooks reveal his remarkable intellect", explanation: "Correct! The passage focuses on his notebooks and what they contained.", correct: true },
               { text: "Da Vinci wrote backwards", explanation: "This is an interesting detail, but the main idea is about the notebooks' content and significance." },
               { text: "Left-handed people write differently", explanation: "This is mentioned as a possible reason for his writing style, not the main idea." },
-              { text: "Da Vinci was a great inventor", explanation: "Implied but too narrow — the passage covers his notebooks broadly, including art and anatomy." }
+              { text: "Da Vinci was a great inventor", explanation: "Implied but too narrow, the passage covers his notebooks broadly, including art and anatomy." }
             ]
           },
           {
@@ -3385,7 +3385,7 @@ const courses = {
         description: "Locate specific information in passages",
 
         lesson: {
-          intro: "Detail questions ask about specific facts stated in the passage. The answer is always IN the text — you just need to find it.",
+          intro: "Detail questions ask about specific facts stated in the passage. The answer is always IN the text, you just need to find it.",
 
           concepts: [
             {
@@ -3406,7 +3406,7 @@ const courses = {
             {
               problem: "How to answer detail questions",
               steps: [
-                "Read the question carefully — what fact is it asking for?",
+                "Read the question carefully. What fact is it asking for?",
                 "Identify keywords from the question",
                 "Scan the passage for those keywords",
                 "Find the sentence with the answer",
@@ -3422,12 +3422,12 @@ const courses = {
         questions: [
           {
             id: "PC2-001",
-            text: "The Amazon River is the second longest river in the world, stretching approximately 4,000 miles through South America. However, it carries more water than any other river — about 20% of all freshwater that flows into the world's oceans. The Amazon basin is home to the world's largest rainforest, covering 2.7 million square miles.\n\nAccording to the passage, what percentage of freshwater flowing into oceans comes from the Amazon?",
+            text: "The Amazon River is the second longest river in the world, stretching approximately 4,000 miles through South America. However, it carries more water than any other river: about 20% of all freshwater that flows into the world's oceans. The Amazon basin is home to the world's largest rainforest, covering 2.7 million square miles.\n\nAccording to the passage, what percentage of freshwater flowing into oceans comes from the Amazon?",
             options: [
               { text: "20%", explanation: "Correct! The passage states 'about 20% of all freshwater that flows into the world's oceans.'", correct: true },
               { text: "4,000%", explanation: "4,000 is the river's length in miles, not a percentage." },
               { text: "2.7%", explanation: "2.7 million is the size of the basin in square miles, not a percentage of freshwater." },
-              { text: "The passage doesn't say", explanation: "It does say — 'about 20% of all freshwater that flows into the world's oceans.'" }
+              { text: "The passage doesn't say", explanation: "It does say: 'about 20% of all freshwater that flows into the world's oceans.'" }
             ]
           },
           {
@@ -3497,7 +3497,7 @@ const courses = {
               { text: "34%", explanation: "Correct! The passage states 'a salt concentration of about 34%.'", correct: true },
               { text: "10%", explanation: "The Dead Sea is 10 TIMES saltier than the ocean, not 10% salt." },
               { text: "Nearly 10 times", explanation: "This describes how much saltier it is than the ocean, not the actual percentage." },
-              { text: "The passage doesn't give a specific number", explanation: "It does — 'about 34%' in the first sentence." }
+              { text: "The passage doesn't give a specific number", explanation: "It does: 'about 34%' in the first sentence." }
             ]
           },
           {
@@ -3537,7 +3537,7 @@ const courses = {
         description: "Draw conclusions from what's implied",
 
         lesson: {
-          intro: "Inference questions ask what can be concluded from the passage — not what's directly stated, but what's strongly implied by the evidence.",
+          intro: "Inference questions ask what can be concluded from the passage: not what's directly stated, but what's strongly implied by the evidence.",
 
           concepts: [
             {
@@ -3563,7 +3563,7 @@ const courses = {
                 "Eliminate answers that are too big a leap",
                 "Choose the answer that's most supported by evidence"
               ],
-              tip: "If the answer is directly stated in the passage, it's not an inference — look for what's IMPLIED."
+              tip: "If the answer is directly stated in the passage, it's not an inference. Look for what's IMPLIED."
             }
           ],
 
@@ -3577,7 +3577,7 @@ const courses = {
             options: [
               { text: "Very early in the morning or very late at night", explanation: "Correct! The empty parking lot, few travelers, and closed shops suggest off-peak hours.", correct: true },
               { text: "During a holiday", explanation: "Holidays typically have MORE travelers, not fewer." },
-              { text: "After a flight was canceled", explanation: "Nothing suggests a cancellation — the airport is operating, just quiet." },
+              { text: "After a flight was canceled", explanation: "Nothing suggests a cancellation, the airport is operating, just quiet." },
               { text: "At a small regional airport", explanation: "The passage describes a terminal with shops and restaurants, suggesting a larger airport." }
             ]
           },
@@ -3586,7 +3586,7 @@ const courses = {
             text: "Dr. Martinez reviewed the test results for the third time, her brow furrowed. She picked up the phone, then set it down. Finally, she asked her assistant to schedule an appointment with the patient for the following day.\n\nIt can be inferred that Dr. Martinez:",
             options: [
               { text: "Found something concerning in the results", explanation: "Correct! Her repeated reviewing, hesitation with the phone, and urgency to see the patient suggest worrying findings.", correct: true },
-              { text: "Made a mistake in the testing", explanation: "Nothing suggests an error — her concern seems to be about what the results show." },
+              { text: "Made a mistake in the testing", explanation: "Nothing suggests an error, her concern seems to be about what the results show." },
               { text: "Is new to her profession", explanation: "Her title 'Dr.' and having an assistant suggest experience, not inexperience." },
               { text: "Wants to congratulate the patient", explanation: "Her worried behavior (furrowed brow, hesitation) suggests the opposite." }
             ]
@@ -3597,7 +3597,7 @@ const courses = {
             options: [
               { text: "The factory was the town's primary employer", explanation: "Correct! The town's decline after the factory closure strongly implies economic dependence on the factory.", correct: true },
               { text: "The school was poorly managed", explanation: "The school's struggles are due to population loss, not management." },
-              { text: "Another factory will open soon", explanation: "Nothing in the passage suggests this — the decline seems ongoing." },
+              { text: "Another factory will open soon", explanation: "Nothing in the passage suggests this, the decline seems ongoing." },
               { text: "People moved to larger cities for entertainment", explanation: "The passage implies people left due to job loss, not for entertainment." }
             ]
           },
@@ -3606,8 +3606,8 @@ const courses = {
             text: "The chef tasted the sauce, added a pinch of salt, tasted again, and smiled. She wiped her hands on her apron, turned off the burner, and called out to the wait staff that the special was ready.\n\nIt can be inferred that:",
             options: [
               { text: "The chef is satisfied with the sauce", explanation: "Correct! Her smile after tasting and announcing the dish is ready indicate satisfaction.", correct: true },
-              { text: "The sauce needed more than salt", explanation: "She only added salt and smiled — suggesting that was all it needed." },
-              { text: "The chef is preparing for a competition", explanation: "Nothing suggests a competition — this appears to be regular restaurant service." },
+              { text: "The sauce needed more than salt", explanation: "She only added salt and smiled, suggesting that was all it needed." },
+              { text: "The chef is preparing for a competition", explanation: "Nothing suggests a competition, this appears to be regular restaurant service." },
               { text: "The wait staff made a request", explanation: "The chef initiated the communication; no request is mentioned." }
             ]
           },
@@ -3626,9 +3626,9 @@ const courses = {
             text: "Marcus looked at his calendar and sighed. Every evening was filled with activities: Monday - soccer practice, Tuesday - piano lesson, Wednesday - tutoring, Thursday - chess club, Friday - scout meeting. He hadn't seen his friends outside of school in weeks.\n\nIt can be inferred that Marcus:",
             options: [
               { text: "Feels overscheduled", explanation: "Correct! His sigh and the observation about not seeing friends suggest he feels overwhelmed by activities.", correct: true },
-              { text: "Enjoys all of his activities", explanation: "His sigh suggests the opposite — frustration or exhaustion." },
-              { text: "Is not good at sports", explanation: "Nothing suggests this — he plays soccer and chess." },
-              { text: "Doesn't have any friends", explanation: "He mentions friends — he just hasn't had time to see them." }
+              { text: "Enjoys all of his activities", explanation: "His sigh suggests the opposite: frustration or exhaustion." },
+              { text: "Is not good at sports", explanation: "Nothing suggests this, he plays soccer and chess." },
+              { text: "Doesn't have any friends", explanation: "He mentions friends, he just hasn't had time to see them." }
             ]
           },
           {
@@ -3637,7 +3637,7 @@ const courses = {
             options: [
               { text: "The city was inhabited for a long period", explanation: "Correct! Multiple repair phases over centuries, using techniques from different eras, suggests long-term habitation.", correct: true },
               { text: "The walls were poorly built originally", explanation: "Repairs over centuries could be normal wear, not poor construction." },
-              { text: "The city was conquered three times", explanation: "Repairs don't necessarily mean conquest — they could be routine maintenance." },
+              { text: "The city was conquered three times", explanation: "Repairs don't necessarily mean conquest, they could be routine maintenance." },
               { text: "Archaeologists found written records", explanation: "The passage mentions physical evidence (construction techniques), not written records." }
             ]
           },
@@ -3646,7 +3646,7 @@ const courses = {
             text: "When the new highway bypassed the town, the diner owner noticed fewer out-of-state license plates in her parking lot. Truck drivers who once stopped for lunch now sped past on the interstate. She began offering a senior discount to attract local customers.\n\nIt can be inferred that:",
             options: [
               { text: "The diner's business declined after the highway was built", explanation: "Correct! Fewer travelers and the need for new promotions strongly imply reduced business.", correct: true },
-              { text: "The diner's food quality decreased", explanation: "Nothing suggests quality issues — customers simply have a faster route now." },
+              { text: "The diner's food quality decreased", explanation: "Nothing suggests quality issues, customers simply have a faster route now." },
               { text: "Seniors don't use the highway", explanation: "The senior discount is a strategy to attract locals, not a statement about highway use." },
               { text: "The highway was built recently", explanation: "Possibly, but the focus is on business impact, not timing." }
             ]
@@ -3657,7 +3657,7 @@ const courses = {
             options: [
               { text: "A child took cookies from the jar", explanation: "Correct! Small footprints, a path to cookies, and a playful 'crime' all suggest a child.", correct: true },
               { text: "A burglar broke into the house", explanation: "Nothing was broken into, and only cookies were disturbed." },
-              { text: "The detective was investigating a serious crime", explanation: "The 'evidence' points to a cookie theft — likely a parent playing detective." },
+              { text: "The detective was investigating a serious crime", explanation: "The 'evidence' points to a cookie theft, likely a parent playing detective." },
               { text: "The garden was recently planted", explanation: "The garden's mud is mentioned, but not its planting status." }
             ]
           },
@@ -3668,7 +3668,7 @@ const courses = {
               { text: "Carnegie Hall is a significant or prestigious venue", explanation: "Correct! An experienced performer being nervous specifically about Carnegie Hall implies its importance.", correct: true },
               { text: "The musician was ill", explanation: "Her trembling appears to be nerves, not illness, given the context." },
               { text: "This was her first public performance", explanation: "The passage states she had performed 'hundreds of concerts.'" },
-              { text: "She forgot her music", explanation: "Nothing suggests this — she sat down and began to play." }
+              { text: "She forgot her music", explanation: "Nothing suggests this, she sat down and began to play." }
             ]
           }
         ],
@@ -3714,7 +3714,7 @@ const courses = {
                 "Substitute each answer choice",
                 "Pick the one that makes the most sense"
               ],
-              tip: "Even if you know the word, use context to verify — the test might use an uncommon meaning."
+              tip: "Even if you know the word, use context to verify. The test might use an uncommon meaning."
             }
           ],
 
@@ -3746,8 +3746,8 @@ const courses = {
             id: "PC4-003",
             text: "The medicine is benign and causes no harmful side effects, making it safe for children.\n\nIn this sentence, 'benign' most nearly means:",
             options: [
-              { text: "Harmless", explanation: "Correct! The sentence explains it causes 'no harmful side effects' and is 'safe' — defining benign.", correct: true },
-              { text: "Effective", explanation: "Effectiveness isn't the focus — safety is." },
+              { text: "Harmless", explanation: "Correct! The sentence explains it causes 'no harmful side effects' and is 'safe,' defining benign.", correct: true },
+              { text: "Effective", explanation: "Effectiveness isn't the focus, safety is." },
               { text: "Expensive", explanation: "Cost isn't mentioned in the context." },
               { text: "New", explanation: "Nothing suggests the medicine is newly developed." }
             ]
@@ -3809,7 +3809,7 @@ const courses = {
               { text: "Short-lived or temporary", explanation: "Correct! The sentence explains blossoms last 'only one or two weeks,' defining ephemeral.", correct: true },
               { text: "Beautiful", explanation: "While blossoms are beautiful, the context defines ephemeral as brief, not pretty." },
               { text: "Annual", explanation: "Annual means yearly; ephemeral means brief." },
-              { text: "Colorful", explanation: "Color isn't the focus — duration is." }
+              { text: "Colorful", explanation: "Color isn't the focus, duration is." }
             ]
           },
           {
@@ -3819,7 +3819,7 @@ const courses = {
               { text: "Strengthen or support", explanation: "Correct! After a loss, reminding them of victories would strengthen/rebuild their confidence.", correct: true },
               { text: "Test", explanation: "The coach is supporting the team, not testing them." },
               { text: "Question", explanation: "Questioning confidence would weaken it, not help it." },
-              { text: "Report", explanation: "Reporting doesn't fit — he's actively trying to help." }
+              { text: "Report", explanation: "Reporting doesn't fit, he's actively trying to help." }
             ]
           },
           {
@@ -3827,7 +3827,7 @@ const courses = {
             text: "The region's arid climate, with less than 10 inches of rainfall per year, supports only the hardiest desert plants.\n\nIn this sentence, 'arid' most nearly means:",
             options: [
               { text: "Dry", explanation: "Correct! 'Less than 10 inches of rainfall' and 'desert plants' indicate a dry climate.", correct: true },
-              { text: "Hot", explanation: "Arid means dry, not necessarily hot — some arid regions are cold." },
+              { text: "Hot", explanation: "Arid means dry, not necessarily hot. Some arid regions are cold." },
               { text: "Unpredictable", explanation: "The context doesn't mention weather unpredictability." },
               { text: "Tropical", explanation: "Tropical regions are wet; this is the opposite." }
             ]
@@ -3839,7 +3839,7 @@ const courses = {
               { text: "Frank and honest", explanation: "Correct! 'Never sugarcoating' and 'not hiding opinions' indicate direct, honest speech.", correct: true },
               { text: "Rude", explanation: "Candid means honest, not necessarily rude." },
               { text: "Careful", explanation: "Careful would involve sugarcoating, which she doesn't do." },
-              { text: "Popular", explanation: "Her honesty might or might not make her popular — that's not what candid means." }
+              { text: "Popular", explanation: "Her honesty might or might not make her popular, that's not what candid means." }
             ]
           }
         ],

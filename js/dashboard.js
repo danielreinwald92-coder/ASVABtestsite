@@ -153,10 +153,10 @@ function renderMotivation(results, profile) {
       countdownCard.textContent = '📅 ' + days + (days === 1 ? ' day' : ' days') + ' until your ASVAB';
       countdownCard.hidden = false;
     } else if (days === 0) {
-      countdownCard.textContent = '📅 Your ASVAB is today — you’ve got this';
+      countdownCard.textContent = '📅 Your ASVAB is today, you’ve got this';
       countdownCard.hidden = false;
     } else {
-      countdownCard.textContent = '📅 Your test date has passed — update it in Account';
+      countdownCard.textContent = '📅 Your test date has passed, update it in Account';
       countdownCard.hidden = false;
     }
   }
@@ -314,14 +314,14 @@ async function skipWelcome() {
 function renderScoreSummary(results) {
   const scored = (results || []).filter((r) => typeof r.afqt_score === 'number');
   if (!scored.length) {
-    document.getElementById('latestAfqt').textContent = '—';
+    document.getElementById('latestAfqt').textContent = 'N/A';
     document.getElementById('latestDate').textContent = 'Take a timed test for your AFQT';
     return;
   }
   const latest = scored[0];
   const previous = scored[1];
 
-  document.getElementById('latestAfqt').textContent = latest.afqt_score !== null ? latest.afqt_score : '—';
+  document.getElementById('latestAfqt').textContent = latest.afqt_score !== null ? latest.afqt_score : 'N/A';
   document.getElementById('latestDate').textContent = formatDate(latest.taken_at);
 
   if (previous && latest.afqt_score !== null && previous.afqt_score !== null) {
@@ -371,7 +371,7 @@ function renderProgressChart(results) {
 
   const dots = points.map(p => `
     <circle cx="${p.x}" cy="${p.y}" r="5" fill="var(--gold-500)" stroke="var(--white)" stroke-width="2">
-      <title>${ordinal(p.score)} percentile — ${p.date}</title>
+      <title>${ordinal(p.score)} percentile, ${p.date}</title>
     </circle>
   `).join('');
 
@@ -448,7 +448,7 @@ function renderSectionBreakdown(results) {
       <div class="section-card">
         <div class="section-card-name">${SECTION_NAMES[code]}</div>
         <div class="section-card-score" style="color: ${bandColors[band]}">${score}%</div>
-        <div class="section-card-trend" style="color: ${trendColor}">${trendArrow || '—'}</div>
+        <div class="section-card-trend" style="color: ${trendColor}">${trendArrow || 'N/A'}</div>
       </div>
     `;
   }).join('');
@@ -642,7 +642,7 @@ function renderScoringModelNote(results) {
     container.parentNode.insertBefore(note, container);
   }
   note.hidden = false;
-  note.textContent = "Scoring model upgraded Aug 2026 — earlier scores used our previous model and aren't directly comparable.";
+  note.textContent = "Scoring model upgraded Aug 2026. Earlier scores used our previous model and aren't directly comparable.";
 }
 
 let historyPage = 0;
@@ -668,7 +668,7 @@ function renderTestHistory(results) {
       <tr class="history-row" data-idx="${globalIdx}">
         <td>${formatDate(r.taken_at)}</td>
         <td>${r.test_type === 'diagnostic' ? 'Starting-Point Diagnostic' : ((r.mode === 'tutor') ? 'Practice' : (r.test_type === 'full' ? 'Full Assessment' : 'AFQT'))}</td>
-        <td>${r.afqt_score !== null ? ordinal(r.afqt_score) + ' percentile' : '—'}</td>
+        <td>${r.afqt_score !== null ? ordinal(r.afqt_score) + ' percentile' : 'N/A'}</td>
         <td><button class="expand-btn" data-idx="${globalIdx}" aria-expanded="false" aria-label="Show section scores for this test">▾</button></td>
       </tr>
       <tr class="history-detail" id="detail-${globalIdx}" style="display:none;">
