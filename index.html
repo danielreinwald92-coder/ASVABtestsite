@@ -721,6 +721,71 @@
       text-align: center;
     }
 
+    .footer-links {
+      font-size: 0.85rem;
+      margin: 0 auto 1rem;
+      opacity: 0.85;
+    }
+
+    .footer-links a {
+      color: var(--cream-200);
+      text-decoration: underline;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    .resources-band {
+      background: var(--white);
+      padding: 4rem 5%;
+      border-top: 1px solid var(--cream-200);
+    }
+
+    .resources-band h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--navy-900);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .resources-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .resources-list li {
+      background: var(--cream-100);
+      border: 1px solid var(--cream-200);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .resources-list a {
+      color: var(--navy-900);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.05rem;
+    }
+
+    .resources-list a:hover {
+      color: var(--gold-text);
+      text-decoration: underline;
+    }
+
+    .resources-list span {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
     .disclaimer {
       font-size: 0.8rem;
       line-height: 1.6;
@@ -856,6 +921,10 @@
       <p class="updates-subtitle">We're always improving Mission ASVAB. Here's what's new lately.</p>
       <ul class="updates-list">
         <li class="update-item">
+          <span class="update-date">Sep 5, 2026</span>
+          <span class="update-text">Added free study resources you can read without starting a test: an ASVAB FAQ, a score guide, a printable math formula sheet, a vocabulary list, and a week-by-week study plan.</span>
+        </li>
+        <li class="update-item">
           <span class="update-date">Aug 7, 2026</span>
           <span class="update-text">Improved the scoring system for practice tests.</span>
         </li>
@@ -867,15 +936,30 @@
           <span class="update-date">Jul 11, 2026</span>
           <span class="update-text">Fixed a batch of bugs and polished the test experience: test rules are explained up front, you can resume a test in progress, your section always shows on your phone, saving results is more reliable, and the whole site now works with a keyboard.</span>
         </li>
-        <li class="update-item">
-          <span class="update-date">Jul 4, 2026</span>
-          <span class="update-text">Added study courses and bigger question banks for General Science and Electronics Information, plus a study streak, a test-date countdown with a paced plan, spaced-repetition flashcards, and shareable results.</span>
-        </li>
       </ul>
     </div>
   </section>
 
+  <section class="resources-band">
+    <h2>Free ASVAB Resources</h2>
+    <ul class="resources-list">
+      <li><a href="faq.html">ASVAB FAQ</a><span>Minimum scores, retakes, calculators, and test-day rules</span></li>
+      <li><a href="asvab-scores.html">Scores Explained</a><span>AFQT percentiles, standard scores, and Army line scores</span></li>
+      <li><a href="asvab-math-formulas.html">Math Formula Sheet</a><span>Every AR and MK formula on one printable page</span></li>
+      <li><a href="asvab-word-list.html">Word Knowledge List</a><span>120 vocabulary words with plain definitions</span></li>
+      <li><a href="asvab-study-plan.html">Study Plan</a><span>Week-by-week schedule from diagnostic to test day</span></li>
+    </ul>
+  </section>
+
   <footer class="site-footer">
+    <p class="footer-links">
+      <a href="faq.html">ASVAB FAQ</a> ·
+      <a href="asvab-scores.html">Scores Explained</a> ·
+      <a href="asvab-math-formulas.html">Math Formulas</a> ·
+      <a href="asvab-word-list.html">Word List</a> ·
+      <a href="asvab-study-plan.html">Study Plan</a> ·
+      <a href="about.html">About the ASVAB</a>
+    </p>
     <p class="disclaimer">This website is not affiliated with, endorsed by, or sponsored by the U.S. Department of Defense, any branch of the U.S. Armed Forces, or the official ASVAB program. "ASVAB" is a registered trademark of the U.S. Department of Defense. This is an independent practice resource only.</p>
     <p class="copyright">© <span id="year"></span> Mission ASVAB. For educational purposes only.</p>
   </footer>
