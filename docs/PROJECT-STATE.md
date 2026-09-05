@@ -15,6 +15,10 @@ features were built; unchecked boxes there are not the current work queue.
 - SEO foundation pass (Sep 2026): complete OG/twitter/favicon metadata and JSON-LD on all public
   pages, an OG share image, and five indexable resource pages (FAQ, scores guide, math formula
   sheet, word list, week-by-week study plan) cross-linked from footers and a homepage band.
+- UI modernization (Sep 2026, "energetic hybrid"): navy/gold kept; Cormorant Garamond replaced
+  sitewide by Barlow Condensed (uppercase display) + Chakra Petch (scores/timers/section codes);
+  css/shared.css grew a component layer (btn/card/patch/radius/elevation tokens); emoji in static
+  markup replaced with stroke SVGs (JS-injected emoji in dashboard/study-guide remain - follow-up).
 - Guest practice works without an account. Every completed test produces a deterministic Today’s
   Mission that opens a real study chapter and checkpoint. Supabase adds saved test/mission history,
   profiles, reports, cross-device mission status, and guarded admin operations.

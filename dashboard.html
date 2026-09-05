@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Dashboard - Mission ASVAB</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/shared.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1628">
@@ -12,8 +12,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream-100); color: var(--text-primary); }
     nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: var(--white); border-bottom: 1px solid var(--cream-200); }
-    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 700; color: var(--navy-900); text-decoration: none; }
-    .logo span { color: var(--gold-500); }
+    .logo { font-size: 1.6rem; }
     .nav-right { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; justify-content: flex-end; }
     .nav-right a { color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; }
     /* Phones: this nav has no hamburger, so wrap instead of overflowing. */
@@ -22,24 +21,24 @@
       .nav-right { gap: 0.75rem 1rem; }
       .nav-right a { font-size: 0.9rem; }
     }
-    .sign-out-btn { background: none; border: 1.5px solid var(--cream-200); border-radius: 8px; padding: 0.5rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; cursor: pointer; color: var(--text-secondary); }
+    .sign-out-btn { background: none; border: 1.5px solid var(--cream-200); border-radius: var(--r-md); padding: 0.5rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; cursor: pointer; color: var(--text-secondary); }
     .sign-out-btn:hover { border-color: var(--navy-600); color: var(--navy-700); }
     main { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem; }
-    .page-heading { font-family: 'Cormorant Garamond', serif; font-size: 2.25rem; font-weight: 700; margin-bottom: 2rem; }
-    .page-heading span { color: var(--gold-500); }
+    .page-heading { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.05; font-size: 2.6rem; font-weight: 700; margin-bottom: 2rem; }
+    .page-heading span { color: var(--gold-text); }
 
     /* Welcome state */
-    .welcome-hero { background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 100%); color: var(--white); border-radius: 16px; padding: 3rem 2.5rem; text-align: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
+    .welcome-hero { background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 100%); color: var(--white); border-radius: var(--r-lg); box-shadow: var(--shadow-2); padding: 3rem 2.5rem; text-align: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
     .welcome-hero::after { content: ''; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; border-radius: 50%; background: var(--gold-500); opacity: 0.08; }
-    .welcome-eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 0.75rem; }
-    .welcome-hero h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.25rem; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.15; }
+    .welcome-eyebrow { font-family: var(--font-data); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 0.75rem; }
+    .welcome-hero h2 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.01em; font-size: 2.6rem; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.1; }
     .welcome-hero h2 em { font-style: normal; color: var(--gold-400); }
     .welcome-hero p { color: rgba(255,255,255,0.78); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6; }
     .welcome-form { display: flex; flex-direction: column; align-items: center; gap: 1rem; position: relative; z-index: 1; }
     .welcome-form .field { width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: 0.4rem; text-align: left; }
     .welcome-form label { font-weight: 600; font-size: 0.8rem; color: rgba(255,255,255,0.85); }
     .welcome-form label .opt { font-weight: 400; color: rgba(255,255,255,0.55); }
-    .welcome-form input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: var(--white); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color-scheme: dark; }
+    .welcome-form input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: var(--white); border-radius: var(--r-md); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color-scheme: dark; }
     .welcome-form input:focus { outline: none; border-color: var(--gold-400); background: rgba(255,255,255,0.1); }
     .welcome-hero .btn-primary { background: var(--gold-500); color: var(--navy-900); margin-top: 0.5rem; }
     .welcome-hero .btn-primary:hover { background: var(--gold-400); }
@@ -47,11 +46,11 @@
     .welcome-hero .skip-link:hover { color: var(--white); }
     .welcome-steps { display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin-top: 1.5rem; }
     @media (min-width: 640px) { .welcome-steps { grid-template-columns: repeat(3, 1fr); } }
-    .welcome-step { background: var(--white); border-radius: 12px; padding: 1.25rem 1.25rem 1.1rem; border: 1px solid var(--cream-200); }
-    .welcome-step .num { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--gold-500); line-height: 1; }
+    .welcome-step { background: var(--white); border-radius: var(--r-md); padding: 1.25rem 1.25rem 1.1rem; border: 1px solid var(--cream-200); box-shadow: var(--shadow-1); }
+    .welcome-step .num { font-family: var(--font-data); font-size: 1.4rem; font-weight: 700; color: var(--gold-text); line-height: 1; }
     .welcome-step .t { font-weight: 600; margin: 0.5rem 0 0.25rem; }
     .welcome-step .d { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.45; }
-    .btn-primary { display: inline-block; padding: 0.875rem 2rem; background: var(--navy-900); color: var(--white); border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 0.2s; }
+    .btn-primary { display: inline-block; padding: 0.875rem 2rem; background: var(--navy-900); color: var(--white); border: none; border-radius: var(--r-md); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 0.2s, box-shadow 0.2s; }
     .btn-primary:hover { background: var(--navy-700); }
     .skip-link { font-size: 0.875rem; color: var(--text-secondary); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
 
@@ -59,42 +58,49 @@
     #dashboardContent { display: none; }
 
     /* Zone 1: Score summary */
-    .score-summary { background: var(--navy-900); color: var(--white); border-radius: 16px; padding: 2rem 2.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 2.5rem; }
-    .afqt-big { font-size: 4rem; font-weight: 700; font-family: 'Cormorant Garamond', serif; color: var(--gold-400); line-height: 1; }
-    .afqt-big-label { font-size: 0.875rem; opacity: 0.7; margin-top: 0.25rem; }
+    .score-summary { background: var(--navy-900); color: var(--white); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 2rem 2.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 2.5rem; }
+    @media (max-width: 640px) { .score-summary { flex-wrap: wrap; gap: 1.25rem; padding: 1.5rem; } }
+    .afqt-big { font-family: var(--font-data); font-size: 3.6rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--gold-400); line-height: 1; }
+    .afqt-big-label { font-size: 0.875rem; opacity: 0.7; margin-top: 0.35rem; }
     .score-meta { flex: 1; }
     .score-meta-date { font-size: 0.9rem; opacity: 0.7; margin-bottom: 0.5rem; }
     .score-delta { font-size: 1rem; font-weight: 600; display: none; }
-    .take-test-btn { background: var(--gold-500); color: var(--navy-900); padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; white-space: nowrap; }
-    .take-test-btn:hover { background: var(--gold-400); }
+    .take-test-btn { background: var(--gold-500); color: var(--navy-900); padding: 0.75rem 1.5rem; border-radius: var(--r-md); text-decoration: none; font-weight: 600; font-size: 0.95rem; white-space: nowrap; transition: background 0.2s, box-shadow 0.2s; }
+    .take-test-btn:hover { background: var(--gold-400); box-shadow: var(--shadow-2); }
 
     /* PWA install banner */
-    .install-banner { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; background: var(--navy-900); color: var(--white); border-radius: 12px; padding: 0.9rem 1.25rem; margin-bottom: 1.5rem; }
+    .install-banner { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; background: var(--navy-900); color: var(--white); border-radius: var(--r-md); box-shadow: var(--shadow-1); padding: 0.9rem 1.25rem; margin-bottom: 1.5rem; }
+    /* JS reveals the banner by removing the hidden attribute; keep hidden winning over display:flex */
+    .install-banner[hidden] { display: none; }
     .install-banner-text { flex: 1; font-size: 0.95rem; min-width: 12rem; }
-    .install-banner-btn { background: var(--gold-500); color: var(--navy-900); border: none; padding: 0.5rem 1.1rem; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .install-banner-btn { background: var(--gold-500); color: var(--navy-900); border: none; padding: 0.5rem 1.1rem; border-radius: var(--r-md); font-weight: 600; cursor: pointer; }
     .install-banner-btn:hover { background: var(--gold-400); }
-    .install-banner-dismiss { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.35); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+    .install-banner-dismiss { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.35); padding: 0.5rem 1rem; border-radius: var(--r-md); cursor: pointer; }
     .install-banner-dismiss:hover { border-color: rgba(255,255,255,0.7); }
 
     /* Zone 0: Motivation */
     .motivation-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
-    .motivation-card { flex: 1; min-width: 14rem; background: var(--white); border-radius: 16px; padding: 1.1rem 1.4rem; font-weight: 600; font-size: 1.05rem; display: flex; align-items: center; }
-    .study-plan-list { list-style: none; padding: 0; margin: 0; }
-    .study-plan-list li { position: relative; padding: 0.4rem 0 0.4rem 1.6rem; color: var(--text-secondary); }
-    .study-plan-list li::before { content: '→'; position: absolute; left: 0; color: var(--gold-text); font-weight: 700; }
+    .motivation-card { flex: 1; min-width: 14rem; background: var(--white); border: 1px solid var(--cream-200); border-left: 3px solid var(--gold-500); border-radius: var(--r-md); box-shadow: var(--shadow-1); padding: 1.1rem 1.4rem; font-family: var(--font-data); font-weight: 600; font-size: 0.98rem; font-variant-numeric: tabular-nums; display: flex; align-items: center; transition: box-shadow 0.2s ease; }
+    .motivation-card:hover { box-shadow: var(--shadow-2); }
+    /* JS toggles the row and cards via the hidden attribute; keep it winning over display:flex */
+    .motivation-row[hidden], .motivation-card[hidden] { display: none; }
+    /* Scoped to the paced-plan list so the focus panel's numbered plan (same class, injected by JS) keeps its decimal markers */
+    #studyPlanList { list-style: none; padding: 0; margin: 0; }
+    #studyPlanList li { position: relative; padding: 0.4rem 0 0.4rem 1.6rem; color: var(--text-secondary); }
+    #studyPlanList li::before { content: '→'; position: absolute; left: 0; color: var(--gold-text); font-weight: 700; }
 
     /* Mission history + cross-device progress */
     .mission-dashboard { border: 1px solid #ead5a1; background: linear-gradient(135deg, #fffdf7, #fff8e8); }
     .mission-dashboard-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.65fr); gap: 1.25rem; }
-    .mission-current { background: var(--navy-900); color: var(--white); border-radius: 12px; padding: 1.35rem; }
-    .mission-current .eyebrow { color: var(--gold-400); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
-    .mission-current h3 { margin: 0.35rem 0 0.45rem; font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; }
+    .mission-current { background: var(--navy-900); color: var(--white); border-radius: var(--r-md); padding: 1.35rem; }
+    .mission-current .eyebrow { color: var(--gold-400); font-size: 0.75rem; letter-spacing: 0.1em; }
+    .mission-current h3 { margin: 0.35rem 0 0.45rem; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; font-weight: 700; font-size: 1.7rem; line-height: 1.05; }
     .mission-current p { color: rgba(255,255,255,0.8); font-size: 0.9rem; line-height: 1.5; }
-    .mission-current a { display: inline-flex; margin-top: 0.9rem; padding: 0.65rem 1rem; border-radius: 8px; background: var(--gold-500); color: var(--navy-900); text-decoration: none; font-weight: 800; }
-    .mission-progress-stat { display: grid; place-items: center; align-content: center; text-align: center; background: var(--white); border-radius: 12px; padding: 1rem; }
-    .mission-progress-number { font: 700 2.6rem 'Cormorant Garamond', serif; color: var(--navy-900); }
+    .mission-current a { display: inline-flex; margin-top: 0.9rem; padding: 0.65rem 1rem; border-radius: var(--r-md); background: var(--gold-500); color: var(--navy-900); text-decoration: none; font-weight: 700; }
+    .mission-progress-stat { display: grid; place-items: center; align-content: center; text-align: center; background: var(--white); border-radius: var(--r-md); box-shadow: var(--shadow-1); padding: 1rem; }
+    .mission-progress-number { font: 700 2.4rem var(--font-data); font-variant-numeric: tabular-nums; color: var(--navy-900); }
     .mission-progress-label { color: var(--text-secondary); font-size: 0.85rem; }
-    .mission-progress-track { width: 100%; height: 10px; background: var(--cream-200); border-radius: 999px; margin-top: 0.75rem; overflow: hidden; }
+    .mission-progress-track { width: 100%; height: 10px; background: var(--cream-200); border-radius: var(--r-pill); margin-top: 0.75rem; overflow: hidden; }
     .mission-progress-fill { height: 100%; background: var(--gold-500); border-radius: inherit; }
     .mission-history-list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
     .mission-history-item { display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--cream-200); padding-top: 0.55rem; font-size: 0.88rem; }
@@ -102,30 +108,32 @@
     @media (max-width: 650px) { .mission-dashboard-grid { grid-template-columns: 1fr; } }
 
     /* Zone 2: Chart */
-    .section-card-container { background: var(--white); border-radius: 16px; padding: 1.75rem; margin-bottom: 1.5rem; }
-    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 1.25rem; }
+    .section-card-container { background: var(--white); border: 1px solid var(--cream-200); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 1.75rem; margin-bottom: 1.5rem; transition: box-shadow 0.2s ease; }
+    .section-card-container:hover { box-shadow: var(--shadow-2); }
+    .section-title { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; font-size: 1.6rem; font-weight: 700; line-height: 1.1; margin-bottom: 1.25rem; }
     #progressChart { min-height: 100px; }
 
     /* Zone 3: Section breakdown */
     .section-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.25rem; }
     @media (min-width: 600px) { .section-cards { grid-template-columns: repeat(4, 1fr); } }
-    .section-card { background: var(--cream-100); border-radius: 12px; padding: 1.25rem 1rem; text-align: center; }
-    .section-card-name { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
-    .section-card-score { font-size: 1.75rem; font-weight: 700; font-family: 'Cormorant Garamond', serif; }
+    .section-card { background: var(--cream-100); border: 1px solid var(--cream-200); border-radius: var(--r-md); box-shadow: var(--shadow-1); padding: 1.25rem 1rem; text-align: center; transition: box-shadow 0.2s ease; }
+    .section-card:hover { box-shadow: var(--shadow-2); }
+    .section-card-name { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 0.5rem; }
+    .section-card-score { font-size: 1.6rem; font-weight: 700; font-family: var(--font-data); font-variant-numeric: tabular-nums; }
     .section-card-trend { font-size: 1rem; margin-top: 0.25rem; }
 
     /* Focus panel */
-    #focusPanel { background: var(--navy-800); color: var(--white); border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1rem; display: none; }
-    .focus-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 0.5rem; }
+    #focusPanel { background: var(--navy-800); color: var(--white); border-radius: var(--r-md); padding: 1.25rem 1.5rem; margin-top: 1rem; display: none; }
+    .focus-label { font-family: var(--font-data); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 0.5rem; }
     .focus-text { font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem; }
     .focus-cta { color: var(--gold-400); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
     .focus-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin: 0.25rem 0 0.5rem; }
-    .focus-btn { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--gold-500); color: var(--navy-900); border: none; border-radius: 8px; padding: 0.6rem 1rem; font-weight: 700; font-size: 0.9rem; cursor: pointer; font-family: inherit; }
+    .focus-btn { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--gold-500); color: var(--navy-900); border: none; border-radius: var(--r-md); padding: 0.6rem 1rem; font-weight: 700; font-size: 0.9rem; cursor: pointer; font-family: inherit; }
     .focus-btn:hover { background: var(--gold-400); }
     .focus-cta.secondary { color: var(--gold-300); }
     .study-plan { margin-top: 1rem; padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.15); }
-    .study-plan-heading { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 0.6rem; }
-    .study-plan-list { list-style: decimal; padding-left: 1.25rem; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+    .study-plan-heading { font-family: var(--font-data); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 0.6rem; }
+    .study-plan .study-plan-list { list-style: decimal; padding-left: 1.25rem; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
     .study-plan-section { color: var(--white); font-weight: 600; text-decoration: none; font-size: 0.95rem; }
     .study-plan-section:hover { color: var(--gold-300); text-decoration: underline; }
     .study-plan-chapters { font-size: 0.82rem; color: rgba(255,255,255,0.7); margin-top: 0.15rem; }
@@ -133,37 +141,37 @@
     /* Zone 4: History */
     .scoring-model-note { font-size: 0.85rem; color: var(--text-secondary); margin: 0 0 0.85rem; }
     .history-tbl { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-    .history-tbl th { text-align: left; padding: 0.6rem 1rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); border-bottom: 1px solid var(--cream-200); }
+    .history-tbl th { text-align: left; padding: 0.6rem 1rem; font-family: var(--font-data); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); border-bottom: 1px solid var(--cream-200); }
     .history-tbl td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--cream-200); }
     .expand-btn { background: none; border: none; cursor: pointer; font-size: 1rem; color: var(--text-secondary); min-width: 44px; min-height: 44px; padding: 0.5rem; }
     .detail-sections { padding: 0.5rem 0; display: flex; flex-wrap: wrap; gap: 0.75rem; font-size: 0.875rem; color: var(--text-secondary); }
     .history-pagination { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0 0; font-size: 0.9rem; }
-    .history-pagination button { background: none; border: 1.5px solid var(--cream-200); border-radius: 8px; padding: 0.4rem 1rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .history-pagination button { background: none; border: 1.5px solid var(--cream-200); border-radius: var(--r-sm); padding: 0.4rem 1rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
     .history-pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
 
     /* Account button + modal */
-    .account-btn { background: none; border: 1.5px solid var(--cream-200); border-radius: 8px; padding: 0.5rem 0.85rem; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; cursor: pointer; color: var(--text-secondary); }
+    .account-btn { background: none; border: 1.5px solid var(--cream-200); border-radius: var(--r-md); padding: 0.5rem 0.85rem; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; cursor: pointer; color: var(--text-secondary); }
     .account-btn:hover { border-color: var(--navy-600); color: var(--navy-700); }
     .acc-overlay { position: fixed; inset: 0; background: rgba(10,22,40,0.55); display: none; align-items: flex-start; justify-content: center; z-index: 100; padding: 2rem 1rem; overflow-y: auto; }
     .acc-overlay.open { display: flex; }
-    .acc-modal { background: var(--white); border-radius: 14px; max-width: 520px; width: 100%; padding: 2rem; position: relative; }
+    .acc-modal { background: var(--white); border-radius: var(--r-lg); box-shadow: var(--shadow-3); max-width: 520px; width: 100%; padding: 2rem; position: relative; }
     .acc-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); }
-    .acc-modal h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; margin-bottom: 0.25rem; }
+    .acc-modal h2 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; font-size: 2rem; line-height: 1.05; margin-bottom: 0.25rem; }
     .acc-modal h3 { font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin: 1.5rem 0 0.5rem; }
     .acc-modal .sub { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.25rem; }
     .acc-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
     .acc-form label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.35rem; margin-top: 0.75rem; }
-    .acc-form input, .acc-form select { width: 100%; padding: 0.65rem 0.85rem; border: 1.5px solid var(--cream-200); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; }
+    .acc-form input, .acc-form select { width: 100%; padding: 0.65rem 0.85rem; border: 1.5px solid var(--cream-200); border-radius: var(--r-md); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; }
     .acc-form input:focus, .acc-form select:focus { outline: none; border-color: var(--navy-600); }
     .acc-actions { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
-    .acc-actions .save { background: var(--navy-900); color: var(--white); padding: 0.65rem 1.25rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .acc-actions .save { background: var(--navy-900); color: var(--white); padding: 0.65rem 1.25rem; border: none; border-radius: var(--r-md); font-weight: 600; cursor: pointer; }
     .acc-actions .save:hover { background: var(--navy-700); }
     .acc-msg { font-size: 0.85rem; margin-top: 0.75rem; min-height: 1em; }
     .acc-msg.ok { color: #2f7d4f; }
     .acc-msg.err { color: #b94a4a; }
     .danger-zone { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--cream-200); }
     .danger-zone .warn { color: #b94a4a; font-size: 0.8rem; margin-bottom: 0.5rem; }
-    .danger-zone .del { background: none; color: #b94a4a; border: 1.5px solid #f5d3d3; padding: 0.55rem 1rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; }
+    .danger-zone .del { background: none; color: #b94a4a; border: 1.5px solid #f5d3d3; padding: 0.55rem 1rem; border-radius: var(--r-md); font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; }
     .danger-zone .del:hover { background: #fff5f5; }
   </style>
 </head>
@@ -183,7 +191,7 @@
     <h1 class="page-heading"><span id="greetingPrefix">Welcome back</span>, <span id="userName">...</span></h1>
 
     <!-- Error state: history query failed (network/server) -->
-    <div id="dashboardError" hidden style="background:#fff7ed;border:1px solid #fdba74;border-radius:10px;padding:1.25rem 1.5rem;color:#9a3412;margin-bottom:1.5rem;">
+    <div id="dashboardError" hidden style="background:#fff7ed;border:1px solid #fdba74;border-radius:var(--r-md);padding:1.25rem 1.5rem;color:#9a3412;margin-bottom:1.5rem;">
       We couldn't load your test history right now. Your data is safe, this is usually a connection hiccup.
       <a href="dashboard.html" style="color:#9a3412;font-weight:700;">Reload the page</a> to try again.
     </div>
@@ -226,8 +234,8 @@
 
     <!-- Empty dashboard: shown when user skipped onboarding and has no tests -->
     <div id="emptyDashboard" style="display:none;">
-      <div style="background: var(--white); border-radius: 16px; padding: 2.5rem 2rem; text-align: center;">
-        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">No tests yet</h2>
+      <div style="background: var(--white); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 2.5rem 2rem; text-align: center;">
+        <h2 style="font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; font-size: 1.7rem; margin-bottom: 0.5rem;">No tests yet</h2>
         <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Whenever you're ready, take a practice test and your scores will show up here.</p>
         <a href="select-test.html" class="btn-primary">Take a Practice Test &rarr;</a>
       </div>

@@ -60,7 +60,10 @@ js/
 ├── admin.js  dashboard.js  # Admin panel + user dashboard logic
 ├── page-*.js               # Per-page logic (externalized; NO inline <script> — see CSP rule below)
 ├── focus-trap.js  mobile-menu.js  sw-register.js  year.js  # shared UI/PWA helpers
-css/shared.css              # Shared :root tokens, nav, mobile menu, reduced-motion, focus styles
+css/shared.css              # Design system: tokens (palette, type roles, radius, elevation) +
+                            #   shared components (.btn variants, .card, .patch, .logo, nav, mobile
+                            #   menu, footer, focus/reduced-motion floors). Fonts sitewide: Barlow
+                            #   Condensed (display, uppercase) / DM Sans (body) / Chakra Petch (data)
 service-worker.js           # App-shell offline cache (bypasses Supabase/cross-origin/admin)
 manifest.json  robots.txt  .vercelignore
 scripts/

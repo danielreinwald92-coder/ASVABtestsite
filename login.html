@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Log In - Mission ASVAB</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/shared.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1628">
@@ -12,24 +14,23 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream-100); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
     nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: var(--white); border-bottom: 1px solid var(--cream-200); }
-    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 700; color: var(--navy-900); text-decoration: none; }
-    .logo span { color: var(--gold-500); }
+    .logo { font-size: 1.6rem; }
     main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 1rem; }
-    .auth-card { background: var(--white); border-radius: 16px; padding: 2.5rem; width: 100%; max-width: 420px; box-shadow: 0 4px 24px rgba(10,22,40,0.08); }
-    h1 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .auth-card { background: var(--white); border: 1px solid var(--cream-200); border-radius: var(--r-lg); padding: 2.5rem; width: 100%; max-width: 420px; box-shadow: var(--shadow-2); }
+    h1 { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; margin-bottom: 0.5rem; }
     .subtitle { color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.95rem; }
     .form-group { margin-bottom: 1.25rem; }
     label { display: block; font-weight: 600; font-size: 0.875rem; margin-bottom: 0.4rem; color: var(--navy-800); }
-    input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--cream-200); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; transition: border-color 0.2s; }
-    input:focus { outline: none; border-color: var(--navy-600); }
-    .btn-primary { width: 100%; padding: 0.875rem; background: var(--navy-900); color: var(--white); border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-    .btn-primary:hover { background: var(--navy-700); }
+    input { width: 100%; padding: 0.7rem 1rem; min-height: 44px; border: 2px solid var(--cream-200); border-radius: var(--r-md); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; transition: border-color 0.2s; }
+    input:focus { outline: none; border-color: var(--navy-700); }
+    .btn-primary { width: 100%; padding: 0.95rem 1.9rem; min-height: 44px; background: var(--navy-900); color: var(--white); border: none; border-radius: var(--r-md); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s, box-shadow 0.2s; }
+    .btn-primary:hover { background: var(--navy-700); box-shadow: var(--shadow-2); }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
     .forgot-link { text-align: right; margin-top: -0.75rem; margin-bottom: 1.25rem; }
     .forgot-link button { background: none; border: none; color: var(--navy-600); font-size: 0.85rem; cursor: pointer; padding: 0; font-family: 'DM Sans', sans-serif; }
-    .error-msg { color: #c0392b; font-size: 0.875rem; margin-top: 1rem; display: none; }
+    .error-msg { color: var(--error); font-size: 0.875rem; margin-top: 1rem; display: none; }
     .btn-secondary-link { background: none; border: none; color: var(--navy-600); font-weight: 600; font-size: 0.875rem; cursor: pointer; padding: 0; margin-top: 0.75rem; text-decoration: underline; font-family: 'DM Sans', sans-serif; }
-    .success-msg { color: #27ae60; font-size: 0.875rem; margin-top: 1rem; display: none; }
+    .success-msg { color: var(--success); font-size: 0.875rem; margin-top: 1rem; display: none; }
     .bottom-link { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-secondary); }
     .bottom-link a { color: var(--navy-700); font-weight: 600; text-decoration: none; }
     #forgotSection { display: none; }

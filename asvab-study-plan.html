@@ -22,7 +22,7 @@
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/shared.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1628">
@@ -59,15 +59,8 @@
     }
 
     .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--navy-900);
-      letter-spacing: -0.02em;
-      text-decoration: none;
+      font-size: 1.6rem;
     }
-
-    .logo span { color: var(--gold-500); }
 
     .nav-links a:hover,
     .nav-links a.active {
@@ -87,10 +80,23 @@
       text-align: center;
     }
 
+    .hero-eyebrow {
+      font-family: var(--font-data);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gold-400);
+      margin-bottom: 0.85rem;
+    }
+
     .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      line-height: 1.05;
       color: var(--white);
       margin-bottom: 1rem;
     }
@@ -114,9 +120,11 @@
     }
 
     .section h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
+      font-family: var(--font-display);
+      font-size: 1.9rem;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
       color: var(--navy-900);
       margin-bottom: 1rem;
       padding-bottom: 0.5rem;
@@ -155,8 +163,10 @@
       border-collapse: collapse;
       margin-top: 1.5rem;
       background: var(--white);
-      border-radius: 12px;
+      border-radius: var(--r-md);
       overflow: hidden;
+      box-shadow: var(--shadow-1);
+      transition: box-shadow 0.2s ease;
     }
 
     .score-table th,
@@ -168,8 +178,11 @@
     .score-table th {
       background: var(--navy-900);
       color: var(--white);
+      font-family: var(--font-data);
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     .score-table td {
@@ -191,19 +204,31 @@
       background: var(--cream-100);
     }
 
+    .score-table:hover {
+      box-shadow: var(--shadow-2);
+    }
+
     /* CTA */
     .cta-section {
       background: var(--white);
-      border-radius: 20px;
+      border-radius: var(--r-lg);
       padding: 3rem;
       text-align: center;
       margin-top: 2rem;
+      box-shadow: var(--shadow-1);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .cta-section:hover {
+      box-shadow: var(--shadow-2);
     }
 
     .cta-section h3 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-display);
       font-size: 1.75rem;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
       color: var(--navy-900);
       margin-bottom: 0.5rem;
     }
@@ -220,7 +245,7 @@
       background: var(--navy-900);
       color: var(--white);
       padding: 1rem 2rem;
-      border-radius: 8px;
+      border-radius: var(--r-md);
       text-decoration: none;
       font-weight: 600;
       transition: all 0.25s ease;
@@ -229,6 +254,7 @@
     .cta-btn:hover {
       background: var(--navy-700);
       transform: translateY(-2px);
+      box-shadow: var(--shadow-2);
     }
 
     .cta-btn::after {
@@ -290,6 +316,7 @@
   </div>
 
   <header class="hero">
+    <p class="hero-eyebrow">GUIDE - STUDY PLAN</p>
     <h1>How to Study for the ASVAB</h1>
     <p>A realistic week-by-week plan: find your weak spots first, fix them in order, then practice at full test pace</p>
   </header>

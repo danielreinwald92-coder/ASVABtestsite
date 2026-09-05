@@ -6,7 +6,7 @@
   <title>ASVAB Practice Test - Results</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/shared.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1628">
@@ -15,7 +15,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       background: var(--cream-100);
       color: var(--text-primary);
       line-height: 1.6;
@@ -32,21 +32,14 @@
     }
 
     .logo {
-      font-family: 'Cormorant Garamond', serif;
       font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--navy-900);
-      letter-spacing: -0.02em;
-      text-decoration: none;
     }
-
-    .logo span { color: var(--gold-500); }
 
     .nav-actions { display: flex; gap: 1rem; }
 
     .nav-btn {
       padding: 0.6rem 1.25rem;
-      border-radius: 6px;
+      border-radius: var(--r-sm);
       font-size: 0.9rem;
       font-weight: 500;
       text-decoration: none;
@@ -79,10 +72,10 @@
 
     .score-hero {
       background: var(--white);
-      border-radius: 24px;
+      border-radius: var(--r-lg);
       padding: 3rem;
       text-align: center;
-      box-shadow: 0 8px 40px rgba(10, 22, 40, 0.08);
+      box-shadow: var(--shadow-3);
       margin-bottom: 2rem;
       position: relative;
       overflow: hidden;
@@ -109,9 +102,12 @@
       background: var(--success-light);
       color: var(--success);
       padding: 0.5rem 1rem;
-      border-radius: 50px;
-      font-size: 0.85rem;
+      border-radius: var(--r-pill);
+      font-family: var(--font-data);
+      font-size: 0.78rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       margin-bottom: 1.5rem;
     }
 
@@ -127,9 +123,11 @@
     }
 
     .user-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
+      font-family: var(--font-display);
+      font-size: 2.1rem;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
       color: var(--navy-900);
       margin-bottom: 2rem;
     }
@@ -137,20 +135,32 @@
     .afqt-section { margin-bottom: 2rem; }
 
     .afqt-label {
-      font-size: 0.85rem;
+      font-family: var(--font-data);
+      font-size: 0.78rem;
       font-weight: 600;
-      color: var(--text-secondary);
+      color: var(--gold-text);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.14em;
       margin-bottom: 0.5rem;
     }
 
     .afqt-score {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-data);
       font-size: 6rem;
       font-weight: 700;
+      font-variant-numeric: tabular-nums;
       color: var(--navy-900);
       line-height: 1;
+    }
+
+    .afqt-score::after {
+      content: "";
+      display: block;
+      width: 64px;
+      height: 4px;
+      margin: 0.75rem auto 0;
+      background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
+      border-radius: var(--r-pill);
     }
 
     .afqt-percentile {
@@ -165,7 +175,7 @@
       color: var(--navy-900);
       border: none;
       padding: 0.7rem 1.6rem;
-      border-radius: 8px;
+      border-radius: var(--r-md);
       font-weight: 600;
       font-size: 0.95rem;
       cursor: pointer;
@@ -173,9 +183,11 @@
     .share-result-btn:hover { background: var(--gold-400); }
 
     .score-message {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
       color: var(--navy-900);
       margin-bottom: 0.5rem;
     }
@@ -197,16 +209,17 @@
 
     .stat-card {
       background: var(--white);
-      border-radius: 16px;
+      border-radius: var(--r-lg);
       padding: 1.5rem;
       text-align: center;
-      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+      box-shadow: var(--shadow-1);
     }
 
     .stat-value {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-data);
       font-size: 2rem;
       font-weight: 700;
+      font-variant-numeric: tabular-nums;
       color: var(--navy-900);
       line-height: 1;
     }
@@ -230,7 +243,7 @@
     .cta-btn {
       flex: 1;
       padding: 1rem 1.5rem;
-      border-radius: 12px;
+      border-radius: var(--r-md);
       font-size: 1rem;
       font-weight: 600;
       text-decoration: none;
@@ -238,7 +251,7 @@
       transition: all 0.25s ease;
       border: none;
       cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
     }
 
     .cta-primary {
@@ -249,7 +262,7 @@
     .cta-primary:hover {
       background: var(--navy-700);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(10, 22, 40, 0.2);
+      box-shadow: var(--shadow-2);
     }
 
     .cta-secondary {
@@ -267,7 +280,7 @@
       .nav-btn { padding: 0.6rem 1rem; font-size: 0.85rem; }
 
       .results-container { padding: 1.5rem 1rem; }
-      .score-hero { padding: 1.5rem; border-radius: 16px; }
+      .score-hero { padding: 1.5rem; border-radius: var(--r-lg); }
       .completion-badge { font-size: 0.75rem; padding: 0.4rem 0.8rem; }
       .greeting { font-size: 1rem; }
       .user-name { font-size: 1.25rem; }
@@ -296,17 +309,19 @@
     /* Section Breakdown */
     .section-breakdown {
       background: var(--white);
-      border-radius: 16px;
+      border-radius: var(--r-lg);
       padding: 2rem;
       margin-bottom: 2rem;
-      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+      box-shadow: var(--shadow-1);
       animation: fadeIn 0.5s ease-out 0.15s both;
     }
 
     .breakdown-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-family: var(--font-display);
+      font-size: 1.6rem;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
       color: var(--navy-900);
       margin-bottom: 0.25rem;
     }
@@ -328,7 +343,7 @@
       gap: 1rem;
       padding: 1rem;
       background: var(--cream-100);
-      border-radius: 10px;
+      border-radius: var(--r-md);
     }
 
     .breakdown-item.needs-work {
@@ -355,8 +370,10 @@
     }
 
     .breakdown-score {
+      font-family: var(--font-data);
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      font-variant-numeric: tabular-nums;
     }
 
     .breakdown-item.needs-work .breakdown-score {
@@ -377,13 +394,13 @@
       width: 100px;
       height: 8px;
       background: var(--cream-200);
-      border-radius: 4px;
+      border-radius: var(--r-pill);
       overflow: hidden;
     }
 
     .breakdown-fill {
       height: 100%;
-      border-radius: 4px;
+      border-radius: var(--r-pill);
       transition: width 0.5s ease;
     }
 
@@ -422,17 +439,19 @@
     /* Line Scores Section */
     .line-scores {
       background: var(--white);
-      border-radius: 16px;
+      border-radius: var(--r-lg);
       padding: 2rem;
       margin-bottom: 2rem;
-      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+      box-shadow: var(--shadow-1);
       animation: fadeIn 0.5s ease-out 0.2s both;
     }
 
     .line-scores-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-family: var(--font-display);
+      font-size: 1.6rem;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
       color: var(--navy-900);
       margin-bottom: 0.25rem;
     }
@@ -451,7 +470,7 @@
 
     .line-score-card {
       background: var(--cream-100);
-      border-radius: 12px;
+      border-radius: var(--r-md);
       padding: 1.25rem;
       text-align: center;
       border: 2px solid transparent;
@@ -474,16 +493,19 @@
     }
 
     .line-score-code {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
+      font-family: var(--font-data);
+      font-size: 1rem;
       font-weight: 700;
+      letter-spacing: 0.08em;
       color: var(--navy-900);
       margin-bottom: 0.25rem;
     }
 
     .line-score-value {
+      font-family: var(--font-data);
       font-size: 2rem;
       font-weight: 700;
+      font-variant-numeric: tabular-nums;
       color: var(--navy-900);
       line-height: 1;
       margin-bottom: 0.25rem;
@@ -503,7 +525,7 @@
       margin-top: 1.25rem;
       padding: 1rem;
       background: var(--cream-100);
-      border-radius: 8px;
+      border-radius: var(--r-sm);
       font-size: 0.85rem;
       color: var(--text-secondary);
       line-height: 1.5;
@@ -539,19 +561,26 @@
       gap: 1.5rem;
       background: var(--white);
       padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-1);
     }
 
     .recruiter-icon {
-      font-size: 2.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
+      color: var(--gold-text);
     }
 
+    .recruiter-icon svg { width: 44px; height: 44px; }
+
     .recruiter-content h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
       color: var(--navy-900);
       margin-bottom: 0.5rem;
     }
@@ -566,13 +595,13 @@
       background: var(--navy-900);
       color: var(--white);
       padding: 0.75rem 1.25rem;
-      border-radius: 8px;
+      border-radius: var(--r-md);
       font-weight: 600;
       font-size: 0.9rem;
       border: none;
       cursor: pointer;
       transition: all 0.25s ease;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
     }
 
     .recruiter-toggle:hover {
@@ -584,8 +613,8 @@
       margin-top: 1rem;
       background: var(--white);
       padding: 1.5rem;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-1);
     }
 
     .recruiter-form .form-row {
@@ -616,9 +645,9 @@
     .recruiter-form textarea {
       padding: 0.7rem 0.9rem;
       border: 1px solid var(--cream-200);
-      border-radius: 8px;
+      border-radius: var(--r-sm);
       font-size: 0.95rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       transition: border-color 0.2s ease;
     }
 
@@ -633,13 +662,13 @@
       background: var(--gold-500);
       color: var(--navy-900);
       padding: 0.875rem 1.5rem;
-      border-radius: 8px;
+      border-radius: var(--r-md);
       font-weight: 600;
       font-size: 1rem;
       border: none;
       cursor: pointer;
       transition: all 0.25s ease;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       width: 100%;
     }
 
@@ -710,10 +739,10 @@
     /* Answer Review Section */
     .answer-review {
       background: var(--white);
-      border-radius: 16px;
+      border-radius: var(--r-lg);
       padding: 2rem;
       margin-bottom: 2rem;
-      box-shadow: 0 4px 20px rgba(10, 22, 40, 0.06);
+      box-shadow: var(--shadow-1);
       animation: fadeIn 0.5s ease-out 0.2s both;
     }
 
@@ -727,9 +756,11 @@
     }
 
     .answer-review-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-family: var(--font-display);
+      font-size: 1.6rem;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
       color: var(--navy-900);
     }
 
@@ -741,7 +772,7 @@
 
     .filter-btn {
       padding: 0.5rem 1rem;
-      border-radius: 20px;
+      border-radius: var(--r-pill);
       font-size: 0.85rem;
       font-weight: 500;
       border: 1px solid var(--cream-200);
@@ -749,7 +780,7 @@
       color: var(--text-secondary);
       cursor: pointer;
       transition: all 0.2s ease;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
     }
 
     .filter-btn:hover {
@@ -765,7 +796,7 @@
 
     .review-question {
       border: 1px solid var(--cream-200);
-      border-radius: 12px;
+      border-radius: var(--r-md);
       padding: 1.5rem;
       margin-bottom: 1rem;
       background: var(--cream-100);
@@ -788,18 +819,19 @@
     }
 
     .review-question-number {
-      font-size: 0.8rem;
+      font-family: var(--font-data);
+      font-size: 0.75rem;
       font-weight: 600;
       color: var(--text-secondary);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
     }
 
     .review-question-status {
       font-size: 0.75rem;
       font-weight: 600;
       padding: 0.25rem 0.75rem;
-      border-radius: 12px;
+      border-radius: var(--r-pill);
       text-transform: uppercase;
     }
 
@@ -825,7 +857,7 @@
       padding: 1rem 1.25rem;
       background: var(--cream-100);
       border-left: 3px solid var(--gold-500);
-      border-radius: 8px;
+      border-radius: var(--r-sm);
     }
     .review-explanation-label {
       display: block;
@@ -848,10 +880,10 @@
     .report-btn {
       background: none;
       border: 1px solid var(--cream-200);
-      border-radius: 8px;
+      border-radius: var(--r-sm);
       padding: 0.4rem 0.8rem;
       font-size: 0.8rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       color: var(--text-secondary);
       cursor: pointer;
     }
@@ -860,7 +892,7 @@
     .report-note { font-size: 0.8rem; color: var(--text-secondary); }
     .report-menu {
       border: 1px solid var(--cream-200);
-      border-radius: 8px;
+      border-radius: var(--r-sm);
       padding: 0.75rem;
       background: var(--white);
     }
@@ -869,10 +901,10 @@
     .report-reason-btn {
       background: var(--cream-100);
       border: 1px solid var(--cream-200);
-      border-radius: 16px;
+      border-radius: var(--r-pill);
       padding: 0.35rem 0.7rem;
       font-size: 0.8rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       cursor: pointer;
       color: var(--text-primary);
     }
@@ -882,9 +914,9 @@
       width: 100%;
       box-sizing: border-box;
       border: 1px solid var(--cream-200);
-      border-radius: 8px;
+      border-radius: var(--r-sm);
       padding: 0.5rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 0.85rem;
       resize: vertical;
     }
@@ -896,7 +928,7 @@
       font-size: 0.8rem;
       cursor: pointer;
       text-decoration: underline;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
     }
     .report-msg { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.4rem; }
 
@@ -908,7 +940,7 @@
 
     .review-option {
       padding: 0.75rem 1rem;
-      border-radius: 8px;
+      border-radius: var(--r-sm);
       font-size: 0.9rem;
       background: var(--white);
       border: 1px solid var(--cream-200);
@@ -973,7 +1005,7 @@
     .review-toggle-btn {
       width: 100%;
       padding: 1rem;
-      border-radius: 12px;
+      border-radius: var(--r-md);
       font-size: 1rem;
       font-weight: 600;
       border: 2px solid var(--cream-200);
@@ -981,7 +1013,7 @@
       color: var(--navy-900);
       cursor: pointer;
       transition: all 0.25s ease;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       margin-bottom: 1.5rem;
     }
 
@@ -1012,20 +1044,20 @@
       background: linear-gradient(135deg, #0f2747, #173a65);
       color: var(--white);
       border: 1px solid rgba(212, 168, 83, 0.65);
-      border-radius: 18px;
-      box-shadow: 0 14px 35px rgba(10, 22, 40, 0.18);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-3);
     }
-    .mission-eyebrow { color: var(--gold-400); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; }
-    .mission-panel h3 { margin: 0.35rem 0 0.5rem; font-size: 1.7rem; color: var(--white); }
+    .mission-eyebrow { font-family: var(--font-data); color: var(--gold-400); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.78rem; }
+    .mission-panel h3 { margin: 0.35rem 0 0.5rem; font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; color: var(--white); }
     .mission-summary { margin: 0; color: #e9eef5; line-height: 1.6; }
     .mission-meta { display: flex; gap: 0.65rem; flex-wrap: wrap; margin: 1rem 0; }
-    .mission-chip { padding: 0.35rem 0.65rem; border-radius: 999px; background: rgba(255,255,255,0.1); color: #f7e8bd; font-size: 0.85rem; font-weight: 700; }
-    .mission-why { padding: 0.85rem 1rem; background: rgba(255,255,255,0.08); border-left: 3px solid var(--gold-500); border-radius: 8px; color: #f4f6f9; line-height: 1.5; }
+    .mission-chip { padding: 0.35rem 0.65rem; border-radius: var(--r-pill); background: rgba(255,255,255,0.1); color: #f7e8bd; font-size: 0.85rem; font-weight: 700; }
+    .mission-why { padding: 0.85rem 1rem; background: rgba(255,255,255,0.08); border-left: 3px solid var(--gold-500); border-radius: var(--r-sm); color: #f4f6f9; line-height: 1.5; }
     .mission-priorities { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; margin: 1.15rem 0; }
-    .mission-priority { padding: 0.9rem; border-radius: 10px; background: rgba(255,255,255,0.08); }
+    .mission-priority { padding: 0.9rem; border-radius: var(--r-md); background: rgba(255,255,255,0.08); }
     .mission-priority strong { display: block; color: var(--white); margin-bottom: 0.2rem; }
     .mission-priority span { color: #dbe4ef; font-size: 0.86rem; line-height: 1.4; }
-    .mission-start { display: inline-flex; align-items: center; justify-content: center; margin-top: 0.25rem; padding: 0.85rem 1.25rem; border-radius: 9px; background: var(--gold-500); color: #0a1628; font-weight: 800; text-decoration: none; }
+    .mission-start { display: inline-flex; align-items: center; justify-content: center; margin-top: 0.25rem; padding: 0.85rem 1.25rem; border-radius: var(--r-md); background: var(--gold-500); color: #0a1628; font-weight: 800; text-decoration: none; }
     .mission-start:hover { background: #e3bd6f; transform: translateY(-1px); }
     .mission-account-note { margin: 1rem 0 0; color: #dbe4ef; font-size: 0.88rem; line-height: 1.5; }
     .mission-account-note a { color: #f3d488; font-weight: 700; }
@@ -1134,7 +1166,7 @@
 
     <section class="recruiter-section" id="recruiterSection">
       <div class="recruiter-card">
-        <div class="recruiter-icon">🎖️</div>
+        <div class="recruiter-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg></div>
         <div class="recruiter-content">
           <h3>Want Help Understanding Your Score?</h3>
           <p>A military recruiter can explain what your score qualifies you for and answer any questions about the enlistment process.</p>

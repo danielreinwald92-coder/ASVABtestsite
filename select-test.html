@@ -22,7 +22,7 @@
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/shared.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1628">
@@ -31,7 +31,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       background: var(--cream-100);
       color: var(--text-primary);
       line-height: 1.6;
@@ -47,16 +47,7 @@
       border-bottom: 1px solid var(--cream-200);
     }
 
-    .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--navy-900);
-      letter-spacing: -0.02em;
-      text-decoration: none;
-    }
-
-    .logo span { color: var(--gold-500); }
+    .logo { font-size: 1.6rem; }
 
     .back-link {
       color: var(--text-secondary);
@@ -80,8 +71,11 @@
     }
 
     .page-header h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      line-height: 1.05;
+      font-size: 2.9rem;
       font-weight: 700;
       color: var(--navy-900);
       margin-bottom: 0.5rem;
@@ -94,8 +88,10 @@
 
     /* Test Type Selection */
     .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 1.6rem;
       font-weight: 700;
       color: var(--navy-900);
       margin-bottom: 1.5rem;
@@ -110,18 +106,19 @@
 
     .test-type-card {
       background: var(--white);
-      border: 3px solid var(--cream-200);
-      border-radius: 20px;
+      border: 2px solid var(--cream-200);
+      border-radius: var(--r-lg);
       padding: 2rem;
       cursor: pointer;
-      transition: all 0.25s ease;
+      box-shadow: var(--shadow-1);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
       position: relative;
     }
 
     .test-type-card:hover {
       border-color: var(--gold-400);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(10, 22, 40, 0.1);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-3);
     }
 
     .test-type-card:focus-visible {
@@ -131,7 +128,7 @@
 
     .test-type-card.selected {
       border-color: var(--navy-900);
-      box-shadow: 0 8px 30px rgba(10, 22, 40, 0.15);
+      box-shadow: var(--shadow-2);
     }
 
     .test-type-card.selected::after {
@@ -155,9 +152,12 @@
       display: inline-block;
       padding: 0.35rem 0.75rem;
       background: var(--cream-100);
-      border-radius: 6px;
-      font-size: 0.8rem;
+      border-radius: var(--r-pill);
+      font-family: var(--font-data);
+      font-size: 0.72rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       color: var(--navy-700);
       margin-bottom: 1rem;
     }
@@ -168,8 +168,10 @@
     }
 
     .test-type-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: 1.65rem;
       font-weight: 700;
       color: var(--navy-900);
       margin-bottom: 0.5rem;
@@ -196,13 +198,18 @@
     }
 
     .detail-value {
+      font-family: var(--font-data);
+      font-variant-numeric: tabular-nums;
       font-weight: 700;
       color: var(--navy-900);
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
     .detail-label {
-      font-size: 0.8rem;
+      font-family: var(--font-data);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: var(--text-secondary);
     }
 
@@ -226,7 +233,7 @@
     .section-card {
       background: var(--white);
       border: 2px solid var(--cream-200);
-      border-radius: 12px;
+      border-radius: var(--r-md);
       padding: 1.25rem;
       display: flex;
       align-items: center;
@@ -254,7 +261,7 @@
       width: 24px;
       height: 24px;
       border: 2px solid var(--cream-200);
-      border-radius: 6px;
+      border-radius: var(--r-sm);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -283,7 +290,9 @@
     }
 
     .section-code {
+      font-family: var(--font-data);
       font-size: 0.8rem;
+      letter-spacing: 0.05em;
       color: var(--text-secondary);
     }
 
@@ -296,18 +305,21 @@
     /* Name Input */
     .name-section {
       background: var(--white);
-      border-radius: 16px;
+      border: 1px solid var(--cream-200);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-1);
       padding: 2rem;
       margin-bottom: 2rem;
     }
 
     .name-label {
       display: block;
-      font-size: 0.85rem;
+      font-family: var(--font-data);
+      font-size: 0.75rem;
       font-weight: 600;
       color: var(--text-secondary);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.1em;
       margin-bottom: 0.5rem;
     }
 
@@ -315,9 +327,9 @@
       width: 100%;
       padding: 1rem 1.25rem;
       font-size: 1.05rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       border: 2px solid var(--cream-200);
-      border-radius: 10px;
+      border-radius: var(--r-md);
       background: var(--cream-100);
       color: var(--text-primary);
       transition: all 0.2s ease;
@@ -338,7 +350,8 @@
     .resume-banner {
       background: var(--cream-100);
       border: 2px solid var(--gold-500);
-      border-radius: 12px;
+      border-radius: var(--r-md);
+      box-shadow: var(--shadow-1);
       padding: 1.25rem 1.5rem;
       margin-bottom: 2rem;
     }
@@ -346,10 +359,11 @@
     .resume-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
     .resume-btn, .discard-btn {
       padding: 0.65rem 1.25rem;
-      border-radius: 8px;
+      min-height: 44px;
+      border-radius: var(--r-md);
       font-weight: 600;
       cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 0.95rem;
     }
     .resume-btn { background: var(--navy-900); color: var(--white); border: none; }
@@ -364,7 +378,7 @@
       background: var(--navy-900);
       color: var(--white);
       border: none;
-      border-radius: 12px;
+      border-radius: var(--r-md);
       font-size: 1.1rem;
       font-weight: 600;
       cursor: pointer;
@@ -373,13 +387,13 @@
       align-items: center;
       justify-content: center;
       gap: 0.75rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
     }
 
     .start-btn:hover:not(:disabled) {
       background: var(--navy-700);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(10, 22, 40, 0.2);
+      box-shadow: var(--shadow-2);
     }
 
     .start-btn:disabled {
@@ -400,7 +414,7 @@
 
       .main-content { padding: 1.5rem 1rem; }
       .page-header { margin-bottom: 2rem; }
-      .page-header h1 { font-size: 1.75rem; }
+      .page-header h1 { font-size: 2.2rem; }
       .page-header p { font-size: 1rem; }
 
       .section-title { font-size: 1.25rem; }
@@ -410,7 +424,7 @@
         grid-template-columns: 1fr;
       }
 
-      .test-type-card { padding: 1.5rem; border-radius: 16px; }
+      .test-type-card { padding: 1.5rem; border-radius: var(--r-lg); }
       .test-type-name { font-size: 1.5rem; }
       .test-type-desc { font-size: 0.9rem; }
 
@@ -419,7 +433,7 @@
         gap: 1rem;
       }
 
-      .section-card { padding: 1rem; border-radius: 10px; }
+      .section-card { padding: 1rem; border-radius: var(--r-md); }
       .section-name { font-size: 0.95rem; }
       .section-questions { font-size: 0.8rem; }
 
@@ -428,12 +442,12 @@
       .start-btn {
         padding: 1.125rem 1.5rem;
         font-size: 1rem;
-        border-radius: 10px;
+        border-radius: var(--r-md);
       }
     }
 
     @media (max-width: 480px) {
-      .page-header h1 { font-size: 1.5rem; }
+      .page-header h1 { font-size: 1.9rem; }
       .test-type-card { padding: 1.25rem; }
       .test-type-badge { font-size: 0.75rem; padding: 0.25rem 0.6rem; }
       .test-type-name { font-size: 1.25rem; }
@@ -450,7 +464,9 @@
       color: var(--text-secondary);
       cursor: pointer;
     }
-    .tutor-toggle input { width: 18px; height: 18px; cursor: pointer; }
+    .tutor-toggle input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--navy-900); }
+    .tutor-toggle.disabled { opacity: 0.55; cursor: not-allowed; }
+    .tutor-toggle.disabled input { cursor: not-allowed; }
 
     .section-picker {
       display: grid;
@@ -463,15 +479,18 @@
       align-items: center;
       gap: 0.7rem;
       padding: 0.7rem 0.9rem;
+      min-height: 44px;
       background: var(--white);
       border: 2px solid var(--cream-200);
-      border-radius: 10px;
+      border-radius: var(--r-md);
+      box-shadow: var(--shadow-1);
       cursor: pointer;
+      transition: border-color 0.2s ease;
     }
     .picker-row.checked { border-color: var(--navy-900); }
-    .picker-row input { width: 18px; height: 18px; cursor: pointer; }
+    .picker-row input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--navy-900); }
     .picker-name { font-weight: 600; color: var(--navy-900); }
-    .picker-meta { margin-left: auto; font-size: 0.8rem; color: var(--text-secondary); white-space: nowrap; }
+    .picker-meta { margin-left: auto; font-family: var(--font-data); font-variant-numeric: tabular-nums; font-size: 0.78rem; color: var(--text-secondary); white-space: nowrap; }
     .picker-summary { font-weight: 600; color: var(--navy-700); margin-bottom: 1rem; min-height: 1.2em; }
 
     .footer-links a { color: var(--cream-200); text-decoration: underline; }

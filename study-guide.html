@@ -22,7 +22,7 @@
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/shared.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1628">
@@ -31,12 +31,7 @@
     body { font-family: 'DM Sans', sans-serif; background: var(--cream-100); color: var(--text-primary); line-height: 1.7; }
 
     nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: var(--white); border-bottom: 1px solid var(--cream-200); }
-    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 700; color: var(--navy-900); text-decoration: none; }
-    .logo span { color: var(--gold-500); }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--text-secondary); font-weight: 500; }
-    .nav-links a:hover, .nav-links a.active { color: var(--navy-900); }
-    .nav-cta { background: var(--navy-900); color: var(--white); padding: 0.75rem 1.75rem; border-radius: 6px; text-decoration: none; font-weight: 600; }
+    .logo { font-size: 1.6rem; }
     .mobile-menu-links a.active { color: var(--gold-text); }
 
     .container { max-width: 900px; margin: 0 auto; padding: 2rem 5%; }
@@ -47,33 +42,33 @@
     .view.active { display: block; }
 
     .welcome { text-align: center; padding: 3rem 0; }
-    .welcome h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--navy-900); margin-bottom: 0.75rem; }
-    .welcome h1 span { color: var(--gold-500); }
+    .welcome h1 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.05; font-size: 2.9rem; color: var(--navy-900); margin-bottom: 0.75rem; }
+    .welcome h1 span { color: var(--gold-text); }
     .welcome p { font-size: 1.1rem; color: var(--text-secondary); max-width: 550px; margin: 0 auto; }
 
     .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
-    .course-card { background: var(--white); border: 2px solid var(--cream-200); border-radius: 16px; padding: 2rem; cursor: pointer; transition: all 0.25s ease; }
-    .course-card:hover { border-color: var(--gold-400); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(10, 22, 40, 0.08); }
+    .course-card { background: var(--white); border: 2px solid var(--cream-200); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 2rem; cursor: pointer; transition: all 0.25s ease; }
+    .course-card:hover { border-color: var(--gold-400); transform: translateY(-3px); box-shadow: var(--shadow-2); }
     .course-card .icon { font-size: 2rem; margin-bottom: 1rem; }
-    .course-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--navy-900); margin-bottom: 0.5rem; }
+    .course-card h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; font-size: 1.5rem; line-height: 1.1; color: var(--navy-900); margin-bottom: 0.5rem; }
     .course-card p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem; }
-    .course-card .meta { font-size: 0.8rem; color: var(--text-secondary); }
+    .course-card .meta { font-family: var(--font-data); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.02em; color: var(--text-secondary); }
     .course-card.coming-soon { opacity: 0.6; cursor: not-allowed; }
-    .course-card.coming-soon:hover { transform: none; border-color: var(--cream-200); }
+    .course-card.coming-soon:hover { transform: none; border-color: var(--cream-200); box-shadow: var(--shadow-1); }
 
     .course-header { text-align: center; padding: 2rem 0 3rem; }
     .course-header .icon { font-size: 3rem; margin-bottom: 1rem; }
-    .course-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.25rem; color: var(--navy-900); margin-bottom: 0.5rem; }
+    .course-header h1 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.05; font-size: 2.6rem; color: var(--navy-900); margin-bottom: 0.5rem; }
     .course-header p { color: var(--text-secondary); font-size: 1.05rem; }
 
     .chapter-list { display: flex; flex-direction: column; gap: 1rem; }
-    .chapter-card { background: var(--white); border: 2px solid var(--cream-200); border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; gap: 1.25rem; cursor: pointer; transition: all 0.2s; }
-    .chapter-card:hover { border-color: var(--gold-400); }
+    .chapter-card { background: var(--white); border: 2px solid var(--cream-200); border-radius: var(--r-md); box-shadow: var(--shadow-1); padding: 1.5rem; display: flex; align-items: center; gap: 1.25rem; cursor: pointer; transition: all 0.2s; }
+    .chapter-card:hover { border-color: var(--gold-400); box-shadow: var(--shadow-2); }
     .chapter-card.completed { border-color: var(--green-500); background: var(--green-100); }
-    .chapter-num { width: 44px; height: 44px; background: var(--navy-900); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .chapter-num { width: 44px; height: 44px; background: var(--navy-900); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-weight: 700; flex-shrink: 0; }
     .chapter-card.completed .chapter-num { background: var(--green-500); }
     .chapter-info { flex: 1; }
-    .chapter-info h3 { font-size: 1.1rem; color: var(--navy-900); margin-bottom: 0.25rem; }
+    .chapter-info h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; font-size: 1.25rem; line-height: 1.15; color: var(--navy-900); margin-bottom: 0.25rem; }
     .chapter-info p { font-size: 0.85rem; color: var(--text-secondary); }
     .chapter-arrow { color: var(--text-secondary); font-size: 1.25rem; }
 
@@ -90,8 +85,12 @@
       margin-bottom: 1rem;
     }
     .video-resources-header h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 1.4rem;
+      line-height: 1.1;
       color: var(--navy-900);
     }
     .video-resources-header .yt-icon {
@@ -118,7 +117,8 @@
     .video-card {
       background: var(--white);
       border: 1px solid var(--cream-200);
-      border-radius: 12px;
+      border-radius: var(--r-md);
+      box-shadow: var(--shadow-1);
       overflow: hidden;
       transition: all 0.25s ease;
       text-decoration: none;
@@ -128,7 +128,7 @@
     .video-card:hover {
       border-color: var(--gold-400);
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(10, 22, 40, 0.08);
+      box-shadow: var(--shadow-2);
     }
     .video-thumbnail {
       position: relative;
@@ -149,7 +149,7 @@
       width: 60px;
       height: 42px;
       background: rgba(255, 0, 0, 0.9);
-      border-radius: 10px;
+      border-radius: var(--r-md);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -183,7 +183,8 @@
     /* Section Practice Card */
     .section-practice-card {
       background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 100%);
-      border-radius: 16px;
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-1);
       padding: 2rem;
       margin-top: 2rem;
       color: var(--white);
@@ -193,17 +194,22 @@
       display: inline-block;
       background: var(--gold-500);
       color: var(--navy-900);
-      font-size: 0.75rem;
-      font-weight: 700;
+      font-family: var(--font-data);
+      font-size: 0.72rem;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       padding: 0.35rem 0.75rem;
-      border-radius: 20px;
+      border-radius: var(--r-pill);
       margin-bottom: 1rem;
     }
     .section-practice-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 1.7rem;
+      line-height: 1.1;
       margin-bottom: 0.5rem;
     }
     .section-practice-card p {
@@ -212,8 +218,9 @@
       margin-bottom: 1.5rem;
     }
     .section-practice-card .meta {
-      font-size: 0.85rem;
-      opacity: 0.7;
+      font-family: var(--font-data);
+      font-size: 0.8rem;
+      opacity: 0.8;
       margin-bottom: 1.25rem;
     }
     .section-practice-btn {
@@ -221,7 +228,7 @@
       color: var(--navy-900);
       border: none;
       padding: 0.875rem 2rem;
-      border-radius: 8px;
+      border-radius: var(--r-md);
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
@@ -245,7 +252,9 @@
     /* Section Practice Quiz View */
     .section-quiz-header {
       background: var(--white);
-      border-radius: 16px;
+      border: 1px solid var(--cream-200);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-1);
       padding: 1.5rem 2rem;
       margin-bottom: 1.5rem;
       display: flex;
@@ -255,36 +264,47 @@
       gap: 1rem;
     }
     .section-quiz-info h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 1.7rem;
+      line-height: 1.1;
       color: var(--navy-900);
     }
     .section-quiz-info p {
-      font-size: 0.9rem;
+      font-family: var(--font-data);
+      font-size: 0.82rem;
+      font-weight: 500;
       color: var(--text-secondary);
     }
     .section-quiz-timer {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
+      font-family: var(--font-data);
+      font-size: 1.6rem;
       font-weight: 700;
+      font-variant-numeric: tabular-nums;
       color: var(--navy-900);
       background: var(--cream-100);
       padding: 0.5rem 1.25rem;
-      border-radius: 8px;
+      border-radius: var(--r-md);
     }
     .section-quiz-timer.warning { color: var(--gold-500); background: #fef3c7; }
     .section-quiz-timer.danger { color: #c53030; background: #fee2e2; }
 
     .section-question-card {
       background: var(--white);
-      border-radius: 16px;
+      border: 1px solid var(--cream-200);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-1);
       padding: 2rem;
       margin-bottom: 1rem;
     }
     .section-question-num {
-      font-size: 0.8rem;
+      font-family: var(--font-data);
+      font-size: 0.75rem;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.1em;
       color: var(--text-secondary);
       margin-bottom: 1rem;
     }
@@ -307,7 +327,7 @@
       padding: 1rem 1.25rem;
       background: var(--cream-100);
       border: 2px solid var(--cream-200);
-      border-radius: 10px;
+      border-radius: var(--r-md);
       cursor: pointer;
       transition: all 0.2s ease;
       text-align: left;
@@ -327,6 +347,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-family: var(--font-data);
       font-weight: 700;
       flex-shrink: 0;
     }
@@ -342,7 +363,7 @@
     }
     .section-nav-btn {
       padding: 0.875rem 1.5rem;
-      border-radius: 8px;
+      border-radius: var(--r-md);
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
@@ -365,26 +386,33 @@
     /* Section Practice Results */
     .section-results {
       background: var(--white);
-      border-radius: 16px;
+      border: 1px solid var(--cream-200);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-1);
       padding: 3rem 2rem;
       text-align: center;
     }
     .section-results .icon { font-size: 3rem; margin-bottom: 1rem; }
     .section-results h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      font-size: 2.3rem;
+      line-height: 1.05;
       color: var(--navy-900);
       margin-bottom: 0.5rem;
     }
     .section-results .score {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4rem;
+      font-family: var(--font-data);
+      font-size: 3.2rem;
       font-weight: 700;
+      font-variant-numeric: tabular-nums;
       color: var(--navy-900);
       line-height: 1;
       margin: 1rem 0;
     }
-    .section-results .score span { font-size: 2rem; color: var(--text-secondary); }
+    .section-results .score span { font-size: 1.6rem; color: var(--text-secondary); }
     .section-results .stats {
       display: flex;
       justify-content: center;
@@ -396,8 +424,10 @@
       text-align: center;
     }
     .section-results .stat-value {
+      font-family: var(--font-data);
       font-size: 1.5rem;
       font-weight: 700;
+      font-variant-numeric: tabular-nums;
       color: var(--navy-900);
     }
     .section-results .stat-value.correct { color: var(--green-500); }
@@ -435,8 +465,12 @@
       border-top: 2px solid var(--cream-200);
     }
     .tools-section h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 1.7rem;
+      line-height: 1.1;
       color: var(--navy-900);
       margin-bottom: 1rem;
       text-align: center;
@@ -449,7 +483,8 @@
     .tool-card {
       background: var(--white);
       border: 2px solid var(--cream-200);
-      border-radius: 16px;
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-1);
       padding: 1.75rem;
       text-align: center;
       cursor: pointer;
@@ -458,12 +493,16 @@
     .tool-card:hover {
       border-color: var(--gold-400);
       transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(10, 22, 40, 0.08);
+      box-shadow: var(--shadow-2);
     }
     .tool-card .icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
     .tool-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 1.4rem;
+      line-height: 1.1;
       color: var(--navy-900);
       margin-bottom: 0.5rem;
     }
@@ -475,8 +514,12 @@
       padding: 2rem 0;
     }
     .formula-header h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.25rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      line-height: 1.05;
+      font-size: 2.6rem;
       color: var(--navy-900);
       margin-bottom: 0.5rem;
     }
@@ -490,7 +533,7 @@
     }
     .formula-tab {
       padding: 0.6rem 1.25rem;
-      border-radius: 25px;
+      border-radius: var(--r-pill);
       border: 2px solid var(--cream-200);
       background: var(--white);
       font-weight: 500;
@@ -512,23 +555,29 @@
     }
     .formula-card {
       background: var(--white);
-      border-radius: 16px;
+      border-radius: var(--r-lg);
       padding: 1.5rem;
       border: 1px solid var(--cream-200);
+      box-shadow: var(--shadow-1);
+      transition: box-shadow 0.2s ease;
     }
+    .formula-card:hover { box-shadow: var(--shadow-2); }
     .formula-card h4 {
-      font-size: 0.8rem;
+      font-family: var(--font-data);
+      font-size: 0.72rem;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.1em;
       color: var(--gold-text);
       margin-bottom: 0.75rem;
     }
     .formula-card .formula {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-family: var(--font-data);
+      font-size: 1.2rem;
+      font-weight: 600;
       color: var(--navy-900);
       margin-bottom: 0.5rem;
+      overflow-wrap: break-word;
     }
     .formula-card .description {
       font-size: 0.9rem;
@@ -550,13 +599,19 @@
       padding: 1.5rem 0;
     }
     .flashcard-header h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      line-height: 1.05;
+      font-size: 2.3rem;
       color: var(--navy-900);
       margin-bottom: 0.25rem;
     }
     .flashcard-progress {
-      font-size: 0.9rem;
+      font-family: var(--font-data);
+      font-size: 0.85rem;
+      font-weight: 500;
       color: var(--text-secondary);
     }
     .flashcard-container {
@@ -578,7 +633,8 @@
       width: 100%;
       height: 100%;
       backface-visibility: hidden;
-      border-radius: 20px;
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-1);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -591,17 +647,21 @@
       color: var(--white);
     }
     .flashcard-front .category {
-      font-size: 0.75rem;
+      font-family: var(--font-data);
+      font-size: 0.72rem;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      opacity: 0.7;
+      letter-spacing: 0.12em;
+      opacity: 0.75;
       margin-bottom: 1rem;
     }
     .flashcard-front .question {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 1.9rem;
       font-weight: 600;
-      line-height: 1.3;
+      line-height: 1.15;
     }
     .flashcard-front .hint {
       margin-top: 1.5rem;
@@ -614,11 +674,13 @@
       transform: rotateY(180deg);
     }
     .flashcard-back .answer {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
+      font-family: var(--font-data);
+      font-size: 1.6rem;
       font-weight: 700;
       color: var(--navy-900);
       margin-bottom: 1rem;
+      overflow-wrap: break-word;
+      max-width: 100%;
     }
     .flashcard-back .explanation {
       font-size: 0.95rem;
@@ -651,6 +713,8 @@
       justify-content: center;
       gap: 1rem;
     }
+    /* JS toggles these rows via the hidden attribute; keep it winning over display:flex */
+    .flashcard-actions[hidden] { display: none; }
     .flashcard-sr-toggle {
       display: flex;
       justify-content: center;
@@ -660,7 +724,7 @@
     }
     .flashcard-sr-btn {
       padding: 0.5rem 1.1rem;
-      border-radius: 8px;
+      border-radius: var(--r-md);
       font-weight: 600;
       cursor: pointer;
       border: 1px solid var(--gold-500, #d4a853);
@@ -677,7 +741,7 @@
     .flashcard-action-btn.sr-easy { background: var(--gold-500, #d4a853); color: #0a1628; }
     .flashcard-action-btn {
       padding: 0.75rem 1.5rem;
-      border-radius: 8px;
+      border-radius: var(--r-md);
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
@@ -696,59 +760,60 @@
     .flashcard-action-btn.study-more:hover { background: #fecaca; }
 
     @media (max-width: 500px) {
-      .flashcard-front .question { font-size: 1.35rem; }
-      .flashcard-back .answer { font-size: 1.5rem; }
+      .flashcard-front .question { font-size: 1.5rem; }
+      .flashcard-back .answer { font-size: 1.25rem; }
       .flashcard-face { padding: 1.5rem; }
     }
 
-    .lesson-container { background: var(--white); border-radius: 16px; padding: 2.5rem; border: 1px solid var(--cream-200); }
+    .lesson-container { background: var(--white); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 2.5rem; border: 1px solid var(--cream-200); }
     .lesson-header { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--cream-200); }
-    .lesson-header .chapter-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-text); font-weight: 600; margin-bottom: 0.5rem; }
-    .lesson-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; color: var(--navy-900); }
-    .lesson-intro { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem; padding: 1.25rem; background: var(--cream-100); border-radius: 12px; }
+    .lesson-header .chapter-label { font-family: var(--font-data); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-text); font-weight: 600; margin-bottom: 0.5rem; }
+    .lesson-header h2 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.1; font-size: 2rem; color: var(--navy-900); }
+    .lesson-intro { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem; padding: 1.25rem; background: var(--cream-100); border-radius: var(--r-md); }
     .concept-section { margin-bottom: 2rem; }
     .concept-section h3 { font-size: 1.1rem; color: var(--navy-900); margin-bottom: 0.75rem; font-weight: 600; }
     .concept-section p { color: var(--text-secondary); }
-    .diagram { background: var(--navy-900); color: #7dd3fc; padding: 1.25rem 1.5rem; border-radius: 10px; font-family: 'SF Mono', 'Consolas', 'Monaco', monospace; font-size: 0.85rem; line-height: 1.4; overflow-x: auto; margin: 1rem 0; white-space: pre; }
-    .diagram-svg { background: var(--white); border: 1px solid var(--cream-200); border-radius: 10px; padding: 1rem; margin: 1rem 0; text-align: center; }
+    .diagram { background: var(--navy-900); color: #7dd3fc; padding: 1.25rem 1.5rem; border-radius: var(--r-md); font-family: 'SF Mono', 'Consolas', 'Monaco', monospace; font-size: 0.85rem; line-height: 1.4; overflow-x: auto; margin: 1rem 0; white-space: pre; }
+    .diagram-svg { background: var(--white); border: 1px solid var(--cream-200); border-radius: var(--r-md); padding: 1rem; margin: 1rem 0; text-align: center; }
     .diagram-svg svg { max-width: 100%; height: auto; }
-    .example-box { background: var(--cream-100); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; }
-    .example-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold-text); margin-bottom: 1rem; font-weight: 600; }
+    .example-box { background: var(--cream-100); border-radius: var(--r-md); padding: 1.5rem; margin: 1.5rem 0; }
+    .example-box h4 { font-family: var(--font-data); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-text); margin-bottom: 1rem; font-weight: 600; }
     .example-box .problem { font-weight: 600; color: var(--navy-900); margin-bottom: 1rem; }
     .step { display: flex; gap: 0.75rem; padding: 0.5rem 0; }
-    .step-num { width: 22px; height: 22px; background: var(--navy-900); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+    .step-num { width: 22px; height: 22px; background: var(--navy-900); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-size: 0.7rem; font-weight: 700; flex-shrink: 0; }
     .step-text { color: var(--text-secondary); }
-    .tip-box { background: linear-gradient(135deg, #ecfdf5, #d1fae5); border-radius: 12px; padding: 1.25rem; margin: 1rem 0; }
-    .summary-box { background: var(--navy-900); color: var(--white); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
-    .summary-box h4 { color: var(--gold-400); margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase; }
-    .start-quiz-btn { display: block; width: 100%; padding: 1.25rem; background: var(--gold-500); color: var(--navy-900); border: none; border-radius: 10px; font-weight: 700; font-size: 1.1rem; cursor: pointer; margin-top: 2rem; font-family: inherit; }
-    .start-quiz-btn:hover { background: var(--gold-400); }
+    .tip-box { background: linear-gradient(135deg, #ecfdf5, #d1fae5); border-radius: var(--r-md); padding: 1.25rem; margin: 1rem 0; }
+    .summary-box { background: var(--navy-900); color: var(--white); border-radius: var(--r-md); padding: 1.5rem; margin: 2rem 0; }
+    .summary-box h4 { font-family: var(--font-data); color: var(--gold-400); margin-bottom: 0.5rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+    .start-quiz-btn { display: block; width: 100%; padding: 1.25rem; background: var(--gold-500); color: var(--navy-900); border: none; border-radius: var(--r-md); font-weight: 700; font-size: 1.1rem; cursor: pointer; margin-top: 2rem; font-family: inherit; transition: background 0.2s, box-shadow 0.2s; }
+    .start-quiz-btn:hover { background: var(--gold-400); box-shadow: var(--shadow-2); }
 
     .quiz-header { text-align: center; margin-bottom: 2rem; }
-    .quiz-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; color: var(--navy-900); margin-bottom: 0.5rem; }
+    .quiz-header h2 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.1; font-size: 2rem; color: var(--navy-900); margin-bottom: 0.5rem; }
     .quiz-progress { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1rem; }
-    .quiz-progress-bar { width: 200px; height: 8px; background: var(--cream-200); border-radius: 50px; overflow: hidden; }
-    .quiz-progress-fill { height: 100%; background: var(--gold-500); border-radius: 50px; transition: width 0.3s; }
+    .quiz-progress span { font-family: var(--font-data); font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
+    .quiz-progress-bar { width: 200px; height: 8px; background: var(--cream-200); border-radius: var(--r-pill); overflow: hidden; }
+    .quiz-progress-fill { height: 100%; background: var(--gold-500); border-radius: var(--r-pill); transition: width 0.3s; }
 
-    .question-card { background: var(--white); border-radius: 16px; padding: 2rem; border: 1px solid var(--cream-200); }
+    .question-card { background: var(--white); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 2rem; border: 1px solid var(--cream-200); }
     .question-text { font-size: 1.15rem; color: var(--navy-900); margin-bottom: 1.5rem; font-weight: 500; }
     .options-list { list-style: none; }
-    .option-btn { width: 100%; padding: 1rem 1.25rem; margin: 0.5rem 0; background: var(--white); border: 2px solid var(--cream-200); border-radius: 10px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 1rem; text-align: left; font-family: inherit; font-size: 1rem; }
+    .option-btn { width: 100%; padding: 1rem 1.25rem; margin: 0.5rem 0; background: var(--white); border: 2px solid var(--cream-200); border-radius: var(--r-md); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 1rem; text-align: left; font-family: inherit; font-size: 1rem; }
     .option-btn:hover:not(:disabled) { border-color: var(--gold-400); background: var(--cream-100); }
     .option-btn.selected { border-color: var(--navy-900); background: var(--navy-900); color: var(--white); }
     .option-btn.correct { border-color: var(--green-500); background: var(--green-100); color: var(--text-primary); }
     .option-btn.incorrect { border-color: var(--red-500); background: var(--red-100); color: var(--text-primary); }
     .option-btn:disabled { cursor: default; }
-    .option-letter { width: 28px; height: 28px; border-radius: 50%; background: var(--cream-200); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.85rem; flex-shrink: 0; }
+    .option-letter { width: 28px; height: 28px; border-radius: 50%; background: var(--cream-200); display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-weight: 600; font-size: 0.8rem; flex-shrink: 0; }
     .option-btn.selected .option-letter { background: var(--gold-500); color: var(--navy-900); }
     .option-btn.correct .option-letter { background: var(--green-500); color: var(--white); }
     .option-btn.incorrect .option-letter { background: var(--red-500); color: var(--white); }
 
-    .submit-btn { display: block; width: 100%; padding: 1rem; margin-top: 1.5rem; background: var(--navy-900); color: var(--white); border: none; border-radius: 10px; font-weight: 600; font-size: 1rem; cursor: pointer; font-family: inherit; }
+    .submit-btn { display: block; width: 100%; padding: 1rem; margin-top: 1.5rem; background: var(--navy-900); color: var(--white); border: none; border-radius: var(--r-md); font-weight: 600; font-size: 1rem; cursor: pointer; font-family: inherit; }
     .submit-btn:hover:not(:disabled) { background: var(--navy-700); }
     .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    .feedback-box { margin-top: 1.5rem; padding: 1.5rem; border-radius: 12px; display: none; }
+    .feedback-box { margin-top: 1.5rem; padding: 1.5rem; border-radius: var(--r-md); display: none; }
     .feedback-box.show { display: block; }
     .feedback-box.correct { background: var(--green-100); }
     .feedback-box.incorrect { background: var(--red-100); }
@@ -756,16 +821,16 @@
     .feedback-box.correct h4 { color: var(--green-500); }
     .feedback-box.incorrect h4 { color: var(--red-500); }
     .feedback-box p { color: var(--text-secondary); }
-    .next-btn { margin-top: 1.25rem; padding: 0.875rem 2rem; background: var(--navy-900); color: var(--white); border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: inherit; }
+    .next-btn { margin-top: 1.25rem; padding: 0.875rem 2rem; background: var(--navy-900); color: var(--white); border: none; border-radius: var(--r-md); font-weight: 600; cursor: pointer; font-family: inherit; }
 
-    .results-card { background: var(--white); border-radius: 20px; padding: 3rem; text-align: center; border: 1px solid var(--cream-200); }
+    .results-card { background: var(--white); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 3rem; text-align: center; border: 1px solid var(--cream-200); }
     .results-icon { font-size: 4rem; margin-bottom: 1rem; }
-    .results-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--navy-900); }
-    .results-score { font-size: 3rem; font-weight: 700; color: var(--navy-900); margin: 1rem 0; }
-    .results-score span { color: var(--text-secondary); font-size: 1.5rem; }
+    .results-card h2 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.05; font-size: 2.3rem; color: var(--navy-900); }
+    .results-score { font-family: var(--font-data); font-size: 2.8rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--navy-900); margin: 1rem 0; }
+    .results-score span { color: var(--text-secondary); font-size: 1.4rem; }
     .results-message { color: var(--text-secondary); margin-bottom: 2rem; }
     .results-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .result-btn { padding: 1rem 2rem; border-radius: 10px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; font-size: 1rem; }
+    .result-btn { padding: 1rem 2rem; border-radius: var(--r-md); font-weight: 600; cursor: pointer; border: none; font-family: inherit; font-size: 1rem; }
     .result-btn.primary { background: var(--navy-900); color: var(--white); }
     .result-btn.secondary { background: var(--cream-200); color: var(--navy-900); }
 
@@ -774,19 +839,19 @@
       .hamburger { display: flex; }
       .container { padding: 1rem 4%; }
       .welcome { padding: 2rem 0; }
-      .welcome h1 { font-size: 2rem; }
+      .welcome h1 { font-size: 2.3rem; }
       .welcome p { font-size: 1rem; }
       .course-grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; }
       .course-card { padding: 1.5rem; }
       .course-card h3 { font-size: 1.25rem; }
       .course-header { padding: 1.5rem 0 2rem; }
       .course-header .icon { font-size: 2.5rem; }
-      .course-header h1 { font-size: 1.75rem; }
+      .course-header h1 { font-size: 2rem; }
       .chapter-card { padding: 1.25rem; gap: 1rem; }
       .chapter-num { width: 38px; height: 38px; font-size: 0.9rem; }
       .chapter-info h3 { font-size: 1rem; }
       .lesson-container { padding: 1.25rem; }
-      .lesson-header h2 { font-size: 1.4rem; }
+      .lesson-header h2 { font-size: 1.6rem; }
       .lesson-intro { font-size: 1rem; padding: 1rem; }
       .concept-section h3 { font-size: 1rem; }
       .diagram { font-size: 0.75rem; padding: 1rem; overflow-x: auto; }
@@ -798,7 +863,7 @@
       .step-text { font-size: 0.9rem; }
       .summary-box { padding: 1.25rem; }
       .start-quiz-btn { padding: 1rem; font-size: 1rem; }
-      .quiz-header h2 { font-size: 1.4rem; }
+      .quiz-header h2 { font-size: 1.6rem; }
       .quiz-progress-bar { width: 150px; }
       .question-card { padding: 1.25rem; }
       .question-text { font-size: 1.05rem; margin-bottom: 1.25rem; }
@@ -809,8 +874,8 @@
       .next-btn { padding: 0.75rem 1.5rem; }
       .results-card { padding: 2rem 1.25rem; }
       .results-icon { font-size: 3rem; }
-      .results-card h2 { font-size: 1.5rem; }
-      .results-score { font-size: 2.5rem; }
+      .results-card h2 { font-size: 1.8rem; }
+      .results-score { font-size: 2.2rem; }
       .results-score span { font-size: 1.25rem; }
       .results-buttons { flex-direction: column; }
       .result-btn { width: 100%; }
@@ -818,10 +883,10 @@
 
     @media (max-width: 480px) {
       .container { padding: 0.75rem 3%; }
-      .welcome h1 { font-size: 1.75rem; }
+      .welcome h1 { font-size: 2rem; }
       .course-card { padding: 1.25rem; }
       .lesson-container { padding: 1rem; }
-      .lesson-header h2 { font-size: 1.25rem; }
+      .lesson-header h2 { font-size: 1.45rem; }
       .diagram { font-size: 0.7rem; padding: 0.75rem; white-space: pre-wrap; word-break: break-word; }
       .question-text { font-size: 1rem; }
       .option-btn { padding: 0.75rem; gap: 0.75rem; }

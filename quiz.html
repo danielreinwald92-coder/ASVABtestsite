@@ -6,7 +6,7 @@
   <title>ASVAB Practice Test</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/shared.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1628">
@@ -15,7 +15,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       background: var(--cream-100);
       color: var(--text-primary);
       line-height: 1.6;
@@ -46,18 +46,23 @@
     }
 
     .quiz-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
       color: var(--navy-900);
     }
 
     .quiz-section {
       background: var(--cream-100);
-      padding: 0.4rem 1rem;
-      border-radius: 6px;
-      font-size: 0.85rem;
+      padding: 0.45rem 1rem;
+      border-radius: var(--r-sm);
+      font-family: var(--font-data);
+      font-size: 0.8rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       color: var(--navy-700);
     }
 
@@ -66,18 +71,27 @@
       align-items: center;
       gap: 0.75rem;
       background: var(--navy-900);
+      border: 1px solid rgba(212, 168, 83, 0.45);
       padding: 0.6rem 1.25rem;
-      border-radius: 8px;
+      border-radius: var(--r-md);
       color: var(--white);
       transition: background 0.3s ease;
     }
 
-    .timer-icon { font-size: 1.1rem; }
+    .timer-icon {
+      display: inline-flex;
+      align-items: center;
+      font-size: 1.1rem;
+      color: var(--gold-400);
+    }
+
+    .timer-icon svg { width: 1.05em; height: 1.05em; }
 
     .timer-display {
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-data);
       font-size: 1.1rem;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0.03em;
       font-variant-numeric: tabular-nums;
     }
 
@@ -85,7 +99,7 @@
       background: transparent;
       border: 1px solid var(--cream-200);
       padding: 0.6rem 1.25rem;
-      border-radius: 6px;
+      border-radius: var(--r-sm);
       font-size: 0.9rem;
       font-weight: 500;
       color: var(--text-secondary);
@@ -113,8 +127,11 @@
     }
 
     .progress-label {
-      font-size: 0.85rem;
-      font-weight: 500;
+      font-family: var(--font-data);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
       color: var(--text-secondary);
       white-space: nowrap;
     }
@@ -123,21 +140,22 @@
       flex: 1;
       height: 6px;
       background: var(--cream-200);
-      border-radius: 10px;
+      border-radius: var(--r-pill);
       overflow: hidden;
     }
 
     .progress-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
-      border-radius: 10px;
+      border-radius: var(--r-pill);
       width: 0%;
       transition: width 0.4s ease;
     }
 
     .progress-count {
+      font-family: var(--font-data);
       font-size: 0.9rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--navy-900);
       font-variant-numeric: tabular-nums;
     }
@@ -150,9 +168,9 @@
 
     .question-card {
       background: var(--white);
-      border-radius: 20px;
+      border-radius: var(--r-lg);
       padding: 3rem;
-      box-shadow: 0 4px 24px rgba(10, 22, 40, 0.06);
+      box-shadow: var(--shadow-2);
       margin-bottom: 2rem;
     }
 
@@ -160,11 +178,12 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.85rem;
+      font-family: var(--font-data);
+      font-size: 0.78rem;
       font-weight: 600;
       color: var(--gold-text);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.1em;
       margin-bottom: 1.25rem;
     }
 
@@ -177,11 +196,11 @@
     }
 
     .question-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
+      font-family: var(--font-body);
+      font-size: 1.4rem;
       font-weight: 600;
       color: var(--navy-900);
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     .answers-container {
@@ -198,7 +217,7 @@
       padding: 1.25rem 1.5rem;
       background: var(--cream-100);
       border: 2px solid transparent;
-      border-radius: 12px;
+      border-radius: var(--r-md);
       cursor: pointer;
       transition: all 0.2s ease;
       position: relative;
@@ -223,7 +242,7 @@
     .answer-option.selected {
       background: var(--white);
       border-color: var(--navy-900);
-      box-shadow: 0 4px 16px rgba(10, 22, 40, 0.1);
+      box-shadow: var(--shadow-2);
     }
 
     .answer-letter {
@@ -234,8 +253,9 @@
       justify-content: center;
       background: var(--white);
       border: 2px solid var(--cream-200);
-      border-radius: 8px;
-      font-weight: 600;
+      border-radius: var(--r-sm);
+      font-family: var(--font-data);
+      font-weight: 700;
       color: var(--navy-700);
       font-size: 0.95rem;
       flex-shrink: 0;
@@ -248,8 +268,8 @@
 
     .answer-option.selected .answer-letter {
       background: var(--navy-900);
-      border-color: var(--navy-900);
-      color: var(--white);
+      border-color: var(--gold-500);
+      color: var(--gold-400);
     }
 
     .answer-text {
@@ -290,13 +310,13 @@
       align-items: center;
       gap: 0.5rem;
       padding: 1rem 1.75rem;
-      border-radius: 10px;
+      border-radius: var(--r-md);
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.25s ease;
       border: none;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
     }
 
     .nav-btn-prev {
@@ -321,7 +341,7 @@
     .nav-btn-next:hover {
       background: var(--navy-700);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(10, 22, 40, 0.2);
+      box-shadow: var(--shadow-2);
     }
 
     .nav-btn-next::after {
@@ -353,13 +373,13 @@
       padding: 0.75rem 1.25rem;
       background: transparent;
       border: 1px solid var(--cream-200);
-      border-radius: 8px;
+      border-radius: var(--r-sm);
       font-size: 0.9rem;
       font-weight: 500;
       color: var(--text-secondary);
       cursor: pointer;
       transition: all 0.2s ease;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
     }
 
     .flag-btn:hover {
@@ -375,18 +395,19 @@
 
     .question-navigator {
       background: var(--white);
-      border-radius: 16px;
+      border-radius: var(--r-lg);
       padding: 1.5rem;
-      box-shadow: 0 4px 24px rgba(10, 22, 40, 0.06);
+      box-shadow: var(--shadow-1);
       margin-top: 2rem;
     }
 
     .navigator-title {
-      font-size: 0.85rem;
+      font-family: var(--font-data);
+      font-size: 0.78rem;
       font-weight: 600;
       color: var(--text-secondary);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.1em;
       margin-bottom: 1rem;
     }
 
@@ -404,9 +425,11 @@
       justify-content: center;
       background: var(--cream-100);
       border: 2px solid transparent;
-      border-radius: 8px;
+      border-radius: var(--r-sm);
+      font-family: var(--font-data);
       font-size: 0.85rem;
-      font-weight: 500;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
       color: var(--text-secondary);
       cursor: pointer;
       transition: all 0.2s ease;
@@ -457,7 +480,7 @@
       .progress-container { padding: 0.5rem 1rem; }
 
       .quiz-main { padding: 1rem; }
-      .question-card { padding: 1.25rem; border-radius: 14px; }
+      .question-card { padding: 1.25rem; border-radius: var(--r-lg); }
       .question-text { font-size: 1.2rem; line-height: 1.5; }
 
       .answers-container { gap: 0.75rem; margin-top: 1.5rem; }
@@ -484,7 +507,7 @@
       .nav-btn-next { order: 1; }
       .flag-btn { order: 3; width: 100%; justify-content: center; }
 
-      .navigator-panel { padding: 1.25rem; border-radius: 14px; }
+      .navigator-panel { padding: 1.25rem; border-radius: var(--r-lg); }
       .navigator-grid { grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
       .nav-dot { width: 36px; height: 36px; font-size: 0.8rem; }
 
@@ -537,8 +560,8 @@
       background: var(--navy-900, #0a1628);
       color: var(--white, #fff);
       padding: 0.85rem 1.25rem;
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      border-radius: var(--r-md);
+      box-shadow: var(--shadow-3);
       font-weight: 600;
       text-align: center;
       animation: toastIn 0.25s ease-out;
@@ -558,7 +581,7 @@
     .tutor-feedback {
       margin-top: 1.75rem;
       padding: 1.25rem 1.5rem;
-      border-radius: 12px;
+      border-radius: var(--r-md);
       border-left: 4px solid var(--navy-700);
       background: var(--cream-100);
     }
@@ -582,7 +605,7 @@
 
     .skeleton-option {
       height: 52px;
-      border-radius: 8px;
+      border-radius: var(--r-sm);
       margin-bottom: 0.75rem;
       background: linear-gradient(90deg, var(--cream-200) 25%, var(--cream-100) 50%, var(--cream-200) 75%);
       background-size: 200% 100%;
@@ -603,7 +626,7 @@
         <span class="quiz-section">Loading…</span>
       </div>
       <div class="quiz-timer" role="timer" aria-label="Time remaining">
-        <span class="timer-icon" aria-hidden="true">⏱</span>
+        <span class="timer-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></span>
         <span class="timer-display" id="timerDisplay">--:--</span>
       </div>
       <button class="quit-btn" id="quitBtn">Save & Exit</button>
