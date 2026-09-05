@@ -22,7 +22,7 @@
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/shared.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1628">
@@ -53,15 +53,7 @@
     }
 
     .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--navy-900);
-      letter-spacing: -0.02em;
-    }
-
-    .logo span {
-      color: var(--gold-500);
+      font-size: 1.6rem;
     }
 
 
@@ -82,9 +74,10 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       min-height: 85vh;
-      padding: 0 5%;
+      padding: 3rem 5%;
       gap: 4rem;
       align-items: center;
+      background: var(--navy-900);
     }
 
     .hero-content {
@@ -98,9 +91,12 @@
       background: var(--gold-300);
       color: var(--navy-900);
       padding: 0.5rem 1rem;
-      border-radius: 50px;
-      font-size: 0.85rem;
+      border-radius: var(--r-pill);
+      font-family: var(--font-data);
+      font-size: 0.78rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       margin-bottom: 2rem;
       animation: fadeInUp 0.6s ease-out;
     }
@@ -111,24 +107,25 @@
     }
 
     h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 5vw, 4.5rem);
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 6vw, 5.2rem);
       font-weight: 700;
-      line-height: 1.1;
-      color: var(--navy-900);
+      text-transform: uppercase;
+      line-height: 1.02;
+      color: var(--white);
       margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
+      letter-spacing: 0.01em;
       animation: fadeInUp 0.6s ease-out 0.1s both;
     }
 
     h1 .highlight {
-      color: var(--gold-500);
+      color: var(--gold-400);
       position: relative;
     }
 
     .hero-text {
       font-size: 1.2rem;
-      color: var(--text-secondary);
+      color: var(--cream-200);
       margin-bottom: 2.5rem;
       max-width: 480px;
       animation: fadeInUp 0.6s ease-out 0.2s both;
@@ -141,50 +138,8 @@
       animation: fadeInUp 0.6s ease-out 0.3s both;
     }
 
-    .btn-primary {
-      background: var(--navy-900);
-      color: var(--white);
-      padding: 1rem 2rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.25s ease;
-      border: 2px solid var(--navy-900);
-    }
-
-    .btn-primary:hover {
-      background: var(--navy-700);
-      border-color: var(--navy-700);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(10, 22, 40, 0.2);
-    }
-
-    .btn-primary::after {
-      content: "→";
-      transition: transform 0.2s ease;
-    }
-
-    .btn-primary:hover::after {
-      transform: translateX(4px);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--navy-900);
-      padding: 1rem 2rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      border: 2px solid var(--navy-800);
-      transition: all 0.25s ease;
-    }
-
-    .btn-secondary:hover {
-      background: var(--navy-900);
-      color: var(--white);
+    .hero .btn-gold::after {
+      content: "\2192";
     }
 
     /* Stats Row */
@@ -200,16 +155,17 @@
     }
 
     .stat-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
+      font-family: var(--font-data);
+      font-size: 2.1rem;
       font-weight: 700;
-      color: var(--navy-900);
+      color: var(--gold-400);
       line-height: 1;
     }
 
     .stat-label {
       font-size: 0.9rem;
-      color: var(--text-secondary);
+      color: var(--cream-200);
+      opacity: 0.85;
       margin-top: 0.25rem;
     }
 
@@ -267,7 +223,9 @@
     }
 
     .user-name-preview {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
       font-size: 1.5rem;
       font-weight: 700;
       color: var(--navy-900);
@@ -288,8 +246,8 @@
     }
 
     .afqt-score-preview {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4.5rem;
+      font-family: var(--font-data);
+      font-size: 3.9rem;
       font-weight: 700;
       color: var(--navy-900);
       line-height: 1;
@@ -303,7 +261,9 @@
     }
 
     .score-message-preview {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
       font-size: 1.25rem;
       font-weight: 600;
       color: var(--navy-900);
@@ -332,7 +292,7 @@
     }
 
     .stat-value-preview {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-data);
       font-size: 1.5rem;
       font-weight: 700;
       color: var(--navy-900);
@@ -392,8 +352,10 @@
     }
 
     .section-header h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.75rem;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 2.9rem;
       font-weight: 700;
       color: var(--navy-900);
       margin-bottom: 1rem;
@@ -426,21 +388,16 @@
       box-shadow: 0 12px 40px rgba(10, 22, 40, 0.08);
     }
 
-    .feature-icon {
-      width: 56px;
-      height: 56px;
-      background: var(--navy-900);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .feature-card .patch {
       margin-bottom: 1.5rem;
-      font-size: 1.5rem;
+      font-size: 1.05rem;
     }
 
     .feature-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 1.45rem;
       font-weight: 700;
       color: var(--navy-900);
       margin-bottom: 0.75rem;
@@ -645,8 +602,10 @@
     }
 
     .updates-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 2.1rem;
       font-weight: 700;
       color: var(--navy-900);
       margin-bottom: 0.5rem;
@@ -743,8 +702,10 @@
     }
 
     .resources-band h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 2.1rem;
       color: var(--navy-900);
       text-align: center;
       margin-bottom: 2rem;
@@ -805,7 +766,10 @@
       display: inline-block;
       background: var(--gold-300);
       color: var(--navy-900);
-      font-size: 0.8rem;
+      font-family: var(--font-data);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       font-weight: 600;
       padding: 0.3rem 0.8rem;
       border-radius: 50px;
@@ -921,8 +885,8 @@
       <h1>Prepare for the <span class="highlight">ASVAB</span> with confidence.</h1>
       <p class="hero-text">Free practice tests and study guides: no payment, and no account needed to practice. Create a free account only if you want to save your scores and track progress.</p>
       <div class="hero-cta-group">
-        <a href="select-test.html" class="btn-primary">Start Practicing</a>
-        <a href="register.html" class="btn-secondary" id="heroSignupBtn">Create Free Account</a>
+        <a href="select-test.html" class="btn btn-gold">Start Practicing</a>
+        <a href="register.html" class="btn btn-outline-light" id="heroSignupBtn">Create Free Account</a>
       </div>
       <div class="stats-row">
         <div class="stat">
@@ -982,17 +946,17 @@
     </div>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon">📝</div>
+        <div class="patch" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="1" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="23" y2="12"/></svg></div>
         <h3>Section Practice</h3>
         <p>Focus on individual sections like Arithmetic Reasoning, Word Knowledge, or Math Knowledge to build your skills.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">⏱️</div>
+        <div class="patch" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><line x1="12" y1="13" x2="12" y2="9"/><line x1="12" y1="13" x2="15" y2="15"/><line x1="9" y1="2" x2="15" y2="2"/></svg></div>
         <h3>Flexible Practice</h3>
         <p>Practice a single section in under 10 minutes, or take the full timed test. Study at your own pace with realistic timers.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">📊</div>
+        <div class="patch" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="20" x2="6" y2="14"/><line x1="12" y1="20" x2="12" y2="8"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="3" y1="20" x2="21" y2="20"/></svg></div>
         <h3>Instant Results</h3>
         <p>Get your estimated AFQT score (the score that determines whether you can enlist) immediately after completing a test, plus a breakdown of what you got right and wrong.</p>
       </div>
@@ -1018,7 +982,7 @@
         <p><strong>C. 40 minutes.</strong> First find the pace: 24 minutes &divide; 3 miles = 8 minutes per mile. Then apply it: 8 minutes &times; 5 miles = 40 minutes. Every practice question on this site comes with a step-by-step explanation like this one.</p>
       </details>
       <div class="sample-cta-row">
-        <a href="select-test.html" class="btn-primary">Start the 20-Minute Diagnostic</a>
+        <a href="select-test.html" class="btn btn-primary">Start the 20-Minute Diagnostic</a>
       </div>
     </div>
   </section>
