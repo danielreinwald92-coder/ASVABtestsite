@@ -21,12 +21,14 @@ Mission ASVAB - Static HTML/JS practice test site for military applicants prepar
 ## Architecture
 
 ```
-HTML Pages (all 12 deployed; admin.html is served but gated by requireAdmin(). Documentation,
+HTML Pages (all 17 deployed; admin.html is served but gated by requireAdmin(). Documentation,
 repository/tooling config and Playwright config are excluded — see .vercelignore; the buildCommand also strips tests/,
 scripts/ and package files from the served output after the build gates run):
 ├── index.html  select-test.html  test-intro.html  quiz.html  results.html
 ├── dashboard.html  study-guide.html  about.html
-└── admin.html  login.html  register.html  reset-password.html
+├── admin.html  login.html  register.html  reset-password.html
+└── faq.html  asvab-scores.html  asvab-math-formulas.html  asvab-word-list.html
+    asvab-study-plan.html       # static indexable resource pages (SEO pass, no JS beyond shared helpers)
 
 js/
 ├── quiz-engine.js          # Core quiz logic, timer, CAT slot materialization (Owen interim +
@@ -70,7 +72,7 @@ scripts/
 │                           #   incomplete-test penalty derivation); re-run only if irt params/pools change
 └── check-no-inline-js.js   # CI gate: fails if any inline on*= handler or inline <script> exists
 supabase/migrations/        # Versioned additive database changes (new schema work belongs here)
-tests/                      # node:test + jsdom suite (264 tests). helpers/load.js, helpers/engine.js
+tests/                      # node:test + jsdom suite (279 tests). helpers/load.js, helpers/engine.js
 tests/e2e/                  # Playwright: all-page CSP/console smoke + guest AFQT and diagnostic flows
 playwright.config.js        # Chromium config; local server mirrors production Vercel headers
 docs/scoring-methodology.md # AFQT model, sources, limits
@@ -81,7 +83,7 @@ docs/PROJECT-STATE.md       # Concise current-state index and prioritized handof
 
 ```bash
 npx serve .                    # Local dev server
-npm test                       # Run the node:test + jsdom unit suite (264 tests)
+npm test                       # Run the node:test + jsdom unit suite (279 tests)
 npm run test:e2e               # Run Playwright against all pages + the guest AFQT flow
 node scripts/validate-site.js  # Validate quiz data + scoring contracts (also a Vercel build gate)
 node scripts/check-no-inline-js.js  # Verify no inline JS (required by the strict CSP)

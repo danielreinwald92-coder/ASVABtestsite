@@ -1,6 +1,6 @@
 # Mission ASVAB — Current Project State
 
-Last verified: August 6, 2026
+Last verified: September 5, 2026
 
 This is the compact handoff index for a new development session. Read `AGENTS.md` or
 `CLAUDE.md` first for binding rules, then use this file to locate current implementation
@@ -11,7 +11,10 @@ features were built; unchecked boxes there are not the current work queue.
 
 - Static HTML/JavaScript application deployed from `main` to Vercel. The canonical production
   URL is `https://www.missionasvab.org`; the bare domain permanently redirects to `www`.
-- Twelve served pages; account and admin data use Supabase project `rcspwkmrtukblvvdifer`.
+- Seventeen served pages; account and admin data use Supabase project `rcspwkmrtukblvvdifer`.
+- SEO foundation pass (Sep 2026): complete OG/twitter/favicon metadata and JSON-LD on all public
+  pages, an OG share image, and five indexable resource pages (FAQ, scores guide, math formula
+  sheet, word list, week-by-week study plan) cross-linked from footers and a homepage band.
 - Guest practice works without an account. Every completed test produces a deterministic Today’s
   Mission that opens a real study chapter and checkpoint. Supabase adds saved test/mission history,
   profiles, reports, cross-device mission status, and guarded admin operations.
@@ -36,7 +39,7 @@ features were built; unchecked boxes there are not the current work queue.
 
 ## Verification Baseline
 
-- `npm test` — 264 node:test/jsdom checks.
+- `npm test` — 279 node:test/jsdom checks (includes the tests/unit/seo-pages.test.js contract: every root page must join the inline-JS gate, e2e smoke list, sitemap, and share-metadata standard).
 - `npm run test:e2e` — Chromium checks all 12 pages under the production Vercel headers,
   then completes both a 55-question guest AFQT flow and the 18-question guest diagnostic/mission flow.
 - `node scripts/validate-site.js` — question pools, explanations, course shapes, diagnostic blueprint,
