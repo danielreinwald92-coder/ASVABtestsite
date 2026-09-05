@@ -12,7 +12,12 @@ const SERVED_PAGES = [
   '/admin.html',
   '/login.html',
   '/register.html',
-  '/reset-password.html'
+  '/reset-password.html',
+  '/faq.html',
+  '/asvab-scores.html',
+  '/asvab-math-formulas.html',
+  '/asvab-word-list.html',
+  '/asvab-study-plan.html'
 ];
 
 const SUPABASE_STUB = `

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-// Inline-JS gate: scans the 12 served HTML pages and fails (exit nonzero)
+// Inline-JS gate: scans the 17 served HTML pages and fails (exit nonzero)
 // if any page contains inline JavaScript that would require the CSP to keep
 // `script-src 'unsafe-inline'`. Specifically it flags:
 //   (a) any inline event-handler attribute (onclick, onsubmit, oninput, ...)
@@ -27,7 +27,12 @@ const SERVED_PAGES = [
   'admin.html',
   'login.html',
   'register.html',
-  'reset-password.html'
+  'reset-password.html',
+  'faq.html',
+  'asvab-scores.html',
+  'asvab-math-formulas.html',
+  'asvab-word-list.html',
+  'asvab-study-plan.html'
 ];
 
 // Script `type` values that are non-executable data blocks and therefore
@@ -131,5 +136,5 @@ if (totalOffenders > 0) {
   process.exit(1);
 }
 
-console.log('Inline-JS gate passed: no inline JS in the 12 served pages.');
+console.log('Inline-JS gate passed: no inline JS in the 17 served pages.');
 process.exit(0);
