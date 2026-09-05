@@ -786,6 +786,76 @@
       font-size: 0.9rem;
     }
 
+    .sample-section {
+      background: var(--white);
+      padding: 5rem 5%;
+      border-top: 1px solid var(--cream-200);
+    }
+
+    .sample-card {
+      max-width: 640px;
+      margin: 0 auto;
+      background: var(--cream-100);
+      border: 1px solid var(--cream-200);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+
+    .sample-tag {
+      display: inline-block;
+      background: var(--gold-300);
+      color: var(--navy-900);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      margin-bottom: 1rem;
+    }
+
+    .sample-question {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--navy-900);
+      margin-bottom: 1.25rem;
+    }
+
+    .sample-options {
+      list-style-position: inside;
+      margin-bottom: 1.25rem;
+    }
+
+    .sample-options li {
+      background: var(--white);
+      border: 1px solid var(--cream-200);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .sample-reveal {
+      margin-bottom: 1.5rem;
+    }
+
+    .sample-reveal summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--navy-700);
+    }
+
+    .sample-reveal p {
+      margin-top: 0.75rem;
+      padding: 1rem;
+      background: var(--white);
+      border-left: 3px solid var(--gold-500);
+      border-radius: 0 8px 8px 0;
+      color: var(--text-secondary);
+    }
+
+    .sample-cta-row {
+      text-align: center;
+    }
+
     .disclaimer {
       font-size: 0.8rem;
       line-height: 1.6;
@@ -854,6 +924,20 @@
         <a href="select-test.html" class="btn-primary">Start Practicing</a>
         <a href="register.html" class="btn-secondary" id="heroSignupBtn">Create Free Account</a>
       </div>
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-number">902</span>
+          <span class="stat-label">Practice questions</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">8</span>
+          <span class="stat-label">ASVAB sections</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">$0</span>
+          <span class="stat-label">Free, no catches</span>
+        </div>
+      </div>
     </div>
     <div class="hero-visual">
       <div class="decoration-circle"></div>
@@ -915,6 +999,41 @@
     </div>
   </section>
 
+  <section class="sample-section">
+    <div class="section-header">
+      <h2>Try a Practice Question</h2>
+      <p>The same style you'll see on test day. No signup, no timer, just you and the question.</p>
+    </div>
+    <div class="sample-card">
+      <p class="sample-tag">Arithmetic Reasoning</p>
+      <p class="sample-question">A recruit runs 3 miles in 24 minutes. At the same pace, how many minutes will it take to run 5 miles?</p>
+      <ol class="sample-options" type="A">
+        <li>32 minutes</li>
+        <li>36 minutes</li>
+        <li>40 minutes</li>
+        <li>45 minutes</li>
+      </ol>
+      <details class="sample-reveal">
+        <summary>Show the answer and explanation</summary>
+        <p><strong>C. 40 minutes.</strong> First find the pace: 24 minutes &divide; 3 miles = 8 minutes per mile. Then apply it: 8 minutes &times; 5 miles = 40 minutes. Every practice question on this site comes with a step-by-step explanation like this one.</p>
+      </details>
+      <div class="sample-cta-row">
+        <a href="select-test.html" class="btn-primary">Start the 20-Minute Diagnostic</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="resources-band">
+    <h2>Free ASVAB Resources</h2>
+    <ul class="resources-list">
+      <li><a href="faq.html">ASVAB FAQ</a><span>Minimum scores, retakes, calculators, and test-day rules</span></li>
+      <li><a href="asvab-scores.html">Scores Explained</a><span>AFQT percentiles, standard scores, and Army line scores</span></li>
+      <li><a href="asvab-math-formulas.html">Math Formula Sheet</a><span>The essential AR and MK formulas on one printable page</span></li>
+      <li><a href="asvab-word-list.html">Word Knowledge List</a><span>120 vocabulary words with plain definitions</span></li>
+      <li><a href="asvab-study-plan.html">Study Plan</a><span>Week-by-week schedule from diagnostic to test day</span></li>
+    </ul>
+  </section>
+
   <section class="updates-section">
     <div class="updates-inner">
       <h2 class="updates-title">Recent Updates</h2>
@@ -922,7 +1041,7 @@
       <ul class="updates-list">
         <li class="update-item">
           <span class="update-date">Sep 5, 2026</span>
-          <span class="update-text">Added free study resources you can read without starting a test: an ASVAB FAQ, a score guide, a printable math formula sheet, a vocabulary list, and a week-by-week study plan.</span>
+          <span class="update-text">Added free study resources (an ASVAB FAQ, a score guide, a printable math formula sheet, a vocabulary list, and a week-by-week study plan), plus a try-it-now practice question right on the homepage.</span>
         </li>
         <li class="update-item">
           <span class="update-date">Aug 7, 2026</span>
@@ -938,17 +1057,6 @@
         </li>
       </ul>
     </div>
-  </section>
-
-  <section class="resources-band">
-    <h2>Free ASVAB Resources</h2>
-    <ul class="resources-list">
-      <li><a href="faq.html">ASVAB FAQ</a><span>Minimum scores, retakes, calculators, and test-day rules</span></li>
-      <li><a href="asvab-scores.html">Scores Explained</a><span>AFQT percentiles, standard scores, and Army line scores</span></li>
-      <li><a href="asvab-math-formulas.html">Math Formula Sheet</a><span>Every AR and MK formula on one printable page</span></li>
-      <li><a href="asvab-word-list.html">Word Knowledge List</a><span>120 vocabulary words with plain definitions</span></li>
-      <li><a href="asvab-study-plan.html">Study Plan</a><span>Week-by-week schedule from diagnostic to test day</span></li>
-    </ul>
   </section>
 
   <footer class="site-footer">

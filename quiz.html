@@ -579,6 +579,20 @@
     }
     .nav-dot.nav-correct { background: #27ae60; color: var(--white); }
     .nav-dot.nav-incorrect { background: #c0392b; color: var(--white); }
+
+    .skeleton-option {
+      height: 52px;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(90deg, var(--cream-200) 25%, var(--cream-100) 50%, var(--cream-200) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-shimmer 1.2s ease-in-out infinite;
+    }
+
+    @keyframes skeleton-shimmer {
+      from { background-position: 200% 0; }
+      to { background-position: -200% 0; }
+    }
   </style>
 </head>
 <body>
@@ -611,7 +625,12 @@
     <div class="question-card">
       <div class="question-number" id="questionNumber">Question 1</div>
       <h2 class="question-text" id="questionText">Loading question...</h2>
-      <div class="answers-container" id="answersContainer"></div>
+      <div class="answers-container" id="answersContainer">
+        <div class="skeleton-option" aria-hidden="true"></div>
+        <div class="skeleton-option" aria-hidden="true"></div>
+        <div class="skeleton-option" aria-hidden="true"></div>
+        <div class="skeleton-option" aria-hidden="true"></div>
+      </div>
       <p class="answers-hint">Press A-D or use Tab + Enter to choose an answer.</p>
       <p class="answer-required" id="answerRequiredMsg" hidden>Choose an answer to continue. On the real ASVAB you must answer every question before moving on.</p>
       <div id="tutorFeedback" class="tutor-feedback" role="status" aria-live="polite" hidden></div>
