@@ -504,7 +504,7 @@ function renderFilteredQuestions(filter) {
     if (explanation) {
       html += `
         <div class="review-explanation">
-          <span class="review-explanation-label">💡 Explanation</span>
+          <span class="review-explanation-label"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10c.7.6 1 1.4 1 2h6c0-.6.3-1.4 1-2a6 6 0 0 0-4-10z"/></svg> Explanation</span>
           <p class="review-explanation-text">${explanation}</p>
         </div>
       `;

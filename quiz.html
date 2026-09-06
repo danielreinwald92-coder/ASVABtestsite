@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="js/quiz-data.js" as="script">
+  <link rel="preload" href="js/quiz-engine.js" as="script">
   <link rel="stylesheet" href="css/shared.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1628">
@@ -662,7 +664,7 @@
     <div class="quiz-nav">
       <button class="nav-btn nav-btn-prev" id="prevBtn">Previous</button>
       <button class="flag-btn" id="flagBtn">
-        <span>🚩</span> Flag for Review
+        <span aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M4 21V4"/><path d="M4 4h12l-2 4 2 4H4"/></svg></span> Flag for Review
       </button>
       <button class="nav-btn nav-btn-next" id="nextBtn">Next Question</button>
     </div>

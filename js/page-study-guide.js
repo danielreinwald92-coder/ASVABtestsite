@@ -46,7 +46,109 @@
       { word: 'Exemplary', definition: 'Serving as an excellent example', example: 'Her exemplary work earned a promotion.' },
       { word: 'Feasible', definition: 'Possible and practical', example: 'The plan was feasible within our budget.' },
       { word: 'Gratuitous', definition: 'Unnecessary, uncalled for', example: 'The movie had gratuitous violence.' },
-      { word: 'Hypothetical', definition: 'Based on assumption, not real', example: 'Let\'s consider a hypothetical situation.' }
+      { word: 'Hypothetical', definition: 'Based on assumption, not real', example: 'Let\'s consider a hypothetical situation.' },
+      // Words from the public word-list page (2026-09)
+      { word: 'Abundant', definition: 'Present in large amounts, plentiful', example: 'Fish were abundant in the river after the spring rains.' },
+      { word: 'Adamant', definition: 'Refusing to change your mind', example: 'He was adamant that the team leave before sunrise.' },
+      { word: 'Adverse', definition: 'Harmful or working against you', example: 'The medicine caused adverse effects in a few patients.' },
+      { word: 'Amiable', definition: 'Friendly and pleasant', example: 'Our amiable neighbor waves and chats with everyone he meets.' },
+      { word: 'Apathy', definition: 'Lack of interest or concern', example: 'Voter apathy kept many people home on election day.' },
+      { word: 'Arduous', definition: 'Very difficult and tiring', example: 'The arduous climb left the hikers exhausted by noon.' },
+      { word: 'Astute', definition: 'Sharp and quick to understand', example: 'The astute lawyer noticed the flaw in the contract immediately.' },
+      { word: 'Audacious', definition: 'Bold and daring', example: 'The audacious pilot attempted a landing no one else would try.' },
+      { word: 'Benevolent', definition: 'Kind and generous', example: 'A benevolent donor paid for the new children\'s library.' },
+      { word: 'Coerce', definition: 'To force someone to do something', example: 'No one can coerce you into signing that agreement.' },
+      { word: 'Competent', definition: 'Having the skill to do something well', example: 'She proved competent enough to run the clinic alone.' },
+      { word: 'Condone', definition: 'To accept or overlook wrong behavior', example: 'The coach refused to condone cheating of any kind.' },
+      { word: 'Cordial', definition: 'Warm and polite', example: 'The staff gave every visitor a cordial welcome at the door.' },
+      { word: 'Credible', definition: 'Believable or trustworthy', example: 'The witness gave a credible account of the accident.' },
+      { word: 'Cunning', definition: 'Clever in a sly way', example: 'The cunning fox slipped past every trap the farmer set.' },
+      { word: 'Daunting', definition: 'Intimidating or discouraging', example: 'Rebuilding the house after the flood felt like a daunting task.' },
+      { word: 'Deficient', definition: 'Lacking something that is needed', example: 'His diet was deficient in iron and other key nutrients.' },
+      { word: 'Deter', definition: 'To discourage someone from acting', example: 'Bright lights deter burglars from approaching the warehouse at night.' },
+      { word: 'Discreet', definition: 'Careful about what you say or reveal', example: 'Be discreet about the surprise party when talking to her.' },
+      { word: 'Docile', definition: 'Easy to manage or teach', example: 'The docile horse let the children ride without any trouble.' },
+      { word: 'Dormant', definition: 'Inactive for now, able to become active', example: 'The volcano has been dormant for over a hundred years.' },
+      { word: 'Dubious', definition: 'Doubtful or questionable', example: 'His dubious excuse convinced no one in the room.' },
+      { word: 'Durable', definition: 'Able to last through heavy use', example: 'These durable boots survived three years of daily wear.' },
+      { word: 'Eloquent', definition: 'Skilled and persuasive with words', example: 'Her eloquent speech moved the crowd to loud applause.' },
+      { word: 'Elude', definition: 'To escape or avoid capture', example: 'The suspect managed to elude police for three days.' },
+      { word: 'Endorse', definition: 'To publicly support or approve', example: 'Several mayors endorse the plan to expand the bus routes.' },
+      { word: 'Evade', definition: 'To avoid or escape by cleverness', example: 'The rabbit darted sideways to evade the diving hawk.' },
+      { word: 'Exempt', definition: 'Free from a duty others must meet', example: 'Active soldiers are exempt from paying the entry fee.' },
+      { word: 'Exploit', definition: 'To use unfairly for selfish gain', example: 'The scheme was designed to exploit inexperienced investors.' },
+      { word: 'Feign', definition: 'To fake or pretend', example: 'He tried to feign illness to skip the morning drill.' },
+      { word: 'Fluctuate', definition: 'To shift up and down irregularly', example: 'Gas prices fluctuate from week to week without warning.' },
+      { word: 'Futile', definition: 'Pointless and certain to fail', example: 'Arguing with the referee proved futile, so we played on.' },
+      { word: 'Garner', definition: 'To gather or collect', example: 'The recruiter worked hard to garner support from local schools.' },
+      { word: 'Genuine', definition: 'Real and sincere', example: 'Her thanks were genuine, not just polite words.' },
+      { word: 'Grave', definition: 'Very serious or solemn', example: 'The doctor spoke in a grave tone about the diagnosis.' },
+      { word: 'Gullible', definition: 'Easily fooled or tricked', example: 'Only a gullible person would believe that obvious scam email.' },
+      { word: 'Hamper', definition: 'To slow or block progress', example: 'Heavy fog continued to hamper the search for the boat.' },
+      { word: 'Haphazard', definition: 'Done without order or plan', example: 'The tools were stored in a haphazard pile on the floor.' },
+      { word: 'Hazardous', definition: 'Dangerous or risky', example: 'Icy roads made driving hazardous across the entire county.' },
+      { word: 'Hostile', definition: 'Unfriendly or aggressive', example: 'The crowd grew hostile after the referee\'s late call.' },
+      { word: 'Immense', definition: 'Extremely large in size', example: 'An immense wave crashed over the ship\'s bow.' },
+      { word: 'Impartial', definition: 'Fair and not taking sides', example: 'A judge must stay impartial no matter who is on trial.' },
+      { word: 'Imply', definition: 'To suggest without saying directly', example: 'Her raised eyebrow seemed to imply she doubted the story.' },
+      { word: 'Indifferent', definition: 'Showing no interest or concern', example: 'He seemed indifferent to whether the team won or lost.' },
+      { word: 'Intact', definition: 'Whole and undamaged', example: 'Somehow the vase arrived intact despite the rough shipping.' },
+      { word: 'Intricate', definition: 'Very detailed and complicated', example: 'The watch contained hundreds of intricate moving parts.' },
+      { word: 'Jeopardy', definition: 'Danger or risk of loss', example: 'One more penalty would put the whole season in jeopardy.' },
+      { word: 'Lenient', definition: 'Not strict, mild in punishment', example: 'The lenient teacher accepted homework two days late.' },
+      { word: 'Lucrative', definition: 'Producing a lot of money', example: 'Repairing phones turned into a lucrative side business for him.' },
+      { word: 'Meager', definition: 'Small in amount, barely enough', example: 'They survived the winter on meager rations of rice.' },
+      { word: 'Meticulous', definition: 'Extremely careful about details', example: 'The mechanic kept meticulous records of every repair he made.' },
+      { word: 'Negligent', definition: 'Careless in a duty', example: 'The negligent guard left the gate unlocked overnight.' },
+      { word: 'Nullify', definition: 'To cancel or make invalid', example: 'A missed signature can nullify the entire contract.' },
+      { word: 'Obstinate', definition: 'Stubborn and hard to persuade', example: 'The obstinate mule refused to move another step.' },
+      { word: 'Ominous', definition: 'Suggesting something bad will happen', example: 'Ominous clouds gathered over the field before the storm.' },
+      { word: 'Opaque', definition: 'Impossible to see through or understand', example: 'The opaque curtains blocked every bit of morning light.' },
+      { word: 'Pertinent', definition: 'Directly related to the matter', example: 'Please share only facts pertinent to this case.' },
+      { word: 'Placid', definition: 'Calm and peaceful', example: 'The placid lake mirrored the mountains without a ripple.' },
+      { word: 'Plausible', definition: 'Believable and reasonable', example: 'His explanation sounded plausible, so the officer let him go.' },
+      { word: 'Potent', definition: 'Strong and powerful', example: 'The potent medicine eased his pain within minutes.' },
+      { word: 'Pragmatic', definition: 'Practical rather than idealistic', example: 'She took a pragmatic approach and fixed what she could afford.' },
+      { word: 'Precise', definition: 'Exact and accurate', example: 'The recipe calls for precise measurements of flour and water.' },
+      { word: 'Provoke', definition: 'To stir up anger or action', example: 'Don\'t provoke the dog by pulling on its tail.' },
+      { word: 'Punctual', definition: 'Arriving or acting exactly on time', example: 'Be punctual, because the bus leaves at exactly seven.' },
+      { word: 'Pursue', definition: 'To chase or work toward', example: 'She plans to pursue a career in military medicine.' },
+      { word: 'Quell', definition: 'To put down or silence', example: 'Extra officers were sent to quell the riot downtown.' },
+      { word: 'Quench', definition: 'To satisfy thirst or put out', example: 'A cold drink of water will quench your thirst quickly.' },
+      { word: 'Rash', definition: 'Acting without thinking first', example: 'His rash decision to quit left him without a paycheck.' },
+      { word: 'Rebuke', definition: 'To scold sharply', example: 'The sergeant rebuked the recruits for leaving their bunks messy.' },
+      { word: 'Redundant', definition: 'Unnecessarily repeated or no longer needed', example: 'Cut the redundant sentences that repeat the same point.' },
+      { word: 'Reluctant', definition: 'Unwilling or hesitant', example: 'He was reluctant to lend his new truck to anyone.' },
+      { word: 'Robust', definition: 'Strong and healthy', example: 'Regular exercise kept the old farmer robust into his eighties.' },
+      { word: 'Rupture', definition: 'To break or burst apart', example: 'Extreme pressure caused the old pipe to rupture overnight.' },
+      { word: 'Scrutinize', definition: 'To examine very closely', example: 'Inspectors scrutinize every weld before the bridge opens.' },
+      { word: 'Serene', definition: 'Calm and untroubled', example: 'She stayed serene even while everyone else panicked.' },
+      { word: 'Shrewd', definition: 'Sharp in practical judgment', example: 'A shrewd trader, he sold just before prices fell.' },
+      { word: 'Somber', definition: 'Dark, gloomy, or serious', example: 'A somber mood filled the room after the announcement.' },
+      { word: 'Stagnant', definition: 'Not moving or growing', example: 'Mosquitoes bred in the stagnant water near the barn.' },
+      { word: 'Stern', definition: 'Strict and serious', example: 'The stern instructor allowed no talking during the drill.' },
+      { word: 'Subside', definition: 'To sink down or grow quieter', example: 'The flood waters finally began to subside after three days.' },
+      { word: 'Subtle', definition: 'Slight and not obvious', example: 'There is a subtle difference between the two paint colors.' },
+      { word: 'Succinct', definition: 'Brief and clearly stated', example: 'Keep your report succinct so the commander can read it fast.' },
+      { word: 'Superficial', definition: 'On the surface only, shallow', example: 'The crash left only superficial scratches on the car door.' },
+      { word: 'Tangible', definition: 'Real and able to be touched', example: 'The deed gave her tangible proof of owning the land.' },
+      { word: 'Tedious', definition: 'Boring, slow, and repetitive', example: 'Sorting thousands of files by hand was tedious work.' },
+      { word: 'Tentative', definition: 'Uncertain and not final', example: 'We set a tentative date that could still change.' },
+      { word: 'Terse', definition: 'Brief to the point of bluntness', example: 'She gave a terse answer and hung up the phone.' },
+      { word: 'Thrive', definition: 'To grow strong and succeed', example: 'Tomato plants thrive in warm sun and rich soil.' },
+      { word: 'Thwart', definition: 'To block or prevent', example: 'Guards thwarted the prisoners\' plan to escape through the tunnel.' },
+      { word: 'Tranquil', definition: 'Calm and quiet', example: 'The campsite was tranquil once the generators shut off.' },
+      { word: 'Trivial', definition: 'Of little importance', example: 'They argued for an hour over a trivial spelling mistake.' },
+      { word: 'Unanimous', definition: 'Agreed on by everyone', example: 'The jury reached a unanimous verdict in two hours.' },
+      { word: 'Uniform', definition: 'The same throughout', example: 'Cut the boards to a uniform length of six feet.' },
+      { word: 'Urgent', definition: 'Needing immediate attention', example: 'The hospital received an urgent call for more blood donors.' },
+      { word: 'Vacant', definition: 'Empty or unoccupied', example: 'The old house stood vacant for nearly ten years.' },
+      { word: 'Verify', definition: 'To confirm as true', example: 'Please verify your address before we ship the package.' },
+      { word: 'Versatile', definition: 'Useful in many different ways', example: 'This versatile jacket works in rain, wind, or snow.' },
+      { word: 'Vigilant', definition: 'Watchful and alert for danger', example: 'The sentry stayed vigilant throughout the long night watch.' },
+      { word: 'Vital', definition: 'Absolutely necessary for life or success', example: 'Clean water is vital to every soldier in the field.' },
+      { word: 'Wither', definition: 'To dry up and shrivel', example: 'Without rain, the crops began to wither in the fields.' },
+      { word: 'Yield', definition: 'To give way or produce', example: 'Drivers must yield to trucks entering the narrow bridge.' }
     ];
 
     // Formula data for cheat sheet and flashcards - ASVAB essentials only
@@ -191,7 +293,7 @@
           card.setAttribute('tabindex', '0');
           card.onclick = () => showCourse(code);
           card.innerHTML = `
-            <div class="icon">${course.icon}</div>
+            <div class="icon icon-code" aria-hidden="true">${code}</div>
             <h3>${course.name}</h3>
             <p>${course.description}</p>
             <div class="meta">${course.chapters.length} chapters • ${done}/${course.chapters.length} completed</div>
@@ -202,12 +304,11 @@
             PC: 'Paragraph Comprehension', GS: 'General Science', AS: 'Auto & Shop',
             MC: 'Mechanical Comprehension', EI: 'Electronics Information'
           };
-          const icons = { AR: '🧮', MK: '🔢', WK: '📖', PC: '📄', GS: '🔬', AS: '🔧', MC: '⚙️', EI: '⚡' };
           // "Unavailable" here almost always means the course bundle failed to
           // load (offline/blocked), not that the content doesn't exist — say so.
           card.className = 'course-card coming-soon';
           card.innerHTML = `
-            <div class="icon">${icons[code] || '📘'}</div>
+            <div class="icon icon-code" aria-hidden="true">${code}</div>
             <h3>${names[code] || code}</h3>
             <p>Couldn't load this course</p>
             <div class="meta">Check your connection and refresh</div>
@@ -222,7 +323,7 @@
       currentCourse.code = code;
       showView('course');
       document.getElementById('course-header').innerHTML = `
-        <div class="icon">${currentCourse.icon}</div>
+        <div class="icon icon-code" aria-hidden="true">${currentCourse.code}</div>
         <h1>${currentCourse.name}</h1>
         <p>${currentCourse.description}</p>
       `;
@@ -360,7 +461,7 @@
             <p class="problem">${ex.problem}</p>
             ${visual}
             ${ex.steps.map((s, i) => `<div class="step"><span class="step-num">${i + 1}</span><span class="step-text">${s}</span></div>`).join('')}
-            ${ex.tip ? `<div class="tip-box"><strong>💡 Tip:</strong> ${ex.tip}</div>` : ''}
+            ${ex.tip ? `<div class="tip-box"><strong><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10c.7.6 1 1.4 1 2h6c0-.6.3-1.4 1-2a6 6 0 0 0-4-10z"/></svg> Tip:</strong> ${ex.tip}</div>` : ''}
           </div>
         `;
       });

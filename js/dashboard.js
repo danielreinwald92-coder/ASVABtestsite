@@ -136,7 +136,7 @@ function renderMotivation(results, profile) {
     const today = localDayString(new Date());
     const s = MissionASVABStreak.computeStreak(dayStrings, today);
     if (s.current > 0) {
-      streakCard.textContent = '🔥 ' + s.current + '-day streak' +
+      streakCard.textContent = s.current + '-day streak' +
         (s.longest > s.current ? ' · best ' + s.longest : '');
       streakCard.hidden = false;
     }
@@ -147,16 +147,16 @@ function renderMotivation(results, profile) {
   const countdownCard = document.getElementById('countdownCard');
   if (countdownCard) {
     if (days === null) {
-      countdownCard.textContent = '📅 Add your test date in Account to see a countdown';
+      countdownCard.textContent = 'Add your test date in Account to see a countdown';
       countdownCard.hidden = false;
     } else if (days > 0) {
-      countdownCard.textContent = '📅 ' + days + (days === 1 ? ' day' : ' days') + ' until your ASVAB';
+      countdownCard.textContent = days + (days === 1 ? ' day' : ' days') + ' until your ASVAB';
       countdownCard.hidden = false;
     } else if (days === 0) {
-      countdownCard.textContent = '📅 Your ASVAB is today, you’ve got this';
+      countdownCard.textContent = 'Your ASVAB is today, you’ve got this';
       countdownCard.hidden = false;
     } else {
-      countdownCard.textContent = '📅 Your test date has passed, update it in Account';
+      countdownCard.textContent = 'Your test date has passed, update it in Account';
       countdownCard.hidden = false;
     }
   }

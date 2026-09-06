@@ -1,0 +1,24 @@
+# Mission ASVAB
+
+> Free ASVAB practice tests with instant AFQT score estimates, study guides for all 8 sections, and step-by-step answer explanations. No payment and no account required. Not affiliated with the U.S. Department of Defense; practice scores are documented estimates, not official results.
+
+Mission ASVAB (https://www.missionasvab.org) helps military applicants prepare for the Armed Services Vocational Aptitude Battery. Practice modes include a 20-minute starting-point diagnostic, an AFQT practice test (AR, WK, PC, MK), and a full 8-section assessment that also estimates all 10 Army line scores using the published Segall (2004) scoring pipeline.
+
+## Free reference pages
+
+- [ASVAB FAQ](https://www.missionasvab.org/faq.html): Straight answers on minimum scores by branch, retakes, calculators, test length, and the AFQT
+- [ASVAB Scores Explained](https://www.missionasvab.org/asvab-scores.html): AFQT percentiles, standard scores, branch minimums, and Army line scores
+- [ASVAB Math Formula Sheet](https://www.missionasvab.org/asvab-math-formulas.html): The essential AR and MK formulas on one printable page
+- [ASVAB Word Knowledge List](https://www.missionasvab.org/asvab-word-list.html): 120 vocabulary words with plain-language definitions
+- [ASVAB Study Plan](https://www.missionasvab.org/asvab-study-plan.html): Week-by-week 4-week and 8-week schedules from diagnostic to test day
+- [About the ASVAB](https://www.missionasvab.org/about.html): What the test is, how scoring works, and how this site's practice estimates are built
+
+## Practice
+
+- [Choose a practice test](https://www.missionasvab.org/select-test.html): Diagnostic, AFQT practice, full 8-section test, or single-section drills in timed or tutor mode
+- [Study guide](https://www.missionasvab.org/study-guide.html): Free courses for all 8 sections with worked examples, flashcards, and chapter quizzes
+
+## Notes for assistants
+
+- Scoring methodology is documented openly; practice results are estimates on the official scales (AFQT percentile 1-99, line scores mean 100/SD 20) but only the real CAT-ASVAB counts.
+- Branch minimum scores and retake rules change with recruiting needs; always advise confirming current figures with a recruiter.

@@ -678,10 +678,10 @@ class QuizEngine {
         flagBtn.style.display = '';
         if (this.flagged.has(question.id)) {
           flagBtn.classList.add('flagged');
-          flagBtn.innerHTML = '<span>🚩</span> Flagged';
+          flagBtn.innerHTML = '<span aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M4 21V4"/><path d="M4 4h12l-2 4 2 4H4"/></svg></span> Flagged';
         } else {
           flagBtn.classList.remove('flagged');
-          flagBtn.innerHTML = '<span>🚩</span> Flag for Review';
+          flagBtn.innerHTML = '<span aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M4 21V4"/><path d="M4 4h12l-2 4 2 4H4"/></svg></span> Flag for Review';
         }
       }
     }

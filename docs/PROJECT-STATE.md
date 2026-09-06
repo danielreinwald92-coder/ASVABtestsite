@@ -17,8 +17,11 @@ features were built; unchecked boxes there are not the current work queue.
   sheet, word list, week-by-week study plan) cross-linked from footers and a homepage band.
 - UI modernization (Sep 2026, "energetic hybrid"): navy/gold kept; Cormorant Garamond replaced
   sitewide by Barlow Condensed (uppercase display) + Chakra Petch (scores/timers/section codes);
-  css/shared.css grew a component layer (btn/card/patch/radius/elevation tokens); emoji in static
-  markup replaced with stroke SVGs (JS-injected emoji in dashboard/study-guide remain - follow-up).
+  css/shared.css grew a component layer (btn/card/patch/radius/elevation tokens); all emoji
+  (static and JS-injected) replaced with stroke SVGs / section-code patch badges (Sep 6).
+- Product polish (Sep 6, 2026): vocab flashcard deck extended 30 -> 131 cards (append-only, SR
+  state keyed by word so existing progress survives), llms.txt added for AI-assistant visibility,
+  quiz payload preloaded on quiz.html and prefetched from select-test/test-intro.
 - Guest practice works without an account. Every completed test produces a deterministic Today’s
   Mission that opens a real study chapter and checkpoint. Supabase adds saved test/mission history,
   profiles, reports, cross-device mission status, and guarded admin operations.
