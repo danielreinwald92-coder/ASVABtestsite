@@ -42,8 +42,22 @@ const SERVED_PAGES = [
   'asvab-auto-and-shop.html',
   'asvab-mechanical-comprehension.html',
   'asvab-score-calculator.html',
-  'resources.html'
+  'resources.html',
+  'asvab-score-requirements.html',
+  'asvab-gt-score.html',
+  'army-asvab-scores.html',
+  'air-force-asvab-scores.html',
+  'navy-asvab-scores.html',
+  'marine-corps-asvab-scores.html',
+  'coast-guard-asvab-scores.html',
+  'my-options.html'
 ];
+
+// Generated job pages (scripts/build-job-pages.js) live in jobs/.
+const jobsDir = path.join(rootDir, 'jobs');
+if (fs.existsSync(jobsDir)) {
+  for (const f of fs.readdirSync(jobsDir).sort()) if (f.endsWith('.html')) SERVED_PAGES.push('jobs/' + f);
+}
 
 // Script `type` values that are non-executable data blocks and therefore
 // allowed to be inline (they do not run as JS and are unaffected by CSP

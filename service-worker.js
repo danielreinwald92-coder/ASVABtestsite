@@ -18,7 +18,7 @@
 // RELEASE STEP: bump on every deploy that changes an existing JS file —
 // subresources are cache-first, so without a bump the first post-deploy load
 // runs fresh HTML against stale cached JS.
-const CACHE_VERSION = 'mission-asvab-v15';
+const CACHE_VERSION = 'mission-asvab-v16';
 
 // Small, maintainable core of STATIC same-origin assets that make up the app
 // shell. Admin assets are intentionally excluded.
@@ -44,6 +44,10 @@ const PRECACHE_URLS = [
   '/js/irt-params.js',
   '/js/penalty-table.js',
   '/js/scoring.js',
+  '/js/branch-composites.js',
+  '/js/job-requirements.js',
+  '/js/job-matcher.js',
+  '/js/options-view.js',
   '/js/quiz-data.js',
   '/js/section-config.js',
   '/js/test-config.js',

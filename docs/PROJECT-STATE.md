@@ -11,7 +11,7 @@ features were built; unchecked boxes there are not the current work queue.
 
 - Static HTML/JavaScript application deployed from `main` to Vercel. The canonical production
   URL is `https://www.missionasvab.org`; the bare domain permanently redirects to `www`.
-- Twenty-seven served pages; account and admin data use Supabase project `rcspwkmrtukblvvdifer`.
+- Thirty-five root pages plus 99 generated job pages in `jobs/`; account and admin data use Supabase project `rcspwkmrtukblvvdifer`.
 - SEO foundation pass (Sep 2026): complete OG/twitter/favicon metadata and JSON-LD on all public
   pages, an OG share image, and five indexable resource pages (FAQ, scores guide, math formula
   sheet, word list, week-by-week study plan) cross-linked from footers and a homepage band.
@@ -45,6 +45,12 @@ features were built; unchecked boxes there are not the current work queue.
   section-config, full course lessons, 10 sample questions with answers; tag-5 items never
   published). Source: `scripts/build-section-guides.js`; `tests/unit/section-guides.test.js` fails
   on drift. Linked from the homepage resources band, sitemap, and llms.txt.
+- Military jobs (Sep 26, 2026): all five branches' AFQT minimums and job score requirements in
+  `js/job-requirements.js` (494 jobs, each branch citing its official source/edition), a matcher
+  (`js/job-matcher.js`, `js/branch-composites.js` incl. official Air Force MAGE tables and Marine
+  transforms), generated hub/branch/GT/99 featured job pages, `my-options.html` ("See my options"
+  from results), and job matches on the score calculator. Details, sources, gaps and refresh
+  cadence: `docs/job-requirements.md`. Re-check Search Console mid-Oct for job-page queries.
 - APT-style AFQT Predictor (Sep 26, 2026): 20 adaptive AR/WK/PC/MK items (5 each, 25 min),
   same IRT pipeline, stored as `test_type = 'apt'`, labelled "Predicted AFQT (APT-Style)".
   Short-length penalty coefficients live in `penalty-table.js` `byLength[5]`.

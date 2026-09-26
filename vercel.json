@@ -30,7 +30,7 @@
       ]
     },
     {
-      "source": "/(quiz|results|dashboard|login|register|reset-password|admin|test-intro)\\.html",
+      "source": "/(quiz|results|dashboard|login|register|reset-password|admin|test-intro|my-options)\\.html",
       "headers": [
         {
           "key": "X-Robots-Tag",

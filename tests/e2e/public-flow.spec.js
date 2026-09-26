@@ -27,8 +27,24 @@ const SERVED_PAGES = [
   '/asvab-auto-and-shop.html',
   '/asvab-mechanical-comprehension.html',
   '/asvab-score-calculator.html',
-  '/resources.html'
+  '/resources.html',
+  '/asvab-score-requirements.html',
+  '/asvab-gt-score.html',
+  '/army-asvab-scores.html',
+  '/air-force-asvab-scores.html',
+  '/navy-asvab-scores.html',
+  '/marine-corps-asvab-scores.html',
+  '/coast-guard-asvab-scores.html',
+  '/my-options.html'
 ];
+
+// Every generated job page (scripts/build-job-pages.js) joins the smoke run.
+const fs = require('fs');
+const path = require('path');
+const jobsDir = path.resolve(__dirname, '..', '..', 'jobs');
+if (fs.existsSync(jobsDir)) {
+  for (const f of fs.readdirSync(jobsDir).sort()) if (f.endsWith('.html')) SERVED_PAGES.push('/jobs/' + f);
+}
 
 const SUPABASE_STUB = `
 (function () {
@@ -177,7 +193,41 @@ test('guest completes the 20-question APT-style predictor and sees a predicted A
   const score = Number(await page.locator('#afqtScore').textContent());
   expect(score).toBeGreaterThanOrEqual(1);
   expect(score).toBeLessThanOrEqual(99);
+
+  // AFQT-only result: the job options card leads to branch eligibility.
+  await expect(page.locator('#jobOptionsCta')).toBeVisible();
+  await expect(page.locator('#jobOptionsTitle')).toContainText('branches');
+  await page.locator('#jobOptionsCta a').click();
+  await expect(page).toHaveURL(/my-options\.html$/);
+  await expect(page.locator('.opt-chip')).toHaveCount(5);
+  await expect(page.locator('.opt-tab')).toHaveCount(5);
+  await expect(page.locator('#optSource')).toContainText('APT-Style AFQT Predictor');
+  await page.locator('#opt-tab-navy').click();
+  await expect(page.locator('#opt-panel-navy')).toBeVisible();
+  await expect(page.locator('#opt-panel-army')).toBeHidden();
   expect(errors).toEqual([]);
+});
+
+test('score calculator shows job matches for entered standard scores', async ({ page }) => {
+  await isolateExternalServices(page);
+  const errors = collectBrowserErrors(page);
+  await page.goto('/asvab-score-calculator.html');
+  for (const [code, v] of [['AR', 55], ['MK', 55], ['WK', 55], ['PC', 55], ['GS', 55], ['EI', 55], ['AS', 55], ['MC', 55]]) {
+    await page.locator('#ss' + code).fill(String(v));
+  }
+  await page.getByRole('button', { name: 'Calculate My Scores' }).click();
+  await expect(page.locator('#calcJobs')).toBeVisible();
+  await expect(page.locator('#calcJobsView .opt-qualify .opt-job').first()).toBeVisible();
+  await page.locator('#calcJobFilter').fill('68W');
+  await expect(page.locator('#calcJobsView .opt-job:visible')).toHaveCount(1);
+  expect(errors).toEqual([]);
+});
+
+test('my-options without a saved result offers a test and the calculator', async ({ page }) => {
+  await isolateExternalServices(page);
+  await page.goto('/my-options.html');
+  await expect(page.locator('#optEmpty')).toBeVisible();
+  await expect(page.locator('#optSummary')).toBeHidden();
 });
 
 test('guest diagnostic finishes in 18 questions and yields a personalized mission without an AFQT claim', async ({ page }) => {

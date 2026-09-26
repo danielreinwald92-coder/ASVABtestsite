@@ -29,6 +29,7 @@
 
   function render(result) {
     if (!result.ok) {
+      if (jobsSection) jobsSection.hidden = true;
       out.innerHTML = '<p class="calc-error"></p>';
       out.firstChild.textContent = 'Enter a standard score from ' + C.MIN_SS + ' to ' + C.MAX_SS + ' for: ' +
         result.missing.map((c) => NAMES[c] || c).join(', ') + '.';
@@ -47,8 +48,31 @@
     } else {
       html += '<p class="calc-note">Add GS, EI, AS, and MC to see all 10 Army line scores.</p>';
     }
-    html += '<p class="calc-note">Minimum AFQT to enlist is commonly 31 (Army and Navy), 32 (Marines), 36 (Air Force), and 40 (Coast Guard). Minimums change, so confirm with a recruiter.</p>';
+    const J = window.MissionASVABJobs;
+    if (J) {
+      html += '<p class="calc-note">Minimum AFQT to enlist: ' +
+        J.ORDER.map((k) => J.BRANCHES[k].name + ' ' + J.BRANCHES[k].afqtMin).join(', ') +
+        '. Minimums change, so confirm with a recruiter.</p>';
+    }
     out.innerHTML = html;
+    renderJobs(result);
+  }
+
+  // Job matches for the entered scores (js/options-view.js).
+  const jobsSection = document.getElementById('calcJobs');
+  const jobsView = document.getElementById('calcJobsView');
+  function renderJobs(result) {
+    const V = window.MissionASVABOptionsView;
+    if (!V || !jobsSection || !jobsView) return;
+    const inputs = readInputs();
+    const ss = { AR: inputs.AR, MK: inputs.MK, WK: inputs.WK, PC: inputs.PC, VE: result.ve };
+    ['GS', 'EI', 'AS', 'MC'].forEach((c) => {
+      if (Number.isFinite(inputs[c]) && inputs[c] >= C.MIN_SS && inputs[c] <= C.MAX_SS) ss[c] = inputs[c];
+    });
+    const full = ['GS', 'EI', 'AS', 'MC'].every((c) => Number.isFinite(ss[c]));
+    jobsView.innerHTML = V.render({ ss, afqt: result.percentile, full }, { filterId: 'calcJobFilter' }).html;
+    V.bind(jobsView);
+    jobsSection.hidden = false;
   }
 
   form.addEventListener('submit', (e) => {

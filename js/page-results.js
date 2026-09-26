@@ -159,6 +159,9 @@ function loadResults() {
     renderLineScores(results.sectionResults);
   }
 
+  // "See my options": job matches across all five branches (AFQT tests too).
+  renderJobOptionsCta(results);
+
   // Render answer review
   renderAnswerReview(results.sectionResults);
 
@@ -308,6 +311,33 @@ function renderSectionBreakdown(sectionResults) {
   }
 
   grid.innerHTML = html;
+}
+
+// Teaser card linking to my-options.html. Needs an AFQT estimate, so the
+// diagnostic, single-section and tutor results skip it.
+function renderJobOptionsCta(results) {
+  const card = document.getElementById('jobOptionsCta');
+  const V = window.MissionASVABOptionsView;
+  if (!card || !V) return;
+  let scores = null;
+  try { scores = V.scoresFromResults(results); } catch (_) { scores = null; }
+  if (!scores) return;
+  const c = V.counts(window.MissionASVABJobMatcher.matchAll(window.MissionASVABJobs, scores));
+  const jobs = (n) => `${n} job${n === 1 ? '' : 's'}`;
+  let title;
+  let text;
+  if (scores.full) {
+    title = c.qualifies ? `You may qualify for ${jobs(c.qualifies)}` : 'See the jobs you are closest to';
+    text = `Across all five branches` + (c.close ? `, and you are close on ${jobs(c.close)} more.` : '.') +
+      ' See which ones, and what to study to open more.';
+  } else {
+    title = `You meet the minimum AFQT for ${c.branchesMet} of ${c.branches} branches`;
+    text = (c.qualifies ? `You may already qualify for ${jobs(c.qualifies)}. ` : '') +
+      'Take the full practice test to see every job, including the technical ones.';
+  }
+  document.getElementById('jobOptionsTitle').textContent = title;
+  document.getElementById('jobOptionsText').textContent = text;
+  card.hidden = false;
 }
 
 function renderLineScores(sectionResults) {

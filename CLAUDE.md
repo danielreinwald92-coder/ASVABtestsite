@@ -23,7 +23,7 @@ Mission ASVAB - Static HTML/JS practice test site for military applicants prepar
 ## Architecture
 
 ```
-HTML Pages (all 27 deployed; admin.html is served but gated by requireAdmin(). Documentation,
+HTML Pages (all 35 root pages + generated jobs/*.html deployed; admin.html is served but gated by requireAdmin(). Documentation,
 repository/tooling config and Playwright config are excluded — see .vercelignore; the buildCommand also strips tests/,
 scripts/ and package files from the served output after the build gates run):
 ├── index.html  select-test.html  test-intro.html  quiz.html  results.html
@@ -34,6 +34,11 @@ scripts/ and package files from the served output after the build gates run):
     resources.html              # hub linking every free resource (menu "Resources" target)
     asvab-score-calculator.html # standard scores -> AFQT percentile/category + 10 Army line scores
                                 #   (js/score-calculator.js pure math on irt-params constants)
+    asvab-score-requirements.html asvab-gt-score.html <branch>-asvab-scores.html (x5)
+    jobs/<branch>-<code>-<slug>.html  # GENERATED military-job pages (scripts/build-job-pages.js from
+                                # js/job-requirements.js; jobs/ pages use <base href="/">); see
+                                # docs/job-requirements.md for sources, rule format, refresh cadence
+    my-options.html             # noindex "See my options": latest result -> job matches (all branches)
     asvab-arithmetic-reasoning.html … asvab-mechanical-comprehension.html  # 8 GENERATED section guides
                                 # (lessons + 10 sample Qs); edit scripts/build-section-guides.js or the
                                 # source data, re-run it; a unit test fails if pages drift
@@ -62,6 +67,11 @@ js/
 ├── streak.js  study-plan.js  # Dashboard: derived streak + test-date countdown/paced plan (SP3)
 ├── spaced-repetition.js    # SM-2-lite scheduler + localStorage store for flashcard review (SP3)
 ├── share-card.js  pwa-install.js  # Local shareable score card + dismissible install prompt (SP3)
+├── job-requirements.js     # All-branch job ASVAB requirements + AFQT minimums (single source; each
+│                           #   branch cites source/edition/asOf; validate-site enforces the contract)
+├── branch-composites.js    # Army line scores, Air Force MAGE (Segall Tables C.1-C.4), Marine GT/MM/EL/CL
+├── job-matcher.js          # Pure rule engine: qualifies / close / notYet / unknown / other
+├── options-view.js         # Shared job-options UI (my-options.html + score calculator)
 ├── test-config.js          # Test mode configs (diagnostic/apt/quick/full + diagnostic blueprint)
 ├── auth.js                 # Supabase client singleton + session helpers + friendlyAuthError()
 │                           #   (maps raw Supabase auth errors to plain language on all auth pages)
@@ -84,11 +94,12 @@ scripts/
 ├── generate-penalty-table.js  # Offline simulation → regenerates js/penalty-table.js (official
 │                           #   incomplete-test penalty derivation); re-run only if irt params/pools change
 ├── build-section-guides.js # Regenerates the 8 asvab-<section>.html guides (--check = drift test)
+├── build-job-pages.js      # Regenerates hub, GT, 5 branch pages, jobs/*.html + sitemap job block
 ├── sync-site-chrome.js     # SINGLE SOURCE for the site nav, mobile menu and footer on every page;
 │                           #   edit it, run it (--check = drift test in tests/unit/site-chrome.test.js)
 └── check-no-inline-js.js   # CI gate: fails if any inline on*= handler or inline <script> exists
 supabase/migrations/        # Versioned additive database changes (new schema work belongs here)
-tests/                      # node:test + jsdom suite (295 tests). helpers/load.js, helpers/engine.js
+tests/                      # node:test + jsdom suite (315 tests). helpers/load.js, helpers/engine.js
 tests/e2e/                  # Playwright: all-page CSP/console smoke + guest AFQT and diagnostic flows
 playwright.config.js        # Chromium config; local server mirrors production Vercel headers
 docs/scoring-methodology.md # AFQT model, sources, limits
@@ -99,7 +110,7 @@ docs/PROJECT-STATE.md       # Concise current-state index and prioritized handof
 
 ```bash
 npx serve .                    # Local dev server
-npm test                       # Run the node:test + jsdom unit suite (295 tests)
+npm test                       # Run the node:test + jsdom unit suite (315 tests)
 npm run test:e2e               # Run Playwright against all pages + the guest AFQT flow
 node scripts/validate-site.js  # Validate quiz data + scoring contracts (also a Vercel build gate)
 node scripts/check-no-inline-js.js  # Verify no inline JS (required by the strict CSP)

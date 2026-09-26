@@ -25,6 +25,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/shared.css">
   <link rel="stylesheet" href="css/section-guide.css">
+  <link rel="stylesheet" href="css/jobs.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1628">
   <script type="application/ld+json">
@@ -69,6 +70,7 @@
     <ul class="nav-links">
       <li><a href="select-test.html">Practice Tests</a></li>
       <li><a href="study-guide.html">Study Guide</a></li>
+      <li><a href="asvab-score-requirements.html">Military Jobs</a></li>
       <li class="nav-drop">
         <a href="resources.html" class="nav-drop-toggle">Resources <svg class="nav-caret" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
         <div class="nav-drop-panel">
@@ -76,6 +78,8 @@
             <p>Tools and references</p>
             <ul>
               <li><a href="asvab-score-calculator.html">Score calculator</a></li>
+              <li><a href="asvab-score-requirements.html">Jobs by ASVAB score</a></li>
+              <li><a href="asvab-gt-score.html">GT score guide</a></li>
               <li><a href="faq.html">ASVAB FAQ</a></li>
               <li><a href="asvab-scores.html">Scores explained</a></li>
               <li><a href="asvab-math-formulas.html">Math formula sheet</a></li>
@@ -116,6 +120,7 @@
     <div class="mobile-menu-links">
       <a href="study-guide.html">Study Guide</a>
       <a href="asvab-score-calculator.html" aria-current="page">Score Calculator</a>
+      <a href="asvab-score-requirements.html">Military Jobs by Score</a>
       <a href="resources.html">All Free Resources</a>
       <a href="about.html">About the ASVAB</a>
       <a href="login.html" data-nav-account>Log in</a>
@@ -123,6 +128,8 @@
     <div class="mobile-menu-group">
       <p>References</p>
       <ul>
+        <li><a href="asvab-score-requirements.html">Jobs by ASVAB score</a></li>
+        <li><a href="asvab-gt-score.html">GT score guide</a></li>
         <li><a href="faq.html">ASVAB FAQ</a></li>
         <li><a href="asvab-scores.html">Scores explained</a></li>
         <li><a href="asvab-math-formulas.html">Math formula sheet</a></li>
@@ -191,6 +198,12 @@
       </div>
     </section>
 
+    <section class="section" id="calcJobs" hidden>
+      <h2>Jobs These Scores May Qualify You For</h2>
+      <p>Your scores checked against the published requirements for every branch. See <a href="asvab-score-requirements.html">ASVAB score requirements by branch</a> for the full tables.</p>
+      <div id="calcJobsView"></div>
+    </section>
+
     <section class="section">
       <h2>How the AFQT Is Calculated</h2>
       <p>Your AFQT is not an average of your section scores. The official formula adds your Arithmetic Reasoning and Mathematics Knowledge standard scores to <strong>twice</strong> your Verbal Expression (VE) score:</p>
@@ -232,6 +245,8 @@
       <div>
         <p>Free resources</p>
         <ul>
+          <li><a href="asvab-score-requirements.html">Jobs by ASVAB score</a></li>
+          <li><a href="asvab-gt-score.html">GT score guide</a></li>
           <li><a href="faq.html">ASVAB FAQ</a></li>
           <li><a href="asvab-scores.html">Scores explained</a></li>
           <li><a href="asvab-math-formulas.html">Math formula sheet</a></li>
@@ -261,6 +276,10 @@
   <!-- /site-footer -->
   <script src="js/irt-params.js"></script>
   <script src="js/score-calculator.js"></script>
+  <script src="js/branch-composites.js"></script>
+  <script src="js/job-requirements.js"></script>
+  <script src="js/job-matcher.js"></script>
+  <script src="js/options-view.js"></script>
   <script src="js/page-score-calculator.js"></script>
   <script src="js/year.js"></script>
   <script src="js/mobile-menu.js"></script>

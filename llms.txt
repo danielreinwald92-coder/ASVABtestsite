@@ -7,7 +7,9 @@ Mission ASVAB (https://www.missionasvab.org) helps military applicants prepare f
 ## Free reference pages
 
 - [ASVAB FAQ](https://www.missionasvab.org/faq.html): Straight answers on minimum scores by branch, retakes, calculators, test length, and the AFQT
-- [ASVAB Score Calculator](https://www.missionasvab.org/asvab-score-calculator.html): Enter standard scores from an ASVAB score report to get the AFQT percentile (official AR + MK + 2xVE formula and 1997 percentile table), AFQT category, and all 10 Army line scores
+- [ASVAB Score Requirements by Branch](https://www.missionasvab.org/asvab-score-requirements.html): Minimum AFQT for the Army, Navy, Air Force, Marine Corps, and Coast Guard, and how each branch scores jobs; links to full job tables for each branch (Army line scores by MOS, Navy rating sums, Air Force MAGE by AFSC, Marine Corps GT/MM/EL/CL by MOS, Coast Guard ratings), each citing its official source and edition
+- [ASVAB GT Score Guide](https://www.missionasvab.org/asvab-gt-score.html): Army and Marine Corps GT formulas, the GT 110 bar for Army OCS, warrant officer, Green to Gold, and Special Forces, and every job with a GT minimum
+- [ASVAB Score Calculator](https://www.missionasvab.org/asvab-score-calculator.html): Enter standard scores from an ASVAB score report to get the AFQT percentile (official AR + MK + 2xVE formula and 1997 percentile table), AFQT category, and all 10 Army line scores, plus the jobs those scores may qualify for in every branch
 - [ASVAB Scores Explained](https://www.missionasvab.org/asvab-scores.html): AFQT percentiles, standard scores, branch minimums, and Army line scores
 - [ASVAB Math Formula Sheet](https://www.missionasvab.org/asvab-math-formulas.html): The essential AR and MK formulas on one printable sheet
 - [ASVAB Word Knowledge List](https://www.missionasvab.org/asvab-word-list.html): 120 vocabulary words with plain-language definitions

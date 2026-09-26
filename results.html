@@ -436,6 +436,47 @@
       }
     }
 
+    /* Military job options call-to-action (js/page-results.js renderJobOptionsCta) */
+    .job-options-cta {
+      background: var(--navy-900);
+      color: var(--white);
+      border-radius: var(--r-lg);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-2);
+    }
+    .job-options-cta[hidden] { display: none; }
+    .job-options-eyebrow {
+      font-family: var(--font-data);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-400);
+      margin-bottom: 0.4rem;
+    }
+    .job-options-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .job-options-text { color: var(--cream-200); margin-bottom: 1.25rem; }
+    .job-options-btn {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      padding: 0.8rem 1.6rem;
+      background: var(--gold-500);
+      color: var(--navy-900);
+      font-weight: 700;
+      border-radius: var(--r-md);
+      text-decoration: none;
+    }
+    .job-options-btn:hover { background: var(--gold-400); }
+    .job-options-btn:focus-visible { outline: 3px solid var(--white); outline-offset: 2px; }
+
     /* Line Scores Section */
     .line-scores {
       background: var(--white);
@@ -905,6 +946,7 @@
     <ul class="nav-links">
       <li><a href="select-test.html">Practice Tests</a></li>
       <li><a href="study-guide.html">Study Guide</a></li>
+      <li><a href="asvab-score-requirements.html">Military Jobs</a></li>
       <li class="nav-drop">
         <a href="resources.html" class="nav-drop-toggle">Resources <svg class="nav-caret" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
         <div class="nav-drop-panel">
@@ -912,6 +954,8 @@
             <p>Tools and references</p>
             <ul>
               <li><a href="asvab-score-calculator.html">Score calculator</a></li>
+              <li><a href="asvab-score-requirements.html">Jobs by ASVAB score</a></li>
+              <li><a href="asvab-gt-score.html">GT score guide</a></li>
               <li><a href="faq.html">ASVAB FAQ</a></li>
               <li><a href="asvab-scores.html">Scores explained</a></li>
               <li><a href="asvab-math-formulas.html">Math formula sheet</a></li>
@@ -952,6 +996,7 @@
     <div class="mobile-menu-links">
       <a href="study-guide.html">Study Guide</a>
       <a href="asvab-score-calculator.html">Score Calculator</a>
+      <a href="asvab-score-requirements.html">Military Jobs by Score</a>
       <a href="resources.html">All Free Resources</a>
       <a href="about.html">About the ASVAB</a>
       <a href="login.html" data-nav-account>Log in</a>
@@ -959,6 +1004,8 @@
     <div class="mobile-menu-group">
       <p>References</p>
       <ul>
+        <li><a href="asvab-score-requirements.html">Jobs by ASVAB score</a></li>
+        <li><a href="asvab-gt-score.html">GT score guide</a></li>
         <li><a href="faq.html">ASVAB FAQ</a></li>
         <li><a href="asvab-scores.html">Scores explained</a></li>
         <li><a href="asvab-math-formulas.html">Math formula sheet</a></li>
@@ -1046,6 +1093,13 @@
       </div>
     </section>
 
+    <section class="job-options-cta" id="jobOptionsCta" hidden>
+      <p class="job-options-eyebrow">Military jobs</p>
+      <h3 class="job-options-title" id="jobOptionsTitle">See the jobs your scores may qualify you for</h3>
+      <p class="job-options-text" id="jobOptionsText"></p>
+      <a class="job-options-btn" href="my-options.html">See My Options</a>
+    </section>
+
     <section class="answer-review" id="answerReview" style="display: none;">
       <div class="answer-review-header">
         <h3 class="answer-review-title">Review Your Answers</h3>
@@ -1076,6 +1130,10 @@
   <script src="js/irt-params.js"></script>
   <script src="js/penalty-table.js"></script>
   <script src="js/scoring.js"></script>
+  <script src="js/branch-composites.js"></script>
+  <script src="js/job-requirements.js"></script>
+  <script src="js/job-matcher.js"></script>
+  <script src="js/options-view.js"></script>
   <script src="js/share-card.js"></script>
   <script src="js/mission-recommendations.js"></script>
   <script src="js/mission-progress.js"></script>
@@ -1097,6 +1155,8 @@
       <div>
         <p>Free resources</p>
         <ul>
+          <li><a href="asvab-score-requirements.html">Jobs by ASVAB score</a></li>
+          <li><a href="asvab-gt-score.html">GT score guide</a></li>
           <li><a href="faq.html">ASVAB FAQ</a></li>
           <li><a href="asvab-scores.html">Scores explained</a></li>
           <li><a href="asvab-math-formulas.html">Math formula sheet</a></li>

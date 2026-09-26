@@ -263,4 +263,82 @@ for (const [code, entry] of Object.entries(perfectLineScores)) {
     `Line score ${code} must be a finite integer, got ${entry.score}`);
 }
 
+// ---- Military job requirements contract (js/job-requirements.js) ----
+// Every branch and job carries a citable source; every rule uses only score
+// codes that exist for that branch; copy follows the site rules (no em/en
+// dashes, HTML-safe). Featured jobs get their own page, so they need copy.
+const jobs = require(path.join(rootDir, 'js/job-requirements.js'));
+const JOB_TERM_SECTIONS = new Set(['GS', 'AR', 'WK', 'PC', 'MK', 'EI', 'AS', 'MC', 'VE', 'AO', 'CS', 'CT']);
+const JOB_TESTS = new Set(['AO', 'CS', 'CT', 'TAPAS', 'PSM', 'DLAB', 'EDPT', 'ICTL', 'NAPT', 'TWO_FACTOR']);
+const COMPOSITE_CODES = {
+  army: ['GT', 'CL', 'CO', 'EL', 'FA', 'GM', 'MM', 'OF', 'SC', 'ST'],
+  'air-force': ['M', 'A', 'G', 'E'],
+  'marine-corps': ['GT', 'MM', 'EL', 'CL'],
+  navy: [],
+  'coast-guard': []
+};
+const JOB_MINIMUMS = { army: 100, 'air-force': 80, navy: 60, 'marine-corps': 100, 'coast-guard': 15 };
+function checkSource(src, where) {
+  assert(src && typeof src.title === 'string' && src.title.length > 10, `${where}: source title`);
+  assert(src && /^https:\/\//.test(src.url || ''), `${where}: source url must be https`);
+  assert(src && typeof src.edition === 'string' && src.edition.length > 3, `${where}: source edition`);
+  assert(src && /^\d{4}-\d{2}-\d{2}$/.test(src.asOf || ''), `${where}: source asOf must be YYYY-MM-DD`);
+}
+function checkText(value, where) {
+  assert(!/[–—]/.test(value), `${where}: no em or en dashes in site copy`);
+  assert(!/[<>&]/.test(value), `${where}: must be HTML-safe (no < > &)`);
+}
+assert(JSON.stringify(jobs.ORDER) === JSON.stringify(['army', 'air-force', 'navy', 'marine-corps', 'coast-guard']),
+  'job-requirements ORDER must list the five branches');
+for (const key of jobs.ORDER) {
+  const b = jobs.BRANCHES[key];
+  checkSource(b.source, key);
+  assert(Number.isInteger(b.afqtMin) && b.afqtMin >= 10 && b.afqtMin <= 50, `${key}: afqtMin`);
+  assert(b.jobs.length >= JOB_MINIMUMS[key], `${key}: job list shrank below ${JOB_MINIMUMS[key]} (${b.jobs.length})`);
+  const featured = b.jobs.filter((j) => j.featured).length;
+  assert(featured >= 15 && featured <= 25, `${key}: 15-25 featured jobs (has ${featured})`);
+  const seen = new Set();
+  for (const j of b.jobs) {
+    const where = `${key} ${j.code}`;
+    assert(!seen.has(j.code), `${where}: duplicate job code`);
+    seen.add(j.code);
+    for (const f of ['code', 'title', 'category']) {
+      assert(typeof j[f] === 'string' && j[f].length > 0, `${where}: ${f}`);
+      checkText(j[f], `${where} ${f}`);
+    }
+    for (const n of j.notes || []) checkText(n, `${where} note`);
+    if (j.sourceOverride) checkSource(j.sourceOverride, where);
+    if (j.featured) {
+      assert(typeof j.about === 'string' && j.about.length >= 200 && j.about.length <= 600, `${where}: featured job needs 200-600 char about`);
+      checkText(j.about, `${where} about`);
+    }
+    assert(Array.isArray(j.rule), `${where}: rule must be an array of paths`);
+    for (const pathTerms of j.rule) {
+      assert(Array.isArray(pathTerms) && pathTerms.length > 0, `${where}: each path needs terms`);
+      for (const t of pathTerms) {
+        if (t.c !== undefined) {
+          assert(COMPOSITE_CODES[key].includes(t.c), `${where}: unknown ${key} composite ${t.c}`);
+          assert(Number.isInteger(t.min) && t.min > 0, `${where}: composite min`);
+        } else if (t.sum !== undefined) {
+          const ks = Object.keys(t.sum);
+          assert(ks.length > 0 && ks.every((k) => JOB_TERM_SECTIONS.has(k) && Number.isInteger(t.sum[k]) && t.sum[k] > 0),
+            `${where}: sum uses unknown sections or weights`);
+          assert(Number.isInteger(t.min) && t.min > 0, `${where}: sum min`);
+        } else if (t.afqt !== undefined) {
+          assert(Number.isInteger(t.afqt) && t.afqt > 0 && t.afqt < 100, `${where}: afqt floor`);
+        } else if (t.test !== undefined) {
+          assert(JOB_TESTS.has(t.test), `${where}: unknown test ${t.test}`);
+        } else {
+          assert(false, `${where}: unrecognised term ${JSON.stringify(t)}`);
+        }
+      }
+    }
+    if (!j.rule.length) assert((j.notes || []).length > 0, `${where}: a job with no score rule must explain why in notes`);
+  }
+}
+for (const p of jobs.GT_PROGRAMS) {
+  checkSource(p.source, `GT program ${p.name}`);
+  checkText(p.text, `GT program ${p.name}`);
+}
+
 console.log('Validation passed');
