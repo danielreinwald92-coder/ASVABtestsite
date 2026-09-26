@@ -223,6 +223,18 @@ test('score calculator shows job matches for entered standard scores', async ({ 
   expect(errors).toEqual([]);
 });
 
+test('homepage start links preselect the matching test', async ({ page }) => {
+  await isolateExternalServices(page);
+  const errors = collectBrowserErrors(page);
+  await page.goto('/');
+  await expect(page.locator('.hero-start')).toHaveAttribute('href', 'select-test.html');
+  await page.locator('a[href="select-test.html?type=apt"]').click();
+  await expect(page).toHaveURL(/select-test\.html\?type=apt$/);
+  await expect(page.locator('.test-type-card[data-type="apt"]')).toHaveClass(/selected/);
+  await expect(page.locator('.test-type-card[data-type="diagnostic"]')).not.toHaveClass(/selected/);
+  expect(errors).toEqual([]);
+});
+
 test('my-options without a saved result offers a test and the calculator', async ({ page }) => {
   await isolateExternalServices(page);
   await page.goto('/my-options.html');

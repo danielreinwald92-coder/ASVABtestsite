@@ -169,6 +169,14 @@ function deriveTestType(orderedSections) {
 
   syncPickerUI();
 
+  // Homepage links preselect a test: select-test.html?type=apt (diagnostic,
+  // apt, quick, full). Unknown values keep the diagnostic default.
+  const typeMatch = /[?&]type=([a-z]+)/.exec((window.location && window.location.search) || '');
+  const requestedType = typeMatch && typeMatch[1];
+  const requestedCard = requestedType && Array.from(document.querySelectorAll('.test-type-card'))
+    .find((c) => c.dataset.type === requestedType);
+  if (requestedCard) requestedCard.click();
+
   startBtn.addEventListener('click', () => {
     if (startBtn.disabled) return;
     const ordered = orderSections(Array.from(selected));

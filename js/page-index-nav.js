@@ -4,10 +4,13 @@
 (function () {
   applyAuthNav();
   getSession().then(session => {
-    const btn = document.getElementById('heroSignupBtn');
-    if (btn && session) {
-      btn.textContent = 'My Dashboard';
-      btn.href = 'dashboard.html';
+    const fine = document.getElementById('heroFine');
+    if (fine && session) {
+      fine.textContent = 'Signed in. Your scores save automatically. ';
+      const link = document.createElement('a');
+      link.href = 'dashboard.html';
+      link.textContent = 'Go to my dashboard';
+      fine.appendChild(link);
     }
   });
 })();

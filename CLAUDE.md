@@ -80,6 +80,9 @@ js/
 ├── page-*.js               # Per-page logic (externalized; NO inline <script> — see CSP rule below)
 ├── focus-trap.js  mobile-menu.js  sw-register.js  year.js  # shared UI/PWA helpers
 ├── site-nav.js             # swaps the shared nav/footer "Log in" link to "My dashboard" when signed in
+css/home.css                # Homepage hero (example-result readout, one load animation via
+                            #   js/page-home-report.js) + "Choose where to start" time track; start links
+                            #   deep-link select-test.html?type=diagnostic|apt|quick|full (preselects a card)
 css/shared.css              # Design system: tokens (palette, type roles, radius, elevation) +
                             #   shared components (.btn variants, .card, .patch, .logo, nav, mobile
                             #   menu, footer, focus/reduced-motion floors). Fonts sitewide: Barlow

@@ -18,7 +18,7 @@
 // RELEASE STEP: bump on every deploy that changes an existing JS file —
 // subresources are cache-first, so without a bump the first post-deploy load
 // runs fresh HTML against stale cached JS.
-const CACHE_VERSION = 'mission-asvab-v16';
+const CACHE_VERSION = 'mission-asvab-v17';
 
 // Small, maintainable core of STATIC same-origin assets that make up the app
 // shell. Admin assets are intentionally excluded.
@@ -32,6 +32,7 @@ const PRECACHE_URLS = [
   '/dashboard.html',
   '/manifest.json',
   '/css/shared.css',
+  '/css/home.css',
   // Core JS
   '/js/load-explanations.js',
   '/js/explanations.js',
@@ -55,6 +56,7 @@ const PRECACHE_URLS = [
   '/js/mission-progress.js',
   // Page logic for offline-relevant pages
   '/js/page-index-nav.js',
+  '/js/page-home-report.js',
   '/js/page-select-test.js',
   '/js/page-test-intro.js',
   '/js/page-results.js',

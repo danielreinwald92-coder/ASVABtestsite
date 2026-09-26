@@ -24,6 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/home.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1628">
   <style>
@@ -68,283 +69,6 @@
       transform: translateY(-1px);
     }
 
-
-    /* Hero Section */
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 85vh;
-      padding: 3rem 5%;
-      gap: 4rem;
-      align-items: center;
-      background: var(--navy-900);
-    }
-
-    .hero-content {
-      max-width: 600px;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--gold-300);
-      color: var(--navy-900);
-      padding: 0.5rem 1rem;
-      border-radius: var(--r-pill);
-      font-family: var(--font-data);
-      font-size: 0.78rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 2rem;
-      animation: fadeInUp 0.6s ease-out;
-    }
-
-    .hero-badge::before {
-      content: "★";
-      color: var(--gold-500);
-    }
-
-    h1 {
-      font-family: var(--font-display);
-      font-size: clamp(3.2rem, 6vw, 5.2rem);
-      font-weight: 700;
-      text-transform: uppercase;
-      line-height: 1.02;
-      color: var(--white);
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.01em;
-      animation: fadeInUp 0.6s ease-out 0.1s both;
-    }
-
-    h1 .highlight {
-      color: var(--gold-400);
-      position: relative;
-    }
-
-    .hero-text {
-      font-size: 1.2rem;
-      color: var(--cream-200);
-      margin-bottom: 2.5rem;
-      max-width: 480px;
-      animation: fadeInUp 0.6s ease-out 0.2s both;
-    }
-
-    .hero-cta-group {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 3rem;
-      animation: fadeInUp 0.6s ease-out 0.3s both;
-    }
-
-    .hero .btn-gold::after {
-      content: "\2192";
-    }
-
-    /* Stats Row */
-    .stats-row {
-      display: flex;
-      gap: 3rem;
-      animation: fadeInUp 0.6s ease-out 0.4s both;
-    }
-
-    .stat {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .stat-number {
-      font-family: var(--font-data);
-      font-size: 2.1rem;
-      font-weight: 700;
-      color: var(--gold-400);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.9rem;
-      color: var(--cream-200);
-      opacity: 0.85;
-      margin-top: 0.25rem;
-    }
-
-    /* Hero Visual */
-    .hero-visual {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .score-card {
-      background: var(--white);
-      border-radius: 24px;
-      padding: 2rem;
-      box-shadow: 0 25px 80px rgba(10, 22, 40, 0.12);
-      width: 380px;
-      animation: floatIn 0.8s ease-out 0.3s both;
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .score-card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 5px;
-      background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
-    }
-
-    .score-card .completion-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: #e8f5f0;
-      color: var(--success);
-      padding: 0.4rem 0.9rem;
-      border-radius: 50px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
-
-    .score-card .completion-badge::before {
-      content: "✓";
-      font-weight: 700;
-    }
-
-    .greeting-text {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin-bottom: 0.1rem;
-    }
-
-    .user-name-preview {
-      font-family: var(--font-display);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--navy-900);
-      margin-bottom: 1.25rem;
-    }
-
-    .afqt-section-preview {
-      margin-bottom: 1rem;
-    }
-
-    .afqt-label-preview {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.25rem;
-    }
-
-    .afqt-score-preview {
-      font-family: var(--font-data);
-      font-size: 3.9rem;
-      font-weight: 700;
-      color: var(--navy-900);
-      line-height: 1;
-    }
-
-    .afqt-percentile-preview {
-      font-size: 0.85rem;
-      color: var(--gold-text);
-      font-weight: 600;
-      margin-top: 0.25rem;
-    }
-
-    .score-message-preview {
-      font-family: var(--font-display);
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--navy-900);
-      margin-bottom: 0.25rem;
-    }
-
-    .score-desc-preview {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      margin-bottom: 1.25rem;
-      padding: 0 0.5rem;
-    }
-
-    .stats-preview {
-      display: flex;
-      justify-content: space-around;
-      gap: 0.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--cream-200);
-    }
-
-    .stat-preview {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .stat-value-preview {
-      font-family: var(--font-data);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--navy-900);
-      line-height: 1;
-    }
-
-    .stat-value-preview.correct { color: var(--success); }
-    .stat-value-preview.incorrect { color: var(--error); }
-
-    .stat-label-preview {
-      font-size: 0.7rem;
-      color: var(--text-secondary);
-      margin-top: 0.25rem;
-    }
-
-    /* Decorative Elements */
-    .decoration-circle {
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      border: 2px solid var(--gold-400);
-      border-radius: 50%;
-      opacity: 0.3;
-      top: -50px;
-      right: -50px;
-      animation: rotate 30s linear infinite;
-    }
-
-    .decoration-dots {
-      position: absolute;
-      bottom: 20px;
-      left: -30px;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      z-index: 1;
-    }
-
-    .decoration-dots span {
-      width: 6px;
-      height: 6px;
-      background: var(--gold-500);
-      border-radius: 50%;
-      opacity: 0.5;
-    }
-
-    /* Section: Features */
-    .features {
-      padding: 6rem 5%;
-      background: var(--white);
-    }
-
     .section-header {
       text-align: center;
       max-width: 600px;
@@ -366,117 +90,8 @@
       font-size: 1.1rem;
     }
 
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .feature-card {
-      background: var(--cream-100);
-      padding: 2.5rem;
-      border-radius: 16px;
-      transition: all 0.3s ease;
-      border: 1px solid transparent;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--gold-400);
-      box-shadow: 0 12px 40px rgba(10, 22, 40, 0.08);
-    }
-
-    .feature-card .patch {
-      margin-bottom: 1.5rem;
-      font-size: 1.05rem;
-    }
-
-    .feature-card h3 {
-      font-family: var(--font-display);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      font-size: 1.45rem;
-      font-weight: 700;
-      color: var(--navy-900);
-      margin-bottom: 0.75rem;
-    }
-
-    .feature-card p {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      line-height: 1.7;
-    }
-
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes floatIn {
-      from {
-        opacity: 0;
-        transform: translateY(40px) scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    @keyframes progressFill {
-      to {
-        width: 87%;
-      }
-    }
-
-    @keyframes rotate {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
     /* Responsive */
     @media (max-width: 968px) {
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding-top: 3rem;
-      }
-
-      .hero-content {
-        max-width: 100%;
-      }
-
-      .hero-text {
-        max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .hero-cta-group {
-        justify-content: center;
-      }
-
-      .stats-row {
-        justify-content: center;
-      }
-
-      .features-grid {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-      }
 
       .nav-links {
         display: none;
@@ -484,15 +99,6 @@
 
       .hamburger {
         display: flex;
-      }
-
-      .score-card {
-        width: 100%;
-        max-width: 380px;
-      }
-
-      .hero-visual {
-        padding: 0 1rem;
       }
     }
 
@@ -510,81 +116,14 @@
         font-size: 0.85rem;
       }
 
-      .hero {
-        padding: 0 4%;
-        min-height: auto;
-        padding-bottom: 2rem;
-      }
-
-      h1 {
+      .section-header h2 {
         font-size: 2rem;
-      }
-
-      .hero-text {
-        font-size: 1rem;
-      }
-
-      .hero-cta-group {
-        flex-direction: column;
-        gap: 0.75rem;
       }
 
       .btn-primary, .btn-secondary {
         width: 100%;
         justify-content: center;
         padding: 0.875rem 1.5rem;
-      }
-
-      .stats-row {
-        gap: 2rem;
-        flex-wrap: wrap;
-      }
-
-      .stat-number {
-        font-size: 2rem;
-      }
-
-      .score-card {
-        padding: 1.5rem;
-        border-radius: 16px;
-      }
-
-      .score-number {
-        font-size: 4rem;
-      }
-
-      .subject {
-        padding: 0.6rem 0.75rem;
-      }
-
-      .decoration-circle {
-        display: none;
-      }
-
-      .decoration-dots {
-        display: none;
-      }
-
-      .features {
-        padding: 3rem 4%;
-      }
-
-      .section-header h2 {
-        font-size: 2rem;
-      }
-
-      .feature-card {
-        padding: 1.75rem;
-      }
-
-      .feature-icon {
-        width: 48px;
-        height: 48px;
-        font-size: 1.25rem;
-      }
-
-      .feature-card h3 {
-        font-size: 1.25rem;
       }
     }
 
@@ -670,6 +209,8 @@
       .update-date {
         min-width: 0;
       }
+    
+    
     }
 
     .resources-band {
@@ -935,90 +476,74 @@
   <!-- /site-nav -->
 
   <section class="hero">
-    <div class="hero-content">
-      <div class="hero-badge">100% Free • Track Your Progress with a Free Account</div>
-      <h1>Prepare for the <span class="highlight">ASVAB</span> with confidence.</h1>
-      <p class="hero-text">Free practice tests and study guides: no payment, and no account needed to practice. Create a free account only if you want to save your scores and track progress.</p>
-      <div class="hero-cta-group">
-        <a href="select-test.html" class="btn btn-gold">Start Practicing</a>
-        <a href="register.html" class="btn btn-outline-light" id="heroSignupBtn">Create Free Account</a>
+    <div class="hero-copy">
+      <h1>Know your ASVAB score before test day</h1>
+      <p class="hero-lede">Take a free practice test scored the way the real computer-adaptive ASVAB is scored. See your estimated AFQT, your line scores, and the military jobs you may qualify for in all five branches.</p>
+      <div class="hero-actions">
+        <a href="select-test.html" class="btn btn-gold hero-start">Start a free practice test</a>
+        <a href="#sample" class="hero-try">Try one question first</a>
       </div>
-      <div class="stats-row">
-        <div class="stat">
-          <span class="stat-number">966</span>
-          <span class="stat-label">Practice questions</span>
-        </div>
-        <div class="stat">
-          <span class="stat-number">8</span>
-          <span class="stat-label">ASVAB sections</span>
-        </div>
-        <div class="stat">
-          <span class="stat-number">$0</span>
-          <span class="stat-label">Free, no catches</span>
-        </div>
-      </div>
+      <p class="hero-fine" id="heroFine">No account needed to practice. <a href="register.html" id="heroSignupBtn">Create a free account</a> to save your scores.</p>
     </div>
-    <div class="hero-visual">
-      <div class="decoration-circle"></div>
-      <div class="score-card">
-        <div class="completion-badge">Example Result</div>
-        <p class="greeting-text">Great work,</p>
-        <p class="user-name-preview">Sarah M.</p>
-        <div class="afqt-section-preview">
-          <p class="afqt-label-preview">Estimated AFQT Score</p>
-          <div class="afqt-score-preview">87</div>
-          <p class="afqt-percentile-preview">87th Percentile</p>
-        </div>
-        <h3 class="score-message-preview">Excellent Work!</h3>
-        <p class="score-desc-preview">You're well above the minimum requirements and qualify for many career fields.</p>
-        <div class="stats-preview">
-          <div class="stat-preview">
-            <span class="stat-value-preview correct">22</span>
-            <span class="stat-label-preview">Correct</span>
-          </div>
-          <div class="stat-preview">
-            <span class="stat-value-preview incorrect">3</span>
-            <span class="stat-label-preview">Incorrect</span>
-          </div>
-          <div class="stat-preview">
-            <span class="stat-value-preview">8:42</span>
-            <span class="stat-label-preview">Time</span>
-          </div>
-        </div>
+
+    <figure class="report" aria-label="Example result from the full practice test: estimated AFQT 72, likely range 59 to 84, and 430 jobs you may qualify for across five branches.">
+      <div class="report-top" aria-hidden="true">
+        <span class="report-tag">Example result</span>
+        <span class="report-test">Full practice test</span>
       </div>
-      <div class="decoration-dots">
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
+      <div class="report-afqt" aria-hidden="true">
+        <p class="report-label">Estimated AFQT</p>
+        <p class="report-score"><span data-count="72">72</span></p>
+        <p class="report-range">Likely range 59 to 84</p>
       </div>
-    </div>
+      <ul class="report-bars" aria-hidden="true">
+        <li><span class="bar-code">AR</span><span class="bar"><span style="--w: 60%"></span></span><span class="bar-ss">56</span></li>
+        <li><span class="bar-code">WK</span><span class="bar"><span style="--w: 62%"></span></span><span class="bar-ss">57</span></li>
+        <li><span class="bar-code">PC</span><span class="bar"><span style="--w: 57%"></span></span><span class="bar-ss">54</span></li>
+        <li><span class="bar-code">MK</span><span class="bar"><span style="--w: 58%"></span></span><span class="bar-ss">55</span></li>
+      </ul>
+      <div class="report-jobs" aria-hidden="true">
+        <p class="report-jobs-main">You may qualify for <span data-count="430">430</span> jobs</p>
+        <p class="report-jobs-sub">Across all five branches, and close on 39 more</p>
+      </div>
+      <p class="report-next" aria-hidden="true"><span>Today's mission</span> Word problems, lesson 3</p>
+    </figure>
   </section>
 
-  <section class="features">
-    <div class="section-header">
-      <h2>Practice Makes Perfect</h2>
-      <p>Get ready for the ASVAB with focused practice across all test sections.</p>
+  <section class="start" id="start">
+    <div class="start-head">
+      <h2>Choose where to start</h2>
+      <p>Every test is free and timed like the real one. Pick the one that fits the time you have today.</p>
     </div>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="patch" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="1" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="23" y2="12"/></svg></div>
-        <h3>Section Practice</h3>
-        <p>Focus on individual sections like Arithmetic Reasoning, Word Knowledge, or Math Knowledge to build your skills.</p>
-      </div>
-      <div class="feature-card">
-        <div class="patch" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><line x1="12" y1="13" x2="12" y2="9"/><line x1="12" y1="13" x2="15" y2="15"/><line x1="9" y1="2" x2="15" y2="2"/></svg></div>
-        <h3>Flexible Practice</h3>
-        <p>Practice a single section in under 10 minutes, or take the full timed test. Study at your own pace with realistic timers.</p>
-      </div>
-      <div class="feature-card">
-        <div class="patch" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="20" x2="6" y2="14"/><line x1="12" y1="20" x2="12" y2="8"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="3" y1="20" x2="21" y2="20"/></svg></div>
-        <h3>Instant Results</h3>
-        <p>Get your estimated AFQT score (the score that determines whether you can enlist) immediately after completing a test, plus a breakdown of what you got right and wrong.</p>
-      </div>
-    </div>
+    <ol class="track">
+      <li class="stop">
+        <p class="stop-time">20 min</p>
+        <h3>Diagnostic</h3>
+        <p>18 questions across the four AFQT sections. Shows you what to study first. Most people start here.</p>
+        <a href="select-test.html?type=diagnostic" class="stop-link">Start the diagnostic</a>
+      </li>
+      <li class="stop">
+        <p class="stop-time">25 min</p>
+        <h3>AFQT Predictor</h3>
+        <p>20 adaptive questions shaped like the predictor test recruiters give. Get a predicted AFQT.</p>
+        <a href="select-test.html?type=apt" class="stop-link">Start the predictor</a>
+      </li>
+      <li class="stop">
+        <p class="stop-time">2 hr</p>
+        <h3>AFQT Practice</h3>
+        <p>The four sections that decide whether you can enlist, at full length. Get your estimated AFQT.</p>
+        <a href="select-test.html?type=quick" class="stop-link">Start AFQT practice</a>
+      </li>
+      <li class="stop stop-full">
+        <p class="stop-time">3 hr</p>
+        <h3>Full practice test</h3>
+        <p>All 8 sections. Get your AFQT, every line score, and the jobs you may qualify for in each branch.</p>
+        <a href="select-test.html?type=full" class="stop-link">Start the full test</a>
+      </li>
+    </ol>
   </section>
 
-  <section class="sample-section">
+  <section class="sample-section" id="sample">
     <div class="section-header">
       <h2>Try a Practice Question</h2>
       <p>The same style you'll see on test day. No signup, no timer, just you and the question.</p>
@@ -1037,7 +562,7 @@
         <p><strong>C. 40 minutes.</strong> First find the pace: 24 minutes &divide; 3 miles = 8 minutes per mile. Then apply it: 8 minutes &times; 5 miles = 40 minutes. Every practice question on this site comes with a step-by-step explanation like this one.</p>
       </details>
       <div class="sample-cta-row">
-        <a href="select-test.html" class="btn btn-primary">Start the 20-Minute Diagnostic</a>
+        <a href="select-test.html?type=diagnostic" class="btn btn-primary">Start the 20-minute diagnostic</a>
       </div>
     </div>
   </section>
@@ -1045,6 +570,7 @@
   <section class="resources-band">
     <h2>Free ASVAB Resources</h2>
     <ul class="resources-list">
+      <li><a href="asvab-score-requirements.html">Military Jobs by Score</a><span>Minimum AFQT and the score every job needs, for all five branches</span></li>
       <li><a href="faq.html">ASVAB FAQ</a><span>Minimum scores, retakes, calculators, and test-day rules</span></li>
       <li><a href="asvab-score-calculator.html">Score Calculator</a><span>Turn your standard scores into an AFQT percentile and Army line scores</span></li>
       <li><a href="asvab-scores.html">Scores Explained</a><span>AFQT percentiles, standard scores, and Army line scores</span></li>
@@ -1139,6 +665,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.js" integrity="sha384-EjUdIVmzWliPzdzhxZ9ZoO0etXLKWuUPUftAGxP6qH6Lm4oLwoLaJR0Ba4pIDiDL" crossorigin="anonymous"></script>
   <script src="js/auth.js"></script>
   <script src="js/page-index-nav.js"></script>
+  <script src="js/page-home-report.js"></script>
   <script src="js/offline-queue.js"></script>
   <script src="js/sw-register.js"></script>
   <script src="js/site-nav.js"></script>
