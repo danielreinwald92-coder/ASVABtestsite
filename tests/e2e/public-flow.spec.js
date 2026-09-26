@@ -17,7 +17,15 @@ const SERVED_PAGES = [
   '/asvab-scores.html',
   '/asvab-math-formulas.html',
   '/asvab-word-list.html',
-  '/asvab-study-plan.html'
+  '/asvab-study-plan.html',
+  '/asvab-arithmetic-reasoning.html',
+  '/asvab-word-knowledge.html',
+  '/asvab-paragraph-comprehension.html',
+  '/asvab-mathematics-knowledge.html',
+  '/asvab-general-science.html',
+  '/asvab-electronics-information.html',
+  '/asvab-auto-and-shop.html',
+  '/asvab-mechanical-comprehension.html'
 ];
 
 const SUPABASE_STUB = `

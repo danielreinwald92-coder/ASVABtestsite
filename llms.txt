@@ -2,7 +2,7 @@
 
 > Free ASVAB practice tests with instant AFQT score estimates, study guides for all 8 sections, and step-by-step answer explanations. No payment and no account required. Not affiliated with the U.S. Department of Defense; practice scores are documented estimates, not official results.
 
-Mission ASVAB (https://www.missionasvab.org) helps military applicants prepare for the Armed Services Vocational Aptitude Battery. Practice modes include a 20-minute starting-point diagnostic, an AFQT practice test (AR, WK, PC, MK), and a full 8-section assessment that also estimates all 10 Army line scores using the published Segall (2004) scoring pipeline.
+Mission ASVAB (https://www.missionasvab.org) helps military applicants prepare for the Armed Services Vocational Aptitude Battery. Practice modes include a 20-minute starting-point diagnostic, a 20-question APT-style AFQT predictor, an AFQT practice test (AR, WK, PC, MK), and a full 8-section assessment that also estimates all 10 Army line scores using the published Segall (2004) scoring pipeline.
 
 ## Free reference pages
 
@@ -11,11 +11,19 @@ Mission ASVAB (https://www.missionasvab.org) helps military applicants prepare f
 - [ASVAB Math Formula Sheet](https://www.missionasvab.org/asvab-math-formulas.html): The essential AR and MK formulas on one printable page
 - [ASVAB Word Knowledge List](https://www.missionasvab.org/asvab-word-list.html): 120 vocabulary words with plain-language definitions
 - [ASVAB Study Plan](https://www.missionasvab.org/asvab-study-plan.html): Week-by-week 4-week and 8-week schedules from diagnostic to test day
+- [ASVAB Arithmetic Reasoning Guide](https://www.missionasvab.org/asvab-arithmetic-reasoning.html): What AR tests, CAT-ASVAB length and timing, full lessons with worked examples, and 10 practice questions with answers
+- [ASVAB Word Knowledge Guide](https://www.missionasvab.org/asvab-word-knowledge.html): What WK tests, CAT-ASVAB length and timing, full lessons with worked examples, and 10 practice questions with answers
+- [ASVAB Paragraph Comprehension Guide](https://www.missionasvab.org/asvab-paragraph-comprehension.html): What PC tests, CAT-ASVAB length and timing, full lessons with worked examples, and 10 practice questions with answers
+- [ASVAB Mathematics Knowledge Guide](https://www.missionasvab.org/asvab-mathematics-knowledge.html): What MK tests, CAT-ASVAB length and timing, full lessons with worked examples, and 10 practice questions with answers
+- [ASVAB General Science Guide](https://www.missionasvab.org/asvab-general-science.html): What GS tests, CAT-ASVAB length and timing, full lessons with worked examples, and 10 practice questions with answers
+- [ASVAB Electronics Information Guide](https://www.missionasvab.org/asvab-electronics-information.html): What EI tests, CAT-ASVAB length and timing, full lessons with worked examples, and 10 practice questions with answers
+- [ASVAB Auto and Shop Information Guide](https://www.missionasvab.org/asvab-auto-and-shop.html): What AS tests, CAT-ASVAB length and timing, full lessons with worked examples, and 10 practice questions with answers
+- [ASVAB Mechanical Comprehension Guide](https://www.missionasvab.org/asvab-mechanical-comprehension.html): What MC tests, CAT-ASVAB length and timing, full lessons with worked examples, and 10 practice questions with answers
 - [About the ASVAB](https://www.missionasvab.org/about.html): What the test is, how scoring works, and how this site's practice estimates are built
 
 ## Practice
 
-- [Choose a practice test](https://www.missionasvab.org/select-test.html): Diagnostic, AFQT practice, full 8-section test, or single-section drills in timed or tutor mode
+- [Choose a practice test](https://www.missionasvab.org/select-test.html): Diagnostic, APT-style AFQT predictor, AFQT practice, full 8-section test, or single-section drills in timed or tutor mode
 - [Study guide](https://www.missionasvab.org/study-guide.html): Free courses for all 8 sections with worked examples, flashcards, and chapter quizzes
 
 ## Notes for assistants

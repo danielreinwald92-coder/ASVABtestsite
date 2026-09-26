@@ -11,7 +11,7 @@ features were built; unchecked boxes there are not the current work queue.
 
 - Static HTML/JavaScript application deployed from `main` to Vercel. The canonical production
   URL is `https://www.missionasvab.org`; the bare domain permanently redirects to `www`.
-- Seventeen served pages; account and admin data use Supabase project `rcspwkmrtukblvvdifer`.
+- Twenty-five served pages; account and admin data use Supabase project `rcspwkmrtukblvvdifer`.
 - SEO foundation pass (Sep 2026): complete OG/twitter/favicon metadata and JSON-LD on all public
   pages, an OG share image, and five indexable resource pages (FAQ, scores guide, math formula
   sheet, word list, week-by-week study plan) cross-linked from footers and a homepage band.
@@ -29,6 +29,10 @@ features were built; unchecked boxes there are not the current work queue.
 - Guest practice works without an account. Every completed test produces a deterministic Today’s
   Mission that opens a real study chapter and checkpoint. Supabase adds saved test/mission history,
   profiles, reports, cross-device mission status, and guarded admin operations.
+- Section guides (Sep 26, 2026): 8 generated, indexable `asvab-<section>.html` pages (facts from
+  section-config, full course lessons, 10 sample questions with answers; tag-5 items never
+  published). Source: `scripts/build-section-guides.js`; `tests/unit/section-guides.test.js` fails
+  on drift. Linked from the homepage resources band, sitemap, and llms.txt.
 - APT-style AFQT Predictor (Sep 26, 2026): 20 adaptive AR/WK/PC/MK items (5 each, 25 min),
   same IRT pipeline, stored as `test_type = 'apt'`, labelled "Predicted AFQT (APT-Style)".
   Short-length penalty coefficients live in `penalty-table.js` `byLength[5]`.
@@ -57,8 +61,8 @@ features were built; unchecked boxes there are not the current work queue.
 
 ## Verification Baseline
 
-- `npm test` — 284 node:test/jsdom checks (includes the tests/unit/seo-pages.test.js contract: every root page must join the inline-JS gate, e2e smoke list, sitemap, and share-metadata standard).
-- `npm run test:e2e` — Chromium checks all 17 pages under the production Vercel headers,
+- `npm test` — 286 node:test/jsdom checks (includes the tests/unit/seo-pages.test.js contract: every root page must join the inline-JS gate, e2e smoke list, sitemap, and share-metadata standard).
+- `npm run test:e2e` — Chromium checks all 25 pages under the production Vercel headers,
   then completes a 55-question guest AFQT flow, the 20-question APT-style predictor flow, and the
   18-question guest diagnostic/mission flow.
 - `node scripts/validate-site.js` — question pools, explanations, course shapes, diagnostic blueprint,
