@@ -84,7 +84,7 @@ for (const code of diagnostic.sections) {
 
 // Pool-size ratchet (SP4): pools may only grow. Raise a section's floor in the
 // same branch that ships its content expansion.
-const POOL_MINIMUMS = { WK: 148, PC: 85, AR: 122, MK: 132, GS: 105, EI: 105, AS: 100, MC: 105 };
+const POOL_MINIMUMS = { WK: 160, PC: 105, AR: 134, MK: 152, GS: 105, EI: 105, AS: 100, MC: 105 };
 
 for (const [code, section] of Object.entries(asvabData.sections)) {
   const questions = asvabData.questions[code] || [];
@@ -159,6 +159,22 @@ for (const code of ALL_IRT_SECTIONS) {
     assert(entry, `penalty table missing ${code} unanswered=${unanswered}`);
     assert(Number.isFinite(entry.A) && Number.isFinite(entry.B),
       `penalty table ${code} unanswered=${unanswered} has non-finite A/B`);
+  }
+}
+
+// Short scored presets (APT-style predictor) administer fewer items per
+// section; scoring.js reads their penalty from penaltyTable.byLength[n][code].
+for (const cfg of Object.values(config.TEST_CONFIGS)) {
+  if (cfg.type === 'diagnostic' || !cfg.sectionOverrides) continue;
+  for (const [code, o] of Object.entries(cfg.sectionOverrides)) {
+    const n = o.questionsPerTest;
+    if (!n || n === asvabData.sections[code].questionsPerTest) continue;
+    const t = penaltyTable.byLength && penaltyTable.byLength[n] && penaltyTable.byLength[n][code];
+    assert(t, `penalty table missing byLength ${n} ${code} (${cfg.type}); re-run scripts/generate-penalty-table.js`);
+    for (let unanswered = 1; unanswered <= n; unanswered++) {
+      assert(t[unanswered] && Number.isFinite(t[unanswered].A) && Number.isFinite(t[unanswered].B),
+        `penalty table byLength ${n} ${code} unanswered=${unanswered} missing or non-finite`);
+    }
   }
 }
 

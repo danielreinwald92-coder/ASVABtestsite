@@ -16,6 +16,25 @@
         MK: { questionsPerTest: 4, timeLimit: 5 * 60, difficultyPlan: [2, 2, 3, 4] }
       }
     },
+    // APT-style AFQT Predictor: mirrors the official AFQT Predictor Test's
+    // shape (20 adaptive AR/WK/PC/MK items, ~15-30 min). Same CAT engine and
+    // scoring pipeline as the full AFQT practice, just 5 items per area, so the
+    // posterior SE (and the reported likely range) is honestly wider.
+    apt: {
+      type: 'apt',
+      label: 'AFQT Predictor',
+      title: 'APT-Style AFQT Predictor',
+      sectionCode: 'AFQT',
+      description: 'A 20-question adaptive test across Arithmetic Reasoning, Word Knowledge, Paragraph Comprehension, and Mathematics Knowledge, shaped like the AFQT Predictor Test recruiters use. It predicts your AFQT with a likely range.',
+      startButtonText: 'Start AFQT Predictor',
+      sections: ['AR', 'WK', 'PC', 'MK'],
+      sectionOverrides: {
+        AR: { questionsPerTest: 5, timeLimit: 8 * 60 },
+        WK: { questionsPerTest: 5, timeLimit: 3 * 60 },
+        PC: { questionsPerTest: 5, timeLimit: 8 * 60 },
+        MK: { questionsPerTest: 5, timeLimit: 6 * 60 }
+      }
+    },
     quick: {
       type: 'quick',
       label: 'AFQT Practice',

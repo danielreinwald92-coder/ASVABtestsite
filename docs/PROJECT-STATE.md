@@ -29,9 +29,16 @@ features were built; unchecked boxes there are not the current work queue.
 - Guest practice works without an account. Every completed test produces a deterministic Today’s
   Mission that opens a real study chapter and checkpoint. Supabase adds saved test/mission history,
   profiles, reports, cross-device mission status, and guarded admin operations.
+- APT-style AFQT Predictor (Sep 26, 2026): 20 adaptive AR/WK/PC/MK items (5 each, 25 min),
+  same IRT pipeline, stored as `test_type = 'apt'`, labelled "Predicted AFQT (APT-Style)".
+  Short-length penalty coefficients live in `penalty-table.js` `byLength[5]`.
+- Hard-item expansion (Sep 26, 2026): +64 blind-verified items (MK +20, PC +20, WK +12, AR +12;
+  tag 4-5). Simulated top-end bias at theta 2.5 roughly halved (PC -1.22 to -0.63, MK -0.67 to
+  -0.32, WK -0.64 to -0.34). Remaining accuracy lever: empirical item calibration from
+  `test_results.question_results` via the `CALIBRATED` hook in `js/irt-params.js`.
 - The 20-minute Starting-Point Diagnostic uses 18 balanced AR/WK/PC/MK questions and returns
   study priorities without presenting an AFQT percentile or official-test claim.
-- The question bank has 902 questions across eight Mission ASVAB practice sections, with
+- The question bank has 966 questions across eight Mission ASVAB practice sections, with
   complete explanation coverage and four AFQT plus four technical study courses.
 - Timed practice uses per-section CAT-style scored-question limits. General Science is
   15 questions in 12 minutes, following the [official CAT-ASVAB timing table](https://www.officialasvab.com/applicants/cat-asvab/).
@@ -50,9 +57,10 @@ features were built; unchecked boxes there are not the current work queue.
 
 ## Verification Baseline
 
-- `npm test` — 279 node:test/jsdom checks (includes the tests/unit/seo-pages.test.js contract: every root page must join the inline-JS gate, e2e smoke list, sitemap, and share-metadata standard).
+- `npm test` — 284 node:test/jsdom checks (includes the tests/unit/seo-pages.test.js contract: every root page must join the inline-JS gate, e2e smoke list, sitemap, and share-metadata standard).
 - `npm run test:e2e` — Chromium checks all 17 pages under the production Vercel headers,
-  then completes both a 55-question guest AFQT flow and the 18-question guest diagnostic/mission flow.
+  then completes a 55-question guest AFQT flow, the 20-question APT-style predictor flow, and the
+  18-question guest diagnostic/mission flow.
 - `node scripts/validate-site.js` — question pools, explanations, course shapes, diagnostic blueprint,
   mission catalog targets, and scoring.
 - `node scripts/check-no-inline-js.js` — strict CSP guard for every served page.

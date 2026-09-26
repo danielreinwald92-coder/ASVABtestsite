@@ -1544,6 +1544,78 @@ const asvabData = {
         options: ["15 minutes", "18 minutes", "20 minutes", "25 minutes"],
         correct: 2,
         difficulty: 2
+      },
+      {
+        id: "AR124",
+        text: "Crew A can clear a supply route in 10 hours, and Crew B can clear the same route in 15 hours. Crew A works alone for 4 hours, and then Crew B joins them. How much longer will it take the two crews working together to finish the route?",
+        options: ["3 hours 36 minutes","7 hours 36 minutes","6 hours","2 hours 24 minutes"],
+        correct: 0, difficulty: 5
+      },
+      {
+        id: "AR125",
+        text: "A store raises the price of an $80 radio by 25%. Later the radio goes on sale for 30% off, and a coupon takes an additional 10% off the sale price. What is the final price?",
+        options: ["$63.00","$60.00","$68.00","$50.40"],
+        correct: 0, difficulty: 5
+      },
+      {
+        id: "AR126",
+        text: "A soldier's monthly pay was raised by 20% and later cut by 10%. Her monthly pay is now $2,700. What was her monthly pay before both changes?",
+        options: ["$2,500","$2,376","$2,430","$2,454.55"],
+        correct: 0, difficulty: 5
+      },
+      {
+        id: "AR127",
+        text: "A 20-liter radiator is filled with a mixture that is 40% antifreeze. How many liters of the mixture must be drained and replaced with pure antifreeze so that the radiator is 60% antifreeze?",
+        options: ["10 liters","4 liters","6 2/3 liters","8 liters"],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "AR128",
+        text: "Private Diaz deposits $4,000 in an account that pays 10% annual interest compounded every 6 months. How much interest does the account earn in 1 year?",
+        options: ["$200","$410","$840","$400"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "AR129",
+        text: "A convoy leaves base at 0800 hours traveling 40 miles per hour. A courier leaves the same base at 0930 hours on the same road traveling 64 miles per hour. At what time does the courier catch up to the convoy?",
+        options: ["1026 hours","1200 hours","1030 hours","1100 hours"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "AR130",
+        text: "A truck drives 120 miles to a depot at 60 miles per hour, stops for 1 hour to unload, and then returns the same 120 miles at 40 miles per hour. What is the truck's average speed for the whole trip, including the stop?",
+        options: ["50 mph","40 mph","48 mph","20 mph"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "AR131",
+        text: "In a JROTC unit, the ratio of boys to girls is 5:3. After 8 more girls join and no one leaves, the ratio of boys to girls becomes 5:4. How many cadets were in the unit before the new girls joined?",
+        options: ["64","24","72","40"],
+        correct: 0, difficulty: 5
+      },
+      {
+        id: "AR132",
+        text: "Five years ago, Sergeant Ana Ruiz was 7 times as old as her daughter. In 5 years, she will be 3 times as old as her daughter. How old is Sergeant Ruiz now?",
+        options: ["45","40","35","10"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "AR133",
+        text: "A 1,200-gallon storage tank is already 1/4 full. A pump adds fuel at a rate of 2 quarts per second. How many minutes will it take to fill the rest of the tank? (1 gallon = 4 quarts)",
+        options: ["10 minutes","7.5 minutes","30 minutes","40 minutes"],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "AR134",
+        text: "A dealer marks up the cost of a generator by 50% and then sells it at 20% off the marked price. The dealer makes a $60 profit. What did the generator cost the dealer?",
+        options: ["$300","$360","$200","$450"],
+        correct: 0, difficulty: 5
+      },
+      {
+        id: "AR135",
+        text: "Corporal Lee invests $10,000, putting part at 4% simple annual interest and the rest at 6% simple annual interest. After one year the total interest is $520. How much did he invest at 6%?",
+        options: ["$2,000","$5,000","$6,000","$4,000"],
+        correct: 2, difficulty: 5
       }
     ],
 
@@ -2586,6 +2658,78 @@ const asvabData = {
         options: ["Divided", "In complete agreement", "Split", "Partial"],
         correct: 1,
         difficulty: 3
+      },
+      {
+        id: "WK156",
+        text: "Obdurate most nearly means:",
+        options: ["Remorseful","Obscure","Enduring","Unyielding"],
+        correct: 3, difficulty: 5
+      },
+      {
+        id: "WK157",
+        text: "Obsequious most nearly means:",
+        options: ["Hard to see","Mournful","Stubbornly defiant","Excessively eager to please"],
+        correct: 3, difficulty: 5
+      },
+      {
+        id: "WK158",
+        text: "Enervate most nearly means:",
+        options: ["Encourage","Weaken","Irritate","Energize"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "WK159",
+        text: "Inveterate most nearly means:",
+        options: ["Habitual","Inventive","Short-tempered","Spineless"],
+        correct: 0, difficulty: 5
+      },
+      {
+        id: "WK160",
+        text: "Venal most nearly means:",
+        options: ["Vengeful","Relating to veins","Open to bribery","Easily forgiven"],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "WK161",
+        text: "Parsimonious most nearly means:",
+        options: ["Generous","Stingy","Analytical","Self-righteous"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "WK162",
+        text: "Despite the heavy losses, the commander remained sanguine about the outcome of the campaign. Sanguine most nearly means:",
+        options: ["Optimistic","Bloodthirsty","Indifferent","Gloomy"],
+        correct: 0, difficulty: 5
+      },
+      {
+        id: "WK163",
+        text: "The senator gave an equivocal answer, so both sides claimed he supported them. Equivocal most nearly means:",
+        options: ["Ambiguous","Emphatic","Fair","Equal"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "WK164",
+        text: "Investigators quickly saw through the witness's mendacious account of the evening. Mendacious most nearly means:",
+        options: ["Dishonest","Rambling","Begging","Mended"],
+        correct: 0, difficulty: 5
+      },
+      {
+        id: "WK165",
+        text: "The lawyer's specious argument impressed the jury at first, but the judge dismissed it within minutes. Specious most nearly means:",
+        options: ["Broad in scope","Carefully specific","Misleadingly plausible","Highly technical"],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "WK166",
+        text: "Critics called the film's dialogue insipid, and many viewers walked out before the end. Insipid most nearly means:",
+        options: ["Insincere","Confusing","Offensive","Bland"],
+        correct: 3, difficulty: 5
+      },
+      {
+        id: "WK167",
+        text: "The truculent sergeant snapped at anyone who questioned his orders. Truculent most nearly means:",
+        options: ["Hesitant","Exhausted","Belligerent","Truthful"],
+        correct: 2, difficulty: 4
       }
     ],
 
@@ -3106,6 +3250,126 @@ const asvabData = {
         text: "Read the passage and answer the question.\n\nThe assembly line, pioneered by Henry Ford in the early 20th century, revolutionized manufacturing. By breaking down production into simple, repetitive tasks performed by specialized workers, Ford dramatically reduced the time required to build an automobile. The Model T, which took over 12 hours to assemble before, could be completed in just 93 minutes afterward.\n\nAccording to the passage, how long did it take to assemble a Model T after the assembly line was introduced?",
         options: ["Over 12 hours", "About 6 hours", "93 minutes", "24 hours"],
         correct: 2, difficulty: 2
+      },
+      {
+        id: "PC086",
+        text: "Read the passage and answer the question.\n\nMany people assume that concrete hardens because it dries out, but that is not how it works. Concrete gains strength through hydration, a chemical reaction between cement and water that continues for weeks after the concrete is poured. If the surface loses moisture too quickly, as can happen on hot, windy days, the reaction slows near the surface, and the finished slab may be weaker and more likely to crack. For this reason, crews often cover fresh concrete with plastic sheeting or spray it with water for several days. Although concrete can usually bear foot traffic within a day or two, it typically reaches most of its design strength only after about four weeks.\n\nBased on the passage, a crew pouring a concrete slab on a hot, windy day would most likely",
+        options: ["mix the concrete with less water so it sets sooner","allow heavy trucks onto the slab after the first day","keep the surface of the fresh slab moist for several days","remove any plastic covering so the slab can harden faster"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "PC087",
+        text: "Read the passage and answer the question.\n\nThunder is the sound produced when lightning rapidly heats the air around it. Because light travels much faster than sound, an observer sees a flash before hearing the thunder, and counting the seconds between the two gives a rough estimate of distance: about five seconds for every mile. Weather safety officials caution, however, that this count should not be used to decide whether it is safe to stay outdoors. Lightning can strike ten miles or more from the storm that produces it, well beyond the point where many people feel threatened. The official guidance is simple: if you can hear thunder at all, you are close enough to be struck and should move indoors or into a hard-topped vehicle.\n\nAccording to the passage, counting the seconds between a flash and its thunder is useful for",
+        options: ["predicting where the next strike will occur","roughly estimating how far away the lightning is","deciding whether it is safe to remain outdoors","measuring how quickly the storm is moving"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "PC088",
+        text: "Read the passage and answer the question.\n\nWhen the Erie Canal opened in 1825, it linked the Hudson River to Lake Erie across more than 360 miles of upstate New York. Before the canal, moving a ton of flour from Buffalo to New York City by wagon could take three weeks and cost roughly $100. By canal boat, the same trip took about eight days and cost around $10. Farmers in the Great Lakes region suddenly had an affordable route to eastern markets, and New York City soon passed rival ports such as Philadelphia and Boston in trade. Towns along the route, including Rochester and Syracuse, grew rapidly. Critics had mocked the project as Clinton's Ditch, after the governor who championed it, but within about a decade its tolls had paid for its construction.\n\nThe author mentions the cost of shipping a ton of flour mainly in order to",
+        options: ["suggest that the canal was too expensive to build","explain why critics mocked the project as Clinton's Ditch","prove that wagons were no longer used anywhere in New York","show how sharply the canal lowered the cost of reaching eastern markets"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "PC089",
+        text: "Read the passage and answer the question.\n\nZebra mussels, small freshwater shellfish native to Eastern Europe, were first found in the Great Lakes in 1988, probably carried there in the ballast water of a cargo ship. With no natural predators able to control them, they spread rapidly through connected rivers and lakes. They attach in dense clusters to hard surfaces, clogging the intake pipes of power plants and water treatment facilities, which now spend millions of dollars each year removing them. Each mussel also filters large volumes of water, which makes some lakes noticeably clearer. That clarity comes at a cost, however: the mussels consume the plankton that young native fish depend on, and clearer water lets sunlight reach deeper, encouraging weeds and algae to grow on the lake bottom.\n\nWhich title best fits the passage?",
+        options: ["Protecting Power Plants from Zebra Mussels","How Ballast Water Carries Invasive Species","A Shellfish That Cleans Our Lakes","The Costly Spread of an Unwanted Shellfish"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "PC090",
+        text: "Read the passage and answer the question.\n\nIn many workplaces that operate around the clock, from hospitals to military operations centers, the most dangerous moment is often not the busiest hour but the shift change. Information that one team knows well, such as a machine that has been acting up or a patient whose condition is changing, can easily be lost when a tired crew hands off to a fresh one. Written handover logs help, but only if they are used carefully. A log filled with vague entries like 'all normal' gives the incoming team a false sense of security. The most effective handovers combine a written record with a brief face-to-face conversation in which the incoming team is expected to ask questions.\n\nThe author's attitude toward written handover logs is best described as",
+        options: ["qualified support, since logs help only when they are used well","strong disapproval, since logs create a false sense of security","enthusiastic approval, since logs prevent most handover errors","indifference, since the author is concerned mainly with fatigue"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "PC091",
+        text: "Read the passage and answer the question.\n\nCarbon monoxide is a gas produced whenever fuel such as gasoline, wood, propane, or charcoal is burned. It has no color, odor, or taste, so people cannot detect it with their senses. Early symptoms of exposure, including headache, dizziness, and nausea, are easily mistaken for the flu. One clue that points to carbon monoxide rather than illness is that several people or pets in the same building feel sick at the same time and tend to feel better after leaving. Because sleeping people may not notice symptoms at all, safety experts recommend installing a carbon monoxide alarm near every sleeping area and never running a generator or grill inside a home or garage, even with the door open.\n\nWith which statement would the author most likely agree?",
+        options: ["Carbon monoxide is produced mainly by faulty gasoline engines.","Running a generator in a garage is safe as long as the garage door is left open.","A household in which several members develop flu-like symptoms at once should consider carbon monoxide as a possible cause.","Carbon monoxide alarms are needed only in rooms that contain fuel-burning appliances."],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "PC092",
+        text: "Read the passage and answer the question.\n\nThe Constitution requires that the population of the United States be counted every ten years, and the results carry real weight. Census figures determine how the 435 seats in the House of Representatives are apportioned among the states, and they guide the distribution of hundreds of billions of dollars in federal funding each year for roads, schools, and hospitals. Because an undercount can cost a community both representation and money, local governments often run campaigns urging residents to respond. Certain groups, including young children, renters, and people in rural areas, have historically been harder to count, and census officials devote extra effort to reaching them.\n\nAs used in the passage, the word 'apportioned' most nearly means",
+        options: ["elected","divided up","debated","approved"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "PC093",
+        text: "Read the passage and answer the question.\n\nBacteria that cause foodborne illness multiply fastest between 40 and 140 degrees Fahrenheit, a range food safety experts call the danger zone. Perishable foods such as meat, dairy, and cooked rice should not sit in this range for more than two hours, or more than one hour if the air temperature is above 90 degrees. Refrigeration below 40 degrees slows bacterial growth but does not kill bacteria, which is why leftovers should still be eaten within a few days. Cooking to the proper internal temperature kills most harmful bacteria, but some bacteria produce toxins that heat does not destroy, so reheating food that was left out too long does not necessarily make it safe.\n\nAccording to the passage, all of the following are true EXCEPT:",
+        options: ["Food left out on a very hot day becomes unsafe sooner.","Cold temperatures slow the growth of bacteria.","Refrigerating leftovers kills the bacteria in them.","Some toxins made by bacteria survive cooking."],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "PC094",
+        text: "Read the passage and answer the question.\n\nDuring World War II, the Marine Corps recruited Navajo men to send battlefield messages in a code based on their language. Navajo had no written alphabet at the time and was spoken by very few people outside the Southwest, so enemy forces had no reference materials to work from. The code talkers also created Navajo terms for military words that did not exist in the language; a submarine, for example, became 'iron fish.' A message that took a coding machine about thirty minutes to encode and decode could be handled by code talkers in about twenty seconds. The program remained classified for more than two decades after the war, and the code talkers received little public recognition until it was declassified in 1968.\n\nThe passage suggests that the enemy found the code hard to break partly because",
+        options: ["the program stayed classified for decades after the war","few outsiders spoke Navajo, and no written materials on it existed","messages were sent faster than coding machines could handle them","the code talkers changed the code every day"],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "PC095",
+        text: "Read the passage and answer the question.\n\nNoise-induced hearing loss is one of the most common injuries among service members, yet it is almost entirely preventable. The damage occurs when loud sound destroys tiny hair cells in the inner ear, and because those cells do not grow back, the loss is permanent. A single intense blast, such as a nearby explosion, can cause immediate damage, but more often the harm builds gradually through repeated exposure to engines, generators, and weapons fire. Because the early stages cause no pain, many people do not notice a problem until years later. Properly fitted earplugs or earmuffs, worn every time, reduce the risk dramatically.\n\nWhich statement best expresses the main idea of the passage?",
+        options: ["Most service members notice hearing loss soon after exposure.","Noise-induced hearing loss is permanent and often gradual, but consistent hearing protection can largely prevent it.","The hair cells of the inner ear are too fragile to be protected.","Explosions are the leading cause of hearing loss in the military."],
+        correct: 1, difficulty: 4
+      },
+      {
+        id: "PC096",
+        text: "Read the passage and answer the question.\n\nBefore 1883, most American towns set their clocks by local solar time, so noon arrived when the sun stood highest overhead. Because the sun appears to move westward, noon in Chicago came about half an hour later than noon in Pittsburgh. For most of history the difference hardly mattered, since a traveler on horseback covered so little distance in a day that no one noticed. The railroads changed that. A single line might pass through dozens of local times, and schedules became so confusing that they contributed to missed connections and even collisions. On November 18, 1883, the railroads themselves adopted four standard time zones across the country. Congress did not make the system official law until 1918.\n\nIt can be inferred from the passage that the adoption of standard time zones in 1883",
+        options: ["was driven by the practical needs of the railroads rather than by federal law","was quickly made official by the national government","ended the use of local solar time throughout the United States","was ordered by Congress to prevent railroad collisions"],
+        correct: 0, difficulty: 5
+      },
+      {
+        id: "PC097",
+        text: "Read the passage and answer the question.\n\nIn drug trials, researchers compare a new medication against a placebo, an inactive substance such as a sugar pill that looks identical to the real drug. Patients who receive the placebo often report real improvement, particularly in symptoms like pain, nausea, and fatigue that are strongly influenced by expectation. This does not mean their symptoms were imaginary. Brain imaging studies show that expecting relief can trigger the release of the body's own pain-relieving chemicals. For researchers, however, the placebo response is a complication: a drug is considered effective only if it produces clearly better results than the placebo, not merely better results than no treatment at all.\n\nThe author includes the sentence 'This does not mean their symptoms were imaginary' mainly to",
+        options: ["indicate that patients who report improvement are often mistaken","head off the mistaken idea that placebo improvements are not genuine","suggest that placebos work as well as most real medications","explain why researchers consider the placebo response a complication"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "PC098",
+        text: "Read the passage and answer the question.\n\nLevees, the earthen walls built along rivers to hold back floodwater, have protected many communities for generations. Yet engineers have long warned of what they call the levee effect. When a levee makes an area seem safe, homes and businesses move onto the floodplain behind it, and the land becomes far more valuable. Most of the time the levee holds. But levees are designed for floods only up to a certain size, and when a larger flood overtops or breaks through, the damage is far greater than it would have been if the land had never been developed. In this sense, a levee can reduce how often flood losses occur while increasing how severe they are.\n\nAs used in the passage, the levee effect refers to",
+        options: ["the gradual weakening of earthen walls as they grow older","the way protection against smaller floods encourages development that makes rare large floods more damaging","the rise in land values that pays for the cost of building levees","the way levees raise the level of a river by confining its water"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "PC099",
+        text: "Read the passage and answer the question.\n\nSigned in 1959 by twelve nations, the Antarctic Treaty set aside the entire continent for peaceful purposes and scientific research. It banned military bases and weapons testing, though it allowed military personnel and equipment to be used in support of science. Several countries had already claimed portions of Antarctica, and some of those claims overlapped. Rather than resolve these disputes, the treaty froze them: it neither recognized nor rejected existing claims and prohibited new ones while the treaty remained in force. Today more than fifty nations are parties to the agreement, and research stations from many countries operate near one another on the continent.\n\nBased on the passage, which statement about the Antarctic Treaty is most accurate?",
+        options: ["It settled the competing territorial claims to Antarctica.","It forbids military personnel from working in Antarctica.","It requires each member nation to operate a research station.","It left the question of who owns parts of Antarctica unresolved."],
+        correct: 3, difficulty: 5
+      },
+      {
+        id: "PC100",
+        text: "Read the passage and answer the question.\n\nScientists cannot yet predict the exact day a volcano will erupt, but they have become skilled at recognizing when one is growing restless. As magma rises beneath a volcano, it causes swarms of small earthquakes, makes the ground swell by measurable amounts, and releases gases such as sulfur dioxide. No single signal is reliable on its own; some volcanoes show these signs for years without erupting. By tracking several signals together and comparing them with a volcano's past behavior, scientists can raise alert levels and give nearby communities time to prepare. In 1991, such warnings allowed tens of thousands of people to evacuate before Mount Pinatubo in the Philippines erupted.\n\nThe main point of the passage is that",
+        options: ["most restless volcanoes erupt soon after warning signs appear","scientists rely mainly on ground swelling to detect rising magma","tracking several warning signs together allows useful alerts even though exact prediction is not possible","the Mount Pinatubo evacuation shows that warnings save lives"],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "PC101",
+        text: "Read the passage and answer the question.\n\nFor decades, first aid courses taught that a tourniquet should be used only as a last resort because it could cost a patient the limb. Experience in Iraq and Afghanistan changed that view. Military medical studies found that many soldiers who died from bleeding arm and leg wounds might have survived if tourniquets had been applied quickly, and that limbs were rarely lost when a tourniquet stayed on for less than two hours. Today the military issues tourniquets to every service member and trains them to apply one within seconds for severe limb bleeding. Civilian programs have followed. Direct pressure, however, is still the first choice for bleeding that it can control.\n\nWhich conclusion is best supported by the passage?",
+        options: ["The older view of tourniquets was based on evidence from Iraq and Afghanistan.","Tourniquets rarely cause limb loss no matter how long they are left on.","Earlier training gave too much weight to the risk of losing a limb and too little to the risk of bleeding to death.","Tourniquets should now be used for any bleeding wound, however minor."],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "PC102",
+        text: "Read the passage and answer the question.\n\nThe Pony Express is one of the most celebrated enterprises in the history of the American West, and its riders have been the subject of countless books and films. Its actual record is more modest. The service carried mail between Missouri and California for only about eighteen months, from April 1860 to October 1861. It charged so much per letter that few ordinary people used it, and it lost money for its owners throughout its brief existence. Two days after the transcontinental telegraph was completed, the Pony Express announced it would close. Its riders were undeniably brave, and its speed was remarkable for the era, but its fame has far outlasted its practical importance.\n\nThe author's attitude toward the Pony Express is best described as",
+        options: ["dismissive, treating it as a complete failure","respectful of its riders but skeptical of its reputation","neutral, presenting facts without offering any judgment","admiring, treating it as a turning point in Western history"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "PC103",
+        text: "Read the passage and answer the question.\n\nWind chill describes how cold the air feels on exposed skin when wind is combined with low temperature. Moving air strips away the thin layer of warmth that normally surrounds the body, so skin loses heat faster than it would in still air. On a 10-degree day with a 20 mph wind, exposed skin cools about as quickly as it would at minus 9 degrees in calm conditions, and frostbite can develop in about thirty minutes. Wind chill, however, affects only how fast objects warmer than the surrounding air lose heat. A car radiator or a canteen of water will cool faster in the wind, but it will never drop below the actual air temperature, no matter how strong the wind is.\n\nAccording to the passage, a canteen of water left outside on a 10-degree day with a 20 mph wind will",
+        options: ["eventually cool to about minus 9 degrees","be unaffected by the wind because it is not living skin","cool faster than it would at minus 9 degrees in still air","cool faster than in calm air but not drop below 10 degrees"],
+        correct: 3, difficulty: 5
+      },
+      {
+        id: "PC104",
+        text: "Read the passage and answer the question.\n\nMany people assume that serving on a jury requires some knowledge of the law. The system is actually designed the other way around. Jurors are drawn at random from lists of registered voters or licensed drivers precisely so that verdicts reflect the judgment of ordinary citizens rather than experts. The judge, not the jury, decides which laws apply and explains them in instructions before deliberations begin. The jury's task is to decide what the facts are: which witnesses are believable, what the evidence shows, and whether the prosecution has met its burden of proof. During a trial, jurors are generally told not to research the case on their own, not even to look up a legal term.\n\nBased on the passage, which question would a jury, rather than the judge, be expected to answer?",
+        options: ["Which laws apply to the case","What a legal term used during the trial means","Whether a witness's account of events is believable","How the law should be explained before deliberations"],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "PC105",
+        text: "Read the passage and answer the question.\n\nSpreading rock salt on icy roads works because salt dissolves into the thin film of water on the ice and lowers its freezing point, causing more ice to melt. The method has limits. Salt becomes much less effective as temperatures fall, and below about 15 degrees Fahrenheit it melts ice too slowly to be of much practical use, so crews switch to other chemicals or spread sand for traction. Salt also carries costs beyond its price. Runoff raises the salt content of nearby streams and wells, and salt speeds the rusting of cars, bridges, and the steel inside concrete. Many highway departments now spray salt brine before a storm, which keeps ice from bonding to the pavement and uses less salt overall.\n\nWhich title best fits the passage?",
+        options: ["The Benefits and Drawbacks of Salting Roads","How Highway Crews Prepare for Storms","Why Salt Melts Ice","The Hidden Dangers of Road Salt"],
+        correct: 0, difficulty: 5
       }
     ],
 
@@ -4002,6 +4266,126 @@ const asvabData = {
         options: ["5 units", "10 units", "25 units", "50 units"],
         correct: 1,
         difficulty: 3
+      },
+      {
+        id: "MK133",
+        text: "Each interior angle of a regular polygon measures 140°. How many sides does the polygon have?",
+        options: ["9","8","10","7"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "MK134",
+        text: "If 2x + 3y = 12 and x - y = 1, what is the value of xy?",
+        options: ["6","5","3","2"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "MK135",
+        text: "What is the distance between the points (-2, 3) and (4, -5)?",
+        options: ["10","2√10","14","2√2"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "MK136",
+        text: "In triangle ABC, point D is on side AB and point E is on side AC so that DE is parallel to BC. If AD = 4, DB = 6, and DE = 6, what is the length of BC?",
+        options: ["12","10","9","15"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "MK137",
+        text: "Simplify: (2x²y⁻¹)³ ÷ (4x³y²)",
+        options: ["2x²/y⁵","x³/(2y⁵)","2x³/y⁵","2x³/y"],
+        correct: 2, difficulty: 4
+      },
+      {
+        id: "MK138",
+        text: "What is the sum of the solutions of 2x² - 7x + 3 = 0?",
+        options: ["3/2","-7/2","7","7/2"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "MK139",
+        text: "Two positive integers have a greatest common factor of 6 and a least common multiple of 72. If one of the integers is 18, what is the other?",
+        options: ["36","12","4","24"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "MK140",
+        text: "The diagonal of a square is 10 inches long. What is the area of the square?",
+        options: ["100 square inches","200 square inches","25 square inches","50 square inches"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "MK141",
+        text: "Simplify: (x² - 9)/(x² + x - 6)",
+        options: ["(x + 3)/(x - 2)","(x - 3)/(x + 2)","3/2","(x - 3)/(x - 2)"],
+        correct: 3, difficulty: 4
+      },
+      {
+        id: "MK142",
+        text: "A bag holds 4 red marbles and 6 blue marbles. Two marbles are drawn at random without replacement. What is the probability that both are red?",
+        options: ["2/15","1/6","4/25","2/5"],
+        correct: 0, difficulty: 4
+      },
+      {
+        id: "MK143",
+        text: "A rectangular box measures 3 inches by 4 inches by 12 inches. What is the length of the longest straight rod that fits inside the box, from one corner to the opposite corner?",
+        options: ["12 inches","13 inches","19 inches","4√10 inches"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "MK144",
+        text: "If each edge of a cube is increased by 50%, by what percent does the volume of the cube increase?",
+        options: ["337.5%","237.5%","50%","150%"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "MK145",
+        text: "If x + 1/x = 5, what is the value of x² + 1/x²?",
+        options: ["10","25","23","27"],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "MK146",
+        text: "If 4^(x + 1) = 8^(x - 1), what is the value of x?",
+        options: ["5","3","1","-5"],
+        correct: 0, difficulty: 5
+      },
+      {
+        id: "MK147",
+        text: "A line passes through the point (2, -1) and is perpendicular to the line 2x - 3y = 6. What is the y-intercept of this line?",
+        options: ["-4","2","1/3","-7/3"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "MK148",
+        text: "Two cylinders are similar in shape. The smaller has a height of 4 inches and the larger has a height of 6 inches. If the smaller cylinder holds 48 cubic inches, what is the volume of the larger cylinder?",
+        options: ["162 cubic inches","72 cubic inches","96 cubic inches","108 cubic inches"],
+        correct: 0, difficulty: 5
+      },
+      {
+        id: "MK149",
+        text: "A square is drawn inside a circle of radius 5 so that all four corners of the square touch the circle. What is the area of the region inside the circle but outside the square?",
+        options: ["25π - 100","25π - 25","25π - 50","100 - 25π"],
+        correct: 2, difficulty: 5
+      },
+      {
+        id: "MK150",
+        text: "What is the smallest positive integer n such that 90n is a perfect square?",
+        options: ["5","10","2","90"],
+        correct: 1, difficulty: 5
+      },
+      {
+        id: "MK151",
+        text: "In a circle, a 60° central angle cuts off an arc 4π inches long. What is the area of the circle?",
+        options: ["48π square inches","576π square inches","24π square inches","144π square inches"],
+        correct: 3, difficulty: 5
+      },
+      {
+        id: "MK152",
+        text: "Solve for x: x/(x - 3) = 3/(x - 3) + 2",
+        options: ["x = -3","x = 3","x = 6","No solution"],
+        correct: 3, difficulty: 5
       }
     ],
 

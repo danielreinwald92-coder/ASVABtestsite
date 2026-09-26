@@ -667,7 +667,7 @@ function renderTestHistory(results) {
     return `
       <tr class="history-row" data-idx="${globalIdx}">
         <td>${formatDate(r.taken_at)}</td>
-        <td>${r.test_type === 'diagnostic' ? 'Starting-Point Diagnostic' : ((r.mode === 'tutor') ? 'Practice' : (r.test_type === 'full' ? 'Full Assessment' : 'AFQT'))}</td>
+        <td>${r.test_type === 'diagnostic' ? 'Starting-Point Diagnostic' : ((r.mode === 'tutor') ? 'Practice' : (r.test_type === 'full' ? 'Full Assessment' : (r.test_type === 'apt' ? 'AFQT Predictor' : 'AFQT')))}</td>
         <td>${r.afqt_score !== null ? ordinal(r.afqt_score) + ' percentile' : 'N/A'}</td>
         <td><button class="expand-btn" data-idx="${globalIdx}" aria-expanded="false" aria-label="Show section scores for this test">▾</button></td>
       </tr>

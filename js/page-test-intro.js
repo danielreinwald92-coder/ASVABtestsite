@@ -14,7 +14,7 @@
   } catch (_) { testConfig = {}; }
   const testType = testConfig.type || localStorage.getItem('testType') || 'quick';
   const sections = testConfig.sections || MissionASVABConfig.getSectionsForType(testType);
-  const mode = testType !== 'diagnostic' && testConfig.mode === 'tutor' ? 'tutor' : 'timed';
+  const mode = testType !== 'diagnostic' && testType !== 'apt' && testConfig.mode === 'tutor' ? 'tutor' : 'timed';
   const sectionOverrides = testConfig.sectionOverrides || {};
 
   // Calculate actual test details from quiz data
@@ -29,7 +29,7 @@
     }, { totalQuestions: 0, totalTimeSeconds: 0 });
 
     const totalTimeMinutes = Math.ceil(details.totalTimeSeconds / 60);
-    const isPreset = testType === 'quick' || testType === 'full' || testType === 'diagnostic';
+    const isPreset = ['quick', 'full', 'diagnostic', 'apt'].includes(testType);
 
     if (isPreset) {
       const activeConfig = MissionASVABConfig.getTestConfig(testType);
@@ -72,6 +72,11 @@
       const rulesTutor = document.getElementById('rulesTutor');
       if (rulesTimed) rulesTimed.hidden = true;
       if (rulesTutor) rulesTutor.hidden = false;
+    }
+
+    if (testType === 'apt') {
+      const notice = document.getElementById('aptNotice');
+      if (notice) notice.hidden = false;
     }
 
     if (testType === 'diagnostic') {

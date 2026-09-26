@@ -94,12 +94,13 @@ function deriveTestType(orderedSections) {
       c.classList.toggle('selected', isMatch);
       c.setAttribute('aria-checked', isMatch ? 'true' : 'false');
     });
-    const isDiagnostic = activePreset === 'diagnostic';
+    // The diagnostic and the APT-style predictor are always timed.
+    const noTutor = activePreset === 'diagnostic' || activePreset === 'apt';
     if (tutorEl) {
-      if (isDiagnostic) tutorEl.checked = false;
-      tutorEl.disabled = isDiagnostic;
+      if (noTutor) tutorEl.checked = false;
+      tutorEl.disabled = noTutor;
     }
-    if (tutorLabel) tutorLabel.classList.toggle('disabled', isDiagnostic);
+    if (tutorLabel) tutorLabel.classList.toggle('disabled', noTutor);
     updateSummaryAndButton();
   }
 
@@ -171,7 +172,7 @@ function deriveTestType(orderedSections) {
 
     sessionStorage.removeItem('quizState');
     sessionStorage.removeItem('generatedTest');
-    const mode = testType !== 'diagnostic' && tutorEl && tutorEl.checked ? 'tutor' : 'timed';
+    const mode = testType !== 'diagnostic' && testType !== 'apt' && tutorEl && tutorEl.checked ? 'tutor' : 'timed';
     const presetConfig = activePreset && typeof MissionASVABConfig.getTestConfig === 'function'
       ? MissionASVABConfig.getTestConfig(activePreset) : null;
     sessionStorage.setItem('testConfig', JSON.stringify({

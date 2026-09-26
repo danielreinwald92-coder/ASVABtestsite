@@ -4,8 +4,10 @@ Mission ASVAB - Static HTML/JS practice test site for military applicants prepar
 
 ## Core Features
 
-1. **Three Test Modes**
+1. **Four Test Modes**
    - Starting-Point Diagnostic (20 minutes): 18 balanced AR/WK/PC/MK questions; produces study priorities and no AFQT percentile
+   - APT-Style AFQT Predictor (25 minutes): 20 adaptive AR/WK/PC/MK questions (5 each), same IRT pipeline,
+     reports a predicted AFQT with a wider likely range (`test_type = 'apt'`)
    - AFQT Practice (~2 hours): AR, WK, PC, MK sections - calculates an estimated AFQT percentile
    - Full Army Assessment (~3 hours): All 8 Mission ASVAB sections - calculates estimated AFQT + 10 Army line scores
 
@@ -38,10 +40,11 @@ js/
 ├── irt-params.js           # Per-item (a,b,c) assignment + official constant tables (SS transforms,
 │                           #   VE/AS composites, AFQTS→percentile table, Army weight matrix)
 ├── penalty-table.js        # GENERATED incomplete-test penalty coefficients (per section/unanswered
-│                           #   count); regenerate via scripts/generate-penalty-table.js
+│                           #   count, plus byLength[n] for short presets like APT); regenerate via
+│                           #   scripts/generate-penalty-table.js whenever pools or presets change
 ├── scoring.js              # REWRITTEN (IRT v2): MAP theta → official transforms → AFQTS/percentile/
 │                           #   line scores; see docs/scoring-methodology.md
-├── quiz-data.js            # Question bank, 902 questions (sections metadata lives in section-config.js)
+├── quiz-data.js            # Question bank, 966 questions (sections metadata lives in section-config.js)
 ├── section-config.js       # Single source of truth for section metadata (timing/counts/names)
 ├── explanations.js         # Per-question answer explanations, lazy via load-explanations.js (SP1)
 ├── courses.js              # AR/MK/WK/PC study courses (~217KB, lazy on study-guide.html)
@@ -53,7 +56,7 @@ js/
 ├── streak.js  study-plan.js  # Dashboard: derived streak + test-date countdown/paced plan (SP3)
 ├── spaced-repetition.js    # SM-2-lite scheduler + localStorage store for flashcard review (SP3)
 ├── share-card.js  pwa-install.js  # Local shareable score card + dismissible install prompt (SP3)
-├── test-config.js          # Test mode configs (diagnostic/quick/full + diagnostic blueprint)
+├── test-config.js          # Test mode configs (diagnostic/apt/quick/full + diagnostic blueprint)
 ├── auth.js                 # Supabase client singleton + session helpers + friendlyAuthError()
 │                           #   (maps raw Supabase auth errors to plain language on all auth pages)
 ├── offline-queue.js        # Flush queued (offline) test results when back online
@@ -75,7 +78,7 @@ scripts/
 │                           #   incomplete-test penalty derivation); re-run only if irt params/pools change
 └── check-no-inline-js.js   # CI gate: fails if any inline on*= handler or inline <script> exists
 supabase/migrations/        # Versioned additive database changes (new schema work belongs here)
-tests/                      # node:test + jsdom suite (279 tests). helpers/load.js, helpers/engine.js
+tests/                      # node:test + jsdom suite (284 tests). helpers/load.js, helpers/engine.js
 tests/e2e/                  # Playwright: all-page CSP/console smoke + guest AFQT and diagnostic flows
 playwright.config.js        # Chromium config; local server mirrors production Vercel headers
 docs/scoring-methodology.md # AFQT model, sources, limits
@@ -86,7 +89,7 @@ docs/PROJECT-STATE.md       # Concise current-state index and prioritized handof
 
 ```bash
 npx serve .                    # Local dev server
-npm test                       # Run the node:test + jsdom unit suite (279 tests)
+npm test                       # Run the node:test + jsdom unit suite (284 tests)
 npm run test:e2e               # Run Playwright against all pages + the guest AFQT flow
 node scripts/validate-site.js  # Validate quiz data + scoring contracts (also a Vercel build gate)
 node scripts/check-no-inline-js.js  # Verify no inline JS (required by the strict CSP)
@@ -242,8 +245,8 @@ Wait for approval before adding to LEARNED section.
   in `courses-tech.js` (SP4). The study-guide loader lazy-loads both and `Object.assign(courses,
   coursesTech)` — a `courses-tech.js` load failure must leave the base four courses working. Edit
   the right file for the section. `validate-site.js` mirrors the merge before its course-shape checks.
-- **Pool sizes only grow:** `scripts/validate-site.js` has a `POOL_MINIMUMS` ratchet (WK 148, PC 85,
-  AR 122, MK 132, GS 105, EI 105, AS 100, MC 105). Raise the entry when you intentionally grow a pool;
+- **Pool sizes only grow:** `scripts/validate-site.js` has a `POOL_MINIMUMS` ratchet (WK 160, PC 105,
+  AR 134, MK 152, GS 105, EI 105, AS 100, MC 105). Raise the entry when you intentionally grow a pool;
   never let a pool drop below it. Every question needs a 40–600 char, single-line, HTML-safe (no
   `< > &`) explanation in `explanations.js`. New questions get adversarial blind-solve verification
   (two independent agents re-solve without the key) before merge — this has kept key errors at 0.

@@ -59,11 +59,15 @@ function loadResults() {
   const hasAFQT = typeof results.afqt === 'number';
   const isTutor = results.mode === 'tutor';
   const isDiagnostic = results.testType === 'diagnostic';
+  const isApt = results.testType === 'apt';
   const displayScore = hasAFQT ? results.afqt : (results.score || 0);
   document.getElementById('afqtScore').textContent = displayScore;
   if (isDiagnostic) {
     document.getElementById('afqtLabel').textContent = 'Starting-Point Diagnostic';
     document.getElementById('afqtPercentile').textContent = `${results.score}% correct: practice performance, not an AFQT percentile`;
+  } else if (hasAFQT && isApt) {
+    document.getElementById('afqtLabel').textContent = 'Predicted AFQT (APT-Style)';
+    document.getElementById('afqtPercentile').textContent = formatAfqtPercentileLine(results.afqt, results.afqtBand);
   } else if (hasAFQT) {
     document.getElementById('afqtLabel').textContent = 'Estimated AFQT Score';
     document.getElementById('afqtPercentile').textContent = formatAfqtPercentileLine(results.afqt, results.afqtBand);
@@ -134,6 +138,10 @@ function loadResults() {
   } else {
     message = "Keep Practicing";
     description = "Review the study guide and focus on the sections marked below. You can improve with dedicated practice.";
+  }
+
+  if (isApt && hasAFQT) {
+    description += ' This 20-question predictor uses 5 questions per area, so its likely range is wide. Take the full AFQT Practice for a sharper estimate.';
   }
 
   document.getElementById('scoreMessage').textContent = message;

@@ -123,8 +123,8 @@ class QuizEngine {
       this.testSections = MissionASVABConfig.getSectionsForType('quick');
     } else if (typeParam === 'full') {
       this.testSections = MissionASVABConfig.getSectionsForType('full');
-    } else if (typeParam === 'diagnostic') {
-      this.testSections = MissionASVABConfig.getSectionsForType('diagnostic');
+    } else if (typeParam === 'diagnostic' || typeParam === 'apt') {
+      this.testSections = MissionASVABConfig.getSectionsForType(typeParam);
     } else {
       this.testSections = null; // no config — init() redirects to select-test.html
     }
@@ -138,7 +138,9 @@ class QuizEngine {
     const preset = configApi && configApi.TEST_CONFIGS && configApi.TEST_CONFIGS[this.testKind];
     this.sectionOverrides = (config && config.sectionOverrides) || (preset && preset.sectionOverrides) || {};
     const cfgMode = (config && config.mode) || null;
-    this.mode = this.testKind !== 'diagnostic' && (modeParam === 'tutor' || cfgMode === 'tutor') ? 'tutor' : 'timed';
+    // The diagnostic and the APT-style predictor are always timed.
+    const tutorAllowed = this.testKind !== 'diagnostic' && this.testKind !== 'apt';
+    this.mode = tutorAllowed && (modeParam === 'tutor' || cfgMode === 'tutor') ? 'tutor' : 'timed';
   }
 
   generateNewTest() {
@@ -175,6 +177,8 @@ class QuizEngine {
     this.quizData = {
       section: this.testKind === 'diagnostic'
         ? 'Starting-Point Diagnostic'
+        : this.testKind === 'apt'
+        ? 'AFQT Predictor'
         : this.testSections.length === 1
         ? QuizManager.getSectionInfo(this.testSections[0])?.name
         : (MissionASVABConfig.getTestTypeFromSections(this.testSections) === 'afqt'
@@ -1051,8 +1055,8 @@ class QuizEngine {
     const completedAt = new Date().toISOString();
     const quizResults = {
       clientResultId: createClientResultId(completedAt),
-      testType: this.testKind === 'diagnostic'
-        ? 'diagnostic'
+      testType: (this.testKind === 'diagnostic' || this.testKind === 'apt')
+        ? this.testKind
         : MissionASVABConfig.getTestTypeFromSections(this.testSections),
       section: this.quizData.section,
       sectionCode: this.quizData.sectionCode,

@@ -131,6 +131,45 @@ test('guest completes an AFQT practice test and reaches numeric results', async 
   expect(errors).toEqual([]);
 });
 
+test('guest completes the 20-question APT-style predictor and sees a predicted AFQT range', async ({ page }) => {
+  await isolateExternalServices(page);
+  const errors = collectBrowserErrors(page);
+
+  await page.goto('/select-test.html');
+  await page.getByLabel('Your Name').fill('Predictor Tester');
+  await page.locator('.test-type-card[data-type="apt"]').click();
+  await expect(page.locator('#startBtn')).toHaveText('Start AFQT Predictor');
+  await page.locator('#startBtn').click();
+
+  await expect(page).toHaveURL(/test-intro\.html$/);
+  await expect(page.locator('#questionCount')).toHaveText('20');
+  await expect(page.locator('#timeLimit')).toHaveText('25');
+  await expect(page.locator('#aptNotice')).toBeVisible();
+  await page.locator('#acknowledge').check();
+  await page.locator('#startBtn').click();
+
+  await expect(page).toHaveURL(/quiz\.html$/);
+  for (let answered = 0; answered < 20; answered++) {
+    await page.locator('.answer-option').first().click();
+    if (answered === 19) {
+      page.once('dialog', (dialog) => dialog.accept());
+      await Promise.all([
+        page.waitForURL(/results\.html$/),
+        page.locator('#nextBtn').click()
+      ]);
+    } else {
+      await page.locator('#nextBtn').click();
+    }
+  }
+
+  await expect(page.locator('#afqtLabel')).toHaveText('Predicted AFQT (APT-Style)');
+  await expect(page.locator('#afqtPercentile')).toContainText('likely range');
+  const score = Number(await page.locator('#afqtScore').textContent());
+  expect(score).toBeGreaterThanOrEqual(1);
+  expect(score).toBeLessThanOrEqual(99);
+  expect(errors).toEqual([]);
+});
+
 test('guest diagnostic finishes in 18 questions and yields a personalized mission without an AFQT claim', async ({ page }) => {
   await isolateExternalServices(page);
   const errors = collectBrowserErrors(page);

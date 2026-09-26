@@ -115,7 +115,12 @@ time:
 θ_final = A + B · θ_answered
 ```
 
-This replaces the old "unanswered = wrong" behavior.
+This replaces the old "unanswered = wrong" behavior. The simulation uses
+2,000 simulees per (section, unanswered-count) cell, matching the official
+derivation. Short scored presets (the APT-style predictor below) administer
+fewer items per section, so the generator also fits coefficients at those
+lengths (`penaltyTable.byLength[n][code]`); `js/scoring.js` picks the table
+by the section's administered length.
 
 ## 3. Standard scores & composites
 
@@ -227,6 +232,22 @@ then the band bounds are `AFQTS ± SE(AFQTS)`, each converted through the
 same Table 2.5 lookup. The site's copy deliberately says **"likely range,"**
 never "confidence interval" — a ±1 SE band is not a 95% CI, and conflating
 the two would overstate precision.
+
+### APT-style AFQT Predictor (Sep 2026)
+
+The official AFQT Predictor Test (APT) is a short, unproctored, adaptive
+test recruiters issue: 20 items across AR, MK, WK, and PC, about 15-30
+minutes, with the score reported to the recruiter (its format is not
+published; DAC Military Personnel Testing overview, Nov 2022). Its
+predecessor CAST correlated about .80-.85 with operational AFQT.
+
+Mission ASVAB's `apt` preset (`js/test-config.js`) mirrors that shape: 5
+adaptive items per AFQT area (AR 8 min, WK 3, PC 8, MK 6; 25 minutes), always
+timed, answers lock like the CAT. It runs the exact same pipeline as the full
+AFQT practice (Owen interim, MAP final, Segall transforms, VE composite,
+Table 2.5). Nothing is special-cased: with 5 items per section the posterior
+SEs are larger, so the reported likely range is honestly wider. Results are
+stored with `test_type = 'apt'` and labelled "Predicted AFQT (APT-Style)".
 
 ## 4. What changed vs. the v1 model, and why
 

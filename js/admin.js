@@ -405,6 +405,7 @@ function sectionSummary(scores) {
 
 function formatTestType(t) {
   if (!t) return 'N/A';
+  if (t.toLowerCase() === 'apt') return 'AFQT Predictor';
   if (t.toLowerCase().includes('afqt')) return 'Quick AFQT';
   if (t.toLowerCase().includes('full')) return 'Full Assessment';
   return t;

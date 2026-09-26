@@ -49,6 +49,16 @@
     return answeredCount(section) > 0 || (section.unanswered || 0) > 0;
   }
 
+  // Penalty coefficients are fitted per administered length: full-length
+  // sections use PENALTY[code]; shorter presets (the APT-style predictor) use
+  // PENALTY.byLength[n][code], generated at that length.
+  function penaltyTableFor(code, total) {
+    if (!PENALTY) return null;
+    const byLength = PENALTY.byLength && total && PENALTY.byLength[total];
+    if (byLength && byLength[code]) return byLength[code];
+    return PENALTY[code] || null;
+  }
+
   // MAP theta + penalty for a section's response records.
   function sectionAbility(sectionResults, code) {
     const section = sectionResults[code];
@@ -61,13 +71,14 @@
     let theta = est.theta;
     const unanswered = section.unanswered || 0;
     if (unanswered > 0) {
+      const table = penaltyTableFor(code, section.total);
       // A missing/incomplete penalty table must fail loudly rather than
       // silently score an incomplete test as if fully answered — mirrors how
       // a missing IRT/PARAMS dependency already throws on first use above.
-      if (!PENALTY || !PENALTY[code] || !PENALTY[code][unanswered]) {
+      if (!table || !table[unanswered]) {
         throw new Error('MissionASVABScoring: missing incomplete-test penalty for ' + code + ' unanswered=' + unanswered);
       }
-      const p = PENALTY[code][unanswered];
+      const p = table[unanswered];
       theta = p.A + p.B * theta;
     }
     return { theta: theta, sem: est.sem };
