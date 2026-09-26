@@ -74,6 +74,16 @@
       if (rulesTutor) rulesTutor.hidden = false;
     }
 
+    // Answers lock in every timed adaptive mode; only the diagnostic allows
+    // going back within the current section.
+    if (testType === 'diagnostic') {
+      const rule = document.getElementById('ruleNav');
+      if (rule) rule.innerHTML = "<strong>You can't return to a finished section.</strong> Within the current section you can go back and change answers.";
+    } else if (mode !== 'tutor') {
+      const note = document.getElementById('shortcutNote');
+      if (note) note.textContent = 'On a keyboard: press A-D to answer and the right arrow for the next question.';
+    }
+
     if (testType === 'apt') {
       const notice = document.getElementById('aptNotice');
       if (notice) notice.hidden = false;

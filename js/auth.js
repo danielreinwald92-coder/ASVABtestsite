@@ -80,83 +80,13 @@ async function signOut() {
 }
 
 // Update nav to show user name and Dashboard link if logged in
+// Nav account links are rendered by scripts/sync-site-chrome.js and switched
+// to "My dashboard" by js/site-nav.js; this confirms with the live session
+// (covers an expired token that js/site-nav.js still sees in storage).
 async function applyAuthNav() {
   const session = await getSession();
-  const navCta = document.querySelector('.nav-cta');
-  const mobileMenuCta = document.querySelector('.mobile-menu-cta');
-  const navLinks = document.querySelector('.nav-links');
-  const mobileMenuLinks = document.querySelector('.mobile-menu-links');
-
-  if (session) {
-    const profile = await getProfile();
-    const displayName = profile?.name?.split(' ')[0] || 'Account';
-
-    if (navCta) {
-      navCta.textContent = 'Dashboard';
-      navCta.href = 'dashboard.html';
-    }
-    if (mobileMenuCta) {
-      mobileMenuCta.textContent = 'Dashboard';
-      mobileMenuCta.href = 'dashboard.html';
-    }
-    // Add user name link to nav
-    if (navLinks) {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = 'dashboard.html';
-      a.textContent = displayName;
-      a.style.color = 'var(--gold-500)';
-      a.style.fontWeight = '600';
-      li.appendChild(a);
-      navLinks.appendChild(li);
-    }
-    if (mobileMenuLinks) {
-      const a = document.createElement('a');
-      a.href = 'dashboard.html';
-      a.textContent = `My Dashboard (${displayName})`;
-      mobileMenuLinks.appendChild(a);
-    }
-    if (profile && profile.is_admin) {
-      if (navLinks) {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = 'admin.html';
-        a.textContent = 'Admin';
-        a.style.color = 'var(--gold-500)';
-        a.style.fontWeight = '600';
-        li.appendChild(a);
-        navLinks.appendChild(li);
-      }
-      if (mobileMenuLinks) {
-        const a = document.createElement('a');
-        a.href = 'admin.html';
-        a.textContent = 'Admin';
-        mobileMenuLinks.appendChild(a);
-      }
-    }
-  } else {
-    // Guest state — add Login link
-    if (navLinks) {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = 'login.html';
-      a.textContent = 'Log In';
-      li.appendChild(a);
-      navLinks.appendChild(li);
-    }
-    if (mobileMenuLinks) {
-      const a = document.createElement('a');
-      a.href = 'login.html';
-      a.textContent = 'Log In';
-      mobileMenuLinks.appendChild(a);
-    }
-    if (navCta) {
-      navCta.textContent = 'Sign Up Free';
-      navCta.href = 'register.html';
-    }
-    if (mobileMenuCta) {
-      mobileMenuCta.textContent = 'Sign Up Free';
-      mobileMenuCta.href = 'register.html';
-    }
-  }
+  document.querySelectorAll('[data-nav-account]').forEach((a) => {
+    a.href = session ? 'dashboard.html' : 'login.html';
+    a.textContent = session ? 'My dashboard' : 'Log in';
+  });
 }

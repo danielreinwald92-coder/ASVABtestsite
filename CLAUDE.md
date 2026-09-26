@@ -23,7 +23,7 @@ Mission ASVAB - Static HTML/JS practice test site for military applicants prepar
 ## Architecture
 
 ```
-HTML Pages (all 26 deployed; admin.html is served but gated by requireAdmin(). Documentation,
+HTML Pages (all 27 deployed; admin.html is served but gated by requireAdmin(). Documentation,
 repository/tooling config and Playwright config are excluded — see .vercelignore; the buildCommand also strips tests/,
 scripts/ and package files from the served output after the build gates run):
 ├── index.html  select-test.html  test-intro.html  quiz.html  results.html
@@ -31,6 +31,7 @@ scripts/ and package files from the served output after the build gates run):
 ├── admin.html  login.html  register.html  reset-password.html
 └── faq.html  asvab-scores.html  asvab-math-formulas.html  asvab-word-list.html
     asvab-study-plan.html       # static indexable resource pages (SEO pass, no JS beyond shared helpers)
+    resources.html              # hub linking every free resource (menu "Resources" target)
     asvab-score-calculator.html # standard scores -> AFQT percentile/category + 10 Army line scores
                                 #   (js/score-calculator.js pure math on irt-params constants)
     asvab-arithmetic-reasoning.html … asvab-mechanical-comprehension.html  # 8 GENERATED section guides
@@ -68,6 +69,7 @@ js/
 ├── admin.js  dashboard.js  # Admin panel + user dashboard logic
 ├── page-*.js               # Per-page logic (externalized; NO inline <script> — see CSP rule below)
 ├── focus-trap.js  mobile-menu.js  sw-register.js  year.js  # shared UI/PWA helpers
+├── site-nav.js             # swaps the shared nav/footer "Log in" link to "My dashboard" when signed in
 css/shared.css              # Design system: tokens (palette, type roles, radius, elevation) +
                             #   shared components (.btn variants, .card, .patch, .logo, nav, mobile
                             #   menu, footer, focus/reduced-motion floors). Fonts sitewide: Barlow
@@ -82,9 +84,11 @@ scripts/
 ├── generate-penalty-table.js  # Offline simulation → regenerates js/penalty-table.js (official
 │                           #   incomplete-test penalty derivation); re-run only if irt params/pools change
 ├── build-section-guides.js # Regenerates the 8 asvab-<section>.html guides (--check = drift test)
+├── sync-site-chrome.js     # SINGLE SOURCE for the site nav, mobile menu and footer on every page;
+│                           #   edit it, run it (--check = drift test in tests/unit/site-chrome.test.js)
 └── check-no-inline-js.js   # CI gate: fails if any inline on*= handler or inline <script> exists
 supabase/migrations/        # Versioned additive database changes (new schema work belongs here)
-tests/                      # node:test + jsdom suite (291 tests). helpers/load.js, helpers/engine.js
+tests/                      # node:test + jsdom suite (294 tests). helpers/load.js, helpers/engine.js
 tests/e2e/                  # Playwright: all-page CSP/console smoke + guest AFQT and diagnostic flows
 playwright.config.js        # Chromium config; local server mirrors production Vercel headers
 docs/scoring-methodology.md # AFQT model, sources, limits
@@ -95,7 +99,7 @@ docs/PROJECT-STATE.md       # Concise current-state index and prioritized handof
 
 ```bash
 npx serve .                    # Local dev server
-npm test                       # Run the node:test + jsdom unit suite (291 tests)
+npm test                       # Run the node:test + jsdom unit suite (294 tests)
 npm run test:e2e               # Run Playwright against all pages + the guest AFQT flow
 node scripts/validate-site.js  # Validate quiz data + scoring contracts (also a Vercel build gate)
 node scripts/check-no-inline-js.js  # Verify no inline JS (required by the strict CSP)

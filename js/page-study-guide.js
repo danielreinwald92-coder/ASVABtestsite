@@ -167,12 +167,12 @@
         { name: 'Time', formula: 'Time = Distance ÷ Rate', description: 'How long it takes', example: '120 miles ÷ 60 mph = 2 hours' }
       ],
       'Area': [
-        { name: 'Rectangle', formula: 'A = length × width', description: 'Multiply the two sides', example: '8 × 5 = 40 square feet' },
+        { name: 'Rectangle Area', formula: 'A = length × width', description: 'Multiply the two sides', example: '8 × 5 = 40 square feet' },
         { name: 'Triangle', formula: 'A = ½ × base × height', description: 'Half of base times height', example: '½ × 10 × 6 = 30' },
         { name: 'Circle', formula: 'A = π × r²', description: 'Pi (3.14) times radius squared', example: '3.14 × 5² = 78.5' }
       ],
       'Perimeter': [
-        { name: 'Rectangle', formula: 'P = 2l + 2w', description: 'Add all four sides', example: '2(8) + 2(5) = 26 feet' },
+        { name: 'Rectangle Perimeter', formula: 'P = 2l + 2w', description: 'Add all four sides', example: '2(8) + 2(5) = 26 feet' },
         { name: 'Circle (Circumference)', formula: 'C = π × diameter', description: 'Pi times the diameter across', example: '3.14 × 10 = 31.4' }
       ],
       'Right Triangles': [
@@ -300,8 +300,8 @@
           `;
         } else {
           const names = {
-            AR: 'Arithmetic Reasoning', MK: 'Math Knowledge', WK: 'Word Knowledge',
-            PC: 'Paragraph Comprehension', GS: 'General Science', AS: 'Auto & Shop',
+            AR: 'Arithmetic Reasoning', MK: 'Mathematics Knowledge', WK: 'Word Knowledge',
+            PC: 'Paragraph Comprehension', GS: 'General Science', AS: 'Auto & Shop Information',
             MC: 'Mechanical Comprehension', EI: 'Electronics Information'
           };
           // "Unavailable" here almost always means the course bundle failed to
@@ -348,7 +348,7 @@
       const videos = videoResources[code];
       if (videos && videos.length > 0) {
         const videoSection = document.createElement('div');
-        videoSection.className = 'video-resources';
+        videoSection.className = 'video-resources video-links';
         videoSection.innerHTML = `
           <div class="video-resources-header">
             <div class="yt-icon"></div>
@@ -379,16 +379,16 @@
       if (code === 'AR' || code === 'MK') {
         toolsSection.innerHTML = `
           <div class="video-resources-header">
-            <h3>📚 Study Tools</h3>
+            <h3>Study Tools</h3>
           </div>
           <div class="tools-grid">
             <div class="tool-card" role="button" tabindex="0" data-action="show-flashcards" data-type="formulas">
-              <div class="icon">🃏</div>
+              <div class="icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="14" height="14" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v12"/></svg></div>
               <h3>Formula Flashcards</h3>
               <p>Drill the essential math formulas</p>
             </div>
             <div class="tool-card" role="button" tabindex="0" data-action="show-formulas">
-              <div class="icon">📋</div>
+              <div class="icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div>
               <h3>Formula Cheat Sheet</h3>
               <p>Quick reference for all formulas</p>
             </div>
@@ -398,13 +398,13 @@
       } else if (code === 'WK') {
         toolsSection.innerHTML = `
           <div class="video-resources-header">
-            <h3>📚 Study Tools</h3>
+            <h3>Study Tools</h3>
           </div>
           <div class="tools-grid">
             <div class="tool-card" role="button" tabindex="0" data-action="show-flashcards" data-type="vocab">
-              <div class="icon">🃏</div>
+              <div class="icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="14" height="14" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v12"/></svg></div>
               <h3>Vocabulary Flashcards</h3>
-              <p>Learn 30 common ASVAB words</p>
+              <p>Learn ${vocabFlashcards.length} common ASVAB words</p>
             </div>
           </div>
         `;
@@ -433,6 +433,9 @@
         <div class="meta">${completedCount}/${currentCourse.chapters.length} chapters completed</div>
       `;
       list.appendChild(practiceCard);
+      // External videos go after the site's own tools and practice test.
+      const videoLinks = list.querySelector('.video-links');
+      if (videoLinks) list.appendChild(videoLinks);
     }
 
     function showLesson(chapter) {
@@ -474,6 +477,7 @@
     }
 
     function startQuiz() {
+      document.getElementById('quiz-back-btn').onclick = () => showLesson(currentChapter);
       const qs = shuffleArray(currentChapter.questions).slice(0, currentChapter.quizConfig.questionsPerQuiz);
       currentQuiz = qs.map(q => ({ ...q, options: shuffleArray([...q.options]) }));
       currentQuestionIndex = 0;
@@ -557,14 +561,14 @@
       }
       const need = Math.ceil(currentChapter.quizConfig.passingScore * currentQuiz.length);
       document.getElementById('results-card').innerHTML = `
-        <div class="results-icon">${passed ? '🎉' : '📚'}</div>
         <h2>${passed ? 'Chapter Complete!' : 'Keep Practicing'}</h2>
         <div class="results-score">${score}<span>/${currentQuiz.length}</span></div>
         <p class="results-message">${passed ? "Great job! You've mastered this chapter." : `You need ${need} correct to pass. Review the lesson and try again!`}</p>
         <div class="results-buttons">
           ${passed ? `<button class="result-btn primary" data-action="show-course" data-code="${Object.keys(courses).find(k => courses[k] === currentCourse)}">Continue Learning</button>` :
             `<button class="result-btn primary" data-action="show-lesson-current">Review Lesson</button>
-             <button class="result-btn secondary" data-action="start-quiz">Try Quiz Again</button>`}
+             <button class="result-btn secondary" data-action="start-quiz">Try Quiz Again</button>
+             <button class="result-btn secondary" data-action="show-course" data-code="${Object.keys(courses).find(k => courses[k] === currentCourse)}">Back to Chapters</button>`}
         </div>
       `;
     }
@@ -616,7 +620,7 @@
         updateTimerDisplay();
         if (sectionPractice.timeRemaining <= 0) {
           clearInterval(sectionPractice.timerInterval);
-          submitSectionPractice();
+          submitSectionPractice(true);
         }
       }, 1000);
     }
@@ -687,15 +691,15 @@
       }
     }
 
-    function submitSectionPractice() {
-      clearInterval(sectionPractice.timerInterval);
-
+    function submitSectionPractice(timeUp) {
       const unanswered = sectionPractice.questions.length - Object.keys(sectionPractice.answers).length;
-      if (unanswered > 0) {
+      // Ask only on a manual submit; the timer keeps running if they cancel.
+      if (!timeUp && unanswered > 0) {
         if (!confirm(`You have ${unanswered} unanswered question${unanswered > 1 ? 's' : ''}. Submit anyway?`)) {
           return;
         }
       }
+      clearInterval(sectionPractice.timerInterval);
 
       let correct = 0;
       sectionPractice.questions.forEach((q, i) => {
@@ -708,21 +712,17 @@
       const mins = Math.floor(timeUsed / 60);
       const secs = timeUsed % 60;
 
-      let message, icon;
+      let message;
       if (pct >= 80) {
-        icon = '🎉';
         message = "Excellent! You're well-prepared for this section of the ASVAB.";
       } else if (pct >= 60) {
-        icon = '👍';
         message = "Good progress! Review the chapters for topics you missed.";
       } else {
-        icon = '📚';
         message = "Keep studying! Go back through the chapters and try again.";
       }
 
       showView('section-results');
       document.getElementById('section-results-card').innerHTML = `
-        <div class="icon">${icon}</div>
         <h2>${asvabData.sections[sectionPractice.code].name} Complete</h2>
         <div class="score">${pct}<span>%</span></div>
         <div class="stats">
@@ -731,9 +731,13 @@
             <div class="stat-label">Correct</div>
           </div>
           <div class="stat">
-            <div class="stat-value incorrect">${total - correct}</div>
+            <div class="stat-value incorrect">${total - correct - unanswered}</div>
             <div class="stat-label">Incorrect</div>
           </div>
+          ${unanswered > 0 ? `<div class="stat">
+            <div class="stat-value">${unanswered}</div>
+            <div class="stat-label">Skipped</div>
+          </div>` : ''}
           <div class="stat">
             <div class="stat-value">${mins}:${secs.toString().padStart(2, '0')}</div>
             <div class="stat-label">Time Used</div>
@@ -1026,8 +1030,11 @@
         document.getElementById('flashcard-front').innerHTML = `
           <div class="category">Complete!</div>
           <div class="question">You reviewed all ${total} cards</div>
-          <div class="hint">${knewCount} mastered • ${studyCount} need review</div>
+          <div class="hint">${knewCount} got it • ${studyCount} to study more</div>
         `;
+        document.getElementById('flashcard-back').innerHTML = '';
+        const progress = document.getElementById('flashcard-progress');
+        if (progress) progress.textContent = '';
         document.getElementById('flashcard').classList.remove('flipped');
       }
     }

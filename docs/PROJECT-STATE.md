@@ -11,7 +11,7 @@ features were built; unchecked boxes there are not the current work queue.
 
 - Static HTML/JavaScript application deployed from `main` to Vercel. The canonical production
   URL is `https://www.missionasvab.org`; the bare domain permanently redirects to `www`.
-- Twenty-six served pages; account and admin data use Supabase project `rcspwkmrtukblvvdifer`.
+- Twenty-seven served pages; account and admin data use Supabase project `rcspwkmrtukblvvdifer`.
 - SEO foundation pass (Sep 2026): complete OG/twitter/favicon metadata and JSON-LD on all public
   pages, an OG share image, and five indexable resource pages (FAQ, scores guide, math formula
   sheet, word list, week-by-week study plan) cross-linked from footers and a homepage band.
@@ -29,6 +29,13 @@ features were built; unchecked boxes there are not the current work queue.
 - Guest practice works without an account. Every completed test produces a deterministic Today’s
   Mission that opens a real study chapter and checkpoint. Supabase adds saved test/mission history,
   profiles, reports, cross-device mission status, and guarded admin operations.
+- Site chrome (Sep 26, 2026 polish pass): one generated nav (Practice Tests, Study Guide,
+  Resources dropdown with tools + 8 section guides, About, Log in/My dashboard, CTA), a full
+  mobile menu, and a 3-column footer on every public page, from `scripts/sync-site-chrome.js`.
+  New `resources.html` hub. A page-by-page copy/layout audit fixed stale and contradictory copy
+  (test-intro now says answers lock in adaptive modes, category tables, recruiter leftovers,
+  mode names), quiz UX (Finish Section / Submit Test labels, no flagging in CAT, tutor shows the
+  correct answer), and study-guide bugs (section-practice timer, duplicate Rectangle cards).
 - Search Console (export Sep 26, 2026, last 3 months): ~192 clicks, nearly all branded ("mission
   asvab"); non-brand clicks ~0. Impressions doubled after the Sep 5 resource pages (~9/day Aug to
   ~19/day Sep). Closest non-brand wins: math formula sheet (pos ~13), select-test/study-guide
@@ -66,8 +73,8 @@ features were built; unchecked boxes there are not the current work queue.
 
 ## Verification Baseline
 
-- `npm test` — 291 node:test/jsdom checks (includes the tests/unit/seo-pages.test.js contract: every root page must join the inline-JS gate, e2e smoke list, sitemap, and share-metadata standard).
-- `npm run test:e2e` — Chromium checks all 26 pages under the production Vercel headers,
+- `npm test` — 294 node:test/jsdom checks (includes the tests/unit/seo-pages.test.js contract: every root page must join the inline-JS gate, e2e smoke list, sitemap, and share-metadata standard).
+- `npm run test:e2e` — Chromium checks all 27 pages under the production Vercel headers,
   then completes a 55-question guest AFQT flow, the 20-question APT-style predictor flow, and the
   18-question guest diagnostic/mission flow.
 - `node scripts/validate-site.js` — question pools, explanations, course shapes, diagnostic blueprint,

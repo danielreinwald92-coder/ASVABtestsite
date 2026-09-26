@@ -116,7 +116,7 @@
         reason = `You answered ${answered} of ${total}; more practice is needed before calling this a confirmed weakness.`;
       } else if (misses >= 2 && accuracy < 70) {
         level = 'focus';
-        reason = `${correct} of ${total} correct makes this the clearest area to strengthen.`;
+        reason = `${correct} of ${total} correct. This is a priority area to strengthen.`;
       } else if (misses >= 2) {
         level = 'review';
         reason = `${correct} of ${total} correct; a short review can turn those misses into reliable points.`;

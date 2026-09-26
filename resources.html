@@ -3,36 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Account - Mission ASVAB</title>
+  <title>Free ASVAB Study Resources | Mission ASVAB</title>
+  <meta name="description" content="Every free Mission ASVAB resource in one place: practice tests, a score calculator, the math formula sheet, a vocabulary list, a study plan, the ASVAB FAQ, and study guides for all 8 sections.">
+  <link rel="canonical" href="https://www.missionasvab.org/resources.html">
+  <meta property="og:title" content="Free ASVAB Study Resources | Mission ASVAB">
+  <meta property="og:description" content="Every free Mission ASVAB resource in one place: practice tests, a score calculator, the math formula sheet, a vocabulary list, a study plan, the ASVAB FAQ, and study guides for all 8 sections.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.missionasvab.org/resources.html">
+  <meta property="og:site_name" content="Mission ASVAB">
+  <meta property="og:image" content="https://www.missionasvab.org/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Mission ASVAB - free ASVAB practice tests and study tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free ASVAB Study Resources | Mission ASVAB">
+  <meta name="twitter:description" content="Every free Mission ASVAB resource in one place: practice tests, a score calculator, the math formula sheet, a vocabulary list, a study plan, the ASVAB FAQ, and study guides for all 8 sections.">
+  <meta name="twitter:image" content="https://www.missionasvab.org/og-image.png">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/shared.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1628">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Free ASVAB Study Resources",
+    "url": "https://www.missionasvab.org/resources.html",
+    "description": "Every free Mission ASVAB resource in one place: practice tests, a score calculator, the math formula sheet, a vocabulary list, a study plan, the ASVAB FAQ, and study guides for all 8 sections.",
+    "publisher": {"@type": "Organization", "name": "Mission ASVAB", "url": "https://www.missionasvab.org/"}
+  }
+  </script>
+  <link rel="stylesheet" href="css/section-guide.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--cream-100); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: var(--white); border-bottom: 1px solid var(--cream-200); }
-    .logo { font-size: 1.6rem; }
-    main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 1rem; }
-    .auth-card { background: var(--white); border: 1px solid var(--cream-200); border-radius: var(--r-lg); padding: 2.5rem; width: 100%; max-width: 460px; box-shadow: var(--shadow-2); }
-    h1 { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; margin-bottom: 0.5rem; }
-    .subtitle { color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.95rem; }
-    .form-group { margin-bottom: 1.25rem; }
-    label { display: block; font-weight: 600; font-size: 0.875rem; margin-bottom: 0.4rem; color: var(--navy-800); }
-    .optional { font-weight: 400; color: var(--text-secondary); font-size: 0.8rem; margin-left: 0.25rem; }
-    input, select { width: 100%; padding: 0.7rem 1rem; min-height: 44px; border: 2px solid var(--cream-200); border-radius: var(--r-md); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text-primary); background: var(--white); transition: border-color 0.2s; }
-    input:focus, select:focus { outline: none; border-color: var(--navy-700); }
-    .btn-primary { width: 100%; padding: 0.95rem 1.9rem; min-height: 44px; background: var(--navy-900); color: var(--white); border: none; border-radius: var(--r-md); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 0.5rem; transition: background 0.2s, box-shadow 0.2s; }
-    .btn-primary:hover { background: var(--navy-700); box-shadow: var(--shadow-2); }
-    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
-    .why-we-ask { color: var(--text-secondary); font-size: 0.8rem; line-height: 1.5; margin: -0.25rem 0 1.25rem; }
-    .error-msg { color: var(--error); font-size: 0.875rem; margin-top: 1rem; display: none; }
-    .success-msg { color: var(--success); font-size: 0.875rem; margin-top: 1rem; display: none; }
-    .login-link { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-secondary); }
-    .login-link a { color: var(--navy-700); font-weight: 600; text-decoration: none; }
-    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .hub-list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .hub-list li { background: var(--white); border: 1px solid var(--cream-200); border-radius: var(--r-md); padding: 1.1rem 1.25rem; }
+    .hub-list a { display: block; font-weight: 600; color: var(--navy-900); text-decoration: none; font-size: 1.05rem; margin-bottom: 0.25rem; }
+    .hub-list a:hover { text-decoration: underline; }
+    .hub-list span { color: var(--text-secondary); font-size: 0.93rem; line-height: 1.5; display: block; }
+    .section .hub-list { margin-left: 0; }
   </style>
 </head>
 <body>
@@ -43,7 +54,7 @@
       <li><a href="select-test.html">Practice Tests</a></li>
       <li><a href="study-guide.html">Study Guide</a></li>
       <li class="nav-drop">
-        <a href="resources.html" class="nav-drop-toggle">Resources <svg class="nav-caret" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+        <a href="resources.html" class="nav-drop-toggle" aria-current="page">Resources <svg class="nav-caret" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
         <div class="nav-drop-panel">
           <div>
             <p>Tools and references</p>
@@ -54,7 +65,7 @@
               <li><a href="asvab-math-formulas.html">Math formula sheet</a></li>
               <li><a href="asvab-word-list.html">Vocabulary list</a></li>
               <li><a href="asvab-study-plan.html">Study plan</a></li>
-              <li><a href="resources.html">All free resources</a></li>
+              <li><a href="resources.html" aria-current="page">All free resources</a></li>
             </ul>
           </div>
           <div>
@@ -89,7 +100,7 @@
     <div class="mobile-menu-links">
       <a href="study-guide.html">Study Guide</a>
       <a href="asvab-score-calculator.html">Score Calculator</a>
-      <a href="resources.html">All Free Resources</a>
+      <a href="resources.html" aria-current="page">All Free Resources</a>
       <a href="about.html">About the ASVAB</a>
       <a href="login.html" data-nav-account>Log in</a>
     </div>
@@ -118,52 +129,51 @@
     </div>
   </div>
   <!-- /site-nav -->
-  <main>
-    <div class="auth-card">
-      <h1>Create your account</h1>
-      <p class="subtitle">Free forever. No payment required.</p>
-      <form id="registerForm">
-        <div class="form-group">
-          <label for="name">Full Name</label>
-          <input type="text" id="name" placeholder="Jane Smith" required autocomplete="name" maxlength="100">
-        </div>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" placeholder="jane@example.com" required autocomplete="email">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" placeholder="At least 8 characters" required minlength="8" autocomplete="new-password">
-        </div>
-        <div class="form-group">
-          <label for="education">Education Level</label>
-          <select id="education" required>
-            <option value="" disabled selected>Select your education level</option>
-            <option value="Some High School">Some High School</option>
-            <option value="High School Diploma / GED">High School Diploma / GED</option>
-            <option value="Some College">Some College</option>
-            <option value="College Graduate">College Graduate</option>
-            <option value="Graduate Degree">Graduate Degree</option>
-          </select>
-        </div>
-        <div class="row-2">
-          <div class="form-group">
-            <label for="age">Age</label>
-            <input type="number" id="age" placeholder="17" min="14" max="42" required aria-describedby="whyWeAsk">
-          </div>
-          <div class="form-group">
-            <label for="zipcode">ZIP Code</label>
-            <input type="text" id="zipcode" placeholder="30905" maxlength="10" pattern="[0-9]{5}(-[0-9]{4})?" inputmode="numeric" autocomplete="postal-code" required aria-describedby="whyWeAsk">
-          </div>
-        </div>
-        <p class="why-we-ask" id="whyWeAsk">Why we ask: age, ZIP, and education help personalize your study plan. Your info is never shared with recruiters or anyone else.</p>
-        <button type="submit" class="btn-primary" id="submitBtn">Create Account</button>
-        <p class="error-msg" id="errorMsg"></p>
-        <p class="success-msg" id="successMsg"></p>
-      </form>
-      <p class="login-link">Already have an account? <a href="login.html">Log in</a></p>
-    </div>
+
+  <header class="hero">
+    <p class="hero-eyebrow">FREE RESOURCES</p>
+    <h1>Free ASVAB Study Resources</h1>
+    <p>Everything on Mission ASVAB in one place. All free, no account needed.</p>
+  </header>
+
+  <main class="content">
+    <section class="section">
+      <h2>Practice and Tools</h2>
+      <ul class="hub-list">
+        <li><a href="select-test.html">Practice tests</a><span>A 20-minute diagnostic, the 20-question AFQT Predictor, a full AFQT practice test, or all 8 sections, scored like the real computer adaptive test.</span></li>
+        <li><a href="asvab-score-calculator.html">Score calculator</a><span>Turn the standard scores on your score report into an AFQT percentile and all 10 Army line scores.</span></li>
+        <li><a href="study-guide.html">Interactive study guide</a><span>Lessons, chapter quizzes, formula cards, and vocabulary flashcards for all 8 sections.</span></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Reference Guides</h2>
+      <ul class="hub-list">
+        <li><a href="faq.html">ASVAB FAQ</a><span>Minimum scores, retakes, test length, calculators, and how to sign up.</span></li>
+        <li><a href="asvab-scores.html">ASVAB scores explained</a><span>How AFQT percentiles, standard scores, and Army line scores work.</span></li>
+        <li><a href="asvab-math-formulas.html">Math formula sheet</a><span>Every formula AR and MK expect you to know, on one printable page.</span></li>
+        <li><a href="asvab-word-list.html">Vocabulary list</a><span>Word Knowledge vocabulary with short, plain definitions.</span></li>
+        <li><a href="asvab-study-plan.html">Study plan</a><span>Week-by-week 4-week and 8-week plans from first diagnostic to test day.</span></li>
+        <li><a href="about.html">About the ASVAB</a><span>What the test is, how it is given, and how our practice scores are built.</span></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Section Guides</h2>
+      <p>Each guide covers what the section tests, its official length and time limit, full lessons with worked examples, and 10 practice questions with answers.</p>
+      <ul class="hub-list">
+        <li><a href="asvab-arithmetic-reasoning.html">Arithmetic Reasoning</a><span>Word problems: rates, percents, ratios, and work. Part of the AFQT.</span></li>
+        <li><a href="asvab-word-knowledge.html">Word Knowledge</a><span>Vocabulary and synonyms. Part of the AFQT.</span></li>
+        <li><a href="asvab-paragraph-comprehension.html">Paragraph Comprehension</a><span>Main idea, inference, and detail questions. Part of the AFQT.</span></li>
+        <li><a href="asvab-mathematics-knowledge.html">Mathematics Knowledge</a><span>Algebra, geometry, and number sense. Part of the AFQT.</span></li>
+        <li><a href="asvab-general-science.html">General Science</a><span>Life, earth, and physical science.</span></li>
+        <li><a href="asvab-electronics-information.html">Electronics Information</a><span>Circuits, Ohm's law, and components.</span></li>
+        <li><a href="asvab-auto-and-shop.html">Auto and Shop</a><span>Vehicle systems, tools, and shop practices.</span></li>
+        <li><a href="asvab-mechanical-comprehension.html">Mechanical Comprehension</a><span>Levers, pulleys, gears, and forces.</span></li>
+      </ul>
+    </section>
   </main>
+
   <!-- site-footer (generated by scripts/sync-site-chrome.js; edit there) -->
   <footer class="site-footer">
     <div class="footer-cols">
@@ -185,7 +195,7 @@
           <li><a href="asvab-word-list.html">Vocabulary list</a></li>
           <li><a href="asvab-study-plan.html">Study plan</a></li>
           <li><a href="about.html">About the ASVAB</a></li>
-          <li><a href="resources.html">All free resources</a></li>
+          <li><a href="resources.html" aria-current="page">All free resources</a></li>
         </ul>
       </div>
       <div>
@@ -206,14 +216,10 @@
     <p class="copyright">&copy; <span id="year"></span> Mission ASVAB. For educational purposes only.</p>
   </footer>
   <!-- /site-footer -->
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.js" integrity="sha384-EjUdIVmzWliPzdzhxZ9ZoO0etXLKWuUPUftAGxP6qH6Lm4oLwoLaJR0Ba4pIDiDL" crossorigin="anonymous"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/page-register.js"></script>
-  <script src="js/offline-queue.js"></script>
-  <script src="js/sw-register.js"></script>
   <script src="js/year.js"></script>
   <script src="js/mobile-menu.js"></script>
   <script src="js/site-nav.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+  <script src="js/sw-register.js"></script>
 </body>
 </html>

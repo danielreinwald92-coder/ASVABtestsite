@@ -9,7 +9,7 @@ Mission ASVAB (https://www.missionasvab.org) helps military applicants prepare f
 - [ASVAB FAQ](https://www.missionasvab.org/faq.html): Straight answers on minimum scores by branch, retakes, calculators, test length, and the AFQT
 - [ASVAB Score Calculator](https://www.missionasvab.org/asvab-score-calculator.html): Enter standard scores from an ASVAB score report to get the AFQT percentile (official AR + MK + 2xVE formula and 1997 percentile table), AFQT category, and all 10 Army line scores
 - [ASVAB Scores Explained](https://www.missionasvab.org/asvab-scores.html): AFQT percentiles, standard scores, branch minimums, and Army line scores
-- [ASVAB Math Formula Sheet](https://www.missionasvab.org/asvab-math-formulas.html): The essential AR and MK formulas on one printable page
+- [ASVAB Math Formula Sheet](https://www.missionasvab.org/asvab-math-formulas.html): The essential AR and MK formulas on one printable sheet
 - [ASVAB Word Knowledge List](https://www.missionasvab.org/asvab-word-list.html): 120 vocabulary words with plain-language definitions
 - [ASVAB Study Plan](https://www.missionasvab.org/asvab-study-plan.html): Week-by-week 4-week and 8-week schedules from diagnostic to test day
 - [ASVAB Arithmetic Reasoning Guide](https://www.missionasvab.org/asvab-arithmetic-reasoning.html): What AR tests, CAT-ASVAB length and timing, full lessons with worked examples, and 10 practice questions with answers
@@ -20,7 +20,7 @@ Mission ASVAB (https://www.missionasvab.org) helps military applicants prepare f
 - [ASVAB Electronics Information Guide](https://www.missionasvab.org/asvab-electronics-information.html): What EI tests, CAT-ASVAB length and timing, full lessons with worked examples, and 10 practice questions with answers
 - [ASVAB Auto and Shop Information Guide](https://www.missionasvab.org/asvab-auto-and-shop.html): What AS tests, CAT-ASVAB length and timing, full lessons with worked examples, and 10 practice questions with answers
 - [ASVAB Mechanical Comprehension Guide](https://www.missionasvab.org/asvab-mechanical-comprehension.html): What MC tests, CAT-ASVAB length and timing, full lessons with worked examples, and 10 practice questions with answers
-- [About the ASVAB](https://www.missionasvab.org/about.html): What the test is, how scoring works, and how this site's practice estimates are built
+- [About the ASVAB](https://www.missionasvab.org/about.html): What the test is, how scoring works, the 8 sections, and line scores
 
 ## Practice
 

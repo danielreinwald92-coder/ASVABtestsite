@@ -95,7 +95,7 @@ function loadResults() {
   const greetingEl = document.querySelector('.greeting');
   if (greetingEl && !isTutor) {
     const headline = hasAFQT ? results.afqt : (results.score || 0);
-    if (headline < (hasAFQT ? 31 : 50)) greetingEl.textContent = 'Test complete,';
+    if (headline < (hasAFQT ? 31 : 50)) greetingEl.textContent = 'Keep going,';
   }
 
   // AFQT-based messaging only when we have a real AFQT estimate.
@@ -122,13 +122,13 @@ function loadResults() {
     }
   } else if (afqt >= 93) {
     message = "Outstanding Performance!";
-    description = "Based on this practice estimate, you're in the top tier and would likely qualify for virtually all military occupations. Only the official ASVAB counts. A recruiter can help you schedule it.";
+    description = "Based on this practice estimate, you're in the top tier and would likely qualify for virtually all military occupations. Only the official ASVAB counts, so this is a great time to schedule it.";
   } else if (afqt >= 65) {
     message = "Excellent Work!";
-    description = "This practice estimate puts you well above the minimum requirements. A score like this on the official test would open many career fields. A recruiter can help you explore your options.";
+    description = "This practice estimate puts you well above the minimum requirements. A score like this on the official test would open many career fields.";
   } else if (afqt >= 50) {
     message = "Great Job!";
-    description = "This practice estimate is above average and above the enlistment minimum. Keep it up. Only the official ASVAB determines eligibility. A recruiter can discuss which jobs match scores in this range.";
+    description = "This practice estimate is above average and above the enlistment minimum. Keep it up. Only the official ASVAB determines eligibility.";
   } else if (afqt >= 31) {
     message = "On Track to Qualify";
     description = "Based on this practice estimate, you'd likely meet the Army's minimum AFQT requirement of 31, but it's close, so keep practicing to build a safety margin. Only the official ASVAB determines eligibility.";
@@ -396,6 +396,13 @@ function renderAnswerReview(sectionResults) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       e.target.classList.add('active');
       renderFilteredQuestions(e.target.dataset.filter);
+      // Choosing a filter means they want to see the list.
+      const list = document.getElementById('reviewQuestionsList');
+      const toggle = document.getElementById('reviewToggleBtn');
+      if (list && !list.classList.contains('visible')) {
+        list.classList.add('visible');
+        if (toggle) toggle.textContent = 'Hide Answers ▲';
+      }
     });
   });
 
@@ -550,7 +557,7 @@ getSession().then(async session => {
     }
   } else {
     document.getElementById('signupBtn').style.display = 'inline-flex';
-    document.getElementById('signupBtn').textContent = 'Create Account for Future Progress';
+    document.getElementById('signupBtn').textContent = 'Save Progress with a Free Account';
     if (note) note.innerHTML = 'Saved on this browser. <a href="register.html">Create a free account</a> to build cross-device test and mission history.';
   }
 });

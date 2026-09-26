@@ -26,7 +26,8 @@ const SERVED_PAGES = [
   '/asvab-electronics-information.html',
   '/asvab-auto-and-shop.html',
   '/asvab-mechanical-comprehension.html',
-  '/asvab-score-calculator.html'
+  '/asvab-score-calculator.html',
+  '/resources.html'
 ];
 
 const SUPABASE_STUB = `
@@ -186,7 +187,7 @@ test('guest diagnostic finishes in 18 questions and yields a personalized missio
   await page.goto('/select-test.html');
   await page.getByLabel('Your Name').fill('New Student');
   await expect(page.locator('.test-type-card[data-type="diagnostic"]')).toHaveAttribute('aria-checked', 'true');
-  await expect(page.locator('#pickerSummary')).toContainText('18q · 20 min');
+  await expect(page.locator('#pickerSummary')).toContainText('18 questions in 4 sections, 20 minutes');
   await page.locator('#startBtn').click();
 
   await expect(page).toHaveURL(/test-intro\.html$/);

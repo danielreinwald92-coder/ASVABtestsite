@@ -99,3 +99,9 @@
     }, 30000);
   });
 })();
+
+// reset-password.html links here with #forgot when a reset link has expired.
+if (typeof location !== 'undefined' && location.hash === '#forgot') {
+  const forgot = document.getElementById('showForgotBtn');
+  if (forgot) forgot.click();
+}

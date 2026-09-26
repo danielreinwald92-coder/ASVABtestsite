@@ -41,7 +41,8 @@ const SERVED_PAGES = [
   'asvab-electronics-information.html',
   'asvab-auto-and-shop.html',
   'asvab-mechanical-comprehension.html',
-  'asvab-score-calculator.html'
+  'asvab-score-calculator.html',
+  'resources.html'
 ];
 
 // Script `type` values that are non-executable data blocks and therefore

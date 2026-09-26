@@ -215,9 +215,6 @@ nav {
   content: "→";
 }
 
-.footer-links { opacity: 0.85; }
-.footer-links a { color: var(--cream-200); text-decoration: underline; }
-.footer-links a:hover { color: var(--white); }
 
 @media (max-width: 700px) {
   .nav-links, .nav-cta {
@@ -247,6 +244,9 @@ nav {
 .guide-facts th { width: 55%; text-transform: none; letter-spacing: 0; font-size: 0.9rem; }
 .guide-toc { background: var(--white); border-radius: var(--r-md); padding: 1rem 1.5rem; box-shadow: var(--shadow-1); margin: 1rem 0 2rem; }
 .guide-toc ol { margin-left: 1.25rem; }
+.guide-toc li { padding: 0.25rem 0; }
+.guide-facts { margin-bottom: 1rem; }
+.guide-others a { display: inline-block; padding: 0.25rem 0; }
 .guide-toc a { color: var(--navy-700); font-weight: 600; }
 .guide-chapter { background: var(--white); border-radius: var(--r-lg); padding: 2rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-1); scroll-margin-top: 1rem; }
 .guide-chapter h3 { font-family: var(--font-display); font-size: 1.6rem; text-transform: uppercase; color: var(--navy-900); margin-bottom: 0.75rem; line-height: 1.15; }

@@ -82,6 +82,12 @@ function deriveTestType(orderedSections) {
       const on = selected.has(code);
       box.checked = on;
       row.classList.toggle('checked', on);
+      // Presets like the diagnostic use shorter sections; show their real size.
+      const info = (activePreset && on && typeof MissionASVABConfig.getSectionSettings === 'function')
+        ? (MissionASVABConfig.getSectionSettings(activePreset, code, QuizManager) || {})
+        : (QuizManager.getSectionInfo(code) || {});
+      const meta = row.querySelector('.picker-meta');
+      if (meta) meta.textContent = `${info.questionsPerTest || 0}q · ${Math.round((info.timeLimit || 0) / 60)}m`;
     });
     // Reflect selection on the preset cards.
     const ordered = orderSections(Array.from(selected));
@@ -101,6 +107,8 @@ function deriveTestType(orderedSections) {
       tutorEl.disabled = noTutor;
     }
     if (tutorLabel) tutorLabel.classList.toggle('disabled', noTutor);
+    const tutorNote = document.getElementById('tutorNote');
+    if (tutorNote) tutorNote.hidden = !noTutor;
     updateSummaryAndButton();
   }
 
@@ -116,12 +124,12 @@ function deriveTestType(orderedSections) {
       secs += info.timeLimit || 0;
     });
     const tutor = tutorEl && tutorEl.checked;
-    const timeStr = tutor ? 'untimed' : `${Math.ceil(secs / 60)} min`;
+    const timeStr = tutor ? 'untimed' : `${Math.ceil(secs / 60)} minutes`;
     const nameValid = nameInput.value.trim().length >= 2;
     summary.textContent = ordered.length
-      ? `Selected: ${ordered.length} section${ordered.length > 1 ? 's' : ''} · ${q}q · ${timeStr}` +
-        (nameValid ? '' : ' · enter your name above to start')
-      : 'Select at least one section to begin.';
+      ? `${q} questions in ${ordered.length} section${ordered.length > 1 ? 's' : ''}, ${timeStr}.` +
+        (nameValid ? '' : ' Enter your name above to start.')
+      : 'Choose a test type or at least one section to begin.';
     startBtn.disabled = !nameValid || ordered.length === 0;
     const presetConfig = activePreset && typeof MissionASVABConfig.getTestConfig === 'function'
       ? MissionASVABConfig.getTestConfig(activePreset) : null;

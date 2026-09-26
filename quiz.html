@@ -165,7 +165,12 @@
     .quiz-main {
       max-width: 900px;
       margin: 0 auto;
-      padding: 3rem 2rem;
+      padding: 1.75rem 2rem 3rem;
+    }
+    .nav-btn-prev.is-hidden { visibility: hidden; }
+    /* Keyboard hints are noise on touch screens. */
+    @media (hover: none) {
+      .answers-hint, .keyboard-hint { display: none; }
     }
 
     .question-card {
@@ -506,6 +511,7 @@
         font-size: 1rem;
       }
       .nav-btn-prev { order: 2; }
+      .nav-btn-prev.is-hidden { display: none; }
       .nav-btn-next { order: 1; }
       .flag-btn { order: 3; width: 100%; justify-content: center; }
 
@@ -649,7 +655,7 @@
   <main class="quiz-main">
     <div class="question-card">
       <div class="question-number" id="questionNumber">Question 1</div>
-      <h2 class="question-text" id="questionText">Loading question...</h2>
+      <h2 class="question-text" id="questionText">Loading question…</h2>
       <div class="answers-container" id="answersContainer">
         <div class="skeleton-option" aria-hidden="true"></div>
         <div class="skeleton-option" aria-hidden="true"></div>
@@ -662,7 +668,7 @@
     </div>
 
     <div class="quiz-nav">
-      <button class="nav-btn nav-btn-prev" id="prevBtn">Previous</button>
+      <button class="nav-btn nav-btn-prev is-hidden" id="prevBtn">Previous</button>
       <button class="flag-btn" id="flagBtn">
         <span aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M4 21V4"/><path d="M4 4h12l-2 4 2 4H4"/></svg></span> Flag for Review
       </button>

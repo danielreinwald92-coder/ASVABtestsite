@@ -156,7 +156,7 @@ function renderMotivation(results, profile) {
       countdownCard.textContent = 'Your ASVAB is today, you’ve got this';
       countdownCard.hidden = false;
     } else {
-      countdownCard.textContent = 'Your test date has passed, update it in Account';
+      countdownCard.textContent = 'Your test date has passed. Update it in Account.';
       countdownCard.hidden = false;
     }
   }
@@ -170,7 +170,7 @@ function renderMotivation(results, profile) {
   if (typeof MissionASVABStudyPlan !== 'undefined') {
     let weakCodes = [];
     if (typeof MissionASVABWeakAreas !== 'undefined') {
-      weakCodes = MissionASVABWeakAreas.weakestSections(results, 2).map((w) => w.code);
+      weakCodes = MissionASVABWeakAreas.weakestSections(results, 2, { sections: AFQT_SECTIONS }).map((w) => w.code);
     }
     const plan = MissionASVABStudyPlan.buildStudyPlan({ daysRemaining: days, weakSections: weakCodes });
     const container = document.getElementById('studyPlanContainer');
@@ -395,8 +395,8 @@ function renderProgressChart(results) {
 }
 
 const SECTION_NAMES = {
-  AR: 'Arithmetic Reasoning', MK: 'Math Knowledge', WK: 'Word Knowledge', PC: 'Paragraph Comprehension',
-  GS: 'General Science', AS: 'Auto & Shop', MC: 'Mechanical Comprehension', EI: 'Electronics Information',
+  AR: 'Arithmetic Reasoning', MK: 'Mathematics Knowledge', WK: 'Word Knowledge', PC: 'Paragraph Comprehension',
+  GS: 'General Science', AS: 'Auto & Shop Information', MC: 'Mechanical Comprehension', EI: 'Electronics Information',
 };
 const AFQT_SECTIONS = ['AR', 'MK', 'WK', 'PC'];
 // Full-test order for history detail rows — a user who took the full 8-section
@@ -448,7 +448,7 @@ function renderSectionBreakdown(results) {
       <div class="section-card">
         <div class="section-card-name">${SECTION_NAMES[code]}</div>
         <div class="section-card-score" style="color: ${bandColors[band]}">${score}%</div>
-        <div class="section-card-trend" style="color: ${trendColor}">${trendArrow || 'N/A'}</div>
+        <div class="section-card-trend" style="color: ${trendColor}">${trendArrow || 'First test'}</div>
       </div>
     `;
   }).join('');
@@ -667,7 +667,7 @@ function renderTestHistory(results) {
     return `
       <tr class="history-row" data-idx="${globalIdx}">
         <td>${formatDate(r.taken_at)}</td>
-        <td>${r.test_type === 'diagnostic' ? 'Starting-Point Diagnostic' : ((r.mode === 'tutor') ? 'Practice' : (r.test_type === 'full' ? 'Full Assessment' : (r.test_type === 'apt' ? 'AFQT Predictor' : 'AFQT')))}</td>
+        <td>${r.test_type === 'diagnostic' ? '20-Minute Diagnostic' : ((r.mode === 'tutor') ? 'Tutor Practice' : (r.test_type === 'full' ? 'Full ASVAB' : (r.test_type === 'apt' ? 'AFQT Predictor' : (r.test_type === 'afqt' || r.test_type === 'quick' ? 'AFQT Practice' : 'Section Practice'))))}</td>
         <td>${r.afqt_score !== null ? ordinal(r.afqt_score) + ' percentile' : 'N/A'}</td>
         <td><button class="expand-btn" data-idx="${globalIdx}" aria-expanded="false" aria-label="Show section scores for this test">▾</button></td>
       </tr>

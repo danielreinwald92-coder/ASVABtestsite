@@ -14,6 +14,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const { syncPage } = require('./sync-site-chrome.js');
 
 const root = path.resolve(__dirname, '..');
 const read = (p) => fs.readFileSync(path.join(root, p), 'utf8');
@@ -105,7 +106,7 @@ const SECTION_COPY = {
   },
   AS: {
     slug: 'auto-and-shop',
-    what: 'Auto and Shop Information (AS) covers how vehicle systems work (engine, fuel, cooling, brakes, electrical) and the correct use of common tools, fasteners, and shop practices. The real CAT-ASVAB splits this into separate Auto and Shop subtests. Mission ASVAB practices them as one combined section.',
+    what: 'Auto and Shop Information (AS) covers how vehicle systems work (engine, fuel, cooling, brakes, electrical) and the correct use of common tools, fasteners, and shop practices. The real CAT-ASVAB splits this into separate Auto and Shop subtests. Mission ASVAB practices them as one combined section using the Auto Information limits (10 questions, 7 minutes); the real Shop Information subtest adds 10 more questions in 6 minutes.',
     usedFor: 'AS is not part of the AFQT, but it feeds the Army CO, GM, MM, OF, and SC line scores.',
     tips: [
       'Learn the four-stroke cycle in order: intake, compression, power, exhaust.',
@@ -197,7 +198,7 @@ function renderQuestion(q, n, explanations) {
       </div>`;
 }
 
-function page(code, data, template) {
+function page(code, data) {
   const copy = SECTION_COPY[code];
   const info = data.sections[code];
   const course = data.courses[code];
@@ -256,7 +257,9 @@ function page(code, data, template) {
   </script>
 </head>
 <body>
-${template.nav}
+  <!-- site-nav -->
+  <!-- /site-nav -->
+
   <header class="hero">
     <p class="hero-eyebrow">SECTION GUIDE - ${esc(code)}</p>
     <h1>ASVAB ${esc(info.name)}</h1>
@@ -286,7 +289,7 @@ ${template.nav}
 
     <section class="section">
       <h2>${esc(info.name)} Lessons</h2>
-      <p>${esc(course.description || '')} Each lesson below is also in the interactive <a href="study-guide.html">study guide</a>, where you can take a quiz to check yourself.</p>
+      <p>${esc(String(course.description || '').replace(/([^.!?])$/, '$1.'))} Each lesson below is also in the interactive <a href="study-guide.html">study guide</a>, where you can take a quiz to check yourself.</p>
       <nav class="guide-toc" aria-label="Lessons">
         <ol>
           ${course.chapters.map((ch) => `<li><a href="#${esc(ch.id)}">${esc(ch.title)}</a></li>`).join('\n          ')}
@@ -308,25 +311,24 @@ ${template.nav}
     <p class="guide-others">Other section guides: ${others}</p>
   </main>
 
-${template.footer}`;
-}
-
-function extractTemplate() {
-  const src = read('asvab-word-list.html');
-  const bodyStart = src.indexOf('<body>') + '<body>'.length;
-  const heroStart = src.indexOf('  <header class="hero">');
-  const footerStart = src.indexOf('  <footer');
-  if (bodyStart < 6 || heroStart < 0 || footerStart < 0) throw new Error('template markers not found in asvab-word-list.html');
-  return {
-    nav: src.slice(bodyStart, heroStart).replace(/^\n/, '').replace(/\s+$/, '\n'),
-    footer: src.slice(footerStart),
-  };
+  <!-- site-footer -->
+  <!-- /site-footer -->
+  <script src="js/year.js"></script>
+  <script src="js/mobile-menu.js"></script>
+  <script src="js/site-nav.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+  <script src="js/sw-register.js"></script>
+</body>
+</html>
+`;
 }
 
 function build() {
   const data = loadData();
-  const template = extractTemplate();
-  return ORDER.map((code) => ({ file: `asvab-${SECTION_COPY[code].slug}.html`, html: page(code, data, template) }));
+  return ORDER.map((code) => {
+    const file = `asvab-${SECTION_COPY[code].slug}.html`;
+    return { file, html: syncPage(file, page(code, data)) };
+  });
 }
 
 module.exports = { build, SECTION_COPY, ORDER, pickSamples };

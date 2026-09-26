@@ -531,8 +531,16 @@ class QuizEngine {
   // Hide timer UI and relabel for tutor mode. Uses optional chaining because
   // these elements may be absent in tests.
   applyTutorChrome() {
+    // Keep the timer slot (so the header layout holds) but say "Untimed".
     const timer = document.querySelector && document.querySelector('.quiz-timer');
-    if (timer) timer.style.display = 'none';
+    if (timer) {
+      timer.removeAttribute('role');
+      timer.setAttribute('aria-label', 'Untimed practice');
+      const icon = timer.querySelector('.timer-icon');
+      if (icon) icon.style.display = 'none';
+    }
+    const display = document.getElementById && document.getElementById('timerDisplay');
+    if (display) display.textContent = 'Untimed';
     const title = document.querySelector && document.querySelector('.quiz-title');
     if (title) title.textContent = 'Tutor Mode: Untimed Practice';
   }
@@ -554,6 +562,7 @@ class QuizEngine {
   }
 
   updateTimerDisplay() {
+    if (this.mode === 'tutor') return; // header shows "Untimed" (applyTutorChrome)
     const remaining = Math.max(0, this.isSectioned() ? this.sectionTimeRemaining : this.timeRemaining);
     const minutes = Math.floor(remaining / 60);
     const seconds = remaining % 60;
@@ -657,7 +666,7 @@ class QuizEngine {
         const explanation = (this.explanations && this.explanations[question.originalId]) || '';
         feedback.className = 'tutor-feedback ' + (correct ? 'is-correct' : 'is-incorrect');
         feedback.innerHTML = `
-          <div class="tutor-verdict">${correct ? '✓ Correct' : '✗ Not quite'}</div>
+          <div class="tutor-verdict">${correct ? 'Correct' : `Not quite. The correct answer is ${letters[question.correct]}.`}</div>
           ${explanation ? `<p class="tutor-explanation">${explanation}</p>` : ''}
         `;
         feedback.hidden = false;
@@ -697,19 +706,28 @@ class QuizEngine {
       const atFloor = this.isSectioned()
         ? this.currentQuestion === this.getActiveRange().start
         : this.currentQuestion === 0;
-      prevBtn.style.visibility = (atFloor || this.isCatMode()) ? 'hidden' : 'visible';
+      const hidePrev = atFloor || this.isCatMode();
+      prevBtn.style.visibility = hidePrev ? 'hidden' : 'visible';
+      // Mobile stacks the nav buttons; the class lets CSS drop the empty slot.
+      if (prevBtn.classList && prevBtn.classList.toggle) prevBtn.classList.toggle('is-hidden', hidePrev);
     }
 
     const nextBtn = document.getElementById('nextBtn');
     if (nextBtn) {
+      const endsSection = this.isSectioned() && this.sectionRanges.length > 1 &&
+        this.currentQuestion === this.getActiveRange().end - 1;
       if (this.currentQuestion === totalQuestions - 1) {
-        nextBtn.textContent = 'Review & Submit';
+        nextBtn.textContent = 'Submit Test';
         nextBtn.classList.add('submit');
       } else {
-        nextBtn.innerHTML = 'Next Question';
+        nextBtn.textContent = endsSection ? 'Finish Section' : 'Next Question';
         nextBtn.classList.remove('submit');
       }
     }
+
+    // The Flagged legend entry only applies where flagging exists.
+    const flagLegend = document.querySelector && document.querySelector('.legend-dot.flagged-dot');
+    if (flagLegend && flagLegend.parentElement) flagLegend.parentElement.style.display = this.isCatMode() ? 'none' : '';
 
     // Update navigator
     this.updateNavigator();
@@ -787,6 +805,8 @@ class QuizEngine {
   }
 
   toggleFlag() {
+    // No flagging in CAT modes: navigation is forward-only (the button is hidden too).
+    if (this.isCatMode()) return;
     const question = this.quizData.questions[this.currentQuestion];
     if (this.flagged.has(question.id)) {
       this.flagged.delete(question.id);
@@ -904,11 +924,11 @@ class QuizEngine {
       // matching results.html copy in page-results.js's formatUnansweredNote
       // for the same distinction.
       message += this.appliesGuessPenalty()
-        ? `\n\n⚠️ ${subject} answered. Your score will be adjusted as if ${unanswered > 1 ? 'they were' : 'it was'} a random guess.`
-        : `\n\n⚠️ ${subject} answered. ${unanswered > 1 ? 'They' : 'It'} will get no credit.`;
+        ? `\n\n${subject} answered. Your score will be adjusted as if ${unanswered > 1 ? 'they were' : 'it was'} a random guess.`
+        : `\n\n${subject} answered. ${unanswered > 1 ? 'They' : 'It'} will get no credit.`;
     }
     if (flaggedCount > 0 && !this.isSectioned()) {
-      message += `\n\n🚩 You have ${flaggedCount} flagged question${flaggedCount > 1 ? 's' : ''} for review. Cancel to go back to them.`;
+      message += `\n\nYou have ${flaggedCount} flagged question${flaggedCount > 1 ? 's' : ''} for review. Cancel to go back to them.`;
     }
 
     if (confirm(message)) {

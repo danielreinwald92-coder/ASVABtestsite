@@ -22,7 +22,7 @@
     CODES.forEach((code) => {
       const el = form.elements[code];
       const raw = el ? el.value.trim() : '';
-      inputs[code] = raw === '' ? NaN : Number(raw);
+      inputs[code] = raw === '' ? NaN : Math.round(Number(raw));
     });
     return inputs;
   }
@@ -38,7 +38,7 @@
     let html = '<div class="calc-headline">' +
       '<div class="calc-stat"><span class="v">' + pct + '</span><span class="l">AFQT percentile</span></div>' +
       '<div class="calc-stat"><span class="v">' + C.afqtCategory(pct) + '</span><span class="l">AFQT category</span></div>' +
-      '<div class="calc-stat"><span class="v">' + result.afqts + '</span><span class="l">AFQT raw score (AR + MK + 2 x VE ' + result.ve + ')</span></div>' +
+      '<div class="calc-stat"><span class="v">' + result.afqts + '</span><span class="l">AFQT raw score (AR + MK + 2 × VE, with VE = ' + result.ve + ')</span></div>' +
       '</div>';
     if (result.lineScores) {
       html += '<table class="score-table"><thead><tr><th>Line score</th><th>Score</th></tr></thead><tbody>' +
