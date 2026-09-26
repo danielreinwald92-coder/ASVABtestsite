@@ -79,3 +79,13 @@ test('a completed local mission cannot regress when reopened for review', async 
   assert.strictEqual(api.getLocalMission('mission-1').status, 'completed');
   assert.strictEqual(api.getLocalMission('mission-1').completedAt, '2026-07-19T13:00:00.000Z');
 });
+
+test('current mission lookup does not reuse an older result mission for a new result', () => {
+  const { api } = load();
+  api.saveLocalMission(mission());
+  assert.strictEqual(api.getCurrentLocalMission('result-2'), null,
+    'a new result with no saved mission must get a fresh one, not result-1\'s mission');
+  assert.strictEqual(api.getCurrentLocalMission('result-1').clientId, 'mission-1');
+  assert.strictEqual(api.getCurrentLocalMission(null).clientId, 'mission-1',
+    'legacy results without a client id still fall back to the latest mission');
+});

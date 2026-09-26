@@ -166,6 +166,5 @@ test('guest diagnostic finishes in 18 questions and yields a personalized missio
   await expect(page.locator('#afqtPercentile')).toContainText('not an AFQT percentile');
   await expect(page.locator('#missionPanel')).toBeVisible();
   await expect(page.locator('#missionStartBtn')).toHaveAttribute('href', /study-guide\.html\?section=/);
-  await expect(page.locator('.recruiter-section')).toBeHidden();
   expect(errors).toEqual([]);
 });

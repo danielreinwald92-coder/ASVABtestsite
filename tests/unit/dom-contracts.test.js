@@ -43,20 +43,10 @@ test('results.html exposes AFQT score elements', () => {
   assertIds(document, 'results.html', ['afqtScore', 'afqtLabel', 'afqtPercentile']);
 });
 
-test('results.html recruiter form has required fields and consent checkbox', () => {
+test('results.html no longer ships a recruiter contact form', () => {
   const {document} = loadDom('results.html');
-  for (const fieldName of ['name', 'email', 'phone', 'message']) {
-    assert.ok(
-      document.querySelector(`[name="${fieldName}"]`) !== null,
-      `results.html: missing recruiter field [name="${fieldName}"]`,
-    );
-  }
-  const consent = document.querySelector('input[type="checkbox"][name="consent"]');
-  assert.ok(consent !== null, 'results.html: missing consent checkbox');
-  assert.ok(
-    consent.hasAttribute('required'),
-    'results.html: consent checkbox must be required',
-  );
+  assert.strictEqual(document.querySelector('.recruiter-section'), null);
+  assert.strictEqual(document.querySelector('input[name="phone"]'), null);
 });
 
 test('register.html exposes the IDs its inline script references', () => {

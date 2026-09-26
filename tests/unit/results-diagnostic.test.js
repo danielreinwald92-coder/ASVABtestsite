@@ -49,5 +49,4 @@ test('diagnostic results render independent-practice copy and a visible mission'
   assert.match(document.getElementById('afqtPercentile').textContent, /not an AFQT percentile/i);
   assert.strictEqual(document.getElementById('scoreMessage').textContent, 'Your Starting Point Is Ready');
   assert.strictEqual(document.getElementById('missionPanel').style.display, 'block');
-  assert.strictEqual(document.querySelector('.recruiter-section').style.display, 'none');
 });

@@ -49,9 +49,10 @@
 
   function getCurrentLocalMission(sourceResultClientId) {
     const all = loadLocalMissions();
+    // A keyed result only matches its own mission; falling back to the latest
+    // one here would show an older test's mission for every new result.
     if (sourceResultClientId) {
-      const match = all.find((m) => m.sourceResultClientId === sourceResultClientId);
-      if (match) return match;
+      return all.find((m) => m.sourceResultClientId === sourceResultClientId) || null;
     }
     return all[0] || null;
   }

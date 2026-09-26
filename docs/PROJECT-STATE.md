@@ -1,6 +1,6 @@
 # Mission ASVAB — Current Project State
 
-Last verified: September 5, 2026
+Last verified: September 26, 2026
 
 This is the compact handoff index for a new development session. Read `AGENTS.md` or
 `CLAUDE.md` first for binding rules, then use this file to locate current implementation
@@ -22,6 +22,10 @@ features were built; unchecked boxes there are not the current work queue.
 - Product polish (Sep 6, 2026): vocab flashcard deck extended 30 -> 131 cards (append-only, SR
   state keyed by word so existing progress survives), llms.txt added for AI-assistant visibility,
   quiz payload preloaded on quiz.html and prefetched from select-test/test-intro.
+- Indexing: app pages (quiz, results, dashboard, auth, admin, test-intro) send
+  `X-Robots-Tag: noindex, follow` from `vercel.json` and are deliberately NOT disallowed in
+  robots.txt (a Disallow would hide the header). The SEO contract test derives the sitemap's
+  expected page set from that header rule.
 - Guest practice works without an account. Every completed test produces a deterministic Today’s
   Mission that opens a real study chapter and checkpoint. Supabase adds saved test/mission history,
   profiles, reports, cross-device mission status, and guarded admin operations.
@@ -47,7 +51,7 @@ features were built; unchecked boxes there are not the current work queue.
 ## Verification Baseline
 
 - `npm test` — 279 node:test/jsdom checks (includes the tests/unit/seo-pages.test.js contract: every root page must join the inline-JS gate, e2e smoke list, sitemap, and share-metadata standard).
-- `npm run test:e2e` — Chromium checks all 12 pages under the production Vercel headers,
+- `npm run test:e2e` — Chromium checks all 17 pages under the production Vercel headers,
   then completes both a 55-question guest AFQT flow and the 18-question guest diagnostic/mission flow.
 - `node scripts/validate-site.js` — question pools, explanations, course shapes, diagnostic blueprint,
   mission catalog targets, and scoring.
@@ -77,8 +81,9 @@ features were built; unchecked boxes there are not the current work queue.
 
 1. New personalized-mission schema changes are version-controlled under `supabase/migrations/`,
    but the older Supabase baseline, grants, policies, and RPC definitions still need a repository export.
-2. Perform a dedicated privacy/operations review of recruiter lead collection and its Google
-   Apps Script destination before materially increasing traffic.
+2. The recruiter contact form (and its Google Apps Script lead endpoint) was removed on
+   Sep 26, 2026 by owner decision; the CSP no longer allows script.google.com. Do not re-add
+   lead collection without a privacy policy, contact method, and minor-age handling.
 3. Account-synced flashcard progress and reminders remain intentionally deferred because they
    require new writable data surfaces and RLS design.
 4. Large static question/course bundles are a future performance-splitting opportunity; keep

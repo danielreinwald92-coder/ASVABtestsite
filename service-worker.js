@@ -7,7 +7,7 @@
  *   - ONLY handles same-origin GET requests
  *   - network-first for navigations (HTML), cache-first for static assets
  *   - NEVER touches cross-origin requests (Supabase *.supabase.co, jsDelivr,
- *     Google Fonts, script.google.com, Vercel insights) — they pass straight
+ *     Google Fonts, Vercel insights) — they pass straight
  *     through to the network
  *   - NEVER caches/serves admin.html offline
  *   - NEVER touches non-GET requests (e.g. Supabase inserts)
@@ -18,7 +18,7 @@
 // RELEASE STEP: bump on every deploy that changes an existing JS file —
 // subresources are cache-first, so without a bump the first post-deploy load
 // runs fresh HTML against stale cached JS.
-const CACHE_VERSION = 'mission-asvab-v10';
+const CACHE_VERSION = 'mission-asvab-v11';
 
 // Small, maintainable core of STATIC same-origin assets that make up the app
 // shell. Admin assets are intentionally excluded.

@@ -27,14 +27,37 @@ test('every served root page is covered by the e2e smoke list', () => {
   for (const page of rootPages) assert.ok(listed.includes(page), `${page} in e2e list`);
 });
 
+// Pages served with an X-Robots-Tag: noindex header (vercel.json).
+function noindexPages() {
+  const cfg = JSON.parse(read('vercel.json'));
+  const rules = cfg.headers.filter((h) =>
+    h.headers.some((x) => x.key === 'X-Robots-Tag' && /noindex/.test(x.value)));
+  return rootPages.filter((p) => rules.some((r) => new RegExp('^' + r.source + '$').test('/' + p)));
+}
+
+test('app pages are noindexed by header and not blocked in robots.txt', () => {
+  const noindex = noindexPages();
+  for (const p of ['quiz.html', 'results.html', 'dashboard.html', 'login.html', 'register.html',
+    'reset-password.html', 'admin.html', 'test-intro.html']) {
+    assert.ok(noindex.includes(p), `${p} has a noindex header`);
+  }
+  const robots = read('robots.txt');
+  for (const p of noindex) {
+    assert.ok(!new RegExp('^Disallow:\\s*/' + p.replace('.', '\\.'), 'm').test(robots),
+      `${p} must stay crawlable so its noindex header is seen`);
+  }
+});
+
 test('sitemap covers exactly the indexable pages and every URL resolves', () => {
   const sitemap = read('sitemap.xml');
-  const robots = read('robots.txt');
-  const disallowed = [...robots.matchAll(/^Disallow:\s*\/(\S+)/gm)].map((m) => m[1]);
+  const noindex = noindexPages();
   const urls = [...sitemap.matchAll(/<loc>https:\/\/www\.missionasvab\.org\/([^<]*)<\/loc>/g)]
     .map((m) => m[1] === '' ? 'index.html' : m[1]);
-  for (const u of urls) assert.ok(fs.existsSync(path.join(root, u)), `${u} exists`);
-  const indexable = rootPages.filter((p) => !disallowed.includes(p));
+  for (const u of urls) {
+    assert.ok(fs.existsSync(path.join(root, u)), `${u} exists`);
+    assert.ok(!noindex.includes(u), `${u} is noindex and must not be in the sitemap`);
+  }
+  const indexable = rootPages.filter((p) => !noindex.includes(p));
   for (const p of indexable) assert.ok(urls.includes(p), `${p} in sitemap`);
 });
 

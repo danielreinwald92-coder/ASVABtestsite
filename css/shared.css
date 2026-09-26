@@ -37,9 +37,9 @@
   --text-primary: #0a1628;
   --text-secondary: #4a5568;
   /* Status colors */
-  --success: #2d8a6e;
+  --success: #247258;
   --success-light: #e8f5f0;
-  --error: #c53030;
+  --error: #b42323;
   --error-light: #fef2f2;
   --warning: #b45309;
   --warning-light: #fef3c7;
@@ -47,6 +47,9 @@
   --green-100: #dcfce7;
   --red-500: #ef4444;
   --red-100: #fee2e2;
+  /* Text-safe variants: green-500/red-500 are for fills; these pass AA on white and the -100 tints. */
+  --green-text: #15803d;
+  --red-text: #b91c1c;
 
   /* Type roles */
   --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;

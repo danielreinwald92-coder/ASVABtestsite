@@ -72,3 +72,15 @@ test('retry drains the queue via flushPendingTestResults and hides the banner', 
   assert.strictEqual(flushCalls, 1);
   assert.strictEqual(sandbox._els.saveStatusBanner.style.display, 'none');
 });
+
+test('banner clears itself when the background auto-flush drains the queue', () => {
+  const store = { pendingTestResults: JSON.stringify([{ payload: { user_id: 'u1' }, queuedAt: 'x' }]) };
+  const listeners = {};
+  const sandboxSrc = makeSandbox(store);
+  // Re-run with a window that records listeners.
+  sandboxSrc.window = { addEventListener: (type, fn) => { listeners[type] = fn; } };
+  sandboxSrc.__check();
+  assert.strictEqual(sandboxSrc._els.saveStatusBanner.style.display, 'block');
+  listeners['missionasvab:queue-flushed']({ detail: { flushed: 1, remaining: 0 } });
+  assert.strictEqual(sandboxSrc._els.saveStatusBanner.style.display, 'none');
+});

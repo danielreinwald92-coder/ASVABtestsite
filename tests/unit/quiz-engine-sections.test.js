@@ -133,7 +133,7 @@ test('advanceSection on the final section submits', () => {
   assert.strictEqual(submitted, true);
 });
 
-test('early manual advance drops the unused section time from the total', () => {
+test('early manual advance keeps the total clock at real elapsed time', () => {
   const { engine } = sectionedEngine();
   engine.buildSectionRanges();
   engine.activeSectionIndex = 0;
@@ -141,7 +141,9 @@ test('early manual advance drops the unused section time from the total', () => 
   engine.timeRemaining = 90;
   engine.renderQuestion = () => {}; engine.renderNavigator = () => {}; engine.updateSectionHeader = () => {}; engine.startTimer = () => {};
   engine.advanceSection();
-  assert.strictEqual(engine.timeRemaining, 65, '90 - 25 unused');
+  // The total clock already ticked down for time actually spent; unused
+  // section time must not be counted as used (timeUsed = limit - remaining).
+  assert.strictEqual(engine.timeRemaining, 90);
 });
 
 test('nextQuestion advances to the next section at a section boundary', () => {

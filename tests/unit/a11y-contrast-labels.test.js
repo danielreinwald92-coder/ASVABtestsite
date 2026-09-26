@@ -64,3 +64,17 @@ test('admin sortable headers expose aria-sort', () => {
   const joined = document.querySelector('#adminTableHead th[data-sort="created_at"]');
   assert.strictEqual(joined.getAttribute('aria-sort'), 'descending');
 });
+
+test('status text colors reach WCAG AA on white and their light tints', () => {
+  const white = cssVar('white');
+  const pairs = [
+    ['success', 'success-light'], ['error', 'error-light'],
+    ['green-text', 'green-100'], ['red-text', 'red-100'],
+  ];
+  for (const [fg, bg] of pairs) {
+    for (const [bgName, bgHex] of [[bg, cssVar(bg)], ['white', white]]) {
+      const ratio = contrast(cssVar(fg), bgHex);
+      assert.ok(ratio >= 4.5, `--${fg} on ${bgName} is ${ratio.toFixed(2)}:1, need >=4.5`);
+    }
+  }
+});

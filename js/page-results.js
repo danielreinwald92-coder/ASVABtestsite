@@ -15,7 +15,6 @@ function showEmptyResultsState(title, detail) {
   hide(document.getElementById('userName'));
   hide(document.querySelector('.afqt-section'));
   hide(document.querySelector('.stats-row'));
-  hide(document.querySelector('.recruiter-section'));
   const msg = document.getElementById('scoreMessage');
   if (msg) msg.textContent = title;
   const desc = document.getElementById('scoreDescription');
@@ -139,17 +138,6 @@ function loadResults() {
 
   document.getElementById('scoreMessage').textContent = message;
   document.getElementById('scoreDescription').textContent = description;
-
-  if (isDiagnostic) {
-    const recruiter = document.querySelector('.recruiter-section');
-    if (recruiter) recruiter.style.display = 'none';
-  }
-
-  // Update recruiter section messaging only when we have a real AFQT estimate
-  if (hasAFQT && afqt >= 31) {
-    document.querySelector('.recruiter-content h3').textContent = "Ready to Take the Next Step?";
-    document.querySelector('.recruiter-content p').textContent = "Connect with a recruiter to schedule your official ASVAB and discuss career opportunities that match your score.";
-  }
 
   // Render section breakdown
   renderSectionBreakdown(results.sectionResults);
@@ -573,6 +561,16 @@ function checkPendingResultSync() {
   if (localStorage.getItem('pendingTestResult')) count += 1;
   if (count === 0) return;
 
+  // offline-queue.js also auto-flushes on load/online; clear the banner when
+  // that background flush drains the queue instead of waiting for a click.
+  if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+    window.addEventListener('missionasvab:queue-flushed', (e) => {
+      if (e && e.detail && e.detail.remaining === 0) {
+        document.getElementById('saveStatusBanner').style.display = 'none';
+      }
+    });
+  }
+
   showSaveBanner(count === 1
     ? 'Your results could not be saved to your account. Click retry to try again.'
     : `${count} test results could not be saved to your account. Click retry to try again.`);
@@ -599,77 +597,6 @@ function checkPendingResultSync() {
 function showSaveBanner(text) {
   document.getElementById('saveStatusText').textContent = text;
   document.getElementById('saveStatusBanner').style.display = 'block';
-}
-
-function toggleRecruiterForm() {
-  const form = document.getElementById('recruiterForm');
-  const btn = document.querySelector('.recruiter-toggle');
-  if (form.style.display === 'none') {
-    form.style.display = 'block';
-    btn.textContent = 'Hide Form';
-  } else {
-    form.style.display = 'none';
-    btn.textContent = 'Connect with a Recruiter';
-  }
-}
-
-function submitRecruiterRequest(e) {
-  e.preventDefault();
-  const form = e.target;
-  const btn = form.querySelector('.form-submit');
-
-  // Honeypot: real users never fill the hidden "company" field. If it's
-  // populated, silently pretend success and send nothing.
-  const honeypot = form.elements.company ? form.elements.company.value : '';
-  if (honeypot) {
-    form.reset();
-    document.getElementById('recruiterForm').style.display = 'none';
-    document.querySelector('.recruiter-toggle').textContent = 'Connect with a Recruiter';
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = 'Submitting...';
-
-  let results = {};
-  try { results = JSON.parse(localStorage.getItem('quizResults')) || {}; } catch (_) { results = {}; }
-  const consentEl = form.querySelector('.consent-label');
-  const data = {
-    name: form.elements.name.value,
-    email: form.elements.email.value,
-    phone: form.elements.phone.value,
-    message: form.elements.message.value,
-    source: 'results',
-    practiceScore: results.afqt || null,
-    consentText: consentEl ? consentEl.textContent.trim().replace(/\s+/g, ' ') : '',
-    consentTimestamp: new Date().toISOString()
-  };
-
-  // The endpoint is a CORS-opaque Apps Script /exec (returns a 302 we can't
-  // read), so this is intentionally fire-and-forget — we never inspect the
-  // response. An AbortController gives us a real failure path for timeouts.
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10000);
-
-  fetch('https://script.google.com/macros/s/AKfycbxsUDFUQYOTvbSsbXEfdZxz_1-kp8iA1yM24alVMwEZVo8jJsla_-lPgZUccSEqYBH2ow/exec', {
-    method: 'POST',
-    body: JSON.stringify(data),
-    signal: controller.signal
-  })
-  .then(() => {
-    alert('Thank you! A recruiter will contact you soon to discuss your score and options.');
-    form.reset();
-    document.getElementById('recruiterForm').style.display = 'none';
-    document.querySelector('.recruiter-toggle').textContent = 'Connect with a Recruiter';
-  })
-  .catch(() => {
-    alert('Something went wrong. Please try again.');
-  })
-  .finally(() => {
-    clearTimeout(timeout);
-    btn.disabled = false;
-    btn.textContent = 'Submit Request';
-  });
 }
 
 // ---------------------------------------------------------------------------
@@ -815,10 +742,6 @@ function setupShareResult(results, hasAFQT, isTutor) {
 (function wireResultsControls() {
   const reviewToggleBtn = document.getElementById('reviewToggleBtn');
   if (reviewToggleBtn) reviewToggleBtn.addEventListener('click', toggleAnswerReview);
-  const recruiterToggle = document.querySelector('.recruiter-toggle');
-  if (recruiterToggle) recruiterToggle.addEventListener('click', toggleRecruiterForm);
-  const recruiterForm = document.querySelector('.recruiter-form');
-  if (recruiterForm) recruiterForm.addEventListener('submit', submitRecruiterRequest);
   // 4.3 — delegated report controls (rendered into the review list dynamically).
   const reviewList = document.getElementById('reviewQuestionsList');
   if (reviewList) reviewList.addEventListener('click', onReportListClick);

@@ -1,11 +1,8 @@
 User-agent: *
-Disallow: /admin.html
-Disallow: /login.html
-Disallow: /register.html
-Disallow: /reset-password.html
-Disallow: /dashboard.html
-Disallow: /quiz.html
-Disallow: /results.html
 Disallow: /preview-
+
+# App pages (quiz, results, dashboard, auth, admin, test intro) stay crawlable
+# so search engines can see their X-Robots-Tag: noindex header (vercel.json).
+# A Disallow here would hide that header and let the bare URLs get indexed.
 
 Sitemap: https://www.missionasvab.org/sitemap.xml

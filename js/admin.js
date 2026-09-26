@@ -261,8 +261,8 @@ function openUserModal(userId, triggerEl) {
 
     <div class="modal-stats">
       <div class="modal-stat"><div class="v">${user.testCount}</div><div class="l">Tests Taken</div></div>
-      <div class="modal-stat"><div class="v">${user.bestAfqt !== null ? user.bestAfqt : 'N/A'}</div><div class="l">Best AFQT %ile</div></div>
-      <div class="modal-stat"><div class="v">${latest && latest.afqt_score != null ? latest.afqt_score : 'N/A'}</div><div class="l">Latest AFQT %ile</div></div>
+      <div class="modal-stat"><div class="v">${user.bestAfqt !== null ? escHtml(user.bestAfqt) : 'N/A'}</div><div class="l">Best AFQT %ile</div></div>
+      <div class="modal-stat"><div class="v">${latest && latest.afqt_score != null ? escHtml(latest.afqt_score) : 'N/A'}</div><div class="l">Latest AFQT %ile</div></div>
       <div class="modal-stat"><div class="v">${improvement}</div><div class="l">First → Latest</div></div>
     </div>
 
@@ -277,7 +277,7 @@ function openUserModal(userId, triggerEl) {
             <tr>
               <td>${formatDateTime(t.taken_at)}</td>
               <td>${escHtml(formatTestType(t.test_type))}</td>
-              <td>${t.afqt_score != null ? t.afqt_score : 'N/A'}</td>
+              <td>${t.afqt_score != null ? escHtml(t.afqt_score) : 'N/A'}</td>
               <td>${sectionSummary(t.section_scores)}</td>
             </tr>
           `).join('')}

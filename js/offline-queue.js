@@ -155,6 +155,13 @@
       }
 
       if (flushed > 0) showFlushToast(flushed);
+      // Let open pages (the results save banner) react to a background flush.
+      if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function' &&
+          typeof CustomEvent === 'function') {
+        window.dispatchEvent(new CustomEvent('missionasvab:queue-flushed', {
+          detail: { flushed, remaining: failed.length }
+        }));
+      }
       return { flushed, remaining: failed.length };
     } finally {
       _flushing = false;

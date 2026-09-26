@@ -291,8 +291,8 @@ class QuizEngine {
   }
 
   // Move to the next section (by finishing early or by timer expiry). On the
-  // final section, submit. Unused time on an early advance is removed from the
-  // total budget so timeUsed reflects real elapsed time.
+  // final section, submit. The total clock only ticks while a section runs, so
+  // leaving it untouched here keeps timeUsed equal to real elapsed time.
   advanceSection(reason) {
     // A section can also end via time-out with a selected-but-not-yet-locked
     // answer on the current slot (the user never clicked Next) — lock it now
@@ -310,9 +310,6 @@ class QuizEngine {
       return;
     }
 
-    if (this.sectionTimeRemaining > 0) {
-      this.timeRemaining -= this.sectionTimeRemaining;
-    }
     this.activeSectionIndex++;
     const range = this.sectionRanges[this.activeSectionIndex];
     this.sectionTimeRemaining = range.timeLimit;
