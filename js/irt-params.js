@@ -15,6 +15,15 @@
 
   const DIFF_OFFSET = { 1: -1.5, 2: -0.75, 3: 0, 4: 0.75, 5: 1.5 };
 
+  // Empirical discrimination calibration (Sep 26, 2026). Marginal-ML fits of
+  // Mission ASVAB's own timed responses (449 tests, 106 users; first-attempt-
+  // only fits agree) show these items discriminate less sharply than the
+  // official pool mean above, so each answer carries less information. The
+  // official a is multiplied by this factor. Simulation: better AFQT accuracy
+  // and honest likely ranges if the fit is right, no accuracy loss if not.
+  // Method and numbers: docs/scoring-methodology.md ("Empirical calibration").
+  const A_SCALE = { AR: 0.55, WK: 0.35, PC: 0.72, MK: 0.66 };
+
   // Per-item empirical calibration overrides (itemId -> {a,b,c}). Empty at
   // launch; a future project fills this from accumulated question_results.
   const CALIBRATED = {};
@@ -23,7 +32,8 @@
     if (itemId && CALIBRATED[itemId]) return CALIBRATED[itemId];
     const s = SECTION_IRT[sectionCode] || SECTION_IRT.AR;
     const offset = DIFF_OFFSET[difficulty] !== undefined ? DIFF_OFFSET[difficulty] : 0;
-    return { a: s.a, b: s.bMean + offset * s.bSD, c: s.c };
+    const scale = A_SCALE[sectionCode] || 1;
+    return { a: s.a * scale, b: s.bMean + offset * s.bSD, c: s.c };
   }
 
   // Official theta -> standard-score transforms (Segall 2004, Table 2.4, Form 04D).
@@ -111,7 +121,7 @@
   }
 
   const api = {
-    SECTION_IRT, DIFF_OFFSET, CALIBRATED, getItemParams,
+    SECTION_IRT, DIFF_OFFSET, A_SCALE, CALIBRATED, getItemParams,
     SS_TRANSFORM, thetaToSS, veStandardScore, asStandardScore,
     AFQT_STARTS, afqtsToPercentile, gtScore, ARMY_WEIGHTS, lineScoreFromSS
   };

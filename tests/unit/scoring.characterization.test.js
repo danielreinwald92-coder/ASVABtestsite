@@ -34,19 +34,19 @@ function fullResults(fractionCorrect) {
   };
 }
 
-test('@characterization (IRT v2 model): fullResults(0.6) AFQT equals 16', () => {
+test('@characterization (IRT v2 model): fullResults(0.6) AFQT equals 30', () => {
   const afqt = scoring.calculateAFQTEstimate(fullResults(0.6));
-  assert.strictEqual(afqt, 16); // pinned 2026-08-06, IRT v2 model
+  assert.strictEqual(afqt, 30); // re-pinned 2026-09-26: empirical discrimination scale (A_SCALE)
 });
 
-test('@characterization (IRT v2 model): fullResults(0.6) GT line score equals 78', () => {
+test('@characterization (IRT v2 model): fullResults(0.6) GT line score equals 89', () => {
   const ls = scoring.calculateLineScores(fullResults(0.6));
-  assert.strictEqual(ls.GT.score, 78); // pinned 2026-08-06, IRT v2 model
+  assert.strictEqual(ls.GT.score, 89); // re-pinned 2026-09-26: empirical discrimination scale
 });
 
-test('@characterization (IRT v2 model): fullResults(0.6) CO line score equals 88', () => {
+test('@characterization (IRT v2 model): fullResults(0.6) CO line score equals 93', () => {
   const ls = scoring.calculateLineScores(fullResults(0.6));
-  assert.strictEqual(ls.CO.score, 88); // pinned 2026-08-06, IRT v2 model
+  assert.strictEqual(ls.CO.score, 93); // re-pinned 2026-09-26: empirical discrimination scale
 });
 
 // Anchor tests: the verbatim '97 (PAY97) AFQTS -> percentile table (Segall

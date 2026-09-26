@@ -233,6 +233,39 @@ same Table 2.5 lookup. The site's copy deliberately says **"likely range,"**
 never "confidence interval" — a ±1 SE band is not a 95% CI, and conflating
 the two would overstate precision.
 
+### Empirical calibration (Sep 26, 2026)
+
+The first calibration against Mission ASVAB's own data used 449 saved results
+(106 users, about 15,000 answers) from `test_results.question_results`. Per-item
+counts are still far too small for item-level 3PL fitting (median 5-20
+answers per item), so the fit was done at the section level:
+
+- **Method.** Marginal maximum likelihood over ability (theta ~ N(mu, 1),
+  41-point quadrature) with the official pool b(tag) and c held fixed,
+  estimating one multiplicative scale on the official discrimination a per
+  AFQT section. Compared with (1) the uncalibrated model and (2) a model with a
+  free difficulty per tag, the one-parameter scale model fit almost as well as
+  (2) and much better than (1) (log-likelihood gains: AR +10.8, WK +28.8,
+  MK +5.1, PC +1.4).
+- **Result.** Our items discriminate less sharply than the official pool:
+  scale AR 0.50, WK 0.35, PC 0.74, MK 0.64 on all timed attempts, and AR 0.61,
+  WK 0.33, PC 0.67, MK 0.70 on each user's first attempt only (so retake
+  memorization is not the cause). Shipped values (`A_SCALE` in
+  `js/irt-params.js`) average the two: AR 0.55, WK 0.35, PC 0.72, MK 0.66.
+- **Why it matters.** Treating each answer as more informative than it is made
+  likely ranges too narrow and extreme scores too extreme. In simulation with
+  the fitted discrimination, AFQT mean absolute error fell from 10.5 to 9.1
+  points, bias from -7.0 to -4.2, and the share of likely ranges containing
+  the true score rose from 40% to 62% (target about 68%). If the old
+  assumption were right instead, the calibrated model loses no accuracy (5.1
+  points either way) and its ranges are merely conservative (87%).
+- **Caveat.** Our users' ability spread and the discrimination are only
+  jointly identified; the fit assumes a unit spread. GS, EI, AS, and MC are
+  not yet calibrated (less data).
+- **Re-running.** `scripts/calibration/fit-discrimination.js` documents the
+  export query and refits the scales. Re-run as data grows; item-level
+  calibration (`CALIBRATED`) becomes viable at roughly 200+ answers per item.
+
 ### APT-style AFQT Predictor (Sep 2026)
 
 The official AFQT Predictor Test (APT) is a short, unproctored, adaptive

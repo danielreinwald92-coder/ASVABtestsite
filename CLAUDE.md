@@ -88,7 +88,7 @@ scripts/
 │                           #   edit it, run it (--check = drift test in tests/unit/site-chrome.test.js)
 └── check-no-inline-js.js   # CI gate: fails if any inline on*= handler or inline <script> exists
 supabase/migrations/        # Versioned additive database changes (new schema work belongs here)
-tests/                      # node:test + jsdom suite (294 tests). helpers/load.js, helpers/engine.js
+tests/                      # node:test + jsdom suite (295 tests). helpers/load.js, helpers/engine.js
 tests/e2e/                  # Playwright: all-page CSP/console smoke + guest AFQT and diagnostic flows
 playwright.config.js        # Chromium config; local server mirrors production Vercel headers
 docs/scoring-methodology.md # AFQT model, sources, limits
@@ -99,7 +99,7 @@ docs/PROJECT-STATE.md       # Concise current-state index and prioritized handof
 
 ```bash
 npx serve .                    # Local dev server
-npm test                       # Run the node:test + jsdom unit suite (294 tests)
+npm test                       # Run the node:test + jsdom unit suite (295 tests)
 npm run test:e2e               # Run Playwright against all pages + the guest AFQT flow
 node scripts/validate-site.js  # Validate quiz data + scoring contracts (also a Vercel build gate)
 node scripts/check-no-inline-js.js  # Verify no inline JS (required by the strict CSP)
@@ -244,6 +244,10 @@ Wait for approval before adding to LEARNED section.
   `'unsafe-inline'`). Do NOT add inline `<script>` blocks or `on*=` attributes to served pages —
   put logic in `js/page-<name>.js` and wire via `addEventListener`/delegation. `scripts/check-no-inline-js.js`
   enforces this in CI and will fail the build otherwise. Supabase JS is pinned + SRI-hashed.
+- **Empirical discrimination scale (Sep 2026):** `A_SCALE` in `js/irt-params.js` multiplies the
+  official pool a for AR/WK/PC/MK (fitted on our own responses; see scoring-methodology.md
+  "Empirical calibration"). Re-fit with `scripts/calibration/fit-discrimination.js`; any change to
+  it (or pools/presets) requires re-running `scripts/generate-penalty-table.js`.
 - **Scoring is a documented practice estimate**, not official — see Percentile Scoring section
   (IRT v2, shipped Aug 2026: MAP theta → official Segall transforms → verbatim AFQTS table →
   official Army weight matrix; only the per-item a/b/c parameters are estimated). Keep the v2

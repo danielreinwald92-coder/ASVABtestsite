@@ -50,8 +50,11 @@ features were built; unchecked boxes there are not the current work queue.
   Short-length penalty coefficients live in `penalty-table.js` `byLength[5]`.
 - Hard-item expansion (Sep 26, 2026): +64 blind-verified items (MK +20, PC +20, WK +12, AR +12;
   tag 4-5). Simulated top-end bias at theta 2.5 roughly halved (PC -1.22 to -0.63, MK -0.67 to
-  -0.32, WK -0.64 to -0.34). Remaining accuracy lever: empirical item calibration from
-  `test_results.question_results` via the `CALIBRATED` hook in `js/irt-params.js`.
+  -0.32, WK -0.64 to -0.34).
+- Empirical calibration (Sep 26, 2026): section-level discrimination scales fitted on 449 real
+  results (`A_SCALE`: AR 0.55, WK 0.35, PC 0.72, MK 0.66). Per-item calibration (`CALIBRATED`)
+  still needs ~200+ answers per item (median today 5-20). Next data-driven lever: re-run
+  `scripts/calibration/fit-discrimination.js` as traffic grows; add GS/EI/AS/MC scales.
 - The 20-minute Starting-Point Diagnostic uses 18 balanced AR/WK/PC/MK questions and returns
   study priorities without presenting an AFQT percentile or official-test claim.
 - The question bank has 966 questions across eight Mission ASVAB practice sections, with
@@ -73,7 +76,7 @@ features were built; unchecked boxes there are not the current work queue.
 
 ## Verification Baseline
 
-- `npm test` — 294 node:test/jsdom checks (includes the tests/unit/seo-pages.test.js contract: every root page must join the inline-JS gate, e2e smoke list, sitemap, and share-metadata standard).
+- `npm test` — 295 node:test/jsdom checks (includes the tests/unit/seo-pages.test.js contract: every root page must join the inline-JS gate, e2e smoke list, sitemap, and share-metadata standard).
 - `npm run test:e2e` — Chromium checks all 27 pages under the production Vercel headers,
   then completes a 55-question guest AFQT flow, the 20-question APT-style predictor flow, and the
   18-question guest diagnostic/mission flow.

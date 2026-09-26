@@ -47,7 +47,7 @@ test('AFQT table is total and non-decreasing over 0..400, hits exactly 1..99 min
 test('item params: difficulty tag maps onto the published pool distribution', () => {
   const mk5 = P.getItemParams('MK', 5, 'mk_x');
   assert.ok(Math.abs(mk5.b - (0.44 + 1.5 * 0.95)) < 1e-9);
-  assert.strictEqual(mk5.a, 1.45);
+  assert.ok(Math.abs(mk5.a - 1.45 * P.A_SCALE.MK) < 1e-9, 'official a times the empirical scale');
   assert.strictEqual(mk5.c, 0.17);
   const pc1 = P.getItemParams('PC', 1, 'pc_x');
   assert.ok(Math.abs(pc1.b - (-0.36 - 1.5 * 1.10)) < 1e-9);
@@ -70,4 +70,12 @@ test('average profile (all SS 50) scores ~100 on every Army composite', () => {
     assert.strictEqual(P.lineScoreFromSS(code, ss), 100, code);
   }
   assert.strictEqual(P.gtScore(50, 50), 100);
+});
+
+test('empirical discrimination scale applies only to calibrated sections and stays in (0, 1]', () => {
+  for (const [code, k] of Object.entries(P.A_SCALE)) {
+    assert.ok(k > 0 && k <= 1, `${code} scale ${k}`);
+    assert.ok(Math.abs(P.getItemParams(code, 3, 'x').a - P.SECTION_IRT[code].a * k) < 1e-9);
+  }
+  assert.strictEqual(P.getItemParams('GS', 3, 'x').a, P.SECTION_IRT.GS.a, 'uncalibrated sections keep the official a');
 });

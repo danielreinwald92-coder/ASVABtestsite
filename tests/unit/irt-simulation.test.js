@@ -57,9 +57,12 @@ function tags(counts) {
   return out;
 }
 
-test('AR (15 items): recovered theta correlates >= 0.90 with truth, |bias| <= 0.08', () => {
+// 0.85 (was 0.90): with the empirically calibrated, lower AR discrimination
+// (irt-params A_SCALE) 15 of our items carry less information than the
+// official pool's; the official CAT AR test-retest reliability is ~.91.
+test('AR (15 items): recovered theta correlates >= 0.85 with truth, |bias| <= 0.08', () => {
   const r = simulate('AR', 15, tags([14, 40, 40, 23, 5]), 500, mulberry32(42));
-  assert.ok(r.corr >= 0.90, `corr ${r.corr}`);
+  assert.ok(r.corr >= 0.85, `corr ${r.corr}`);
   assert.ok(Math.abs(r.bias) <= 0.08, `bias ${r.bias}`);
 });
 
