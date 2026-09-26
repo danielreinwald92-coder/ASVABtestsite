@@ -25,7 +25,8 @@ const SERVED_PAGES = [
   '/asvab-general-science.html',
   '/asvab-electronics-information.html',
   '/asvab-auto-and-shop.html',
-  '/asvab-mechanical-comprehension.html'
+  '/asvab-mechanical-comprehension.html',
+  '/asvab-score-calculator.html'
 ];
 
 const SUPABASE_STUB = `

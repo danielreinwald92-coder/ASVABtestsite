@@ -7,6 +7,7 @@ Mission ASVAB (https://www.missionasvab.org) helps military applicants prepare f
 ## Free reference pages
 
 - [ASVAB FAQ](https://www.missionasvab.org/faq.html): Straight answers on minimum scores by branch, retakes, calculators, test length, and the AFQT
+- [ASVAB Score Calculator](https://www.missionasvab.org/asvab-score-calculator.html): Enter standard scores from an ASVAB score report to get the AFQT percentile (official AR + MK + 2xVE formula and 1997 percentile table), AFQT category, and all 10 Army line scores
 - [ASVAB Scores Explained](https://www.missionasvab.org/asvab-scores.html): AFQT percentiles, standard scores, branch minimums, and Army line scores
 - [ASVAB Math Formula Sheet](https://www.missionasvab.org/asvab-math-formulas.html): The essential AR and MK formulas on one printable page
 - [ASVAB Word Knowledge List](https://www.missionasvab.org/asvab-word-list.html): 120 vocabulary words with plain-language definitions

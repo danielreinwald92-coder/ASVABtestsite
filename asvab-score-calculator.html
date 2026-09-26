@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASVAB Score Calculator - AFQT and Army Line Scores | Mission ASVAB</title>
+  <meta name="description" content="Free ASVAB score calculator: enter the standard scores from your ASVAB score report to get your AFQT percentile, AFQT category, and all 10 Army line scores (GT, CL, CO, EL, FA, GM, MM, OF, SC, ST) using the official formulas.">
+  <link rel="canonical" href="https://www.missionasvab.org/asvab-score-calculator.html">
+  <meta property="og:title" content="ASVAB Score Calculator - AFQT and Army Line Scores | Mission ASVAB">
+  <meta property="og:description" content="Free ASVAB score calculator: enter the standard scores from your ASVAB score report to get your AFQT percentile, AFQT category, and all 10 Army line scores (GT, CL, CO, EL, FA, GM, MM, OF, SC, ST) using the official formulas.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.missionasvab.org/asvab-score-calculator.html">
+  <meta property="og:site_name" content="Mission ASVAB">
+  <meta property="og:image" content="https://www.missionasvab.org/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Mission ASVAB - free ASVAB practice tests and study tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ASVAB Score Calculator - AFQT and Army Line Scores | Mission ASVAB">
+  <meta name="twitter:description" content="Free ASVAB score calculator: enter the standard scores from your ASVAB score report to get your AFQT percentile, AFQT category, and all 10 Army line scores (GT, CL, CO, EL, FA, GM, MM, OF, SC, ST) using the official formulas.">
+  <meta name="twitter:image" content="https://www.missionasvab.org/og-image.png">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/section-guide.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a1628">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ASVAB Score Calculator",
+    "url": "https://www.missionasvab.org/asvab-score-calculator.html",
+    "description": "Free ASVAB score calculator: enter the standard scores from your ASVAB score report to get your AFQT percentile, AFQT category, and all 10 Army line scores (GT, CL, CO, EL, FA, GM, MM, OF, SC, ST) using the official formulas.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "publisher": {"@type": "Organization", "name": "Mission ASVAB", "url": "https://www.missionasvab.org/"}
+  }
+  </script>
+  <style>
+    .calc-card { background: var(--white); border-radius: var(--r-lg); padding: 2rem; box-shadow: var(--shadow-1); }
+    .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.9rem 1.25rem; margin: 1rem 0 1.5rem; }
+    .calc-field { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.95rem; color: var(--text-primary); }
+    .calc-code { font-family: var(--font-data); font-weight: 700; color: var(--gold-text); letter-spacing: 0.08em; font-size: 0.8rem; }
+    .calc-field input { font: inherit; font-size: 1.1rem; padding: 0.7rem 0.8rem; border: 2px solid var(--cream-200); border-radius: var(--r-md); min-height: 48px; }
+    .calc-field input:focus { border-color: var(--navy-700); outline: none; }
+    .calc-legend { font-family: var(--font-display); text-transform: uppercase; font-size: 1.25rem; color: var(--navy-900); margin-top: 1rem; }
+    .calc-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; }
+    .calc-actions button { font: inherit; font-weight: 600; border-radius: var(--r-md); padding: 0.85rem 1.5rem; cursor: pointer; min-height: 48px; }
+    .calc-primary { background: var(--navy-900); color: var(--white); border: none; }
+    .calc-secondary { background: var(--white); color: var(--navy-900); border: 2px solid var(--navy-900); }
+    .calc-note { font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.75rem; }
+    .calc-result { margin-top: 1.75rem; }
+    .calc-headline { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .calc-stat { flex: 1 1 150px; background: var(--navy-900); color: var(--white); border-radius: var(--r-md); padding: 1rem 1.25rem; }
+    .calc-stat .v { font-family: var(--font-data); font-size: 2.2rem; font-weight: 700; color: var(--gold-400); display: block; }
+    .calc-stat .l { font-size: 0.85rem; color: var(--cream-200); }
+    .calc-error { color: var(--error); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">Mission <span>ASVAB</span></a>
+    <ul class="nav-links">
+      <li><a href="select-test.html">Practice Tests</a></li>
+      <li><a href="study-guide.html">Study Guide</a></li>
+      <li><a href="about.html">About the ASVAB</a></li>
+    </ul>
+    <a href="select-test.html" class="nav-cta">Take a Practice Test</a>
+    <button class="hamburger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+      <a href="index.html" class="logo">Mission <span>ASVAB</span></a>
+      <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="select-test.html">Practice Tests</a>
+      <a href="study-guide.html">Study Guide</a>
+      <a href="about.html">About the ASVAB</a>
+    </div>
+    <a href="select-test.html" class="mobile-menu-cta">Take a Practice Test</a>
+  </div>
+
+
+  <header class="hero">
+    <p class="hero-eyebrow">TOOL - SCORE CALCULATOR</p>
+    <h1>ASVAB Score Calculator</h1>
+    <p>Turn the standard scores on your ASVAB score report into your AFQT percentile and Army line scores</p>
+  </header>
+
+  <main class="content">
+    <section class="section">
+      <div class="calc-card">
+        <form id="calcForm" novalidate>
+          <p class="calc-legend">AFQT sections (required)</p>
+          <div class="calc-grid">
+          <label class="calc-field" for="ssAR"><span class="calc-code">AR</span><span class="calc-name">Arithmetic Reasoning</span>
+            <input type="number" id="ssAR" name="AR" min="20" max="80" step="1" inputmode="numeric"></label>
+          <label class="calc-field" for="ssMK"><span class="calc-code">MK</span><span class="calc-name">Mathematics Knowledge</span>
+            <input type="number" id="ssMK" name="MK" min="20" max="80" step="1" inputmode="numeric"></label>
+          <label class="calc-field" for="ssWK"><span class="calc-code">WK</span><span class="calc-name">Word Knowledge</span>
+            <input type="number" id="ssWK" name="WK" min="20" max="80" step="1" inputmode="numeric"></label>
+          <label class="calc-field" for="ssPC"><span class="calc-code">PC</span><span class="calc-name">Paragraph Comprehension</span>
+            <input type="number" id="ssPC" name="PC" min="20" max="80" step="1" inputmode="numeric"></label>
+          <label class="calc-field" for="ssVE"><span class="calc-code">VE</span><span class="calc-name">Verbal Expression, if listed (optional)</span>
+            <input type="number" id="ssVE" name="VE" min="20" max="80" step="1" inputmode="numeric"></label>
+          </div>
+          <p class="calc-legend">Technical sections (for line scores)</p>
+          <div class="calc-grid">
+          <label class="calc-field" for="ssGS"><span class="calc-code">GS</span><span class="calc-name">General Science (optional)</span>
+            <input type="number" id="ssGS" name="GS" min="20" max="80" step="1" inputmode="numeric"></label>
+          <label class="calc-field" for="ssEI"><span class="calc-code">EI</span><span class="calc-name">Electronics Information (optional)</span>
+            <input type="number" id="ssEI" name="EI" min="20" max="80" step="1" inputmode="numeric"></label>
+          <label class="calc-field" for="ssAS"><span class="calc-code">AS</span><span class="calc-name">Auto and Shop (optional)</span>
+            <input type="number" id="ssAS" name="AS" min="20" max="80" step="1" inputmode="numeric"></label>
+          <label class="calc-field" for="ssMC"><span class="calc-code">MC</span><span class="calc-name">Mechanical Comprehension (optional)</span>
+            <input type="number" id="ssMC" name="MC" min="20" max="80" step="1" inputmode="numeric"></label>
+          </div>
+          <div class="calc-actions">
+            <button type="submit" class="calc-primary">Calculate My Scores</button>
+            <button type="button" class="calc-secondary" id="calcFillPractice" hidden>Use My Last Practice Test</button>
+          </div>
+          <p class="calc-note">Standard scores run from about 20 to 80 (average 50). If your report lists VE, enter it and you can skip WK and PC.</p>
+        </form>
+        <div class="calc-result" id="calcResult" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How the AFQT Is Calculated</h2>
+      <p>Your AFQT is not an average of your section scores. The official formula adds your Arithmetic Reasoning and Mathematics Knowledge standard scores to <strong>twice</strong> your Verbal Expression (VE) score:</p>
+      <p><strong>AFQT raw score = AR + MK + 2 × VE</strong></p>
+      <p>VE is a weighted combination of Word Knowledge and Paragraph Comprehension, with Word Knowledge counting more. The raw score is then converted to a percentile from 1 to 99 using the official 1997 national reference table. A percentile of 50 means you scored as well as or better than half of the 18 to 23 year-old reference group. This calculator uses that exact table, so its AFQT matches what the official conversion gives for the same standard scores.</p>
+      <p>Because VE counts twice, one point of verbal improvement moves your AFQT about as much as two points in math. See <a href="asvab-scores.html">ASVAB scores explained</a> for branch minimums and what each AFQT category means.</p>
+    </section>
+
+    <section class="section">
+      <h2>Army Line Scores</h2>
+      <p>Army jobs use ten line scores built from your standard scores: GT (General Technical), CL (Clerical), CO (Combat), EL (Electronics), FA (Field Artillery), GM (General Maintenance), MM (Mechanical Maintenance), OF (Operators and Food), SC (Surveillance and Communications), and ST (Skilled Technical). They are scaled so 100 is average. GT uses its own published formula from AR and VE. The other nine use the official weighted formulas, which include small amounts of sections outside each score's main ingredients. Enter all eight sections above to see all ten.</p>
+      <p>Other branches use their own composites, so the line scores here apply to the Army. Your AFQT percentile applies to every branch.</p>
+    </section>
+
+    <section class="section">
+      <h2>Where to Find Your Standard Scores</h2>
+      <p>Your ASVAB score report lists a standard score for each section and for VE. Your recruiter can also give you these numbers. No score report yet? Take a free <a href="select-test.html">practice test</a>. It estimates your standard scores with the same scoring pipeline as the real computer adaptive test, and the button above can then load them here.</p>
+    </section>
+
+    <div class="cta-section">
+      <h3>Raise Your Score</h3>
+      <p>Find your weakest section with the 20-question AFQT Predictor, then study it with the free <a href="study-guide.html">study guide</a>.</p>
+      <a href="select-test.html" class="cta-btn">Take a Practice Test</a>
+    </div>
+  </main>
+
+  <footer style="background: #0a1628; color: #f2efe8; padding: 2rem 5%; text-align: center;">
+    <p class="footer-links" style="font-size: 0.85rem; margin: 0 auto 1rem;">
+      <a href="faq.html">ASVAB FAQ</a> ·
+      <a href="asvab-scores.html">Scores Explained</a> ·
+      <a href="asvab-math-formulas.html">Math Formulas</a> ·
+      <a href="asvab-study-plan.html">Study Plan</a> ·
+      <a href="about.html">About the ASVAB</a>
+    </p>
+    <p style="font-size: 0.8rem; line-height: 1.6; max-width: 800px; margin: 0 auto 1rem; opacity: 0.8;">This website is not affiliated with, endorsed by, or sponsored by the U.S. Department of Defense, any branch of the U.S. Armed Forces, or the official ASVAB program. "ASVAB" is a registered trademark of the U.S. Department of Defense. This is an independent practice resource only.</p>
+    <p style="font-size: 0.75rem; opacity: 0.6;">© <span id="year"></span> Mission ASVAB. For educational purposes only.</p>
+  </footer>
+  <script src="js/irt-params.js"></script>
+  <script src="js/score-calculator.js"></script>
+  <script src="js/page-score-calculator.js"></script>
+  <script src="js/year.js"></script>
+  <script src="js/mobile-menu.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+  <script src="js/sw-register.js"></script>
+</body>
+</html>
