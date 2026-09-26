@@ -262,6 +262,10 @@ answers per item), so the fit was done at the section level:
 - **Caveat.** Our users' ability spread and the discrimination are only
   jointly identified; the fit assumes a unit spread. GS, EI, AS, and MC are
   not yet calibrated (less data).
+- **WK revision.** 136 WK items were rewritten the same day to remove
+  giveaway distractors (`docs/superpowers/notes/wk-revision-2026-09-26.md`).
+  Re-fit WK only on rows from 2026-09-27 on; `A_SCALE.WK` stays at 0.35 until
+  then.
 - **Re-running.** `scripts/calibration/fit-discrimination.js` documents the
   export query and refits the scales. Re-run as data grows; item-level
   calibration (`CALIBRATED`) becomes viable at roughly 200+ answers per item.

@@ -12,6 +12,8 @@
 //      from test_results t, jsonb_array_elements(t.question_results) q
 //      where t.question_results is not null and t.mode = 'timed' and q ? 'difficulty'
 //        and q->>'section' in ('AR','WK','PC','MK')
+//        -- WK items were rewritten 2026-09-26: for WK keep only newer rows
+//        and (q->>'section' <> 'WK' or t.taken_at >= '2026-09-27')
 //    ), g as (
 //      select sec, tid, string_agg(d || ':' || n || ':' || k, ',' order by d) cells
 //      from (select sec, tid, d, count(*) n, sum(c::int) k from r group by sec, tid, d) x

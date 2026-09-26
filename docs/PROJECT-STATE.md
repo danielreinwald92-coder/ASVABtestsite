@@ -55,6 +55,9 @@ features were built; unchecked boxes there are not the current work queue.
   results (`A_SCALE`: AR 0.55, WK 0.35, PC 0.72, MK 0.66). Per-item calibration (`CALIBRATED`)
   still needs ~200+ answers per item (median today 5-20). Next data-driven lever: re-run
   `scripts/calibration/fit-discrimination.js` as traffic grows; add GS/EI/AS/MC scales.
+- WK revision (Sep 26, 2026): 136 WK items rewritten in place (no antonym/off-tone distractors,
+  shuffled keys), all blind-verified. Re-fit `A_SCALE.WK` on post-2026-09-27 data only
+  (`docs/superpowers/notes/wk-revision-2026-09-26.md`).
 - The 20-minute Starting-Point Diagnostic uses 18 balanced AR/WK/PC/MK questions and returns
   study priorities without presenting an AFQT percentile or official-test claim.
 - The question bank has 966 questions across eight Mission ASVAB practice sections, with

@@ -1640,233 +1640,200 @@ const asvabData = {
       {
         id: "WK003",
         text: "Verify most nearly means:",
-        options: ["Confirm", "Deny", "Suspect", "Question"],
-        correct: 0,
-        difficulty: 2
+        options: ["Confirm","Declare","Record","Repeat"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK004",
         text: "The word 'hazardous' most nearly means:",
-        options: ["Safe", "Dangerous", "Helpful", "Common"],
-        correct: 1,
-        difficulty: 1
+        options: ["Unlucky","Dangerous","Forbidden","Careless"],
+        correct: 1, difficulty: 1
       },
       {
         id: "WK005",
         text: "Illuminate most nearly means:",
-        options: ["Darken", "Light up", "Cover", "Reveal"],
-        correct: 1,
-        difficulty: 2
+        options: ["Outline","Decorate","Light up","Polish"],
+        correct: 2, difficulty: 2
       },
       {
         id: "WK006",
         text: "The word 'persevere' most nearly means:",
-        options: ["Give up", "Continue", "Rest", "Complain"],
-        correct: 1,
-        difficulty: 3
+        options: ["Protect","Preserve","Prepare","Persist"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK007",
         text: "Conceal most nearly means:",
-        options: ["Show", "Find", "Hide", "Destroy"],
-        correct: 2,
-        difficulty: 1
+        options: ["Seal","Steal","Cancel","Hide"],
+        correct: 3, difficulty: 1
       },
       {
         id: "WK008",
         text: "The word 'mandatory' most nearly means:",
-        options: ["Optional", "Required", "Suggested", "Preferred"],
-        correct: 1,
-        difficulty: 2
+        options: ["Required","Official","Scheduled","Approved"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK009",
         text: "Deficient most nearly means:",
-        options: ["Adequate", "Excessive", "Lacking", "Perfect"],
-        correct: 2,
-        difficulty: 3
+        options: ["Defiant","Lacking","Distant","Delayed"],
+        correct: 1, difficulty: 3
       },
       {
         id: "WK010",
         text: "The word 'proficient' most nearly means:",
-        options: ["Skilled", "Beginner", "Careless", "Uncertain"],
-        correct: 0,
-        difficulty: 2
+        options: ["Prominent","Profitable","Skilled","Popular"],
+        correct: 2, difficulty: 2
       },
       {
         id: "WK011",
         text: "Altercation most nearly means:",
-        options: ["Agreement", "Dispute", "Change", "Solution"],
-        correct: 1,
-        difficulty: 4
+        options: ["Adjustment","Arrangement","Quarrel","Alteration"],
+        correct: 2, difficulty: 4
       },
       {
         id: "WK012",
         text: "The word 'meticulous' most nearly means:",
-        options: ["Careless", "Careful", "Quick", "Lazy"],
-        correct: 1,
-        difficulty: 3
+        options: ["Punctual","Polite","Modest","Thorough"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK013",
         text: "Fortify most nearly means:",
-        options: ["Weaken", "Strengthen", "Abandon", "Ignore"],
-        correct: 1,
-        difficulty: 2
+        options: ["Inspect","Strengthen","Occupy","Surround"],
+        correct: 1, difficulty: 2
       },
       {
         id: "WK014",
         text: "The word 'terminate' most nearly means:",
-        options: ["Begin", "Continue", "End", "Pause"],
-        correct: 2,
-        difficulty: 1
+        options: ["Divide","Delay","End","Transfer"],
+        correct: 2, difficulty: 1
       },
       {
         id: "WK015",
         text: "Negligent most nearly means:",
-        options: ["Careful", "Attentive", "Careless", "Responsible"],
-        correct: 2,
-        difficulty: 3
+        options: ["Nervous","Needy","Careless","Negative"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK016",
         text: "The word 'scrutinize' most nearly means:",
-        options: ["Examine closely", "Ignore", "Accept", "Reject"],
-        correct: 0,
-        difficulty: 4
+        options: ["Summarize","Examine closely","Organize","Criticize"],
+        correct: 1, difficulty: 3
       },
       {
         id: "WK017",
         text: "Collaborate most nearly means:",
-        options: ["Compete", "Work together", "Separate", "Disagree"],
-        correct: 1,
-        difficulty: 2
+        options: ["Cooperate","Calculate","Celebrate","Correspond"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK018",
         text: "The word 'expedite' most nearly means:",
-        options: ["Delay", "Speed up", "Cancel", "Complicate"],
-        correct: 1,
-        difficulty: 4
+        options: ["Expand","Speed up","Explain","Explore"],
+        correct: 1, difficulty: 3
       },
       {
         id: "WK019",
         text: "Formidable most nearly means:",
-        options: ["Weak", "Impressive", "Simple", "Small"],
-        correct: 1,
-        difficulty: 4
+        options: ["Powerful","Fortunate","Flexible","Formal"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK020",
         text: "The word 'relinquish' most nearly means:",
-        options: ["Keep", "Take", "Give up", "Find"],
-        correct: 2,
-        difficulty: 4
+        options: ["Give up","Replace","Relax","Regret"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK021",
         text: "Diligent most nearly means:",
-        options: ["Lazy", "Hardworking", "Careless", "Slow"],
-        correct: 1,
-        difficulty: 3
+        options: ["Intelligent","Hardworking","Gentle","Delicate"],
+        correct: 1, difficulty: 2
       },
       {
         id: "WK022",
         text: "The word 'subordinate' most nearly means:",
-        options: ["Superior", "Equal", "Lower in rank", "Leader"],
-        correct: 2,
-        difficulty: 3
+        options: ["Out of uniform","Newly assigned","Well trained","Lower in rank"],
+        correct: 3, difficulty: 2
       },
       {
         id: "WK023",
         text: "Feasible most nearly means:",
-        options: ["Impossible", "Possible", "Difficult", "Easy"],
-        correct: 1,
-        difficulty: 3
+        options: ["Possible","Visible","Profitable","Flexible"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK024",
         text: "The word 'reprimand' most nearly means:",
-        options: ["Praise", "Scold", "Reward", "Ignore"],
-        correct: 1,
-        difficulty: 3
+        options: ["Scold","Demote","Report","Remind"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK025",
         text: "Comprehensive most nearly means:",
-        options: ["Limited", "Partial", "Complete", "Simple"],
-        correct: 2,
-        difficulty: 3
+        options: ["Complete","Complicated","Understandable","Compressed"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK026",
         text: "The word 'diminish' most nearly means:",
-        options: ["Increase", "Decrease", "Maintain", "Double"],
-        correct: 1,
-        difficulty: 2
+        options: ["Disturb","Divide","Dismiss","Decrease"],
+        correct: 3, difficulty: 2
       },
       {
         id: "WK027",
         text: "Imminent most nearly means:",
-        options: ["Distant", "Unlikely", "About to happen", "Past"],
-        correct: 2,
-        difficulty: 4
+        options: ["About to happen","Important","Distinguished","Permanent"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK028",
         text: "The word 'resilient' most nearly means:",
-        options: ["Fragile", "Bounces back", "Weak", "Static"],
-        correct: 1,
-        difficulty: 4
+        options: ["Quick to recover","Quick to decide","Quick to object","Quick to forgive"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK029",
         text: "Apprehend most nearly means:",
-        options: ["Release", "Capture", "Ignore", "Forget"],
-        correct: 1,
-        difficulty: 3
+        options: ["Approve","Capture","Approach","Appoint"],
+        correct: 1, difficulty: 3
       },
       {
         id: "WK030",
         text: "The word 'deteriorate' most nearly means:",
-        options: ["Improve", "Worsen", "Stay same", "Enhance"],
-        correct: 1,
-        difficulty: 3
+        options: ["Separate","Discourage","Worsen","Hesitate"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK031",
         text: "Commend most nearly means:",
-        options: ["Criticize", "Praise", "Ignore", "Punish"],
-        correct: 1,
-        difficulty: 2
+        options: ["Command","Comment","Praise","Promote"],
+        correct: 2, difficulty: 2
       },
       {
         id: "WK032",
         text: "The word 'substantial' most nearly means:",
-        options: ["Small", "Considerable", "Worthless", "Invisible"],
-        correct: 1,
-        difficulty: 2
+        options: ["Temporary","Standard","Underground","Considerable"],
+        correct: 3, difficulty: 2
       },
       {
         id: "WK033",
         text: "Alleviate most nearly means:",
-        options: ["Worsen", "Relieve", "Cause", "Ignore"],
-        correct: 1,
-        difficulty: 4
+        options: ["Announce","Allow","Elevate","Relieve"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK034",
         text: "The word 'adhere' most nearly means:",
-        options: ["Separate", "Stick to", "Reject", "Avoid"],
-        correct: 1,
-        difficulty: 3
+        options: ["Add to","Point to","Listen to","Stick to"],
+        correct: 3, difficulty: 2
       },
       {
         id: "WK035",
         text: "Exemplary most nearly means:",
-        options: ["Poor", "Outstanding", "Average", "Ordinary"],
-        correct: 1,
-        difficulty: 3
+        options: ["Outstanding","Expensive","Excused","Experienced"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK036",
@@ -1878,9 +1845,8 @@ const asvabData = {
       {
         id: "WK037",
         text: "Wilted most nearly means:",
-        options: ["Left", "Limp", "Budding", "Requested"],
-        correct: 1,
-        difficulty: 2
+        options: ["Planted","Limp","Wild","Dusty"],
+        correct: 1, difficulty: 2
       },
       {
         id: "WK038",
@@ -1892,9 +1858,8 @@ const asvabData = {
       {
         id: "WK039",
         text: "Quiver most nearly means:",
-        options: ["Shake", "Dance", "Rest", "Run"],
-        correct: 0,
-        difficulty: 2
+        options: ["Aim","Quit","Shake","Whisper"],
+        correct: 2, difficulty: 2
       },
       {
         id: "WK040",
@@ -1913,37 +1878,32 @@ const asvabData = {
       {
         id: "WK042",
         text: "She did not condone his insubordination. Condone most nearly means:",
-        options: ["Condemn", "Appreciate", "Excuse", "Report"],
-        correct: 2,
-        difficulty: 3
+        options: ["Excuse","Conceal","Console","Confirm"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK043",
         text: "The new senator was a man of candor. Candor most nearly means:",
-        options: ["Duplicity", "Corruption", "Honesty", "Attractiveness"],
-        correct: 2,
-        difficulty: 3
+        options: ["Courage","Charm","Honesty","Wealth"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK044",
         text: "Contrived most nearly means:",
-        options: ["Artificial", "Real", "Confusing", "Alarming"],
-        correct: 0,
-        difficulty: 3
+        options: ["Captured","Complicated","Artificial","Controlled"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK045",
         text: "I paid a nominal amount of money to join the club. Nominal most nearly means:",
-        options: ["Huge", "Unreasonable", "Arbitrary", "Small"],
-        correct: 3,
-        difficulty: 3
+        options: ["Required","Small","Monthly","Fixed"],
+        correct: 1, difficulty: 3
       },
       {
         id: "WK046",
         text: "Clandestine most nearly means:",
-        options: ["Iconic", "Faction", "Riveting", "Covert"],
-        correct: 3,
-        difficulty: 4
+        options: ["Remote","Tribal","Covert","Sudden"],
+        correct: 2, difficulty: 4
       },
       {
         id: "WK047",
@@ -1976,9 +1936,8 @@ const asvabData = {
       {
         id: "WK051",
         text: "The decision was not based on any empirical evidence. Empirical most nearly means:",
-        options: ["Observational", "Theoretical", "Irrefutable", "Questionable"],
-        correct: 0,
-        difficulty: 4
+        options: ["Official","Observational","Written","Complete"],
+        correct: 1, difficulty: 4
       },
       {
         id: "WK052",
@@ -1990,9 +1949,8 @@ const asvabData = {
       {
         id: "WK053",
         text: "Legitimate most nearly means:",
-        options: ["Secret", "Lawful", "Selfish", "Phony"],
-        correct: 1,
-        difficulty: 2
+        options: ["Lawful","Popular","Legendary","Literal"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK054",
@@ -2004,660 +1962,566 @@ const asvabData = {
       {
         id: "WK055",
         text: "There is camaraderie within the small groups at our church. Camaraderie most nearly means:",
-        options: ["Competition", "Levity", "Apprehension", "Companionship"],
-        correct: 3,
-        difficulty: 3
+        options: ["Companionship","Enthusiasm","Generosity","Humor"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK056",
         text: "Amiable most nearly means:",
-        options: ["Hostile", "Friendly", "Cautious", "Uncertain"],
-        correct: 1,
-        difficulty: 2
+        options: ["Amusing","Capable","Humble","Friendly"],
+        correct: 3, difficulty: 2
       },
       {
         id: "WK057",
         text: "Inevitable most nearly means:",
-        options: ["Avoidable", "Certain", "Unlikely", "Possible"],
-        correct: 1,
-        difficulty: 2
+        options: ["Invaluable","Invisible","Certain","Sudden"],
+        correct: 2, difficulty: 2
       },
       {
         id: "WK058",
         text: "Hostile most nearly means:",
-        options: ["Welcoming", "Neutral", "Unfriendly", "Helpful"],
-        correct: 2,
-        difficulty: 1
+        options: ["Unfriendly","Gloomy","Hesitant","Anxious"],
+        correct: 0, difficulty: 1
       },
       {
         id: "WK059",
         text: "Procrastinate most nearly means:",
-        options: ["Finish", "Delay", "Hurry", "Organize"],
-        correct: 1,
-        difficulty: 2
+        options: ["Delay","Protest","Pretend","Predict"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK060",
         text: "Versatile most nearly means:",
-        options: ["Rigid", "Limited", "Adaptable", "Specialized"],
-        correct: 2,
-        difficulty: 3
+        options: ["Adaptable","Energetic","Talkative","Reliable"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK061",
         text: "Elated most nearly means:",
-        options: ["Depressed", "Jubilant", "Calm", "Nervous"],
-        correct: 1,
-        difficulty: 2
+        options: ["Overjoyed","Proud","Relieved","Grateful"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK062",
         text: "Immaculate most nearly means:",
-        options: ["Dirty", "Spotless", "Ordinary", "Damaged"],
-        correct: 1,
-        difficulty: 2
+        options: ["Immature","Spotless","Expensive","Imported"],
+        correct: 1, difficulty: 2
       },
       {
         id: "WK063",
         text: "Infiltrate most nearly means:",
-        options: ["Exit", "Guard", "Expose", "Penetrate"],
-        correct: 3,
-        difficulty: 3
+        options: ["Penetrate","Inflate","Surround","Investigate"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK064",
         text: "Intrepid most nearly means:",
-        options: ["Fearless", "Cautious", "Nervous", "Weak"],
-        correct: 0,
-        difficulty: 3
+        options: ["Fearless","Tireless","Careless","Restless"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK065",
         text: "Tenacious most nearly means:",
-        options: ["Weak", "Flexible", "Persistent", "Careless"],
-        correct: 2,
-        difficulty: 3
+        options: ["Tense","Tender","Persistent","Talented"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK066",
         text: "Arduous most nearly means:",
-        options: ["Easy", "Difficult", "Quick", "Pleasant"],
-        correct: 1,
-        difficulty: 3
+        options: ["Hilly","Difficult","Dangerous","Eager"],
+        correct: 1, difficulty: 3
       },
       {
         id: "WK067",
         text: "Benevolent most nearly means:",
-        options: ["Cruel", "Kind", "Selfish", "Angry"],
-        correct: 1,
-        difficulty: 3
+        options: ["Wealthy","Brave","Humble","Kind"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK068",
         text: "Candid most nearly means:",
-        options: ["Secretive", "Honest", "Shy", "Confused"],
-        correct: 1,
-        difficulty: 2
+        options: ["Calm","Humble","Sweet","Honest"],
+        correct: 3, difficulty: 2
       },
       {
         id: "WK069",
         text: "Deter most nearly means:",
-        options: ["Encourage", "Discourage", "Help", "Attract"],
-        correct: 1,
-        difficulty: 2
+        options: ["Delay","Discourage","Detect","Defeat"],
+        correct: 1, difficulty: 2
       },
       {
         id: "WK070",
         text: "Elusive most nearly means:",
-        options: ["Obvious", "Hard to catch", "Friendly", "Loud"],
-        correct: 1,
-        difficulty: 3
+        options: ["Hard to please","Hard to hear","Hard to catch","Hard to believe"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK071",
         text: "Frugal most nearly means:",
-        options: ["Wasteful", "Thrifty", "Generous", "Careless"],
-        correct: 1,
-        difficulty: 3
+        options: ["Fragile","Fruitful","Thrifty","Humble"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK072",
         text: "Gregarious most nearly means:",
-        options: ["Shy", "Sociable", "Angry", "Quiet"],
-        correct: 1,
-        difficulty: 4
+        options: ["Generous","Cheerful","Grateful","Sociable"],
+        correct: 3, difficulty: 4
       },
       {
         id: "WK073",
         text: "Hinder most nearly means:",
-        options: ["Help", "Obstruct", "Encourage", "Support"],
-        correct: 1,
-        difficulty: 2
+        options: ["Obstruct","Hide","Hurry","Handle"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK075",
         text: "Jovial most nearly means:",
-        options: ["Sad", "Cheerful", "Serious", "Quiet"],
-        correct: 1,
-        difficulty: 3
+        options: ["Loyal","Cheerful","Youthful","Generous"],
+        correct: 1, difficulty: 3
       },
       {
         id: "WK076",
         text: "Keen most nearly means:",
-        options: ["Dull", "Sharp", "Slow", "Weak"],
-        correct: 1,
-        difficulty: 1
+        options: ["Smooth","Sturdy","Sharp","Firm"],
+        correct: 2, difficulty: 2
       },
       {
         id: "WK077",
         text: "Lethargic most nearly means:",
-        options: ["Energetic", "Sluggish", "Alert", "Active"],
-        correct: 1,
-        difficulty: 4
+        options: ["Irritable","Deadly","Sluggish","Forgetful"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK078",
         text: "Mundane most nearly means:",
-        options: ["Exciting", "Ordinary", "Unusual", "Thrilling"],
-        correct: 1,
-        difficulty: 3
+        options: ["Muddled","Mandatory","Monthly","Ordinary"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK079",
         text: "Nimble most nearly means:",
-        options: ["Clumsy", "Agile", "Slow", "Heavy"],
-        correct: 1,
-        difficulty: 2
+        options: ["Humble","Gentle","Sturdy","Agile"],
+        correct: 3, difficulty: 2
       },
       {
         id: "WK080",
         text: "Ominous most nearly means:",
-        options: ["Cheerful", "Threatening", "Harmless", "Bright"],
-        correct: 1,
-        difficulty: 3
+        options: ["Secretive","Mournful","Bitter","Threatening"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK081",
         text: "Prudent most nearly means:",
-        options: ["Reckless", "Wise", "Careless", "Foolish"],
-        correct: 1,
-        difficulty: 3
+        options: ["Proud","Wise","Generous","Modest"],
+        correct: 1, difficulty: 3
       },
       {
         id: "WK082",
         text: "Quell most nearly means:",
-        options: ["Increase", "Suppress", "Encourage", "Start"],
-        correct: 1,
-        difficulty: 4
+        options: ["Separate","Suppress","Inquire","Survey"],
+        correct: 1, difficulty: 4
       },
       {
         id: "WK084",
         text: "Serene most nearly means:",
-        options: ["Chaotic", "Peaceful", "Loud", "Angry"],
-        correct: 1,
-        difficulty: 2
+        options: ["Peaceful","Cheerful","Graceful","Sincere"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK085",
         text: "Tacit most nearly means:",
-        options: ["Spoken", "Unspoken", "Loud", "Written"],
-        correct: 1,
-        difficulty: 4
+        options: ["Uncertain","Unsigned","Tactful","Unspoken"],
+        correct: 3, difficulty: 4
       },
       {
         id: "WK086",
         text: "Ubiquitous most nearly means:",
-        options: ["Rare", "Everywhere", "Hidden", "Unique"],
-        correct: 1,
-        difficulty: 5
+        options: ["Ambiguous","Ancient","Widespread","Enormous"],
+        correct: 2, difficulty: 4
       },
       {
         id: "WK087",
         text: "Vindicate most nearly means:",
-        options: ["Blame", "Clear of blame", "Punish", "Accuse"],
-        correct: 1,
-        difficulty: 4
+        options: ["Point out","Clear of blame","Make a pledge","Win a victory"],
+        correct: 1, difficulty: 4
       },
       {
         id: "WK088",
         text: "Wary most nearly means:",
-        options: ["Trusting", "Cautious", "Bold", "Reckless"],
-        correct: 1,
-        difficulty: 2
+        options: ["Modest","Curious","Tired","Cautious"],
+        correct: 3, difficulty: 2
       },
       {
         id: "WK089",
         text: "Zeal most nearly means:",
-        options: ["Apathy", "Enthusiasm", "Boredom", "Laziness"],
-        correct: 1,
-        difficulty: 3
+        options: ["Enthusiasm","Patience","Loyalty","Courage"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK090",
         text: "Abate most nearly means:",
-        options: ["Increase", "Decrease", "Remain", "Worsen"],
-        correct: 1,
-        difficulty: 4
+        options: ["Lessen","Attract","Await","Argue"],
+        correct: 0, difficulty: 4
       },
       {
         id: "WK091",
         text: "Concise most nearly means:",
-        options: ["Lengthy", "Brief", "Confusing", "Detailed"],
-        correct: 1,
-        difficulty: 2
+        options: ["Polite","Precise","Brief","Correct"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK092",
         text: "Denounce most nearly means:",
-        options: ["Praise", "Condemn", "Support", "Accept"],
-        correct: 1,
-        difficulty: 3
+        options: ["Announce","Resign","Condemn","Deny"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK093",
         text: "Eloquent most nearly means:",
-        options: ["Inarticulate", "Well-spoken", "Silent", "Confused"],
-        correct: 1,
-        difficulty: 3
+        options: ["Well-spoken","Well-dressed","Well-mannered","Well-educated"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK095",
         text: "Gaunt most nearly means:",
-        options: ["Plump", "Thin", "Healthy", "Strong"],
-        correct: 1,
-        difficulty: 3
+        options: ["Scarred","Tall","Thin","Pale"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK097",
         text: "Impede most nearly means:",
-        options: ["Assist", "Block", "Speed up", "Allow"],
-        correct: 1,
-        difficulty: 3
+        options: ["Block","Stumble","Import","Invade"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK098",
         text: "Jeopardy most nearly means:",
-        options: ["Safety", "Danger", "Security", "Protection"],
-        correct: 1,
-        difficulty: 2
+        options: ["Danger","Punishment","Confusion","Jealousy"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK099",
         text: "Kindle most nearly means:",
-        options: ["Extinguish", "Ignite", "Cool", "Dampen"],
-        correct: 1,
-        difficulty: 2
+        options: ["Gather","Ignite","Carve","Soothe"],
+        correct: 1, difficulty: 2
       },
       {
         id: "WK100",
         text: "Lucid most nearly means:",
-        options: ["Confusing", "Clear", "Vague", "Murky"],
-        correct: 1,
-        difficulty: 3
+        options: ["Calm","Lucky","Lively","Clear"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK101",
         text: "Meager most nearly means:",
-        options: ["Abundant", "Scarce", "Generous", "Plentiful"],
-        correct: 1,
-        difficulty: 3
+        options: ["Rough","Bitter","Eager","Scarce"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK102",
         text: "Novice most nearly means:",
-        options: ["Expert", "Beginner", "Master", "Professional"],
-        correct: 1,
-        difficulty: 2
+        options: ["Beginner","Priest","Neighbor","Author"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK104",
         text: "Plausible most nearly means:",
-        options: ["Unbelievable", "Believable", "False", "Ridiculous"],
-        correct: 1,
-        difficulty: 3
+        options: ["Flexible","Believable","Pleasant","Praiseworthy"],
+        correct: 1, difficulty: 3
       },
       {
         id: "WK105",
         text: "Quarantine most nearly means:",
-        options: ["Release", "Isolate", "Free", "Connect"],
-        correct: 1,
-        difficulty: 2
+        options: ["Isolate","Question","Inspect","Vaccinate"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK106",
         text: "Rectify most nearly means:",
-        options: ["Worsen", "Correct", "Ignore", "Break"],
-        correct: 1,
-        difficulty: 3
+        options: ["Correct","Measure","Record","Verify"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK107",
         text: "Sparse most nearly means:",
-        options: ["Dense", "Scattered", "Thick", "Crowded"],
-        correct: 1,
-        difficulty: 3
+        options: ["Hollow","Rough","Thinly spread","Narrow"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK108",
         text: "Terse most nearly means:",
-        options: ["Lengthy", "Brief", "Wordy", "Elaborate"],
-        correct: 1,
-        difficulty: 4
+        options: ["Stubborn","Tense","Brief","Nervous"],
+        correct: 2, difficulty: 4
       },
       {
         id: "WK109",
         text: "Uniform most nearly means:",
-        options: ["Varied", "Consistent", "Different", "Random"],
-        correct: 1,
-        difficulty: 2
+        options: ["Complete","Formal","Official","Consistent"],
+        correct: 3, difficulty: 2
       },
       {
         id: "WK111",
         text: "Wane most nearly means:",
-        options: ["Grow", "Decrease", "Increase", "Expand"],
-        correct: 1,
-        difficulty: 3
+        options: ["Wander","Waver","Whine","Diminish"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK112",
         text: "Yield most nearly means:",
-        options: ["Resist", "Surrender", "Fight", "Oppose"],
-        correct: 1,
-        difficulty: 2
+        options: ["Surrender","Shout","Shield","Weld"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK113",
         text: "Zealous most nearly means:",
-        options: ["Indifferent", "Passionate", "Calm", "Apathetic"],
-        correct: 1,
-        difficulty: 3
+        options: ["Loyal","Patient","Passionate","Jealous"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK114",
         text: "Abolish most nearly means:",
-        options: ["Create", "Eliminate", "Begin", "Start"],
-        correct: 1,
-        difficulty: 2
+        options: ["Eliminate","Publish","Polish","Punish"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK115",
         text: "Blatant most nearly means:",
-        options: ["Subtle", "Obvious", "Hidden", "Secret"],
-        correct: 1,
-        difficulty: 3
+        options: ["Obvious","Clumsy","Angry","Bland"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK116",
         text: "Comply most nearly means:",
-        options: ["Refuse", "Obey", "Reject", "Resist"],
-        correct: 1,
-        difficulty: 2
+        options: ["Obey","Complain","Complete","Compete"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK118",
         text: "Enhance most nearly means:",
-        options: ["Worsen", "Improve", "Damage", "Reduce"],
-        correct: 1,
-        difficulty: 2
+        options: ["Improve","Announce","Enchant","Protect"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK119",
         text: "Futile most nearly means:",
-        options: ["Useful", "Useless", "Helpful", "Effective"],
-        correct: 1,
-        difficulty: 3
+        options: ["Useless","Fearful","Fragile","Hostile"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK120",
         text: "Grueling most nearly means:",
-        options: ["Easy", "Exhausting", "Simple", "Light"],
-        correct: 1,
-        difficulty: 3
+        options: ["Disgusting","Frightening","Confusing","Exhausting"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK121",
         text: "Hasty most nearly means:",
-        options: ["Slow", "Quick", "Careful", "Deliberate"],
-        correct: 1,
-        difficulty: 1
+        options: ["Harsh","Hateful","Hurried","Nervous"],
+        correct: 2, difficulty: 1
       },
       {
         id: "WK122",
         text: "Impartial most nearly means:",
-        options: ["Biased", "Fair", "Prejudiced", "One-sided"],
-        correct: 1,
-        difficulty: 3
+        options: ["Fair","Polite","Patient","Complete"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK123",
         text: "Jubilant most nearly means:",
-        options: ["Sad", "Joyful", "Angry", "Depressed"],
-        correct: 1,
-        difficulty: 3
+        options: ["Youthful","Hopeful","Joyful","Grateful"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK124",
         text: "Knack most nearly means:",
-        options: ["Inability", "Talent", "Weakness", "Failure"],
-        correct: 1,
-        difficulty: 2
+        options: ["Habit","Hobby","Tool","Talent"],
+        correct: 3, difficulty: 2
       },
       {
         id: "WK125",
         text: "Liable most nearly means:",
-        options: ["Exempt", "Responsible", "Free", "Innocent"],
-        correct: 1,
-        difficulty: 2
+        options: ["Reliable","Responsible","Available","Truthful"],
+        correct: 1, difficulty: 2
       },
       {
         id: "WK126",
         text: "Moderate most nearly means:",
-        options: ["Extreme", "Average", "Excessive", "Intense"],
-        correct: 1,
-        difficulty: 1
+        options: ["Medium","Polite","Fixed","Modern"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK127",
         text: "Negate most nearly means:",
-        options: ["Confirm", "Cancel out", "Agree", "Support"],
-        correct: 1,
-        difficulty: 3
+        options: ["Ignore","Hold back","Bargain over","Cancel out"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK128",
         text: "Obscure most nearly means:",
-        options: ["Clear", "Unclear", "Obvious", "Visible"],
-        correct: 1,
-        difficulty: 3
+        options: ["Unfair","Unsafe","Unkind","Unclear"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK129",
         text: "Ponder most nearly means:",
-        options: ["Ignore", "Think about", "Forget", "Dismiss"],
-        correct: 1,
-        difficulty: 2
+        options: ["Wander toward","Pound on","Talk about","Think about"],
+        correct: 3, difficulty: 2
       },
       {
         id: "WK130",
         text: "Reluctant most nearly means:",
-        options: ["Eager", "Unwilling", "Ready", "Enthusiastic"],
-        correct: 1,
-        difficulty: 2
+        options: ["Unwilling","Unhappy","Unaware","Unable"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK131",
         text: "Supplement most nearly means:",
-        options: ["Replace", "Add to", "Remove", "Subtract"],
-        correct: 1,
-        difficulty: 2
+        options: ["Rely on","Refer to","Add to","Point out"],
+        correct: 2, difficulty: 2
       },
       {
         id: "WK132",
         text: "Trivial most nearly means:",
-        options: ["Important", "Unimportant", "Serious", "Significant"],
-        correct: 1,
-        difficulty: 2
+        options: ["Unusual","Unimportant","Unpleasant","Uncertain"],
+        correct: 1, difficulty: 2
       },
       {
         id: "WK133",
         text: "Utter most nearly means:",
-        options: ["Partial", "Complete", "Slight", "Minimal"],
-        correct: 1,
-        difficulty: 2
+        options: ["Complete","Sudden","Honest","Outer"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK134",
         text: "Vague most nearly means:",
-        options: ["Clear", "Unclear", "Specific", "Precise"],
-        correct: 1,
-        difficulty: 1
+        options: ["Boring","Unclear","Uneven","Unfair"],
+        correct: 1, difficulty: 1
       },
       {
         id: "WK135",
         text: "Wholesome most nearly means:",
-        options: ["Harmful", "Healthy", "Dangerous", "Toxic"],
-        correct: 1,
-        difficulty: 1
+        options: ["Complete","Healthy","Handsome","Generous"],
+        correct: 1, difficulty: 2
       },
       {
         id: "WK136",
         text: "Adjacent most nearly means:",
-        options: ["Far", "Next to", "Distant", "Remote"],
-        correct: 1,
-        difficulty: 2
+        options: ["Behind","Above","Across from","Next to"],
+        correct: 3, difficulty: 2
       },
       {
         id: "WK137",
         text: "Brevity most nearly means:",
-        options: ["Length", "Shortness", "Duration", "Extension"],
-        correct: 1,
-        difficulty: 4
+        options: ["Shortness","Honesty","Cleverness","Bravery"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK138",
         text: "Coerce most nearly means:",
-        options: ["Ask nicely", "Force", "Suggest", "Request"],
-        correct: 1,
-        difficulty: 4
+        options: ["Coax","Force","Compete","Collect"],
+        correct: 1, difficulty: 4
       },
       {
         id: "WK139",
         text: "Deviate most nearly means:",
-        options: ["Follow", "Stray from", "Conform", "Obey"],
-        correct: 1,
-        difficulty: 3
+        options: ["Decide on","Devote to","Depend on","Stray from"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK140",
         text: "Erratic most nearly means:",
-        options: ["Steady", "Unpredictable", "Consistent", "Regular"],
-        correct: 1,
-        difficulty: 3
+        options: ["Mistaken","Excessive","Hostile","Unpredictable"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK141",
         text: "Fluctuate most nearly means:",
-        options: ["Stay constant", "Vary", "Remain stable", "Fix"],
-        correct: 1,
-        difficulty: 3
+        options: ["Vary","Flatter","Collapse","Flow"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK142",
         text: "Grave most nearly means:",
-        options: ["Trivial", "Serious", "Minor", "Light"],
-        correct: 1,
-        difficulty: 2
+        options: ["Bitter","Cruel","Hollow","Serious"],
+        correct: 3, difficulty: 2
       },
       {
         id: "WK143",
         text: "Hypothesis most nearly means:",
-        options: ["Fact", "Theory", "Proof", "Certainty"],
-        correct: 1,
-        difficulty: 3
+        options: ["Experiment","Measurement","Conclusion","Educated guess"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK144",
         text: "Integrate most nearly means:",
-        options: ["Separate", "Combine", "Divide", "Split"],
-        correct: 1,
-        difficulty: 3
+        options: ["Calculate","Interpret","Interrupt","Combine"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK145",
         text: "Justify most nearly means:",
-        options: ["Accuse", "Defend", "Blame", "Criticize"],
-        correct: 1,
-        difficulty: 2
+        options: ["Defend","Judge","Adjust","Settle"],
+        correct: 0, difficulty: 2
       },
       {
         id: "WK146",
         text: "Laborious most nearly means:",
-        options: ["Easy", "Difficult", "Quick", "Simple"],
-        correct: 1,
-        difficulty: 3
+        options: ["Crowded","Scientific","Difficult","Noisy"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK147",
         text: "Malicious most nearly means:",
-        options: ["Kind", "Harmful", "Gentle", "Friendly"],
-        correct: 1,
-        difficulty: 3
+        options: ["Sickly","Harmful","Greedy","Clumsy"],
+        correct: 1, difficulty: 3
       },
       {
         id: "WK148",
         text: "Notable most nearly means:",
-        options: ["Ordinary", "Remarkable", "Common", "Average"],
-        correct: 1,
-        difficulty: 2
+        options: ["Noble","Remarkable","Readable","Reliable"],
+        correct: 1, difficulty: 2
       },
       {
         id: "WK149",
         text: "Optimum most nearly means:",
-        options: ["Worst", "Best", "Average", "Poor"],
-        correct: 1,
-        difficulty: 3
+        options: ["Hopeful","Best","Final","Largest"],
+        correct: 1, difficulty: 3
       },
       {
         id: "WK150",
         text: "Precede most nearly means:",
-        options: ["Follow", "Come before", "Come after", "Trail"],
-        correct: 1,
-        difficulty: 2
+        options: ["Come before","Go ahead with","Give way to","Take over"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK151",
         text: "Perpetual most nearly means:",
-        options: ["Temporary", "Constant", "Brief", "Short"],
-        correct: 1,
-        difficulty: 4
+        options: ["Endless","Powerful","Personal","Perfect"],
+        correct: 0, difficulty: 3
       },
       {
         id: "WK152",
         text: "Rebuke most nearly means:",
-        options: ["Praise", "Criticize", "Compliment", "Honor"],
-        correct: 1,
-        difficulty: 4
+        options: ["Rebel","Resent","Refuse","Scold"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK153",
         text: "Sustain most nearly means:",
-        options: ["End", "Maintain", "Stop", "Finish"],
-        correct: 1,
-        difficulty: 2
+        options: ["Obtain","Maintain","Contain","Restrain"],
+        correct: 1, difficulty: 3
       },
       {
         id: "WK154",
         text: "Tangible most nearly means:",
-        options: ["Abstract", "Touchable", "Invisible", "Imaginary"],
-        correct: 1,
-        difficulty: 3
+        options: ["Twisted","Movable","Touchable","Breakable"],
+        correct: 2, difficulty: 3
       },
       {
         id: "WK155",
         text: "Unanimous most nearly means:",
-        options: ["Divided", "In complete agreement", "Split", "Partial"],
-        correct: 1,
-        difficulty: 3
+        options: ["Decided quickly","Without a name","By a large majority","In complete agreement"],
+        correct: 3, difficulty: 3
       },
       {
         id: "WK156",
