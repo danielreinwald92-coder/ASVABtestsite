@@ -182,6 +182,17 @@
       font-size: 0.8rem;
       color: var(--text-secondary);
     }
+    /* Phones: compact rows (thumbnail beside title) instead of three
+       full-width cards, so the videos don't push the page down ~1000px. */
+    @media (max-width: 600px) {
+      .video-grid { gap: 0.6rem; }
+      .video-card { display: flex; align-items: center; }
+      .video-thumbnail { flex: 0 0 120px; width: 120px; }
+      .video-play-btn { width: 34px; height: 24px; }
+      .video-play-btn::after { border-left-width: 10px; border-top-width: 6px; border-bottom-width: 6px; margin-left: 3px; }
+      .video-info { padding: 0.6rem 0.85rem; }
+      .video-info h4 { font-size: 0.9rem; }
+    }
 
     /* Section Practice Card */
     .section-practice-card {
