@@ -18,6 +18,7 @@ const PRACTICE = [
   ['select-test.html', 'Practice tests'],
   ['study-guide.html', 'Study guide'],
   ['asvab-score-calculator.html', 'Score calculator'],
+  ['my-options.html', 'See my job options'],
 ];
 const RESOURCES = [
   ['asvab-score-requirements.html', 'Jobs by ASVAB score'],
@@ -82,7 +83,7 @@ function renderNav(page) {
             <p>Tools and references</p>
             <ul>
               <li><a href="asvab-score-calculator.html">Score calculator</a></li>
-${li(RESOURCES.filter(([h]) => h !== 'about.html'), page, '              ')}
+${li(RESOURCES.filter(([h]) => h !== 'about.html' && h !== 'asvab-score-requirements.html'), page, '              ')}
             </ul>
           </div>
           <div>
@@ -111,6 +112,7 @@ ${li(GUIDES, page, '              ')}
       <a href="study-guide.html"${cur('study-guide.html', page)}>Study Guide</a>
       <a href="asvab-score-calculator.html"${cur('asvab-score-calculator.html', page)}>Score Calculator</a>
       <a href="asvab-score-requirements.html"${cur('asvab-score-requirements.html', page)}>Military Jobs by Score</a>
+      <a href="my-options.html"${cur('my-options.html', page)}>See My Job Options</a>
       <a href="resources.html"${cur('resources.html', page)}>All Free Resources</a>
       <a href="about.html"${cur('about.html', page)}>About the ASVAB</a>
       <a href="login.html" data-nav-account${cur('login.html', page)}>Log in</a>
@@ -118,7 +120,7 @@ ${li(GUIDES, page, '              ')}
     <div class="mobile-menu-group">
       <p>References</p>
       <ul>
-${li(RESOURCES.filter(([h]) => h !== 'about.html' && h !== 'resources.html'), page, '        ')}
+${li(RESOURCES.filter(([h]) => h !== 'about.html' && h !== 'resources.html' && h !== 'asvab-score-requirements.html'), page, '        ')}
       </ul>
     </div>
     <div class="mobile-menu-group">

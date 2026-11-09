@@ -132,7 +132,6 @@ test('guest completes an AFQT practice test and reaches numeric results', async 
   await expect(page).toHaveURL(/test-intro\.html$/);
   await expect(page.locator('#questionCount')).toHaveText('55');
   await expect(page.locator('#timeLimit')).toHaveText('122');
-  await page.locator('#acknowledge').check();
   await page.locator('#startBtn').click();
 
   await expect(page).toHaveURL(/quiz\.html$/);
@@ -171,7 +170,6 @@ test('guest completes the 20-question APT-style predictor and sees a predicted A
   await expect(page.locator('#questionCount')).toHaveText('20');
   await expect(page.locator('#timeLimit')).toHaveText('25');
   await expect(page.locator('#aptNotice')).toBeVisible();
-  await page.locator('#acknowledge').check();
   await page.locator('#startBtn').click();
 
   await expect(page).toHaveURL(/quiz\.html$/);
@@ -264,7 +262,6 @@ test('guest diagnostic finishes in 18 questions and yields a personalized missio
   await expect(page.locator('#questionCount')).toHaveText('18');
   await expect(page.locator('#timeLimit')).toHaveText('20');
   await expect(page.locator('#diagnosticNotice')).toBeVisible();
-  await page.locator('#acknowledge').check();
   await page.locator('#startBtn').click();
 
   await expect(page).toHaveURL(/quiz\.html$/);
@@ -281,8 +278,9 @@ test('guest diagnostic finishes in 18 questions and yields a personalized missio
     }
   }
 
-  await expect(page.locator('#afqtLabel')).toHaveText('Starting-Point Diagnostic');
-  await expect(page.locator('#afqtPercentile')).toContainText('not an AFQT percentile');
+  await expect(page.locator('#afqtLabel')).toHaveText('Diagnostic: Percent Correct');
+  await expect(page.locator('#afqtScore')).toHaveText(/^\d+%$/);
+  await expect(page.locator('#afqtPercentile')).toContainText('not an AFQT score');
   await expect(page.locator('#missionPanel')).toBeVisible();
   await expect(page.locator('#missionStartBtn')).toHaveAttribute('href', /study-guide\.html\?section=/);
   expect(errors).toEqual([]);

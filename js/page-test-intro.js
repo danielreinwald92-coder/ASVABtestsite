@@ -3,7 +3,6 @@
 // Loaded at end of <body> after test-config.js / section-config.js / quiz-data.js,
 // so all referenced DOM elements already exist when this runs.
 (function () {
-  const checkbox = document.getElementById('acknowledge');
   const startBtn = document.getElementById('startBtn');
 
   // Load test configuration from session storage (corrupt value → defaults).
@@ -92,18 +91,10 @@
     if (testType === 'diagnostic') {
       const notice = document.getElementById('diagnosticNotice');
       if (notice) notice.hidden = false;
-      const ack = document.querySelector('label[for="acknowledge"]');
-      if (ack) ack.textContent = 'I understand this is an independent practice diagnostic, not an official ASVAB or guaranteed AFQT prediction.';
     }
   }
 
   loadTestInfo();
-
-  function updateButtonState() {
-    startBtn.disabled = !checkbox.checked;
-  }
-
-  checkbox.addEventListener('change', updateButtonState);
 
   startBtn.addEventListener('click', () => {
     if (!startBtn.disabled) {

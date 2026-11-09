@@ -45,8 +45,9 @@ test('diagnostic results render independent-practice copy and a visible mission'
 
   sandbox.loadResults();
 
-  assert.strictEqual(document.getElementById('afqtLabel').textContent, 'Starting-Point Diagnostic');
-  assert.match(document.getElementById('afqtPercentile').textContent, /not an AFQT percentile/i);
+  assert.strictEqual(document.getElementById('afqtLabel').textContent, 'Diagnostic: Percent Correct');
+  assert.match(document.getElementById('afqtPercentile').textContent, /not an AFQT score/i);
+  assert.match(document.getElementById('afqtScore').textContent, /%$/);
   assert.strictEqual(document.getElementById('scoreMessage').textContent, 'Your Starting Point Is Ready');
   assert.strictEqual(document.getElementById('missionPanel').style.display, 'block');
 });

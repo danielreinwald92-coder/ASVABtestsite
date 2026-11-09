@@ -60,11 +60,15 @@ function loadResults() {
   const isTutor = results.mode === 'tutor';
   const isDiagnostic = results.testType === 'diagnostic';
   const isApt = results.testType === 'apt';
-  const displayScore = hasAFQT ? results.afqt : (results.score || 0);
-  document.getElementById('afqtScore').textContent = displayScore;
+  // Without an AFQT estimate the headline is percent correct. Show it WITH a %
+  // sign and say plainly it is not an AFQT: a bare "50" in the AFQT slot reads
+  // like a 50th-percentile AFQT.
+  const pct = results.score || 0;
+  document.getElementById('afqtScore').textContent = hasAFQT ? results.afqt : `${pct}%`;
+  const noAfqtLine = 'Answers correct. This is not an AFQT score. Take the AFQT Predictor to estimate your AFQT.';
   if (isDiagnostic) {
-    document.getElementById('afqtLabel').textContent = 'Starting-Point Diagnostic';
-    document.getElementById('afqtPercentile').textContent = `${results.score}% correct: practice performance, not an AFQT percentile`;
+    document.getElementById('afqtLabel').textContent = 'Diagnostic: Percent Correct';
+    document.getElementById('afqtPercentile').textContent = noAfqtLine;
   } else if (hasAFQT && isApt) {
     document.getElementById('afqtLabel').textContent = 'Predicted AFQT (APT-Style)';
     document.getElementById('afqtPercentile').textContent = formatAfqtPercentileLine(results.afqt, results.afqtBand);
@@ -72,11 +76,11 @@ function loadResults() {
     document.getElementById('afqtLabel').textContent = 'Estimated AFQT Score';
     document.getElementById('afqtPercentile').textContent = formatAfqtPercentileLine(results.afqt, results.afqtBand);
   } else if (isTutor) {
-    document.getElementById('afqtLabel').textContent = 'Tutor Practice';
-    document.getElementById('afqtPercentile').textContent = `${results.score}% correct: untimed practice with explanations`;
+    document.getElementById('afqtLabel').textContent = 'Tutor Practice: Percent Correct';
+    document.getElementById('afqtPercentile').textContent = noAfqtLine;
   } else {
-    document.getElementById('afqtLabel').textContent = 'Practice Score';
-    document.getElementById('afqtPercentile').textContent = `${results.score}% Correct: single-section practice, not an AFQT estimate`;
+    document.getElementById('afqtLabel').textContent = 'Section Practice: Percent Correct';
+    document.getElementById('afqtPercentile').textContent = noAfqtLine;
   }
   document.getElementById('correctCount').textContent = results.correct || 0;
   document.getElementById('incorrectCount').textContent = results.incorrect || 0;
@@ -105,7 +109,7 @@ function loadResults() {
 
   if (isDiagnostic) {
     message = 'Your Starting Point Is Ready';
-    description = 'Use the section evidence and Today’s Mission below to begin focused study. This independent practice diagnostic is not an official ASVAB or guaranteed AFQT prediction.';
+    description = 'See which areas to work on below, then start Today’s Mission.';
   } else if (isTutor) {
     message = 'Practice Complete';
     description = 'Review each question below with its explanation. Weak areas from this session feed your study plan. Take a timed test when you want an AFQT estimate.';

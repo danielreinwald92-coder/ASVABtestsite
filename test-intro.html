@@ -274,35 +274,20 @@
       font-weight: 700;
     }
 
-    .acknowledge-box {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      padding: 1rem 1.25rem;
-      background: var(--cream-100);
-      border-radius: var(--r-md);
-      margin-bottom: 2rem;
-      cursor: pointer;
-      transition: background 0.2s ease;
+    /* Begin Test stays in reach while the rules scroll (sticky bottom bar). */
+    .start-bar {
+      position: sticky;
+      bottom: 0;
+      z-index: 5;
+      margin: 0 -1rem;
+      padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+      background: var(--white);
+      border-top: 1px solid var(--cream-200);
     }
 
-    .acknowledge-box:hover { background: var(--cream-200); }
 
-    .acknowledge-box input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      accent-color: var(--navy-900);
-      cursor: pointer;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
 
-    .acknowledge-box label {
-      font-size: 0.95rem;
-      color: var(--text-primary);
-      cursor: pointer;
-      line-height: 1.5;
-    }
+
 
     .start-btn {
       width: 100%;
@@ -374,8 +359,6 @@
 
       .rules-list li { font-size: 0.9rem; }
 
-      .acknowledge-box { padding: 0.875rem; }
-      .acknowledge-box label { font-size: 0.9rem; }
 
       .start-btn {
         padding: 1rem 1.5rem;
@@ -413,7 +396,6 @@
             <p>Tools and references</p>
             <ul>
               <li><a href="asvab-score-calculator.html">Score calculator</a></li>
-              <li><a href="asvab-score-requirements.html">Jobs by ASVAB score</a></li>
               <li><a href="asvab-gt-score.html">GT score guide</a></li>
               <li><a href="faq.html">ASVAB FAQ</a></li>
               <li><a href="asvab-scores.html">Scores explained</a></li>
@@ -456,6 +438,7 @@
       <a href="study-guide.html">Study Guide</a>
       <a href="asvab-score-calculator.html">Score Calculator</a>
       <a href="asvab-score-requirements.html">Military Jobs by Score</a>
+      <a href="my-options.html">See My Job Options</a>
       <a href="resources.html">All Free Resources</a>
       <a href="about.html">About the ASVAB</a>
       <a href="login.html" data-nav-account>Log in</a>
@@ -463,7 +446,6 @@
     <div class="mobile-menu-group">
       <p>References</p>
       <ul>
-        <li><a href="asvab-score-requirements.html">Jobs by ASVAB score</a></li>
         <li><a href="asvab-gt-score.html">GT score guide</a></li>
         <li><a href="faq.html">ASVAB FAQ</a></li>
         <li><a href="asvab-scores.html">Scores explained</a></li>
@@ -563,12 +545,9 @@
         <p class="shortcut-note" id="shortcutNote">On a keyboard: press A-D to answer, arrow keys to move, F to flag a question.</p>
       </div>
 
-      <div class="acknowledge-box">
-        <input type="checkbox" id="acknowledge">
-        <label for="acknowledge">I understand the rules above and won't use a calculator, same conditions as the real test.</label>
+      <div class="start-bar">
+        <button class="start-btn" id="startBtn">Begin Test</button>
       </div>
-
-      <button class="start-btn" id="startBtn" disabled>Begin Test</button>
     </div>
   </main>
 
@@ -589,6 +568,7 @@
           <li><a href="select-test.html">Practice tests</a></li>
           <li><a href="study-guide.html">Study guide</a></li>
           <li><a href="asvab-score-calculator.html">Score calculator</a></li>
+          <li><a href="my-options.html">See my job options</a></li>
           <li><a href="login.html" data-nav-account>Log in</a></li>
         </ul>
       </div>
