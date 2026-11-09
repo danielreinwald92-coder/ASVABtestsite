@@ -88,6 +88,18 @@
       color: var(--text-secondary);
     }
 
+    /* Collapsed "practice by section" panel */
+    .picker-details { margin: 0 0 2rem; border: 1.5px solid var(--cream-200); border-radius: var(--r-md); background: var(--white); }
+    .picker-details > summary {
+      cursor: pointer; list-style: none; padding: 1rem 1.25rem;
+      font-weight: 600; color: var(--navy-900); display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .picker-details > summary::-webkit-details-marker { display: none; }
+    .picker-details > summary::after { content: "+"; font-size: 1.4rem; line-height: 1; color: var(--text-secondary); }
+    .picker-details[open] > summary::after { content: "\2212"; }
+    .picker-details[open] { padding: 0 1rem 1rem; }
+    .picker-details[open] > summary { padding-left: 0.25rem; padding-right: 0.25rem; }
+
     /* Test Type Selection */
     .section-title {
       font-family: var(--font-display);
@@ -701,15 +713,19 @@
     </div>
 
     <!-- Section Info -->
-    <h2 class="section-title">Or practice by section</h2>
-    <div class="section-picker" id="sectionPicker" role="group" aria-label="Choose sections to practice">
-      <!-- rows injected by js/page-select-test.js from SECTION_CONFIG -->
-    </div>
-    <label class="tutor-toggle" id="tutorToggleLabel">
-      <input type="checkbox" id="tutorToggle">
-      <span>Untimed tutor mode: instant feedback &amp; explanations after each question</span>
-    </label>
-    <p class="tutor-note" id="tutorNote" hidden>The 20-minute diagnostic and the AFQT Predictor are always timed.</p>
+    <!-- Section practice + tutor mode are secondary paths: collapsed so the four
+         test cards and the Start bar stay the focus (most visitors take a preset). -->
+    <details class="picker-details" id="pickerDetails">
+      <summary class="picker-summary-toggle">Practice one section, or untimed tutor mode</summary>
+      <div class="section-picker" id="sectionPicker" role="group" aria-label="Choose sections to practice">
+        <!-- rows injected by js/page-select-test.js from SECTION_CONFIG -->
+      </div>
+      <label class="tutor-toggle" id="tutorToggleLabel">
+        <input type="checkbox" id="tutorToggle">
+        <span>Untimed tutor mode: instant feedback &amp; explanations after each question</span>
+      </label>
+      <p class="tutor-note" id="tutorNote" hidden>The 20-minute diagnostic and the AFQT Predictor are always timed.</p>
+    </details>
 
     <!-- Name Input -->
     <div class="name-section">

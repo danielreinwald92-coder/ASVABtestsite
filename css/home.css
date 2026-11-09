@@ -320,7 +320,11 @@
   .hero-start { justify-content: center; width: 100%; }
   .hero-try { text-align: center; }
   .report { padding: 1.35rem 1.25rem 1.2rem; }
-  .report-score { font-size: 4rem; }
+  .report-score { font-size: 3.25rem; }
+  /* Phones: keep the example card to score + jobs so the test choices
+     arrive about a screen sooner. Section bars and the mission line are
+     desktop-only detail. */
+  .report-bars, .report-next { display: none; }
   .start { padding: 3rem 1rem; }
   /* Vertical time axis on phones. */
   .track { grid-template-columns: 1fr; row-gap: 2rem; padding-left: 1.75rem; }

@@ -289,7 +289,7 @@ function page(code, data) {
 
     <section class="section">
       <h2>${esc(info.name)} Lessons</h2>
-      <p>${esc(String(course.description || '').replace(/([^.!?])$/, '$1.'))} Each lesson below is also in the interactive <a href="study-guide.html">study guide</a>, where you can take a quiz to check yourself.</p>
+      <p>${esc(String(course.description || '').replace(/([^.!?])$/, '$1.'))} Each lesson below is also in the interactive <a href="study-guide.html?section=${esc(code)}">study guide</a>, where you can track your progress and take a quiz to check yourself.</p>
       <nav class="guide-toc" aria-label="Lessons">
         <ol>
           ${course.chapters.map((ch) => `<li><a href="#${esc(ch.id)}">${esc(ch.title)}</a></li>`).join('\n          ')}
