@@ -125,12 +125,12 @@ function deriveTestType(orderedSections) {
     });
     const tutor = tutorEl && tutorEl.checked;
     const timeStr = tutor ? 'untimed' : `${Math.ceil(secs / 60)} minutes`;
-    const nameValid = nameInput.value.trim().length >= 2;
+    // The name is optional (results fall back to a generic greeting): a
+    // required name kept new visitors from ever seeing an enabled Start button.
     summary.textContent = ordered.length
-      ? `${q} questions in ${ordered.length} section${ordered.length > 1 ? 's' : ''}, ${timeStr}.` +
-        (nameValid ? '' : ' Enter your name above to start.')
+      ? `${q} questions in ${ordered.length} section${ordered.length > 1 ? 's' : ''}, ${timeStr}.`
       : 'Choose a test type or at least one section to begin.';
-    startBtn.disabled = !nameValid || ordered.length === 0;
+    startBtn.disabled = ordered.length === 0;
     const presetConfig = activePreset && typeof MissionASVABConfig.getTestConfig === 'function'
       ? MissionASVABConfig.getTestConfig(activePreset) : null;
     startBtn.textContent = ordered.length
@@ -171,7 +171,10 @@ function deriveTestType(orderedSections) {
 
   // Homepage links preselect a test: select-test.html?type=apt (diagnostic,
   // apt, quick, full). Unknown values keep the diagnostic default.
-  const typeMatch = /[?&]type=([a-z]+)/.exec((window.location && window.location.search) || '');
+  // Adding &start=1 skips the chooser and goes straight to the test intro,
+  // unless a test is in progress (then the resume banner decides).
+  const search = (window.location && window.location.search) || '';
+  const typeMatch = /[?&]type=([a-z]+)/.exec(search);
   const requestedType = typeMatch && typeMatch[1];
   const requestedCard = requestedType && Array.from(document.querySelectorAll('.test-type-card'))
     .find((c) => c.dataset.type === requestedType);
@@ -200,4 +203,8 @@ function deriveTestType(orderedSections) {
 
     window.location.href = 'test-intro.html';
   });
+
+  if (requestedCard && /[?&]start=1(&|$)/.test(search) && !hasInProgress) {
+    startBtn.click();
+  }
 })();

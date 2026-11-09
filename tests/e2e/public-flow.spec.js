@@ -223,16 +223,23 @@ test('score calculator shows job matches for entered standard scores', async ({ 
   expect(errors).toEqual([]);
 });
 
-test('homepage start links preselect the matching test', async ({ page }) => {
+test('homepage start links skip the chooser and open the matching test intro', async ({ page }) => {
   await isolateExternalServices(page);
   const errors = collectBrowserErrors(page);
   await page.goto('/');
   await expect(page.locator('.hero-start')).toHaveAttribute('href', 'select-test.html');
-  await page.locator('a[href="select-test.html?type=apt"]').click();
-  await expect(page).toHaveURL(/select-test\.html\?type=apt$/);
+  await page.locator('a[href="select-test.html?type=apt&start=1"]').click();
+  await expect(page).toHaveURL(/test-intro\.html$/);
+  const config = await page.evaluate(() => JSON.parse(sessionStorage.getItem('testConfig')));
+  expect(config.type).toBe('apt');
+  expect(errors).toEqual([]);
+});
+
+test('select-test ?type= without start=1 only preselects the card', async ({ page }) => {
+  await isolateExternalServices(page);
+  await page.goto('/select-test.html?type=apt');
   await expect(page.locator('.test-type-card[data-type="apt"]')).toHaveClass(/selected/);
   await expect(page.locator('.test-type-card[data-type="diagnostic"]')).not.toHaveClass(/selected/);
-  expect(errors).toEqual([]);
 });
 
 test('my-options without a saved result offers a test and the calculator', async ({ page }) => {
@@ -247,8 +254,9 @@ test('guest diagnostic finishes in 18 questions and yields a personalized missio
   const errors = collectBrowserErrors(page);
 
   await page.goto('/select-test.html');
-  await page.getByLabel('Your Name').fill('New Student');
+  // The name is optional: Start works without one.
   await expect(page.locator('.test-type-card[data-type="diagnostic"]')).toHaveAttribute('aria-checked', 'true');
+  await expect(page.locator('#startBtn')).toBeEnabled();
   await expect(page.locator('#pickerSummary')).toContainText('18 questions in 4 sections, 20 minutes');
   await page.locator('#startBtn').click();
 

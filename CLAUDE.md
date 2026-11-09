@@ -82,7 +82,9 @@ js/
 ├── site-nav.js             # swaps the shared nav/footer "Log in" link to "My dashboard" when signed in
 css/home.css                # Homepage hero (example-result readout, one load animation via
                             #   js/page-home-report.js) + "Choose where to start" time track; start links
-                            #   deep-link select-test.html?type=diagnostic|apt|quick|full (preselects a card)
+                            #   deep-link select-test.html?type=diagnostic|apt|quick|full&start=1 (skips the chooser
+                            #   straight to test-intro; without start=1 it only preselects a card).
+                            #   The name on select-test is optional (results fall back to "Test Taker")
 css/shared.css              # Design system: tokens (palette, type roles, radius, elevation) +
                             #   shared components (.btn variants, .card, .patch, .logo, nav, mobile
                             #   menu, footer, focus/reduced-motion floors). Fonts sitewide: Barlow
