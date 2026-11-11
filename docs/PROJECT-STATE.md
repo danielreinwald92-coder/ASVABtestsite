@@ -95,7 +95,12 @@ features were built; unchecked boxes there are not the current work queue.
 - Vercel runs the unit, data/scoring, and no-inline-JS gates before publishing output.
 - Vercel excludes documentation and local developer-tool configuration from the static output.
 - Any change to an existing JavaScript file requires a `CACHE_VERSION` bump in
-  `service-worker.js`.
+  `service-worker.js`. Bumps are cheap for returning visitors: content-hashed (`?v=`) entries are
+  copied from the old cache, so only changed files are downloaded again.
+- CDN request budget: the Hobby plan caps Vercel CDN requests at 1M/month (exceeded Nov 11, 2026,
+  which paused the project). Every same-origin file per page view counts, even CDN-cached ones. Keep
+  the service worker registered only on app pages (`js/sw-register.js`), never background-refresh
+  `?v=` assets, and avoid adding new per-page script files where an existing one fits.
 
 ## Source-of-Truth Map
 

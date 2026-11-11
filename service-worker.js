@@ -6,6 +6,9 @@
  *   - deletes old caches on activate
  *   - ONLY handles same-origin GET requests
  *   - network-first for navigations (HTML), cache-first for static assets
+ *   - NEVER re-fetches a content-hashed (?v=<hash>) asset it already holds:
+ *     those URLs are immutable, and every needless network fetch is a billed
+ *     Vercel CDN request (the Hobby plan caps them at 1M/month)
  *   - NEVER touches cross-origin requests (Supabase *.supabase.co, jsDelivr,
  *     Google Fonts, Vercel insights) — they pass straight
  *     through to the network
@@ -18,7 +21,7 @@
 // RELEASE STEP: bump on every deploy that changes an existing JS file —
 // subresources are cache-first, so without a bump the first post-deploy load
 // runs fresh HTML against stale cached JS.
-const CACHE_VERSION = 'mission-asvab-v21';
+const CACHE_VERSION = 'mission-asvab-v22';
 
 // Small, maintainable core of STATIC same-origin assets that make up the app
 // shell. Admin assets are intentionally excluded.
@@ -74,18 +77,45 @@ const PRECACHE_URLS = [
   '/js/year.js'
 ];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_VERSION).then((cache) =>
-      // Best-effort precache: cache.addAll() rejects the whole batch if any one
-      // URL 404s, so add individually and swallow misses to stay resilient.
-      Promise.all(
-        PRECACHE_URLS.map((url) =>
-          cache.add(new Request(url, { cache: 'reload' })).catch(() => {})
-        )
-      )
-    ).then(() => self.skipWaiting())
+// True for build-stamped, content-hashed URLs (scripts/stamp-assets.js adds
+// ?v=<hash>). Same URL => same bytes, so a cached copy is always current.
+function isVersioned(url) {
+  try {
+    return new URL(url, self.location.origin).searchParams.has('v');
+  } catch (_) {
+    return false;
+  }
+}
+
+// Best-effort precache: cache.addAll() rejects the whole batch if any one URL
+// 404s, so add individually and swallow misses to stay resilient.
+// Content-hashed assets are copied from an older cache (or the browser HTTP
+// cache) when possible, so a CACHE_VERSION bump only downloads files whose
+// content actually changed instead of the whole app shell again.
+async function precache() {
+  const cache = await caches.open(CACHE_VERSION);
+  await Promise.all(
+    PRECACHE_URLS.map(async (url) => {
+      try {
+        if (isVersioned(url)) {
+          const prior = await caches.match(url);
+          if (prior) {
+            await cache.put(url, prior);
+            return;
+          }
+          await cache.add(url);
+        } else {
+          await cache.add(new Request(url, { cache: 'reload' }));
+        }
+      } catch (_) {
+        /* best effort */
+      }
+    })
   );
+}
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(precache().then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (event) => {
@@ -152,12 +182,16 @@ async function networkFirst(req) {
   }
 }
 
-// Cache-first for static assets, with a background refresh so a newer asset is
-// picked up on the next load (the versioned cache is the hard reset switch).
+// Cache-first for static assets. Unversioned assets (dynamically loaded
+// scripts, manifest, icons) get a background refresh so a newer copy is picked
+// up on the next load; content-hashed (?v=) assets never do — they cannot
+// change, and each refresh would be a wasted CDN request on every page view.
+// The versioned cache name stays the hard reset switch.
 async function cacheFirst(req) {
   const cache = await caches.open(CACHE_VERSION);
   const cached = await cache.match(req);
   if (cached) {
+    if (isVersioned(req.url)) return cached;
     fetch(req)
       .then((res) => {
         if (res && res.ok && res.type === 'basic') cache.put(req, res.clone());

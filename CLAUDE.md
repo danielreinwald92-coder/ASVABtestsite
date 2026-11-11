@@ -89,7 +89,12 @@ css/shared.css              # Design system: tokens (palette, type roles, radius
                             #   shared components (.btn variants, .card, .patch, .logo, nav, mobile
                             #   menu, footer, focus/reduced-motion floors). Fonts sitewide: Barlow
                             #   Condensed (display, uppercase) / DM Sans (body) / Chakra Petch (data)
-service-worker.js           # App-shell offline cache (bypasses Supabase/cross-origin/admin)
+service-worker.js           # App-shell offline cache (bypasses Supabase/cross-origin/admin). Never
+                            #   re-fetches a cached ?v= asset; reuses ?v= entries across CACHE_VERSION
+                            #   bumps. Registered by js/sw-register.js ONLY on app pages (select-test,
+                            #   test-intro, quiz, results, dashboard, study-guide, my-options) or when
+                            #   already installed — keeps SEO visitors from precaching ~45 files
+                            #   (Vercel Hobby caps CDN requests at 1M/month; Nov 2026 overage)
 manifest.json  robots.txt  .vercelignore
 scripts/
 ├── validate-site.js        # Data/scoring contract checks + per-section POOL_MINIMUMS ratchet +
