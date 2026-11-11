@@ -102,6 +102,8 @@ scripts/
 ├── build-job-pages.js      # Regenerates hub, GT, 5 branch pages, jobs/*.html + sitemap job block
 ├── sync-site-chrome.js     # SINGLE SOURCE for the site nav, mobile menu and footer on every page;
 │                           #   edit it, run it (--check = drift test in tests/unit/site-chrome.test.js)
+├── stamp-assets.js         # BUILD-ONLY: appends ?v=<hash> to js/css refs in deploy output (1-yr
+│                           #   immutable cache via vercel.json); never commit stamped files
 └── check-no-inline-js.js   # CI gate: fails if any inline on*= handler or inline <script> exists
 supabase/migrations/        # Versioned additive database changes (new schema work belongs here)
 tests/                      # node:test + jsdom suite (315 tests). helpers/load.js, helpers/engine.js
@@ -124,7 +126,8 @@ git push                       # main auto-deploys to Vercel (build runs unit + 
 
 **Release step:** any deploy that changes an existing JS file must bump `CACHE_VERSION` in
 `service-worker.js` — subresources are cache-first, so without a bump the first post-deploy
-load runs fresh HTML against stale cached JS.
+load runs fresh HTML against stale cached JS. (Static `js/`/`css/` refs are also content-hashed at
+build by `scripts/stamp-assets.js`; dynamically loaded scripts are not, and get a 1-day cache.)
 
 CI (`.github/workflows/ci.yml`) runs `npm ci → unit tests → Playwright → validate-site → check-no-inline-js` on push/PR.
 
