@@ -83,7 +83,9 @@ js/
 ├── page-*.js               # Per-page logic (externalized; NO inline <script> — see CSP rule below)
 ├── focus-trap.js  mobile-menu.js  sw-register.js  year.js  # shared UI/PWA helpers
 ├── ads.js                  # Top AdSense banner: no-op until ADSENSE_CLIENT/SLOT are set; slot + "Ads help
-│                           #   keep Mission ASVAB free" note come from sync-site-chrome (AD_FREE: test-intro,
+│                           #   keep Mission ASVAB free" note come from sync-site-chrome
+│                           #   (AdSense pub-8948364365187280, owner daniel.reinwald92; sync-site-chrome also
+│                           #   injects the google-adsense-account meta; ads.txt at root) (AD_FREE: test-intro,
 │                           #   login/register/reset; quiz/dashboard have no nav). Needs ads.txt + Auto ads OFF
 ├── site-nav.js             # swaps the shared nav/footer "Log in" link to "My dashboard" when signed in
 css/home.css                # Homepage hero (example-result readout, one load animation via

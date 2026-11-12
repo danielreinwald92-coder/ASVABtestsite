@@ -221,7 +221,15 @@ function ensureScripts(src, kind) {
   return src;
 }
 
+// AdSense site-ownership tag (publisher ID must match js/ads.js and ads.txt).
+const ADSENSE_META = '<meta name="google-adsense-account" content="ca-pub-8948364365187280">';
+function ensureHeadMeta(src) {
+  if (src.includes('name="google-adsense-account"')) return src;
+  return src.replace(/(<meta name="viewport"[^>]*>)/, `$1\n  ${ADSENSE_META}`);
+}
+
 function syncPage(page, src) {
+  src = ensureHeadMeta(src);
   const kind = PAGES[page] || (page.startsWith('jobs/') ? 'full' : undefined);
   if (kind === 'full') src = replaceNav(src, page);
   src = replaceFooter(src, page);

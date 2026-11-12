@@ -5,8 +5,8 @@
 // extra ads elsewhere. Slot markup comes from scripts/sync-site-chrome.js.
 (function () {
   'use strict';
-  var ADSENSE_CLIENT = ''; // e.g. 'ca-pub-1234567890123456'
-  var ADSENSE_SLOT = '';   // e.g. '1234567890'
+  var ADSENSE_CLIENT = 'ca-pub-8948364365187280';
+  var ADSENSE_SLOT = '';   // display-ad unit ID from AdSense (set after approval)
 
   var box = document.querySelector('[data-ad-top]');
   if (!box || !ADSENSE_CLIENT || !ADSENSE_SLOT) return;
