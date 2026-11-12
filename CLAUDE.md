@@ -1,7 +1,10 @@
 # CLAUDE.md
 
-Mission ASVAB - Static HTML/JS practice test site for military applicants preparing for the Armed Services Vocational Aptitude Battery. Deployed on Vercel at `https://www.missionasvab.org` (MIGRATING Nov 2026 to Cloudflare Workers static assets via
-`wrangler.jsonc` + `scripts/build-dist.js`; `html_handling: none` keeps `.html` URLs; vercel.json stays the header source); the bare domain permanently redirects to `www`.
+Mission ASVAB - Static HTML/JS practice test site for military applicants preparing for the Armed Services Vocational Aptitude Battery. Served by **Cloudflare** (Workers static assets, project `mission-asvab`, since 2026-11-12) at `https://www.missionasvab.org`:
+Workers Builds runs the gates + `scripts/build-dist.js` on every push to main and deploys `dist/` via `wrangler.jsonc`
+(`html_handling: none` keeps `.html` URLs). DNS is on Cloudflare (domain still REGISTERED at Vercel, auto-renews there).
+`vercel.json` stays the single source for headers (translated to `_headers`). The bare domain 301s to `www` via a
+Cloudflare Redirect Rule. Vercel may still build on push but no longer serves traffic.
 
 ## Core Features
 
@@ -137,7 +140,7 @@ npm run test:e2e               # Run Playwright against all pages + the guest AF
 node scripts/validate-site.js  # Validate quiz data + scoring contracts (also a Vercel build gate)
 node scripts/check-no-inline-js.js  # Verify no inline JS (required by the strict CSP)
 node scripts/build-dist.js     # Cloudflare output in dist/ (npx wrangler dev to preview it)
-git push                       # main auto-deploys to Vercel (build runs unit + validation + CSP gates)
+git push                       # main auto-deploys to Cloudflare (Workers Builds) (build runs unit + validation + CSP gates)
 ```
 
 **Release step:** any deploy that changes an existing JS file must bump `CACHE_VERSION` in
