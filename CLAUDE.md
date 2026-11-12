@@ -1,6 +1,7 @@
 # CLAUDE.md
 
-Mission ASVAB - Static HTML/JS practice test site for military applicants preparing for the Armed Services Vocational Aptitude Battery. Deployed on Vercel at `https://www.missionasvab.org`; the bare domain permanently redirects to `www`.
+Mission ASVAB - Static HTML/JS practice test site for military applicants preparing for the Armed Services Vocational Aptitude Battery. Deployed on Vercel at `https://www.missionasvab.org` (MIGRATING Nov 2026 to Cloudflare Workers static assets via
+`wrangler.jsonc` + `scripts/build-dist.js`; `html_handling: none` keeps `.html` URLs; vercel.json stays the header source); the bare domain permanently redirects to `www`.
 
 ## Core Features
 
@@ -107,6 +108,8 @@ scripts/
 ├── build-job-pages.js      # Regenerates hub, GT, 5 branch pages, jobs/*.html + sitemap job block
 ├── sync-site-chrome.js     # SINGLE SOURCE for the site nav, mobile menu and footer on every page;
 │                           #   edit it, run it (--check = drift test in tests/unit/site-chrome.test.js)
+├── build-dist.js           # CLOUDFLARE build: served files -> dist/, vercel.json headers -> _headers,
+│                           #   strips Vercel analytics tag, runs stamp-assets (wrangler.jsonc deploys dist/)
 ├── stamp-assets.js         # BUILD-ONLY: appends ?v=<hash> to js/css refs in deploy output (1-yr
 │                           #   immutable cache via vercel.json); never commit stamped files
 └── check-no-inline-js.js   # CI gate: fails if any inline on*= handler or inline <script> exists
@@ -126,6 +129,7 @@ npm test                       # Run the node:test + jsdom unit suite (315 tests
 npm run test:e2e               # Run Playwright against all pages + the guest AFQT flow
 node scripts/validate-site.js  # Validate quiz data + scoring contracts (also a Vercel build gate)
 node scripts/check-no-inline-js.js  # Verify no inline JS (required by the strict CSP)
+node scripts/build-dist.js     # Cloudflare output in dist/ (npx wrangler dev to preview it)
 git push                       # main auto-deploys to Vercel (build runs unit + validation + CSP gates)
 ```
 

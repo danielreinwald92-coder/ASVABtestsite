@@ -1,0 +1,13 @@
+// Cloudflare Workers static-assets deploy (no Worker script: every request is a
+// free, unlimited static-asset request). Build first: node scripts/build-dist.js
+{
+  "name": "mission-asvab",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    // Serve /quiz.html as-is (the default would 307-redirect it to /quiz and
+    // break every existing link, canonical URL and sitemap entry).
+    "html_handling": "none",
+    "not_found_handling": "none"
+  }
+}

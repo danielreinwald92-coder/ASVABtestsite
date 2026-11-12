@@ -7,3 +7,6 @@ preview-*.html
 .vercel/
 supabase/
 playwright.config.js
+dist/
+wrangler.jsonc
+.wrangler/
