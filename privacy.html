@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | Mission ASVAB</title>
+  <meta name="description" content="How Mission ASVAB handles your data: what we store, the cookieless analytics we use, and how Google AdSense uses cookies to show ads.">
+  <link rel="canonical" href="https://www.missionasvab.org/privacy.html">
+  <meta property="og:title" content="Privacy Policy | Mission ASVAB">
+  <meta property="og:description" content="How Mission ASVAB handles your data: what we store, the cookieless analytics we use, and how Google AdSense uses cookies to show ads.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.missionasvab.org/privacy.html">
+  <meta property="og:site_name" content="Mission ASVAB">
+  <meta property="og:image" content="https://www.missionasvab.org/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Mission ASVAB - free ASVAB practice tests and study tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Privacy Policy | Mission ASVAB">
+  <meta name="twitter:description" content="How Mission ASVAB handles your data: what we store, the cookieless analytics we use, and how Google AdSense uses cookies to show ads.">
+  <meta name="twitter:image" content="https://www.missionasvab.org/og-image.png">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a1628">
+  <style>
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream-100);
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-200);
+    }
+
+    .logo {
+      font-size: 1.6rem;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--navy-900);
+    }
+
+    .nav-cta:hover {
+      background: var(--navy-700);
+    }
+
+    .mobile-menu-links a.active { color: var(--gold-text); }
+
+    /* Hero */
+    .hero {
+      background: var(--navy-900);
+      padding: 4rem 5%;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-data);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gold-400);
+      margin-bottom: 0.85rem;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--cream-200);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Content */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section h2 {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: var(--navy-900);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--gold-500);
+      display: inline-block;
+    }
+
+    .section p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .section p a {
+      color: var(--navy-700);
+      font-weight: 600;
+    }
+
+    .section ul {
+      margin-left: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    .section li {
+      margin-bottom: 0.5rem;
+    }
+
+    .section li a {
+      color: var(--navy-700);
+      font-weight: 600;
+    }
+
+    /* Scoring Table */
+    .score-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+      background: var(--white);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-1);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .score-table th,
+    .score-table td {
+      padding: 1rem 1.25rem;
+      text-align: left;
+    }
+
+    .score-table th {
+      background: var(--navy-900);
+      color: var(--white);
+      font-family: var(--font-data);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .score-table td {
+      border-bottom: 1px solid var(--cream-200);
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .score-table td a {
+      color: var(--navy-700);
+      font-weight: 600;
+    }
+
+    .score-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .score-table tr:hover td {
+      background: var(--cream-100);
+    }
+
+    .score-table:hover {
+      box-shadow: var(--shadow-2);
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--white);
+      border-radius: var(--r-lg);
+      padding: 3rem;
+      text-align: center;
+      margin-top: 2rem;
+      box-shadow: var(--shadow-1);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .cta-section:hover {
+      box-shadow: var(--shadow-2);
+    }
+
+    .cta-section h3 {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: var(--navy-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-section p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--navy-900);
+      color: var(--white);
+      padding: 1rem 2rem;
+      border-radius: var(--r-md);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+
+    .cta-btn:hover {
+      background: var(--navy-700);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-2);
+    }
+
+    .cta-btn::after {
+      content: "→";
+    }
+
+
+    @media (max-width: 700px) {
+      .nav-links, .nav-cta {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+
+      .score-table {
+        font-size: 0.85rem;
+      }
+
+      .score-table th,
+      .score-table td {
+        padding: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- site-nav (generated by scripts/sync-site-chrome.js; edit there) -->
+  <nav class="site-nav" aria-label="Main">
+    <a href="index.html" class="logo">Mission <span>ASVAB</span></a>
+    <ul class="nav-links">
+      <li><a href="select-test.html">Practice Tests</a></li>
+      <li><a href="study-guide.html">Study Guide</a></li>
+      <li><a href="asvab-score-requirements.html">Military Jobs</a></li>
+      <li class="nav-drop">
+        <a href="resources.html" class="nav-drop-toggle">Resources <svg class="nav-caret" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+        <div class="nav-drop-panel">
+          <div>
+            <p>Tools and references</p>
+            <ul>
+              <li><a href="asvab-score-calculator.html">Score calculator</a></li>
+              <li><a href="asvab-gt-score.html">GT score guide</a></li>
+              <li><a href="faq.html">ASVAB FAQ</a></li>
+              <li><a href="asvab-scores.html">Scores explained</a></li>
+              <li><a href="asvab-math-formulas.html">Math formula sheet</a></li>
+              <li><a href="asvab-word-list.html">Vocabulary list</a></li>
+              <li><a href="asvab-study-plan.html">Study plan</a></li>
+              <li><a href="resources.html">All free resources</a></li>
+            </ul>
+          </div>
+          <div>
+            <p>Section guides</p>
+            <ul>
+              <li><a href="asvab-arithmetic-reasoning.html">Arithmetic Reasoning</a></li>
+              <li><a href="asvab-word-knowledge.html">Word Knowledge</a></li>
+              <li><a href="asvab-paragraph-comprehension.html">Paragraph Comprehension</a></li>
+              <li><a href="asvab-mathematics-knowledge.html">Mathematics Knowledge</a></li>
+              <li><a href="asvab-general-science.html">General Science</a></li>
+              <li><a href="asvab-electronics-information.html">Electronics Information</a></li>
+              <li><a href="asvab-auto-and-shop.html">Auto and Shop</a></li>
+              <li><a href="asvab-mechanical-comprehension.html">Mechanical Comprehension</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="login.html" class="nav-account" data-nav-account>Log in</a></li>
+    </ul>
+    <a href="select-test.html" class="nav-cta">Take a Practice Test</a>
+    <button class="hamburger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+      <a href="index.html" class="logo">Mission <span>ASVAB</span></a>
+      <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
+    </div>
+    <a href="select-test.html" class="mobile-menu-cta">Take a Practice Test</a>
+    <div class="mobile-menu-links">
+      <a href="study-guide.html">Study Guide</a>
+      <a href="asvab-score-calculator.html">Score Calculator</a>
+      <a href="asvab-score-requirements.html">Military Jobs by Score</a>
+      <a href="my-options.html">See My Job Options</a>
+      <a href="resources.html">All Free Resources</a>
+      <a href="about.html">About the ASVAB</a>
+      <a href="login.html" data-nav-account>Log in</a>
+    </div>
+    <div class="mobile-menu-group">
+      <p>References</p>
+      <ul>
+        <li><a href="asvab-gt-score.html">GT score guide</a></li>
+        <li><a href="faq.html">ASVAB FAQ</a></li>
+        <li><a href="asvab-scores.html">Scores explained</a></li>
+        <li><a href="asvab-math-formulas.html">Math formula sheet</a></li>
+        <li><a href="asvab-word-list.html">Vocabulary list</a></li>
+        <li><a href="asvab-study-plan.html">Study plan</a></li>
+      </ul>
+    </div>
+    <div class="mobile-menu-group">
+      <p>Section guides</p>
+      <ul>
+        <li><a href="asvab-arithmetic-reasoning.html">Arithmetic Reasoning</a></li>
+        <li><a href="asvab-word-knowledge.html">Word Knowledge</a></li>
+        <li><a href="asvab-paragraph-comprehension.html">Paragraph Comprehension</a></li>
+        <li><a href="asvab-mathematics-knowledge.html">Mathematics Knowledge</a></li>
+        <li><a href="asvab-general-science.html">General Science</a></li>
+        <li><a href="asvab-electronics-information.html">Electronics Information</a></li>
+        <li><a href="asvab-auto-and-shop.html">Auto and Shop</a></li>
+        <li><a href="asvab-mechanical-comprehension.html">Mechanical Comprehension</a></li>
+      </ul>
+    </div>
+  </div>
+  <aside class="ad-top" data-ad-top hidden aria-label="Advertisement">
+    <div class="ad-top-slot"></div>
+    <p class="ad-top-note">Ads help keep Mission ASVAB free for everyone. Thanks for your support.</p>
+  </aside>
+  <!-- /site-nav -->
+
+  <header class="hero">
+    <p class="hero-eyebrow">PRIVACY</p>
+    <h1>Privacy Policy</h1>
+    <p>Last updated: November 12, 2026</p>
+  </header>
+
+  <main class="content">
+    <section class="section">
+      <h2>The short version</h2>
+      <p>Mission ASVAB is a free practice site run by one person. You can take every practice test without an account. We never sell your personal information. To keep the site free, some pages show ads from Google, and Google may use cookies to choose those ads.</p>
+    </section>
+
+    <section class="section">
+      <h2>What we store</h2>
+      <p><strong>Without an account:</strong> your test progress, results, study missions and flashcard progress are saved only in your own browser (local storage). They stay on your device and you can clear them anytime by clearing your browser data.</p>
+      <p><strong>With an account:</strong> if you sign up, we store your email address, the optional profile details you enter (name, age, education, ZIP code and test date), your test results and your study progress. This lets you see your history on any device. Accounts are hosted by Supabase, our database provider.</p>
+      <p>You can delete your account and all of its data at any time from your dashboard.</p>
+    </section>
+
+    <section class="section">
+      <h2>Analytics</h2>
+      <p>We use privacy-friendly, cookieless web analytics from our hosting provider to count page visits (for example, how many people opened a page and roughly which country they came from). These tools do not use cookies and do not identify you personally.</p>
+    </section>
+
+    <section class="section">
+      <h2>Advertising</h2>
+      <p>Some pages show a banner ad served by Google AdSense. Ads are never shown during a practice test. Google and its partners may use cookies or similar technologies to show ads based on your visits to this and other websites, and to measure how ads perform.</p>
+      <p>You can turn off personalized ads in <a href="https://adssettings.google.com" rel="noopener">Google Ad Settings</a>, and learn more at <a href="https://policies.google.com/technologies/ads" rel="noopener">how Google uses information from sites that use its services</a>. You can also opt out of many third-party ad cookies at <a href="https://www.aboutads.info/choices" rel="noopener">aboutads.info</a>. Visitors in some regions, such as the European Economic Area and the UK, will be asked for consent before personalized ads are shown.</p>
+    </section>
+
+    <section class="section">
+      <h2>Children</h2>
+      <p>Mission ASVAB is intended for people preparing to join the military, who are generally 17 or older. It is not directed at children under 13, and we do not knowingly collect personal information from them.</p>
+    </section>
+
+    <section class="section">
+      <h2>Changes and questions</h2>
+      <p>If this policy changes, we will update the date at the top of this page. Questions about your data can be sent through the report or contact options on the site.</p>
+    </section>
+  </main>
+
+  <!-- site-footer (generated by scripts/sync-site-chrome.js; edit there) -->
+  <footer class="site-footer">
+    <div class="footer-cols">
+      <div>
+        <p>Practice</p>
+        <ul>
+          <li><a href="select-test.html">Practice tests</a></li>
+          <li><a href="study-guide.html">Study guide</a></li>
+          <li><a href="asvab-score-calculator.html">Score calculator</a></li>
+          <li><a href="my-options.html">See my job options</a></li>
+          <li><a href="login.html" data-nav-account>Log in</a></li>
+        </ul>
+      </div>
+      <div>
+        <p>Free resources</p>
+        <ul>
+          <li><a href="asvab-score-requirements.html">Jobs by ASVAB score</a></li>
+          <li><a href="asvab-gt-score.html">GT score guide</a></li>
+          <li><a href="faq.html">ASVAB FAQ</a></li>
+          <li><a href="asvab-scores.html">Scores explained</a></li>
+          <li><a href="asvab-math-formulas.html">Math formula sheet</a></li>
+          <li><a href="asvab-word-list.html">Vocabulary list</a></li>
+          <li><a href="asvab-study-plan.html">Study plan</a></li>
+          <li><a href="about.html">About the ASVAB</a></li>
+          <li><a href="resources.html">All free resources</a></li>
+        </ul>
+      </div>
+      <div>
+        <p>Section guides</p>
+        <ul>
+          <li><a href="asvab-arithmetic-reasoning.html">Arithmetic Reasoning</a></li>
+          <li><a href="asvab-word-knowledge.html">Word Knowledge</a></li>
+          <li><a href="asvab-paragraph-comprehension.html">Paragraph Comprehension</a></li>
+          <li><a href="asvab-mathematics-knowledge.html">Mathematics Knowledge</a></li>
+          <li><a href="asvab-general-science.html">General Science</a></li>
+          <li><a href="asvab-electronics-information.html">Electronics Information</a></li>
+          <li><a href="asvab-auto-and-shop.html">Auto and Shop</a></li>
+          <li><a href="asvab-mechanical-comprehension.html">Mechanical Comprehension</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="disclaimer">This website is not affiliated with, endorsed by, or sponsored by the U.S. Department of Defense, any branch of the U.S. Armed Forces, or the official ASVAB program. "ASVAB" is a registered trademark of the U.S. Department of Defense. This is an independent practice resource only.</p>
+    <p class="copyright">&copy; <span id="year"></span> Mission ASVAB. For educational purposes only. <a href="privacy.html">Privacy policy</a></p>
+  </footer>
+  <!-- /site-footer -->
+  <script src="js/year.js"></script>
+  <script src="js/mobile-menu.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+  <script src="js/sw-register.js"></script>
+  <script src="js/site-nav.js"></script>
+  <script src="js/ads.js"></script>
+</body>
+</html>

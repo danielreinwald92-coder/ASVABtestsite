@@ -25,7 +25,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://img.youtube.com; connect-src 'self' https://*.supabase.co https://cloudflareinsights.com; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
+          "value": "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://static.cloudflareinsights.com https://www.googletagservices.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.adtrafficquality.google https://*.doubleclick.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://cloudflareinsights.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.adtrafficquality.google https://*.doubleclick.net https://*.google.com; frame-src https://*.doubleclick.net https://*.googlesyndication.com https://*.adtrafficquality.google https://www.google.com; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
         }
       ]
     },

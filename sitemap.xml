@@ -55,6 +55,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.missionasvab.org/privacy.html</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
     <loc>https://www.missionasvab.org/asvab-arithmetic-reasoning.html</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>

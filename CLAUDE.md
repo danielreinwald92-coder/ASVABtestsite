@@ -32,6 +32,8 @@ scripts/ and package files from the served output after the build gates run):
 ├── admin.html  login.html  register.html  reset-password.html
 └── faq.html  asvab-scores.html  asvab-math-formulas.html  asvab-word-list.html
     asvab-study-plan.html       # static indexable resource pages (SEO pass, no JS beyond shared helpers)
+    privacy.html                # privacy policy (local storage, Supabase accounts, cookieless analytics,
+                                #   AdSense cookies); linked from the footer copyright line
     resources.html              # hub linking every free resource (menu "Resources" target)
     asvab-score-calculator.html # standard scores -> AFQT percentile/category + 10 Army line scores
                                 #   (js/score-calculator.js pure math on irt-params constants)
@@ -80,6 +82,9 @@ js/
 ├── admin.js  dashboard.js  # Admin panel + user dashboard logic
 ├── page-*.js               # Per-page logic (externalized; NO inline <script> — see CSP rule below)
 ├── focus-trap.js  mobile-menu.js  sw-register.js  year.js  # shared UI/PWA helpers
+├── ads.js                  # Top AdSense banner: no-op until ADSENSE_CLIENT/SLOT are set; slot + "Ads help
+│                           #   keep Mission ASVAB free" note come from sync-site-chrome (AD_FREE: test-intro,
+│                           #   login/register/reset; quiz/dashboard have no nav). Needs ads.txt + Auto ads OFF
 ├── site-nav.js             # swaps the shared nav/footer "Log in" link to "My dashboard" when signed in
 css/home.css                # Homepage hero (example-result readout, one load animation via
                             #   js/page-home-report.js) + "Choose where to start" time track; start links

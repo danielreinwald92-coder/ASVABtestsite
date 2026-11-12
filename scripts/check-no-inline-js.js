@@ -33,6 +33,7 @@ const SERVED_PAGES = [
   'asvab-math-formulas.html',
   'asvab-word-list.html',
   'asvab-study-plan.html',
+  'privacy.html',
   'asvab-arithmetic-reasoning.html',
   'asvab-word-knowledge.html',
   'asvab-paragraph-comprehension.html',

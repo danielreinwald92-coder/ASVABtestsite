@@ -18,6 +18,7 @@ const dist = path.join(root, 'dist');
 // file is never silently dropped (or a private one silently published).
 const SERVED_DIRS = ['css', 'icons', 'jobs', 'js'];
 const SERVED_FILES = ['llms.txt', 'manifest.json', 'og-image.png', 'robots.txt', 'service-worker.js', 'sitemap.xml'];
+const OPTIONAL_FILES = ['ads.txt']; // AdSense seller file, added once the publisher ID exists
 const EXCLUDED = new Set(['.claude', '.git', '.github', '.gitignore', '.mcp.json', '.superpowers', '.vercel',
   '.vercelignore', '.wrangler', 'AGENTS.md', 'CLAUDE.md', 'LICENSE', 'STUDY-GUIDE-PLAN.md', 'dist', 'docs',
   'node_modules', 'package-lock.json', 'package.json', 'playwright.config.js', 'scripts', 'supabase',
@@ -48,13 +49,14 @@ const VERCEL_ANALYTICS_RE = /[ \t]*<script defer src="\/_vercel\/insights\/scrip
 
 function main() {
   const unknown = fs.readdirSync(root).filter((n) =>
-    !EXCLUDED.has(n) && !SERVED_DIRS.includes(n) && !SERVED_FILES.includes(n) && !isServedHtml(n) && !n.startsWith('preview-'));
+    !EXCLUDED.has(n) && !SERVED_DIRS.includes(n) && !SERVED_FILES.includes(n) && !OPTIONAL_FILES.includes(n) && !isServedHtml(n) && !n.startsWith('preview-'));
   if (unknown.length) throw new Error(`build-dist: classify these root entries in scripts/build-dist.js: ${unknown.join(', ')}`);
 
   fs.rmSync(dist, { recursive: true, force: true });
   fs.mkdirSync(dist);
   for (const d of SERVED_DIRS) fs.cpSync(path.join(root, d), path.join(dist, d), { recursive: true });
   for (const f of SERVED_FILES) fs.copyFileSync(path.join(root, f), path.join(dist, f));
+  for (const f of OPTIONAL_FILES) if (fs.existsSync(path.join(root, f))) fs.copyFileSync(path.join(root, f), path.join(dist, f));
   for (const f of fs.readdirSync(root).filter(isServedHtml)) fs.copyFileSync(path.join(root, f), path.join(dist, f));
 
   const html = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
