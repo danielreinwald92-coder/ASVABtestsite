@@ -274,8 +274,11 @@
       } catch (e) {
         console.error(e);
       }
+      // The HTML ships same-size placeholder cards (no layout shift while the
+      // course bundles load); swap them for the live, clickable cards.
       const grid = document.getElementById('course-grid');
       grid.innerHTML = '';
+      grid.removeAttribute('aria-busy');
 
       const allCourses = ['AR', 'MK', 'WK', 'PC', 'GS', 'AS', 'MC', 'EI'].map((code) => ({
         code,

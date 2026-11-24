@@ -57,6 +57,8 @@
     .course-card h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; font-size: 1.5rem; line-height: 1.1; color: var(--navy-900); margin-bottom: 0.5rem; }
     .course-card p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem; }
     .course-card .meta { font-family: var(--font-data); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.02em; color: var(--text-secondary); }
+    .course-card.loading { cursor: progress; }
+    .course-card.loading:hover { transform: none; border-color: var(--cream-200); box-shadow: var(--shadow-1); }
     .course-card.coming-soon { opacity: 0.6; cursor: not-allowed; }
     .course-card.coming-soon:hover { transform: none; border-color: var(--cream-200); box-shadow: var(--shadow-1); }
 
@@ -1010,7 +1012,57 @@
         <h1>Learn the <span>ASVAB</span></h1>
         <p>Free study guides with no registration required. Choose a subject to start learning.</p>
       </div>
-      <div class="course-grid" id="course-grid"></div>
+      <!-- Static course cards so the grid has its final height before js/courses.js loads (no layout shift); page-study-guide.js replaces them. tests/unit/study-guide-cards.test.js keeps them in sync with the course data. -->
+      <div class="course-grid" id="course-grid" aria-busy="true">
+        <div class="course-card loading" data-course="AR">
+          <div class="icon icon-code" aria-hidden="true">AR</div>
+          <h3>Arithmetic Reasoning</h3>
+          <p>Word problems requiring mathematical reasoning</p>
+          <div class="meta">5 chapters • 0/5 completed</div>
+        </div>
+        <div class="course-card loading" data-course="MK">
+          <div class="icon icon-code" aria-hidden="true">MK</div>
+          <h3>Mathematics Knowledge</h3>
+          <p>Algebra and geometry concepts</p>
+          <div class="meta">6 chapters • 0/6 completed</div>
+        </div>
+        <div class="course-card loading" data-course="WK">
+          <div class="icon icon-code" aria-hidden="true">WK</div>
+          <h3>Word Knowledge</h3>
+          <p>Vocabulary and word meanings</p>
+          <div class="meta">4 chapters • 0/4 completed</div>
+        </div>
+        <div class="course-card loading" data-course="PC">
+          <div class="icon icon-code" aria-hidden="true">PC</div>
+          <h3>Paragraph Comprehension</h3>
+          <p>Reading comprehension and analysis</p>
+          <div class="meta">4 chapters • 0/4 completed</div>
+        </div>
+        <div class="course-card loading" data-course="GS">
+          <div class="icon icon-code" aria-hidden="true">GS</div>
+          <h3>General Science</h3>
+          <p>Life, earth, space, physical science, and chemistry</p>
+          <div class="meta">6 chapters • 0/6 completed</div>
+        </div>
+        <div class="course-card loading" data-course="AS">
+          <div class="icon icon-code" aria-hidden="true">AS</div>
+          <h3>Auto &amp; Shop Information</h3>
+          <p>Automotive systems, shop tools, and how things get fixed</p>
+          <div class="meta">6 chapters • 0/6 completed</div>
+        </div>
+        <div class="course-card loading" data-course="MC">
+          <div class="icon icon-code" aria-hidden="true">MC</div>
+          <h3>Mechanical Comprehension</h3>
+          <p>Forces, machines, and how mechanical things work</p>
+          <div class="meta">6 chapters • 0/6 completed</div>
+        </div>
+        <div class="course-card loading" data-course="EI">
+          <div class="icon icon-code" aria-hidden="true">EI</div>
+          <h3>Electronics Information</h3>
+          <p>Circuits, components, power, and electrical safety</p>
+          <div class="meta">6 chapters • 0/6 completed</div>
+        </div>
+      </div>
     </div>
 
     <div class="view" id="course-view">
