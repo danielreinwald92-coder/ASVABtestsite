@@ -4,7 +4,8 @@
  * Cloudflare build: copies only the served files into dist/, translates the
  * vercel.json headers into a Cloudflare `_headers` file (vercel.json stays the
  * single source of truth), strips the Vercel-only analytics tag, and
- * content-hashes js/css references via stamp-assets.js.
+ * content-hashes js/css references via stamp-assets.js --paths (/v/<hash>/...
+ * URLs, immutable via the vercel.json "/v/(.*)" rule).
  * Run after the gates: node scripts/build-dist.js
  */
 const fs = require('fs');
@@ -72,7 +73,7 @@ function main() {
   // Workers assets with html_handling "none" do not map "/" to index.html.
   fs.writeFileSync(path.join(dist, '_redirects'), '/ /index.html 200\n');
 
-  execFileSync(process.execPath, [path.join(__dirname, 'stamp-assets.js'), dist], { stdio: 'inherit' });
+  execFileSync(process.execPath, [path.join(__dirname, 'stamp-assets.js'), dist, '--paths'], { stdio: 'inherit' });
   console.log('build-dist: dist/ ready');
 }
 

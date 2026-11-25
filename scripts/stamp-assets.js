@@ -7,7 +7,11 @@
  * in every served HTML page and in service-worker.js PRECACHE_URLS.
  * vercel.json gives `?v=` asset URLs a 1-year immutable Cache-Control, so a
  * browser never re-requests an unchanged file; a changed file gets a new hash.
- * Usage: node scripts/stamp-assets.js [rootDir]   (--dry-run to only report)
+ * --paths (Cloudflare, via build-dist.js): Cloudflare `_headers` cannot match a
+ * query string, so instead rewrite to  v/<hash>/js/x.js  and copy the file
+ * there; vercel.json's "/v/(.*)" rule makes that path immutable. The original
+ * js/x.js stays for dynamically loaded scripts and older cached pages.
+ * Usage: node scripts/stamp-assets.js [rootDir] [--paths]  (--dry-run to only report)
  */
 const fs = require('fs');
 const path = require('path');
@@ -15,6 +19,8 @@ const crypto = require('crypto');
 
 const root = path.resolve(process.argv.find((a, i) => i > 1 && !a.startsWith('--')) || '.');
 const dryRun = process.argv.includes('--dry-run');
+const pathMode = process.argv.includes('--paths');
+const copied = new Set();
 const hashes = new Map();
 
 function hashFor(rel) {
@@ -37,7 +43,14 @@ function stamp(text, re) {
     const h = hashFor(rel);
     if (!h) return m;
     n++;
-    return `${pre}${slash}${rel}?v=${h}${post}`;
+    if (!pathMode) return `${pre}${slash}${rel}?v=${h}${post}`;
+    const versioned = `v/${h}/${rel}`;
+    if (!dryRun && !copied.has(versioned)) {
+      fs.mkdirSync(path.dirname(path.join(root, versioned)), { recursive: true });
+      fs.copyFileSync(path.join(root, rel), path.join(root, versioned));
+      copied.add(versioned);
+    }
+    return `${pre}${slash}${versioned}${post}`;
   });
   return { out, n };
 }

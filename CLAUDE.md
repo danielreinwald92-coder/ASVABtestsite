@@ -121,11 +121,13 @@ scripts/
 │                           #   edit it, run it (--check = drift test in tests/unit/site-chrome.test.js)
 ├── build-dist.js           # CLOUDFLARE build: served files -> dist/, vercel.json headers -> _headers,
 │                           #   strips Vercel analytics tag, runs stamp-assets (wrangler.jsonc deploys dist/)
-├── stamp-assets.js         # BUILD-ONLY: appends ?v=<hash> to js/css refs in deploy output (1-yr
-│                           #   immutable cache via vercel.json); never commit stamped files
+├── stamp-assets.js         # BUILD-ONLY: content-hashes js/css refs in deploy output; never commit
+│                           #   stamped files. Vercel: ?v=<hash>. Cloudflare (--paths, via build-dist):
+│                           #   copies to /v/<hash>/js/x.js, since _headers can't match a query string;
+│                           #   vercel.json "/v/(.*)" -> 1-yr immutable. SW isVersioned() knows both
 └── check-no-inline-js.js   # CI gate: fails if any inline on*= handler or inline <script> exists
 supabase/migrations/        # Versioned additive database changes (new schema work belongs here)
-tests/                      # node:test + jsdom suite (319 tests). helpers/load.js, helpers/engine.js
+tests/                      # node:test + jsdom suite (325 tests). helpers/load.js, helpers/engine.js
 tests/e2e/                  # Playwright: all-page CSP/console smoke + guest AFQT and diagnostic flows
 playwright.config.js        # Chromium config; local server mirrors production Vercel headers
 docs/scoring-methodology.md # AFQT model, sources, limits
@@ -136,7 +138,7 @@ docs/PROJECT-STATE.md       # Concise current-state index and prioritized handof
 
 ```bash
 npx serve .                    # Local dev server
-npm test                       # Run the node:test + jsdom unit suite (319 tests)
+npm test                       # Run the node:test + jsdom unit suite (325 tests)
 npm run test:e2e               # Run Playwright against all pages + the guest AFQT flow
 node scripts/validate-site.js  # Validate quiz data + scoring contracts (also a Vercel build gate)
 node scripts/check-no-inline-js.js  # Verify no inline JS (required by the strict CSP)

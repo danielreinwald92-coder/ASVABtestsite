@@ -21,7 +21,7 @@
 // RELEASE STEP: bump on every deploy that changes an existing JS file —
 // subresources are cache-first, so without a bump the first post-deploy load
 // runs fresh HTML against stale cached JS.
-const CACHE_VERSION = 'mission-asvab-v26';
+const CACHE_VERSION = 'mission-asvab-v27';
 
 // Small, maintainable core of STATIC same-origin assets that make up the app
 // shell. Admin assets are intentionally excluded.
@@ -78,10 +78,12 @@ const PRECACHE_URLS = [
 ];
 
 // True for build-stamped, content-hashed URLs (scripts/stamp-assets.js adds
-// ?v=<hash>). Same URL => same bytes, so a cached copy is always current.
+// ?v=<hash>, or /v/<hash>/ paths on Cloudflare). Same URL => same bytes, so a
+// cached copy is always current.
 function isVersioned(url) {
   try {
-    return new URL(url, self.location.origin).searchParams.has('v');
+    const u = new URL(url, self.location.origin);
+    return u.searchParams.has('v') || /^\/v\/[0-9a-f]{10}\//.test(u.pathname);
   } catch (_) {
     return false;
   }
