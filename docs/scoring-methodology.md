@@ -50,7 +50,9 @@ c = C_MEAN[section]   (constant within a section)
 
 **Calibration override hook:** `js/irt-params.js` consults an optional
 per-item table (`CALIBRATED[item.id] → {a,b,c}`) before falling back to the
-heuristic above. It is empty at launch. Every scored response is already
+heuristic above. It is empty at launch. Since Nov 24, 2026 a generated
+`CALIBRATED_B[item.id] → b` table (551 AR/WK/PC/MK items) replaces the
+tag-based b for calibrated items; see "Per-item calibration" below. Every scored response is already
 recorded (`question_results`, including the 1–5 `difficulty` tag), so a
 future project can empirically calibrate real per-item parameters from
 accumulated response data — the same approach used to build the original
@@ -269,6 +271,55 @@ answers per item), so the fit was done at the section level:
 - **Re-running.** `scripts/calibration/fit-discrimination.js` documents the
   export query and refits the scales. Re-run as data grows; item-level
   calibration (`CALIBRATED`) becomes viable at roughly 200+ answers per item.
+
+### Per-item calibration (Nov 24, 2026)
+
+Supersedes the section-only `A_SCALE` values above. With about 2,400 saved
+results, the AFQT items now have enough answers for a per-item difficulty
+fit (median about 50-95 first-exposure answers per item).
+
+- **Data.** Every timed AR/WK/PC/MK answer in `test_results.question_results`
+  (48,171 answers). Dropped: 1,210 legacy numeric-id answers (pre-July), 1,983
+  WK answers from before the 2026-09-27 rewrite, and 5,891 repeat exposures
+  (only each user's first time seeing an item counts, so retake memorization
+  cannot make items look easy). About 39,000 answers in 5,118 section records
+  remain.
+- **Model.** Per section, marginal ML via EM (Bock-Aitkin, 41-point
+  quadrature) over theta ~ N(mu, 1): c fixed at the official pool value, one
+  section scale on the official a, and a difficulty b per item with a normal
+  prior centred on its tag b. The prior SD is set by empirical Bayes
+  (AR 0.57, WK 0.86, PC 0.82, MK 0.61), so lightly answered items stay near
+  their tag. Adaptive selection depends only on earlier answers, so the
+  marginal likelihood is valid for CAT data. Section mean b is re-centred to
+  the tag mean, so the fit re-orders difficulty but does not move the overall
+  score level.
+- **Section scales.** Fitting b per item raised the discrimination scales
+  (AR 0.55 to 0.84, WK 0.35 to 0.79, PC 0.72 to 1.02, MK 0.66 to 0.80):
+  much of the earlier "low discrimination" was mis-set difficulty tags, which
+  look like weak items when b is wrong.
+- **Holdout.** Fitted on 80% of users, scored on the other 20%: log-likelihood
+  per answer improved in every section (AR -0.642 to -0.602, WK -0.656 to
+  -0.589, PC -0.461 to -0.385, MK -0.668 to -0.622).
+- **Effect on scores.** Re-scoring 1,299 saved AFQT tests: mean AFQT -1.1
+  points (10th-90th percentile change -7 to +4); same-user APT vs longer-test
+  correlation unchanged at 0.78; first vs second long-test correlation 0.77
+  to 0.79.
+- **Re-running.** `scripts/calibration/fit-item-difficulty.js` holds the export
+  query; run it with `--write` to regenerate the `A_SCALE`/`CALIBRATED_B` block
+  in `js/irt-params.js`, then re-run `scripts/generate-penalty-table.js`, re-pin
+  the characterization tests, and bump `CACHE_VERSION`. GS/EI/AS/MC are not
+  calibrated yet. The overall level can only be checked against real
+  APT/ASVAB scores, which the site does not collect yet.
+
+### Diagnostic and tutor AFQT estimates (Nov 24, 2026)
+
+The diagnostic (18 fixed-plan items) and tutor sessions that include all four
+AFQT sections now report an AFQT through the same pipeline. They are
+fixed-form, so there is no fitted incomplete-test penalty: unanswered items are
+scored as wrong (`getScoreDetails(..., { unansweredAsWrong: true })`), which
+is slightly harsher than the random-guess expectation. Results label them
+"Estimated AFQT (Diagnostic)" and "Estimated AFQT (Untimed Tutor Practice)".
+Tutor and diagnostic AFQTs are not used for job matching or the share card.
 
 ### APT-style AFQT Predictor (Sep 2026)
 

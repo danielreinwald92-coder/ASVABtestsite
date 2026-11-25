@@ -1011,12 +1011,15 @@ class QuizEngine {
     // Full IRT scoring: percentile + confidence band + per-section theta/sem/ss.
     // getScoreDetails itself gates on all four AFQT sections being present and
     // scoreable — same "AFQT is only valid with all four AFQT sections" rule as
-    // before. Tutor sessions and diagnostics never score (preserved exactly).
+    // before. Tutor sessions and the diagnostic are fixed-form (not adaptive)
+    // and have no fitted incomplete-test penalty, so they score with
+    // unanswered items counted wrong (Nov 2026: owner wants an AFQT estimate
+    // wherever all four AFQT sections were taken, not just percent correct).
     let details = null;
-    if (this.mode !== 'tutor' && this.testKind !== 'diagnostic' &&
-      typeof MissionASVABScoring !== 'undefined' && MissionASVABScoring.getScoreDetails) {
+    if (typeof MissionASVABScoring !== 'undefined' && MissionASVABScoring.getScoreDetails) {
+      const fixedForm = this.mode === 'tutor' || this.testKind === 'diagnostic';
       try {
-        details = MissionASVABScoring.getScoreDetails(sectionResults);
+        details = MissionASVABScoring.getScoreDetails(sectionResults, fixedForm ? { unansweredAsWrong: true } : undefined);
       } catch (e) {
         // scoring.js deliberately throws on a missing/corrupt incomplete-test
         // penalty entry rather than silently mis-scoring — but that must never

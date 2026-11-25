@@ -34,19 +34,19 @@ function fullResults(fractionCorrect) {
   };
 }
 
-test('@characterization (IRT v2 model): fullResults(0.6) AFQT equals 30', () => {
+test('@characterization (IRT v2 model): fullResults(0.6) AFQT equals 21', () => {
   const afqt = scoring.calculateAFQTEstimate(fullResults(0.6));
-  assert.strictEqual(afqt, 30); // re-pinned 2026-09-26: empirical discrimination scale (A_SCALE)
+  assert.strictEqual(afqt, 21); // re-pinned 2026-11-24: per-item calibration (A_SCALE refit with CALIBRATED_B)
 });
 
-test('@characterization (IRT v2 model): fullResults(0.6) GT line score equals 89', () => {
+test('@characterization (IRT v2 model): fullResults(0.6) GT line score equals 83', () => {
   const ls = scoring.calculateLineScores(fullResults(0.6));
-  assert.strictEqual(ls.GT.score, 89); // re-pinned 2026-09-26: empirical discrimination scale
+  assert.strictEqual(ls.GT.score, 83); // re-pinned 2026-11-24: per-item calibration
 });
 
-test('@characterization (IRT v2 model): fullResults(0.6) CO line score equals 93', () => {
+test('@characterization (IRT v2 model): fullResults(0.6) CO line score equals 90', () => {
   const ls = scoring.calculateLineScores(fullResults(0.6));
-  assert.strictEqual(ls.CO.score, 93); // re-pinned 2026-09-26: empirical discrimination scale
+  assert.strictEqual(ls.CO.score, 90); // re-pinned 2026-11-24: per-item calibration
 });
 
 // Anchor tests: the verbatim '97 (PAY97) AFQTS -> percentile table (Segall

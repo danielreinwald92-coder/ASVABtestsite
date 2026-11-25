@@ -2,8 +2,8 @@ const { test } = require('node:test');
 const assert = require('node:assert');
 const { runPageScript, makeLocalStorage } = require('../helpers/load.js');
 
-test('diagnostic results render independent-practice copy and a visible mission', () => {
-  const results = {
+function diagnosticResults(extra) {
+  return Object.assign({
     clientResultId: 'result-diagnostic-1',
     testType: 'diagnostic', mode: 'timed', score: 50, afqt: null,
     correct: 9, incorrect: 9, timeUsed: 600, completedAt: '2026-07-19T12:00:00Z',
@@ -13,7 +13,10 @@ test('diagnostic results render independent-practice copy and a visible mission'
       PC: { name: 'Paragraph Comprehension', correct: 2, total: 4, questions: [] },
       MK: { name: 'Mathematics Knowledge', correct: 2, total: 4, questions: [] }
     }
-  };
+  }, extra || {});
+}
+
+function renderDiagnostic(results) {
   const mission = {
     clientId: 'mission-v1-result-diagnostic-1', version: 1,
     sourceResultClientId: 'result-diagnostic-1', status: 'not_started',
@@ -44,10 +47,23 @@ test('diagnostic results render independent-practice copy and a visible mission'
   });
 
   sandbox.loadResults();
+  return document;
+}
 
+test('legacy diagnostic results (no AFQT) render percent-correct copy and a visible mission', () => {
+  const document = renderDiagnostic(diagnosticResults());
   assert.strictEqual(document.getElementById('afqtLabel').textContent, 'Diagnostic: Percent Correct');
   assert.match(document.getElementById('afqtPercentile').textContent, /not an AFQT score/i);
   assert.match(document.getElementById('afqtScore').textContent, /%$/);
+  assert.strictEqual(document.getElementById('scoreMessage').textContent, 'Your Starting Point Is Ready');
+  assert.strictEqual(document.getElementById('missionPanel').style.display, 'block');
+});
+
+test('diagnostic results with an AFQT estimate show it as the headline with a wide-range note', () => {
+  const document = renderDiagnostic(diagnosticResults({ afqt: 42, afqtBand: { low: 27, high: 57 } }));
+  assert.strictEqual(document.getElementById('afqtLabel').textContent, 'Estimated AFQT (Diagnostic)');
+  assert.strictEqual(document.getElementById('afqtScore').textContent, '42');
+  assert.match(document.getElementById('afqtPercentile').textContent, /42nd Percentile · likely range 27-57\. Based on 18 questions/);
   assert.strictEqual(document.getElementById('scoreMessage').textContent, 'Your Starting Point Is Ready');
   assert.strictEqual(document.getElementById('missionPanel').style.display, 'block');
 });

@@ -60,16 +60,21 @@
   }
 
   // MAP theta + penalty for a section's response records.
-  function sectionAbility(sectionResults, code) {
+  // opts.unansweredAsWrong: fixed-form, non-adaptive sessions (the diagnostic,
+  // tutor practice) have no fitted incomplete-test penalty, so their
+  // unanswered items are scored as wrong answers instead (conservative: lower
+  // than the random-guess expectation the official penalty models).
+  function sectionAbility(sectionResults, code, opts) {
     const section = sectionResults[code];
-    const questions = answeredQuestions(section);
+    const asWrong = !!(opts && opts.unansweredAsWrong);
+    const questions = asWrong ? (section.questions || []) : answeredQuestions(section);
     const records = questions.map(function (q) {
       const params = PARAMS.getItemParams(code, q.difficulty || 3, q.originalId || q.id);
-      return { a: params.a, b: params.b, c: params.c, correct: !!q.isCorrect };
+      return { a: params.a, b: params.b, c: params.c, correct: q.answered !== false && !!q.isCorrect };
     });
     const est = IRT.mapEstimate(records);
     let theta = est.theta;
-    const unanswered = section.unanswered || 0;
+    const unanswered = asWrong ? 0 : (section.unanswered || 0);
     if (unanswered > 0) {
       const table = penaltyTableFor(code, section.total);
       // A missing/incomplete penalty table must fail loudly rather than
@@ -84,7 +89,7 @@
     return { theta: theta, sem: est.sem };
   }
 
-  function getScoreDetails(sectionResults) {
+  function getScoreDetails(sectionResults, opts) {
     if (!sectionResults) return null;
     const hasAll = AFQT_SECTIONS.every(function (code) { return sectionResults[code]; });
     if (!hasAll) return null;
@@ -106,14 +111,14 @@
 
     const sections = {};
     AFQT_SECTIONS.forEach(function (code) {
-      const ab = sectionAbility(sectionResults, code);
+      const ab = sectionAbility(sectionResults, code, opts);
       sections[code] = { theta: ab.theta, sem: ab.sem, ss: PARAMS.thetaToSS(code, ab.theta) };
     });
 
     if (hasAll8) {
       ALL_SECTIONS.forEach(function (code) {
         if (sections[code]) return; // AFQT sections already computed above
-        const ab = sectionAbility(sectionResults, code);
+        const ab = sectionAbility(sectionResults, code, opts);
         sections[code] = { theta: ab.theta, sem: ab.sem, ss: sectionSS(code, ab.theta) };
       });
     }

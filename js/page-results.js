@@ -66,7 +66,16 @@ function loadResults() {
   const pct = results.score || 0;
   document.getElementById('afqtScore').textContent = hasAFQT ? results.afqt : `${pct}%`;
   const noAfqtLine = 'Answers correct. This is not an AFQT score. Take the AFQT Predictor to estimate your AFQT.';
-  if (isDiagnostic) {
+  // The diagnostic and tutor practice now carry an AFQT estimate whenever all
+  // four AFQT sections were taken (Nov 2026); older stored results without
+  // one keep the percent-correct headline below.
+  if (hasAFQT && isDiagnostic) {
+    document.getElementById('afqtLabel').textContent = 'Estimated AFQT (Diagnostic)';
+    document.getElementById('afqtPercentile').textContent = `${formatAfqtPercentileLine(results.afqt, results.afqtBand)}. Based on 18 questions, so the range is wide.`;
+  } else if (hasAFQT && isTutor) {
+    document.getElementById('afqtLabel').textContent = 'Estimated AFQT (Untimed Tutor Practice)';
+    document.getElementById('afqtPercentile').textContent = `${formatAfqtPercentileLine(results.afqt, results.afqtBand)}. Untimed with instant feedback, so a timed test is more realistic.`;
+  } else if (isDiagnostic) {
     document.getElementById('afqtLabel').textContent = 'Diagnostic: Percent Correct';
     document.getElementById('afqtPercentile').textContent = noAfqtLine;
   } else if (hasAFQT && isApt) {
@@ -112,7 +121,9 @@ function loadResults() {
     description = 'See which areas to work on below, then start Today’s Mission.';
   } else if (isTutor) {
     message = 'Practice Complete';
-    description = 'Review each question below with its explanation. Weak areas from this session feed your study plan. Take a timed test when you want an AFQT estimate.';
+    description = hasAFQT
+      ? 'Review each question below with its explanation. Weak areas from this session feed your study plan. Take a timed AFQT Practice for the most realistic AFQT estimate.'
+      : 'Review each question below with its explanation. Weak areas from this session feed your study plan. Take a timed test when you want an AFQT estimate.';
   } else if (!hasAFQT) {
     if (afqt >= 80) {
       message = "Strong Section Practice";
@@ -777,8 +788,8 @@ function setupShareResult(results, hasAFQT, isTutor) {
   try { dateStr = new Date().toLocaleDateString(); } catch (e) { dateStr = ''; }
 
   const payload = {
-    mode: hasAFQT ? 'timed' : (isTutor ? 'tutor' : 'practice'),
-    afqtPercentile: hasAFQT ? results.afqt : undefined,
+    mode: isTutor ? 'tutor' : (hasAFQT ? 'timed' : 'practice'),
+    afqtPercentile: hasAFQT && !isTutor ? results.afqt : undefined,
     lineScores: lineScores,
     dateStr: dateStr
   };

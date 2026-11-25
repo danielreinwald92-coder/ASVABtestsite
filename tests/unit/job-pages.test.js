@@ -57,3 +57,18 @@ test('job pages carry a source line and the recruiter line, and no em dashes', (
     assert.ok(!/[–—]/.test(text), `${file} has an em or en dash`);
   }
 });
+
+test('job options ignore diagnostic and tutor AFQT estimates (untimed or too short to match jobs)', () => {
+  global.window = undefined;
+  const V = require('../../js/options-view.js');
+  const prev = global.MissionASVABScoring;
+  global.MissionASVABScoring = { getScoreDetails: () => ({ sections: { AR: { ss: 50 } }, ve: { ss: 50 } }) };
+  try {
+    const base = { afqt: 60, sectionResults: {} };
+    assert.strictEqual(V.scoresFromResults({ ...base, testType: 'diagnostic', mode: 'timed' }), null);
+    assert.strictEqual(V.scoresFromResults({ ...base, testType: 'quick', mode: 'tutor' }), null);
+    assert.ok(V.scoresFromResults({ ...base, testType: 'quick', mode: 'timed' }), 'timed AFQT practice still matches jobs');
+  } finally {
+    global.MissionASVABScoring = prev;
+  }
+});

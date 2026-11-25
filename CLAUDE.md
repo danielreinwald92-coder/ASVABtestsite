@@ -9,7 +9,8 @@ Cloudflare Redirect Rule. Vercel may still build on push but no longer serves tr
 ## Core Features
 
 1. **Four Test Modes**
-   - Starting-Point Diagnostic (20 minutes): 18 balanced AR/WK/PC/MK questions; produces study priorities and no AFQT percentile
+   - Starting-Point Diagnostic (20 minutes): 18 balanced AR/WK/PC/MK questions; produces study priorities and an
+     estimated AFQT (unanswered scored as wrong; tutor sessions with all four AFQT sections do the same)
    - APT-Style AFQT Predictor (25 minutes): 20 adaptive AR/WK/PC/MK questions (5 each), same IRT pipeline,
      reports a predicted AFQT with a wider likely range (`test_type = 'apt'`)
    - AFQT Practice (~2 hours): AR, WK, PC, MK sections - calculates an estimated AFQT percentile
@@ -282,10 +283,11 @@ Wait for approval before adding to LEARNED section.
   `'unsafe-inline'`). Do NOT add inline `<script>` blocks or `on*=` attributes to served pages —
   put logic in `js/page-<name>.js` and wire via `addEventListener`/delegation. `scripts/check-no-inline-js.js`
   enforces this in CI and will fail the build otherwise. Supabase JS is pinned + SRI-hashed.
-- **Empirical discrimination scale (Sep 2026):** `A_SCALE` in `js/irt-params.js` multiplies the
-  official pool a for AR/WK/PC/MK (fitted on our own responses; see scoring-methodology.md
-  "Empirical calibration"). Re-fit with `scripts/calibration/fit-discrimination.js`; any change to
-  it (or pools/presets) requires re-running `scripts/generate-penalty-table.js`.
+- **Empirical calibration (Nov 2026):** `A_SCALE` and per-item `CALIBRATED_B` in `js/irt-params.js`
+  are a GENERATED block from `scripts/calibration/fit-item-difficulty.js` (first-exposure timed
+  answers, b shrunk toward the tag; see scoring-methodology.md "Per-item calibration"). Never
+  hand-edit it; re-run with `--write`. Any change to it (or pools/presets) requires re-running
+  `scripts/generate-penalty-table.js` and re-pinning the characterization tests.
 - **Scoring is a documented practice estimate**, not official — see Percentile Scoring section
   (IRT v2, shipped Aug 2026: MAP theta → official Segall transforms → verbatim AFQTS table →
   official Army weight matrix; only the per-item a/b/c parameters are estimated). Keep the v2

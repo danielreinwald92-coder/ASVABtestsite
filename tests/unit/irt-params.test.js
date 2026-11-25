@@ -72,10 +72,25 @@ test('average profile (all SS 50) scores ~100 on every Army composite', () => {
   assert.strictEqual(P.gtScore(50, 50), 100);
 });
 
-test('empirical discrimination scale applies only to calibrated sections and stays in (0, 1]', () => {
+test('empirical discrimination scale applies only to calibrated sections and stays in (0, 1.5]', () => {
   for (const [code, k] of Object.entries(P.A_SCALE)) {
-    assert.ok(k > 0 && k <= 1, `${code} scale ${k}`);
+    assert.ok(k > 0 && k <= 1.5, `${code} scale ${k}`);
     assert.ok(Math.abs(P.getItemParams(code, 3, 'x').a - P.SECTION_IRT[code].a * k) < 1e-9);
   }
   assert.strictEqual(P.getItemParams('GS', 3, 'x').a, P.SECTION_IRT.GS.a, 'uncalibrated sections keep the official a');
+});
+
+test('calibrated item difficulties override the tag and stay in a sane range', () => {
+  const ids = Object.keys(P.CALIBRATED_B);
+  assert.ok(ids.length > 400, `expected hundreds of calibrated items, got ${ids.length}`);
+  for (const id of ids) {
+    const code = id.slice(0, 2);
+    assert.ok(['AR', 'WK', 'PC', 'MK'].includes(code), id);
+    const b = P.CALIBRATED_B[id];
+    assert.ok(Number.isFinite(b) && b >= -4 && b <= 4, `${id} b ${b}`);
+    // The tag passed in is ignored for a calibrated item.
+    assert.strictEqual(P.getItemParams(code, 1, id).b, b);
+    assert.strictEqual(P.getItemParams(code, 5, id).b, b);
+  }
+  assert.strictEqual(P.getItemParams('AR', 3, 'not-calibrated').b, P.SECTION_IRT.AR.bMean, 'uncalibrated items keep the tag b');
 });

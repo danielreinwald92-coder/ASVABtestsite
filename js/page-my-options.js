@@ -27,7 +27,7 @@
   const scores = V.scoresFromResults(results);
   if (!scores) {
     showEmpty('This Test Does Not Estimate an AFQT',
-      'Single-section and tutor practice do not estimate an AFQT, so they cannot match jobs. Take the AFQT practice test or the full practice test to see your options.');
+      'Single-section practice, tutor practice and the diagnostic cannot match jobs. Take the AFQT practice test or the full practice test to see your options.');
     return;
   }
 

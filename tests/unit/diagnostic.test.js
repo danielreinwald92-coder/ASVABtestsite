@@ -17,7 +17,7 @@ test('starting-point diagnostic is fixed at 18 questions and 20 minutes', () => 
   );
 });
 
-test('quiz engine materializes the diagnostic blueprint without producing AFQT', async () => {
+test('quiz engine materializes the diagnostic blueprint and scores an AFQT estimate', async () => {
   const { config, scoring, context } = loadCore();
   const stored = {};
   let insertedPayload = null;
@@ -62,7 +62,8 @@ test('quiz engine materializes the diagnostic blueprint without producing AFQT',
   );
 
   // Keep submission deterministic: materialize every slot, answer it, and
-  // verify that even a perfect diagnostic is not represented as an AFQT.
+  // verify a perfect diagnostic gets a high AFQT estimate (Nov 2026: the
+  // diagnostic now reports an AFQT, scored with unanswered items as wrong).
   engine.quizData.questions.forEach((question, index) => {
     question.text = `Question ${index + 1}`;
     question.originalId = `${question.sectionCode}${index + 1}`;
@@ -76,8 +77,9 @@ test('quiz engine materializes the diagnostic blueprint without producing AFQT',
 
   const results = JSON.parse(stored.quizResults);
   assert.strictEqual(results.testType, 'diagnostic');
-  assert.strictEqual(results.afqt, null);
+  assert.ok(Number.isInteger(results.afqt) && results.afqt >= 70 && results.afqt <= 99, `afqt ${results.afqt}`);
+  assert.ok(results.afqtBand && results.afqtBand.low <= results.afqt && results.afqtBand.high >= results.afqt);
   assert.strictEqual(results.score, 100);
-  assert.strictEqual(insertedPayload.afqt_score, null);
+  assert.strictEqual(insertedPayload.afqt_score, results.afqt);
   assert.strictEqual(insertedPayload.line_scores, null);
 });

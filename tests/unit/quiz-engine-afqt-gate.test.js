@@ -6,7 +6,9 @@ const { loadEngine, fakeDoc } = require('../helpers/engine.js');
 // itself does not gate on section completeness — the gate now lives inside
 // getScoreDetails, mirrored here (null unless all 4 AFQT sections are present).
 const AFQT_CODES = ['AR', 'WK', 'PC', 'MK'];
-function fakeGetScoreDetails(sectionResults) {
+let lastOpts;
+function fakeGetScoreDetails(sectionResults, opts) {
+  lastOpts = opts;
   if (!AFQT_CODES.every((c) => sectionResults[c])) return null;
   const sections = {};
   Object.keys(sectionResults).forEach((code) => { sections[code] = { theta: 0, sem: 1, ss: 50 }; });
@@ -52,12 +54,20 @@ test('AFQT is computed when all four AFQT sections are present', () => {
   });
 });
 
-test('AFQT remains null for a diagnostic even with all four AFQT sections', () => {
+test('a diagnostic with all four AFQT sections gets an AFQT, scored with unanswered as wrong', () => {
   const { engine, stored } = engineFor(['AR', 'WK', 'PC', 'MK']);
   engine.testKind = 'diagnostic';
   return engine.submitQuiz().then(() => {
     const results = JSON.parse(stored.quizResults);
-    assert.strictEqual(results.afqt, null);
+    assert.strictEqual(results.afqt, 55);
     assert.strictEqual(results.testType, 'diagnostic');
+    assert.deepStrictEqual(JSON.parse(JSON.stringify(lastOpts)), { unansweredAsWrong: true });
+  });
+});
+
+test('timed CAT tests keep the penalty path (no unansweredAsWrong option)', () => {
+  const { engine } = engineFor(['AR', 'WK', 'PC', 'MK']);
+  return engine.submitQuiz().then(() => {
+    assert.strictEqual(lastOpts, undefined);
   });
 });

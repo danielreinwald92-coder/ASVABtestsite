@@ -248,7 +248,7 @@ test('my-options without a saved result offers a test and the calculator', async
   await expect(page.locator('#optSummary')).toBeHidden();
 });
 
-test('guest diagnostic finishes in 18 questions and yields a personalized mission without an AFQT claim', async ({ page }) => {
+test('guest diagnostic finishes in 18 questions and yields a personalized mission and an AFQT estimate', async ({ page }) => {
   await isolateExternalServices(page);
   const errors = collectBrowserErrors(page);
 
@@ -279,9 +279,9 @@ test('guest diagnostic finishes in 18 questions and yields a personalized missio
     }
   }
 
-  await expect(page.locator('#afqtLabel')).toHaveText('Diagnostic: Percent Correct');
-  await expect(page.locator('#afqtScore')).toHaveText(/^\d+%$/);
-  await expect(page.locator('#afqtPercentile')).toContainText('not an AFQT score');
+  await expect(page.locator('#afqtLabel')).toHaveText('Estimated AFQT (Diagnostic)');
+  await expect(page.locator('#afqtScore')).toHaveText(/^\d+$/);
+  await expect(page.locator('#afqtPercentile')).toContainText('Based on 18 questions');
   await expect(page.locator('#missionPanel')).toBeVisible();
   await expect(page.locator('#missionStartBtn')).toHaveAttribute('href', /study-guide\.html\?section=/);
   expect(errors).toEqual([]);

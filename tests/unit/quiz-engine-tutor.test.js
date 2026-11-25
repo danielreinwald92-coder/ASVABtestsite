@@ -88,7 +88,7 @@ test('timed mode still allows changing an answer', () => {
   assert.strictEqual(engine.answers[1], 3, 'timed answers remain changeable');
 });
 
-test('tutor submit stores mode=tutor with a null AFQT', () => {
+test('single-section tutor submit stores mode=tutor with a null AFQT', () => {
   const stored = {};
   const sandbox = loadEngine({
     document: fakeDoc(),
@@ -99,10 +99,8 @@ test('tutor submit stores mode=tutor with a null AFQT', () => {
     localStorage: { setItem: (k, v) => { stored[k] = v; }, removeItem() {} },
     sessionStorage: { removeItem() {}, setItem() {} },
     MissionASVABConfig: { getTestTypeFromSections: () => 'custom' },
-    // Tutor sessions never reach getScoreDetails (gated on this.mode !== 'tutor'
-    // before it's even called) — this stub exists only so nothing throws if the
-    // gate is ever accidentally removed.
-    MissionASVABScoring: { getScoreDetails: () => ({ percentile: 62, band: { low: 55, high: 68 }, sections: {} }), calculateLineScores: () => ({}) },
+    // Mirrors the real gate: an AFQT needs all four AFQT sections.
+    MissionASVABScoring: { getScoreDetails: (sr) => (['AR', 'WK', 'PC', 'MK'].every((c) => sr[c]) ? { percentile: 62, band: { low: 55, high: 68 }, sections: {} } : null), calculateLineScores: () => ({}) },
   });
   const engine = new sandbox.QuizEngine();
   engine.mode = 'tutor';
@@ -119,7 +117,37 @@ test('tutor submit stores mode=tutor with a null AFQT', () => {
   return engine.submitQuiz().then(() => {
     const results = JSON.parse(stored.quizResults);
     assert.strictEqual(results.mode, 'tutor');
-    assert.strictEqual(results.afqt, null, 'tutor sessions carry no AFQT');
+    assert.strictEqual(results.afqt, null, 'a one-section tutor session has no AFQT');
+  });
+});
+
+test('tutor submit with all four AFQT sections scores an AFQT (unanswered as wrong)', () => {
+  const stored = {};
+  let seenOpts;
+  const sandbox = loadEngine({
+    document: fakeDoc(),
+    window: { location: { href: '' } },
+    localStorage: { setItem: (k, v) => { stored[k] = v; }, removeItem() {} },
+    sessionStorage: { removeItem() {}, setItem() {} },
+    MissionASVABConfig: { getTestTypeFromSections: () => 'quick' },
+    MissionASVABScoring: { getScoreDetails: (sr, opts) => { seenOpts = opts; return { percentile: 62, band: { low: 55, high: 68 }, sections: {} }; }, calculateLineScores: () => ({}) },
+  });
+  const engine = new sandbox.QuizEngine();
+  engine.mode = 'tutor';
+  engine.testSections = ['AR', 'WK', 'PC', 'MK'];
+  engine.quizData = {
+    section: 'AFQT', sectionCode: 'AR', timeLimit: 0,
+    questions: ['AR', 'WK', 'PC', 'MK'].map((c, i) => ({ id: i + 1, originalId: c + '001', sectionCode: c, sectionName: c, text: 'q', options: ['a','b','c','d'], correct: 1 })),
+  };
+  engine.answers = { 1: 1, 2: 1, 3: 0 };
+  engine.timeRemaining = 0;
+  engine.saveResultsToSupabase = async () => ({ skipped: true });
+  engine.materializeSlot = () => {};
+  return engine.submitQuiz().then(() => {
+    const results = JSON.parse(stored.quizResults);
+    assert.strictEqual(results.mode, 'tutor');
+    assert.strictEqual(results.afqt, 62);
+    assert.deepStrictEqual(JSON.parse(JSON.stringify(seenOpts)), { unansweredAsWrong: true });
   });
 });
 

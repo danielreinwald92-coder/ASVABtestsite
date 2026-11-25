@@ -35,7 +35,7 @@
   // Returns null when the result has no AFQT (diagnostic, single section, tutor).
   function scoresFromResults(results) {
     const S = root.MissionASVABScoring;
-    if (!results || !S || results.testType === 'diagnostic' || typeof results.afqt !== 'number') return null;
+    if (!results || !S || results.testType === 'diagnostic' || results.mode === 'tutor' || typeof results.afqt !== 'number') return null;
     const details = S.getScoreDetails(results.sectionResults);
     if (!details) return null;
     const ss = {};
